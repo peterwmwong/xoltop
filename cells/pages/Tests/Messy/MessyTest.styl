@@ -1,0 +1,135 @@
+@import 'mixins/badge';
+@import 'mixins/border';
+@import 'mixins/colors';
+@import 'mixins/box';
+@import 'mixins/gradient';
+@import 'mixins/pos';
+@import 'mixins/transition';
+@import 'mixins/triangle';
+
+.MessyTest
+  padding-left 10px
+  font-family Helvetica, Arial, sans-serif
+  font-size 12px
+  position relative
+  z-index 1
+
+  &.expanded
+    #bar
+      text-shadow 1px 1px 1px shadow-color
+      z-index 2
+
+      > #testID > .name
+        font-weight bold
+        color text-color
+
+      > #expando
+        border-color #DDD transparent transparent transparent
+        left 10px
+        top 13px
+
+      #nav
+        #issues > .label
+          text-shadow 1px 1px 1px shadow-color
+          color text-color
+
+  .badge-red
+    badge badge-red
+
+  .badge-yellow
+    badge badge-yellow
+
+  .badge-gray
+    badge badge-gray
+
+  .badge-green
+    badge badge-green
+
+  #details
+    color text-color
+    display none
+    padding 0
+    position relative
+    z-index 1
+    
+    &.expanded
+      display block
+
+    &:before
+      content ""
+      abspos -10px 0px 0px 0px
+      background-color bg-color-dark + #111
+      border-radius 3px
+      z-index -1
+
+    > .detail
+      display none
+
+  #bar
+    height 28px
+    position relative
+    z-index 2
+
+    a
+      color text-color
+      text-decoration none
+      position relative
+
+      &:hover
+        text-decoration underline
+        position relative
+
+    > #expando
+      display block
+      position absolute
+      left 10px
+      top 11px
+      border-color transparent transparent transparent bg-selected-color-light
+      border-style solid
+      border-width 4px
+      height 0
+      width 0
+
+    > #testID
+      abspos 0px 0px 0px 50px
+      line-height 27px
+      height 100%
+      z-index 1
+
+      > .name
+        abspos 2px 0px 0px 5px
+        color text-color-dark
+        display inline-block
+        font-size 12px
+        overflow hidden
+        text-overflow ellipsis
+        white-space nowrap
+
+    > #nav
+      abspos 2px false 0px 5px
+      padding-right 10px
+      z-index 2
+
+      > *
+        display inline-block
+        height 100%
+
+      > #issues
+        vertical-align bottom
+        position relative
+        line-height 25px
+
+        > .label 
+          color text-color-dark
+          font-weight bold
+          text-align left
+          transition color 100ms ease
+
+        > .countGroup
+
+          > .count
+            margin-left 20px
+            padding 0 4px 0 4px
+            position relative
+            min-width 16px
+

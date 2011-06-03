@@ -1,0 +1,26 @@
+.TestDetails{color:#fff;font-size:12px;}
+.TestDetails > #testList{padding-top:2px;}
+.TestDetails > #testList > table{width:100%;border-spacing:50px;}
+.TestDetails > #testList > table > tbody > tr{height:40px;color:#999;}
+.TestDetails > #testList > table > tbody > tr.odd > td{background-color:#333}
+.TestDetails > #testList > table > tbody > tr.groupSpacer{background-color:transparent;height:8px}
+.TestDetails > #testList > table > tbody > tr.notToday{color:#fff;}
+.TestDetails > #testList > table > tbody > tr.notToday > .name{font-weight:bold}
+.TestDetails > #testList > table > tbody > tr.notToday > .status,.TestDetails > #testList > table > tbody > tr.notToday > .date,.TestDetails > #testList > table > tbody > tr.notToday > .owner{font-style:italic}
+.TestDetails > #testList > table > tbody > tr.notToday:first-child{border-top:0}
+.TestDetails > #testList > table > tbody > tr > td.colSpacer{background-color:transparent;width:5px}
+.TestDetails > #testList > table > tbody > tr > td#header{background-color:#222;-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;font-size:12px;font-weight:bold;width:75px;padding:7px;}
+.TestDetails > #testList > table > tbody > tr > td#header.failing{background-color:rgba(141,50,50,0.25)}
+.TestDetails > #testList > table > tbody > tr > td#header.towrite{background-color:rgba(127,103,45,0.25)}
+.TestDetails > #testList > table > tbody > tr > td#header.passing{background-color:rgba(87,117,41,0.25)}
+.TestDetails > #testList > table > tbody > tr > td#header.failing{color:#d89292}
+.TestDetails > #testList > table > tbody > tr > td#header.towrite{color:#c3a355}
+.TestDetails > #testList > table > tbody > tr > td#header.passing{color:#a1c964}
+.TestDetails > #testList > table > tbody > tr > td.id,.TestDetails > #testList > table > tbody > tr > td.name,.TestDetails > #testList > table > tbody > tr > td.date,.TestDetails > #testList > table > tbody > tr > td.status,.TestDetails > #testList > table > tbody > tr > td.owner{vertical-align:middle}
+.TestDetails > #testList > table > tbody > tr > td.id{width:60px;font-size:16px;font-weight:bold;text-align:center;}
+.TestDetails > #testList > table > tbody > tr > td.id.failing{color:#ce7676}
+.TestDetails > #testList > table > tbody > tr > td.id.nostatus{color:#aaa}
+.TestDetails > #testList > table > tbody > tr > td.id.towrite{color:#c3a355}
+.TestDetails > #testList > table > tbody > tr > td.id.passing{color:#a1c964}
+.TestDetails > #testList > table > tbody > tr > td.name{text-shadow:1px 1px 0 #222}
+.TestDetails > #testList > table > tbody > tr > td.owner{width:75px}

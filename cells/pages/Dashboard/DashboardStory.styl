@@ -1,0 +1,112 @@
+@import 'mixins/border';
+@import 'mixins/box';
+@import 'mixins/colors';
+@import 'mixins/gradient';
+@import 'mixins/pos';
+@import 'mixins/transition';
+@import 'mixins/text';
+@import 'mixins/triangle';
+
+
+.DashboardStory
+  color text-color
+  font-family Helvetica, Arial, sans-serif
+  position relative
+  background-color #444
+  border-radius 3px
+  margin 5px
+
+  .badge
+    &.gray
+      background-color badge-gray
+    &.red
+      background-color badge-red
+    &.green
+      background-color badge-green
+    &.yellow
+      background-color badge-yellow
+
+  > #details
+    background-color bg-color
+    display none
+    padding 10px
+    position relative
+    
+    &.expanded
+      display block
+
+    &:before
+      content ""
+      abspos -10px 0px 0px 0px
+      background-color bg-color
+      border-radius 3px
+      z-index -1
+
+    > .detail
+      display none
+
+  > #header
+    border-radius 3px
+    width 100%
+    height 40px
+    position relative
+    display table
+
+    a
+      color #FFF
+      text-decoration none
+      position relative
+
+      &:hover
+        text-decoration underline
+        position relative
+
+    > div
+      display table-row
+
+      > *
+        display table-cell
+        vertical-align middle
+
+      > #name
+        font-size 16px
+        padding-top 5px
+
+      > #storyID
+        width 75px
+        position relative
+        text-align center
+        padding-right 10px
+
+
+        > #id
+          display inline-block
+          font-weight bold
+          border-radius 3px
+          font-size 20px
+          padding 2px 5px 2px 5px
+          text-outline rgba(#000,.2) 1px
+
+      > .Count
+        &:first-child
+          padding-left 10px
+        font-size 12px
+        width 85px
+
+        > .label
+          color text-disabled-color
+          font-weight bold
+          font-size 9px
+          padding-right 3px
+          vertical-align middle
+
+        > .count
+          color text-color
+          border-radius 4px
+          padding 1px 3px 1px 3px
+          margin 0 1px 0 1px
+          font-weight bold
+          font-size 14px
+          position relative
+          vertical-align middle
+
