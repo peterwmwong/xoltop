@@ -14,29 +14,27 @@ define ['data/JSONP'],(jsonp)->
     stories = [{"story":{"chumpTaskComplete":0,"chumpTaskNA":0,"chumpTaskRetest":2,"chumps":"(EG - CSZ)","description":"ECS - Standards Integration client.jar","failingATs":0,"inProgressATs":0,"needsAttentionATs":0,"num":52314,"passingATs":0,"tasks":4,"unwrittenATs":0}},{"story":{"chumpTaskComplete":14,"chumpTaskNA":0,"chumpTaskRetest":0,"chumps":"(LL - LR)","description":"TECH  - state merge needs to be redesigned to be transactional for Destiny 10.0","failingATs":0,"inProgressATs":0,"needsAttentionATs":0,"num":52601,"passingATs":1,"tasks":1,"unwrittenATs":0}},{"story":{"chumpTaskComplete":0,"chumpTaskNA":0,"chumpTaskRetest":0,"chumps":"(PW)","description":"TECH - Performance for SC","failingATs":0,"inProgressATs":0,"needsAttentionATs":0,"num":52841,"passingATs":0,"tasks":0,"unwrittenATs":0}},{"story":{"chumpTaskComplete":3,"chumpTaskNA":0,"chumpTaskRetest":0,"chumps":"(AB\/TF\/CM - MKC)","description":"TM - STATE - Restrict Titles from Ordering","failingATs":3,"inProgressATs":0,"needsAttentionATs":0,"num":52493,"passingATs":10,"tasks":2,"unwrittenATs":6}},{"story":{"chumpTaskComplete":0,"chumpTaskNA":0,"chumpTaskRetest":0,"chumps":"(JW\/BP - FM)","description":"TECH  - state synch queue refactor - keep record of failed synch actions - required for 10.0","failingATs":0,"inProgressATs":0,"needsAttentionATs":0,"num":52600,"passingATs":0,"tasks":2,"unwrittenATs":0}}]
  
     #get 'stories', (stories)->
-    do(stories)->
-      done do-> for story in stories
-        s = story.story
-        story =
-          type: 'story'
-          ats:
-            failing: s.failingATs
-            unwritten: s.unwrittenATs
-            total: s.failingATs + s.passingATs + s.unwrittenATs
-          tasks:
-            retest: s.chumpTaskRetest
-            needsAttn: s.chumpTaskNA
-            total: s.chumpTaskComplete
+    done do-> for {story:s} in stories.sort( ({story:a},{story:b})->a.num-b.num )
+      story =
+        type: 'story'
+        ats:
+          failing: s.failingATs
+          unwritten: s.unwrittenATs
+          total: s.failingATs + s.passingATs + s.unwrittenATs
+        tasks:
+          retest: s.chumpTaskRetest
+          needsAttn: s.chumpTaskNA
+          total: s.chumpTaskComplete
 
-        if match = storyRegex.exec s.description+' '+s.chumps
-          [devs,testers] = match[5] and match[5]?.split(' - ') or []
-          story.storynum = s.num
-          story.name = match[3]
-          story.testers = testers?.split '/'
-          story.devs = devs?.split '/'
-          story.tags = match[1]?.split(' - ')?.slice 0, -1
+      if match = storyRegex.exec s.description+' '+s.chumps
+        [devs,testers] = match[5] and match[5]?.split(' - ') or []
+        story.storynum = s.num
+        story.name = match[3]
+        story.testers = testers?.split '/'
+        story.devs = devs?.split '/'
+        story.tags = match[1]?.split(' - ')?.slice 0, -1
 
-        story
+      story
 
   getStoryTestDetails : do->
     parseUpdate = do->

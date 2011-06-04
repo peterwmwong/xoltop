@@ -1,1 +1,2 @@
-.DashboardPage{position:absolute;top:0;right:0;bottom:0;left:0;background-color:#333;padding-top:10px}
+.DashboardPage{position:absolute;top:0;right:0;bottom:0;left:0;background-color:#333;padding-top:10px;}
+.DashboardPage .DashboardStory:nth-child(2n){background-color:#3a3a3a}

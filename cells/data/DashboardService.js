@@ -95,39 +95,42 @@ define(['data/JSONP'], function(jsonp) {
           }
         }
       ];
-      return (function(stories) {
-        return done((function() {
-          var devs, match, s, story, testers, _i, _len, _ref, _ref2, _ref3, _ref4, _results;
-          _results = [];
-          for (_i = 0, _len = stories.length; _i < _len; _i++) {
-            story = stories[_i];
-            s = story.story;
-            story = {
-              type: 'story',
-              ats: {
-                failing: s.failingATs,
-                unwritten: s.unwrittenATs,
-                total: s.failingATs + s.passingATs + s.unwrittenATs
-              },
-              tasks: {
-                retest: s.chumpTaskRetest,
-                needsAttn: s.chumpTaskNA,
-                total: s.chumpTaskComplete
-              }
-            };
-            if (match = storyRegex.exec(s.description + ' ' + s.chumps)) {
-              _ref2 = match[5] && ((_ref = match[5]) != null ? _ref.split(' - ') : void 0) || [], devs = _ref2[0], testers = _ref2[1];
-              story.storynum = s.num;
-              story.name = match[3];
-              story.testers = testers != null ? testers.split('/') : void 0;
-              story.devs = devs != null ? devs.split('/') : void 0;
-              story.tags = (_ref3 = match[1]) != null ? (_ref4 = _ref3.split(' - ')) != null ? _ref4.slice(0, -1) : void 0 : void 0;
+      return done((function() {
+        var devs, match, s, story, testers, _i, _len, _ref, _ref2, _ref3, _ref4, _ref5, _results;
+        _ref = stories.sort(function(_arg, _arg2) {
+          var a, b;
+          a = _arg.story;
+          b = _arg2.story;
+          return a.num - b.num;
+        });
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          s = _ref[_i].story;
+          story = {
+            type: 'story',
+            ats: {
+              failing: s.failingATs,
+              unwritten: s.unwrittenATs,
+              total: s.failingATs + s.passingATs + s.unwrittenATs
+            },
+            tasks: {
+              retest: s.chumpTaskRetest,
+              needsAttn: s.chumpTaskNA,
+              total: s.chumpTaskComplete
             }
-            _results.push(story);
+          };
+          if (match = storyRegex.exec(s.description + ' ' + s.chumps)) {
+            _ref3 = match[5] && ((_ref2 = match[5]) != null ? _ref2.split(' - ') : void 0) || [], devs = _ref3[0], testers = _ref3[1];
+            story.storynum = s.num;
+            story.name = match[3];
+            story.testers = testers != null ? testers.split('/') : void 0;
+            story.devs = devs != null ? devs.split('/') : void 0;
+            story.tags = (_ref4 = match[1]) != null ? (_ref5 = _ref4.split(' - ')) != null ? _ref5.slice(0, -1) : void 0 : void 0;
           }
-          return _results;
-        })());
-      })(stories);
+          _results.push(story);
+        }
+        return _results;
+      })());
     },
     getStoryTestDetails: (function() {
       var parseTestName, parseUpdate, t, test, today;

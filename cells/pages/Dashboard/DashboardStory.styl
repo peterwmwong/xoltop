@@ -7,14 +7,11 @@
 @import 'mixins/text';
 @import 'mixins/triangle';
 
-
 .DashboardStory
   color text-color
   font-family Helvetica, Arial, sans-serif
   position relative
-  background-color #444
-  border-radius 3px
-  margin 5px
+  border-bottom 1px solid #222 + rgb(5,5,5)
 
   .badge
     &.gray
@@ -68,16 +65,11 @@
         display table-cell
         vertical-align middle
 
-      > #name
-        font-size 16px
-        padding-top 5px
-
       > #storyID
         width 75px
         position relative
         text-align center
         padding-right 10px
-
 
         > #id
           display inline-block
@@ -98,7 +90,6 @@
           font-weight bold
           font-size 9px
           padding-right 3px
-          vertical-align middle
 
         > .count
           color text-color

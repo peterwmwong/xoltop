@@ -4,7 +4,8 @@ define ['cell!./StoryDetails','cell!./TestDetails','cell!./TaskDetails'], (Story
     'render <div>': (R)->
       """
       <a class='label' href='#'>#{@options.label}</a>
-      #{R ['yellow','red'], (color)=> @options[color] != 0 and "<a class='badge #{color} count' href='#'>#{@options[color]}</a>"
+      #{R ['yellow','red'], (color)=>
+        @options[color] != 0 and "<a class='badge #{color} count' href='#'>#{@options[color]}</a>"
       }
       """
 
