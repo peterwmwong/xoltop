@@ -21,5 +21,3 @@ define ['require','cell!./Nav'], (require,Nav)->
 
   bind:
     'changed :parent > .Nav': (e,{selectedTab})-> @loadSection selectedTab
-
-

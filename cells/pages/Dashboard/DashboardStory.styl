@@ -23,24 +23,23 @@
     &.yellow
       background-color badge-yellow
 
-  > #details
-    background-color bg-color
+  > .details
+    box-shadow inset
+    background-color shadow-color
     display none
     padding 10px
     position relative
-    
+    z-index 1
+
     &.expanded
       display block
 
     &:before
       content ""
-      abspos -10px 0px 0px 0px
-      background-color bg-color
-      border-radius 3px
+      abspos 0px -10px 0px -10px
+      box-shadow inset 0px 0px 10px #000
+      background-color shadow-color
       z-index -1
-
-    > .detail
-      display none
 
   > #header
     border-radius 3px

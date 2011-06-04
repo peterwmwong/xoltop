@@ -86,7 +86,6 @@ define ['data/JSONP'],(jsonp)->
 
         # Replace array of all tests with new hash of categorized tests
         testDetails.tests = tests
-        console.log testDetails
         done testDetails
 
   getStoryTaskDetails: (storynum,done)->

@@ -201,7 +201,6 @@ define(['data/JSONP'], function(jsonp) {
             });
           }
           testDetails.tests = tests;
-          console.log(testDetails);
           return done(testDetails);
         })(testDetails);
       };

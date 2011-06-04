@@ -1,4 +1,4 @@
-define ['cell!./StoryDetails','cell!./TestDetails','cell!./TaskDetails'], (StoryDetails,TestDetails,TaskDetails)->
+define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection, TasksSection)->
   Count = cell.extend
     class: 'Count'
     'render <div>': (R)->
@@ -16,10 +16,9 @@ define ['cell!./StoryDetails','cell!./TestDetails','cell!./TaskDetails'], (Story
       'click :parent > .label': trigger
       'click :parent > .count': trigger
 
-
   render: (R)->
-    ats = @model.ats
-    tasks = @model.tasks
+    {ats,tasks} = @model
+    # Determine status color of the story, based on the state of the story's ATs and tasks
     statusColor =
       if ats.failing + tasks.needsAttn
         'red'
@@ -29,6 +28,12 @@ define ['cell!./StoryDetails','cell!./TestDetails','cell!./TaskDetails'], (Story
         'green'
       else
         'gray'
+
+    expandedSection =
+      switch @options.expandedSection
+        when 'Tests' then TestsSection
+        when 'Tasks' then TasksSection
+
     """
     <div id='header'>
       <div>
@@ -54,37 +59,32 @@ define ['cell!./StoryDetails','cell!./TestDetails','cell!./TaskDetails'], (Story
         </div>
       </div>
     </div>
-    <div id='details'>
-      #{R.cell StoryDetails, class: 'detail', model: storynum: @model.storynum}
-      #{R.cell TestDetails, class: 'detail', model: storynum: @model.storynum}
-      #{R.cell TaskDetails, class: 'detail', model: storynum: @model.storynum}
+    <div class='details'>
+      #{R expandedSection? and R.cell expandedSection}
     </div>
     """
 
   bind: do->
-    selectDetail = (detailName, sel)->
+    selectDetail = (detail)->
       (target)->
-        console.log 'hello'
+        # Don't expand if already expanded
+        if detail::name != @options.expandedDetail
+          @options.expandedSection = detail::name
+          @$('.details').toggle true
 
-        # reset selected
-        @$('.selected').toggleClass 'selected', false
+          # hide all details
+          @$('.detail').toggle false
+         
+          # Load details for the first time
+          if not ($detail = @$(".#{detail::name)}")[0]
+            $detail = $(new(detail)(class:'detail', storynum: @model.storynum).el)
+            @$('.details').append($detail)
+            debugger
+            
 
-        if detailName != @options.curDetail
-          @options.curDetail = detailName
-          @$('#details > .detail').toggle false
-          @$(detailName)
-            .toggle(true)
-            .trigger 'load'
-          @model.expanded = true
-        
-        else
-          @model.expanded = not @model.expanded
+          # Show already loaded details
+          else
+            $detail.toggle()
 
-        @$(sel).toggleClass 'selected', @model.expanded
-        $(@el).toggleClass 'selected', @model.expanded
-        @$('#details').toggleClass 'expanded', @model.expanded
-        false
-
-    'click #header #storyID': selectDetail '.StoryDetails', '#header #storyID'
-    'selected #header #tests': selectDetail '.TestDetails', '#header #tests'
-    'selected #header #tasks': selectDetail '.TaskDetails', '#bar #tasks'
+    'selected #header #tests': selectDetail TestsSection
+    'selected #header #tasks': selectDetail TasksSection
