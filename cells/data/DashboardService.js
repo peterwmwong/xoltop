@@ -1,5 +1,8 @@
 define(['data/JSONP'], function(jsonp) {
-  var StorySum, get, storyRegex;
+  var O, StorySum, get, storyRegex;
+  O = function(obj) {
+    return obj;
+  };
   get = function(path, done) {
     jsonp({
       url: 'http://172.16.19.63:69/xptool/rest/jumbotron/iteration/' + path,
@@ -15,6 +18,41 @@ define(['data/JSONP'], function(jsonp) {
     };
   };
   return {
+    getStoryTasksDetails: function(storynum, done) {
+      var tasks, tmp;
+      tmp = 12345;
+      tasks = [
+        O({
+          id: tmp++,
+          status: "needsAttn",
+          name: "Citation button doesn't is unclickable after doing the following: blah blah blah",
+          owner: "jwright"
+        }), O({
+          id: tmp++,
+          status: "retest",
+          name: "There's no way to print citations of digtal resources in Quest",
+          owner: "pwong"
+        }), O({
+          id: tmp++,
+          status: "complete",
+          name: "Digital Resource citations are printed in library citation report",
+          owner: "jwright"
+        }), O({
+          id: tmp++,
+          status: "complete",
+          name: "Server error on library citation report after saving a citation",
+          owner: "jwright"
+        }), O({
+          id: tmp++,
+          status: "needsAttn",
+          name: "Date of composition text input is justified right on edit citation form",
+          owner: "twalker"
+        })
+      ];
+      return (function() {
+        return done(tasks);
+      })();
+    },
     getStorySummaries: function(done) {
       var stories;
       stories = [
@@ -95,45 +133,47 @@ define(['data/JSONP'], function(jsonp) {
           }
         }
       ];
-      return done((function() {
-        var devs, match, s, story, testers, _i, _len, _ref, _ref2, _ref3, _ref4, _ref5, _results;
-        _ref = stories.sort(function(_arg, _arg2) {
-          var a, b;
-          a = _arg.story;
-          b = _arg2.story;
-          return a.num - b.num;
-        });
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          s = _ref[_i].story;
-          story = {
-            type: 'story',
-            ats: {
-              failing: s.failingATs,
-              unwritten: s.unwrittenATs,
-              total: s.failingATs + s.passingATs + s.unwrittenATs
-            },
-            tasks: {
-              retest: s.chumpTaskRetest,
-              needsAttn: s.chumpTaskNA,
-              total: s.chumpTaskComplete
+      return (function() {
+        return done((function() {
+          var devs, match, s, story, testers, _i, _len, _ref, _ref2, _ref3, _ref4, _ref5, _results;
+          _ref = stories.sort(function(_arg, _arg2) {
+            var a, b;
+            a = _arg.story;
+            b = _arg2.story;
+            return a.num - b.num;
+          });
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            s = _ref[_i].story;
+            story = {
+              type: 'story',
+              ats: {
+                failing: s.failingATs,
+                unwritten: s.unwrittenATs,
+                total: s.failingATs + s.passingATs + s.unwrittenATs
+              },
+              tasks: {
+                retest: s.chumpTaskRetest,
+                needsAttn: s.chumpTaskNA,
+                total: s.chumpTaskComplete
+              }
+            };
+            if (match = storyRegex.exec(s.description + ' ' + s.chumps)) {
+              _ref3 = match[5] && ((_ref2 = match[5]) != null ? _ref2.split(' - ') : void 0) || [], devs = _ref3[0], testers = _ref3[1];
+              story.storynum = s.num;
+              story.name = match[3];
+              story.testers = testers != null ? testers.split('/') : void 0;
+              story.devs = devs != null ? devs.split('/') : void 0;
+              story.tags = (_ref4 = match[1]) != null ? (_ref5 = _ref4.split(' - ')) != null ? _ref5.slice(0, -1) : void 0 : void 0;
             }
-          };
-          if (match = storyRegex.exec(s.description + ' ' + s.chumps)) {
-            _ref3 = match[5] && ((_ref2 = match[5]) != null ? _ref2.split(' - ') : void 0) || [], devs = _ref3[0], testers = _ref3[1];
-            story.storynum = s.num;
-            story.name = match[3];
-            story.testers = testers != null ? testers.split('/') : void 0;
-            story.devs = devs != null ? devs.split('/') : void 0;
-            story.tags = (_ref4 = match[1]) != null ? (_ref5 = _ref4.split(' - ')) != null ? _ref5.slice(0, -1) : void 0 : void 0;
+            _results.push(story);
           }
-          _results.push(story);
-        }
-        return _results;
-      })());
+          return _results;
+        })());
+      })();
     },
     getStoryTestDetails: (function() {
-      var parseTestName, parseUpdate, t, test, today;
+      var parseTestName, parseUpdate, t, today;
       parseUpdate = (function() {
         var isToday, ownerRegex;
         ownerRegex = /^(\w*)[ ]+(([a-zA-Z ])*?)(-[ ]*)?(\d+\/\d+\/\d\d\d\d)/;
@@ -164,109 +204,118 @@ define(['data/JSONP'], function(jsonp) {
           return testRegex.exec(testName)[1];
         };
       })();
-      test = function(id, name, owner, status) {
-        return {
-          id: id,
-          name: name,
-          owner: owner,
-          status: status != null ? status : 'passing'
-        };
-      };
       today = "" + ((t = new Date()).getMonth() + 1) + "/" + (t.getDate()) + "/" + (t.getFullYear());
       return function(storynum, done) {
         var testDetails;
         testDetails = {
           storynum: storynum,
-          tests: [test(29946, "test29946_QuestBookClubCreateShelvesBookStaysInAssignedShelf", 'twalker Passes locally - 10/27/2010', 'failing'), test(30030, "test30030_StateRestrictTitlesFromOrdering_SiteRestrictedTitles_TitleDetailsLink", 'dwatling In Progress 1/4/2010', 'passing'), test(30031, "test30031_StateRestrictTitlesFromOrdering_PreOrder_Programs_UnrestrictedTitle", 'tfeldmann In Progress 1/13/2010', ''), test(26787, "test26787_QuestBookClubCreateShelvesIfItemExistsInOneShelfAndAddedToAnotherItWillBeMoved", 'pwong Fixed - ' + today, 'failing')]
+          tests: [
+            O({
+              id: 29946,
+              name: "test29946_QuestBookClubCreateShelvesBookStaysInAssignedShelf",
+              owner: 'twalker Passes locally - 10/27/2010',
+              status: 'failing'
+            }), O({
+              id: 30030,
+              name: "test30030_StateRestrictTitlesFromOrdering_SiteRestrictedTitles_TitleDetailsLink",
+              owner: 'dwatling In Progress 1/4/2010',
+              status: 'passing'
+            }), O({
+              id: 30031,
+              name: "test30031_StateRestrictTitlesFromOrdering_PreOrder_Programs_UnrestrictedTitle",
+              owner: 'tfeldmann In Progress 1/13/2010',
+              status: ''
+            }), O({
+              id: 26787,
+              name: "test26787_QuestBookClubCreateShelvesIfItemExistsInOneShelfAndAddedToAnotherItWillBeMoved",
+              owner: 'pwong Fixed - ' + today,
+              status: 'failing'
+            })
+          ]
         };
         return (function(testDetails) {
-          var array, cat, t, tests, _i, _len, _ref, _ref2;
-          tests = {
-            passing: [],
-            failing: [],
-            towrite: []
-          };
-          _ref = testDetails.tests;
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            t = _ref[_i];
-            t.category = (_ref2 = t.status) === 'passing' || _ref2 === 'failing' ? t.status : 'towrite';
+          var t, tests, _i, _len, _ref;
+          tests = testDetails.tests;
+          for (_i = 0, _len = tests.length; _i < _len; _i++) {
+            t = tests[_i];
+            t.category = (_ref = t.status) === 'passing' || _ref === 'failing' ? t.status : 'towrite';
             t.update = parseUpdate(t.owner);
             t.name = parseTestName(t.name);
-            tests[t.category].push(t);
           }
-          for (cat in tests) {
-            array = tests[cat];
-            array.sort(function(a, b) {
-              return a.id - b.id;
-            });
-          }
-          testDetails.tests = tests;
-          return done(testDetails);
+          tests.sort(function(_arg, _arg2) {
+            var a, b;
+            a = _arg.id;
+            b = _arg2.id;
+            return a - b;
+          });
+          return done(tests);
         })(testDetails);
       };
     })(),
     getStoryTaskDetails: function(storynum, done) {
       var taskDetails;
       taskDetails = [
-        {
+        O({
           id: 12499,
           name: 'Patron Comments Global Delete',
           owner: 'JW',
           tasks: {
             needsAttn: [
-              {
+              O({
                 id: 55555,
                 note: 'Please change the permission description',
                 updatedBy: 'lrossell'
-              }, {
+              }), O({
                 id: 55556,
                 note: 'When viewing My Quest Updates when someone made a comment on my shelf mov',
                 updatedBy: 'lrossell'
-              }
+              })
             ],
             retest: [
-              {
+              O({
                 id: 55557,
                 note: 'Stuff',
                 updatedBy: 'pwong'
-              }, {
+              }), O({
                 id: 55558,
                 note: 'Stuffy 2',
                 updatedBy: 'pwong'
-              }
+              })
             ]
           }
-        }, {
+        }), O({
           id: 12504,
           name: 'DB Upgrade and Cleanup Script',
           owner: 'TF',
           tasks: {
             needsAttn: [
-              {
+              O({
                 id: 55555,
                 note: 'DB Please change the permission description',
                 updatedBy: 'lrossell'
-              }, {
+              }), O({
                 id: 55556,
                 note: 'DB When viewing My Quest Updates when someone made a comment on my shelf mov',
                 updatedBy: 'lrossell'
-              }
+              })
             ],
             retest: [
-              {
+              O({
                 id: 55557,
                 note: 'DB Stuff',
                 updatedBy: 'pwong'
-              }, {
+              }), O({
                 id: 55558,
                 note: 'DB Stuffy 2',
                 updatedBy: 'pwong'
-              }
+              })
             ]
           }
-        }
+        })
       ];
-      return done(taskDetails);
+      return (function() {
+        return done(taskDetails);
+      })();
     }
   };
 });

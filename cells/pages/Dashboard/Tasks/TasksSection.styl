@@ -4,29 +4,20 @@
 @import 'mixins/border';
 @import 'mixins/colors';
 
-.TestsSection
+.TasksSection
   > .CatTable > table > tbody > tr
-    &.failing > .id
-      color lighten(badge-red,80%)
-
-    &.towrite > .id
-      color lighten(badge-yellow,80%)
-
-    &.passing > .id
-      color lighten(badge-green,80%)
-
     > .category
       amt = .25
       lamt = 90%
-      &.failing
+      &.needsAttn
         background-color rgba(badge-red,amt)
         color lighten(badge-red,lamt)
 
-      &.towrite
+      &.retest
         background-color rgba(badge-yellow,amt)
         color lighten(badge-yellow,lamt - 10%)
 
-      &.passing
+      &.complete
         background-color rgba(badge-green,amt)
         color lighten(badge-green,lamt - 10%)
 
@@ -36,9 +27,9 @@
     > .column
       vertical-align middle
 
-      &.id
-        width 60px
-        font-size 16px
-        font-weight bold
-        text-align center
+      &.name
+        padding-left 10px
 
+      &.owner
+        text-align center
+        width 100px

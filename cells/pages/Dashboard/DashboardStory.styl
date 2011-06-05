@@ -12,16 +12,24 @@
   font-family Helvetica, Arial, sans-serif
   position relative
   border-bottom 1px solid #222 + rgb(5,5,5)
+  padding-top 2px
 
   .badge
+    bgout(color)
+      background-color color
+      text-outline rgba(darken(color,30%),1.0) 1px
+
     &.gray
-      background-color badge-gray
+      bgout badge-gray
+
     &.red
-      background-color badge-red
+      bgout badge-red
+
     &.green
-      background-color badge-green
+      bgout badge-green
+
     &.yellow
-      background-color badge-yellow
+      bgout badge-yellow
 
   > .details
     box-shadow inset
@@ -31,13 +39,10 @@
     position relative
     z-index 1
 
-    &.expanded
-      display block
-
     &:before
       content ""
-      abspos 0px -10px 0px -10px
-      box-shadow inset 0px 0px 10px #000
+      abspos 0px -5px -2px -5px
+      box-shadow inset 0px 0px 7px #111
       background-color shadow-color
       z-index -1
 
@@ -76,12 +81,10 @@
           border-radius 3px
           font-size 20px
           padding 2px 5px 2px 5px
-          text-outline rgba(#000,.2) 1px
 
       > .Count
         &:first-child
           padding-left 10px
-        font-size 12px
         width 85px
 
         > .label
@@ -93,10 +96,10 @@
         > .count
           color text-color
           border-radius 4px
-          padding 1px 3px 1px 3px
-          margin 0 1px 0 1px
           font-weight bold
           font-size 14px
+          margin 0 1px 0 1px
+          padding 1px 3px 1px 3px
           position relative
           vertical-align middle
 

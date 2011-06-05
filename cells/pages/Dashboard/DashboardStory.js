@@ -22,14 +22,14 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(Test
   });
   return {
     render: function(R) {
-      var ats, expandedSection, statusColor, tasks, _ref;
+      var ats, initExpandedSection, statusColor, tasks, _ref;
       _ref = this.model, ats = _ref.ats, tasks = _ref.tasks;
       statusColor = ats.failing + tasks.needsAttn ? 'red' : ats.unwritten + tasks.retest ? 'yellow' : ats.total + tasks.total ? 'green' : 'gray';
-      expandedSection = (function() {
+      initExpandedSection = (function() {
         switch (this.options.expandedSection) {
-          case 'Tests':
+          case 'TestsSection':
             return TestsSection;
-          case 'Tasks':
+          case 'TasksSection':
             return TasksSection;
         }
       }).call(this);
@@ -45,14 +45,17 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(Test
         red: tasks.needsAttn,
         yellow: tasks.retest,
         gray: tasks.total
-      })) + " \n    <div id='name'>\n      <a href=\"#\">" + this.model.name + "</a>\n    </div>\n  </div>\n</div>\n<div class='details'>\n  " + (R((expandedSection != null) && R.cell(expandedSection))) + "\n</div>";
+      })) + " \n    <div id='name'>\n      <a href=\"#\">" + this.model.name + "</a>\n    </div>\n  </div>\n</div>\n<div class='details' style='display: " + (initExpandedSection && 'block' || 'none') + "'>\n  " + (R((initExpandedSection != null) && R.cell(initExpandedSection, {
+        "class": 'detail',
+        storynum: this.model.storynum
+      }))) + "\n</div>";
     },
     bind: (function() {
       var selectDetail;
       selectDetail = function(detail) {
         return function(target) {
           var $detail;
-          if (detail.prototype.name !== this.options.expandedDetail) {
+          if (detail.prototype.name !== this.options.expandedSection) {
             this.options.expandedSection = detail.prototype.name;
             this.$('.details').toggle(true);
             this.$('.detail').toggle(false);
@@ -61,8 +64,7 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(Test
                 "class": 'detail',
                 storynum: this.model.storynum
               }).el);
-              this.$('.details').append($detail);
-              debugger;
+              return this.$('.details').append($detail);
             } else {
               return $detail.toggle();
             }

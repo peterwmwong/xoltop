@@ -28,11 +28,12 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
         'green'
       else
         'gray'
-
-    expandedSection =
+    
+    # Initially expanded section
+    initExpandedSection =
       switch @options.expandedSection
-        when 'Tests' then TestsSection
-        when 'Tasks' then TasksSection
+        when 'TestsSection' then TestsSection
+        when 'TasksSection' then TasksSection
 
     """
     <div id='header'>
@@ -59,8 +60,8 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
         </div>
       </div>
     </div>
-    <div class='details'>
-      #{R expandedSection? and R.cell expandedSection}
+    <div class='details' style='display: #{initExpandedSection and 'block' or 'none'}'>
+      #{R initExpandedSection? and R.cell initExpandedSection, class:'detail', storynum: @model.storynum}
     </div>
     """
 
@@ -68,7 +69,7 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
     selectDetail = (detail)->
       (target)->
         # Don't expand if already expanded
-        if detail::name != @options.expandedDetail
+        if detail::name != @options.expandedSection
           @options.expandedSection = detail::name
           @$('.details').toggle true
 
@@ -79,9 +80,7 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
           if not ($detail = @$(".#{detail::name)}")[0]
             $detail = $(new(detail)(class:'detail', storynum: @model.storynum).el)
             @$('.details').append($detail)
-            debugger
             
-
           # Show already loaded details
           else
             $detail.toggle()

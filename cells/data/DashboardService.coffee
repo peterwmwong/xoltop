@@ -1,4 +1,5 @@
 define ['data/JSONP'],(jsonp)->
+  O = (obj)->obj
 
   get = (path,done)->
     jsonp
@@ -10,31 +11,52 @@ define ['data/JSONP'],(jsonp)->
   storyRegex = /^((\w*[ ]+- )+)?(.*?)( \(([^\)]+)\))?$/
 
   StorySum = (obj)-> story: obj
+
+
+  getStoryTasksDetails: (storynum,done)->
+    # <TESTING ONLY>
+    tmp = 12345
+    tasks = [
+      O id: tmp++, status:"needsAttn", name:"Citation button doesn't is unclickable after doing the following: blah blah blah", owner: "jwright"
+      O id: tmp++, status:"retest", name:"There's no way to print citations of digtal resources in Quest", owner:"pwong"
+      O id: tmp++, status:"complete", name:"Digital Resource citations are printed in library citation report", owner:"jwright"
+      O id: tmp++, status:"complete", name:"Server error on library citation report after saving a citation", owner:"jwright"
+      O id: tmp++, status:"needsAttn", name:"Date of composition text input is justified right on edit citation form", owner:"twalker"
+    ]
+    # </Testing ONLY>
+
+    #get "stories/#{storynum}/tasks", (tasks)->
+    do -> # TESTING ONLY
+      done tasks
+
   getStorySummaries: (done)->
+    # <TESTING ONLY>
     stories = [{"story":{"chumpTaskComplete":0,"chumpTaskNA":0,"chumpTaskRetest":2,"chumps":"(EG - CSZ)","description":"ECS - Standards Integration client.jar","failingATs":0,"inProgressATs":0,"needsAttentionATs":0,"num":52314,"passingATs":0,"tasks":4,"unwrittenATs":0}},{"story":{"chumpTaskComplete":14,"chumpTaskNA":0,"chumpTaskRetest":0,"chumps":"(LL - LR)","description":"TECH  - state merge needs to be redesigned to be transactional for Destiny 10.0","failingATs":0,"inProgressATs":0,"needsAttentionATs":0,"num":52601,"passingATs":1,"tasks":1,"unwrittenATs":0}},{"story":{"chumpTaskComplete":0,"chumpTaskNA":0,"chumpTaskRetest":0,"chumps":"(PW)","description":"TECH - Performance for SC","failingATs":0,"inProgressATs":0,"needsAttentionATs":0,"num":52841,"passingATs":0,"tasks":0,"unwrittenATs":0}},{"story":{"chumpTaskComplete":3,"chumpTaskNA":0,"chumpTaskRetest":0,"chumps":"(AB\/TF\/CM - MKC)","description":"TM - STATE - Restrict Titles from Ordering","failingATs":3,"inProgressATs":0,"needsAttentionATs":0,"num":52493,"passingATs":10,"tasks":2,"unwrittenATs":6}},{"story":{"chumpTaskComplete":0,"chumpTaskNA":0,"chumpTaskRetest":0,"chumps":"(JW\/BP - FM)","description":"TECH  - state synch queue refactor - keep record of failed synch actions - required for 10.0","failingATs":0,"inProgressATs":0,"needsAttentionATs":0,"num":52600,"passingATs":0,"tasks":2,"unwrittenATs":0}}]
- 
+    # </TESTING ONLY>
+    
     #get 'stories', (stories)->
-    done do-> for {story:s} in stories.sort( ({story:a},{story:b})->a.num-b.num )
-      story =
-        type: 'story'
-        ats:
-          failing: s.failingATs
-          unwritten: s.unwrittenATs
-          total: s.failingATs + s.passingATs + s.unwrittenATs
-        tasks:
-          retest: s.chumpTaskRetest
-          needsAttn: s.chumpTaskNA
-          total: s.chumpTaskComplete
+    do -> # TESTING ONLY
+      done do-> for {story:s} in stories.sort( ({story:a},{story:b})->a.num-b.num )
+        story =
+          type: 'story'
+          ats:
+            failing: s.failingATs
+            unwritten: s.unwrittenATs
+            total: s.failingATs + s.passingATs + s.unwrittenATs
+          tasks:
+            retest: s.chumpTaskRetest
+            needsAttn: s.chumpTaskNA
+            total: s.chumpTaskComplete
 
-      if match = storyRegex.exec s.description+' '+s.chumps
-        [devs,testers] = match[5] and match[5]?.split(' - ') or []
-        story.storynum = s.num
-        story.name = match[3]
-        story.testers = testers?.split '/'
-        story.devs = devs?.split '/'
-        story.tags = match[1]?.split(' - ')?.slice 0, -1
+        if match = storyRegex.exec s.description+' '+s.chumps
+          [devs,testers] = match[5] and match[5]?.split(' - ') or []
+          story.storynum = s.num
+          story.name = match[3]
+          story.testers = testers?.split '/'
+          story.devs = devs?.split '/'
+          story.tags = match[1]?.split(' - ')?.slice 0, -1
 
-      story
+        story
 
   getStoryTestDetails : do->
     parseUpdate = do->
@@ -55,68 +77,73 @@ define ['data/JSONP'],(jsonp)->
       testRegex = /^test\d+_(.*)$/
       (testName)-> testRegex.exec(testName)[1]
 
-    test = (id,name,owner,status)->{id:id,name:name,owner:owner,status:status ? 'passing'}
     today = "#{(t = new Date()).getMonth()+1}/#{t.getDate()}/#{t.getFullYear()}"
 
     (storynum,done)->
+      # <Testing ONLY>
       testDetails =
         storynum: storynum
         tests: [
-          test(29946,"test29946_QuestBookClubCreateShelvesBookStaysInAssignedShelf",'twalker Passes locally - 10/27/2010','failing'),
-          test(30030,"test30030_StateRestrictTitlesFromOrdering_SiteRestrictedTitles_TitleDetailsLink",'dwatling In Progress 1/4/2010','passing')
-          test(30031,"test30031_StateRestrictTitlesFromOrdering_PreOrder_Programs_UnrestrictedTitle",'tfeldmann In Progress 1/13/2010',''),
-          test(26787,"test26787_QuestBookClubCreateShelvesIfItemExistsInOneShelfAndAddedToAnotherItWillBeMoved",'pwong Fixed - '+today,'failing'),
+          O id:29946, name:"test29946_QuestBookClubCreateShelvesBookStaysInAssignedShelf", owner:'twalker Passes locally - 10/27/2010',status:'failing'
+          O id:30030, name:"test30030_StateRestrictTitlesFromOrdering_SiteRestrictedTitles_TitleDetailsLink", owner:'dwatling In Progress 1/4/2010', status:'passing'
+          O id:30031, name:"test30031_StateRestrictTitlesFromOrdering_PreOrder_Programs_UnrestrictedTitle", owner:'tfeldmann In Progress 1/13/2010', status:''
+          O id:26787, name:"test26787_QuestBookClubCreateShelvesIfItemExistsInOneShelfAndAddedToAnotherItWillBeMoved",owner:'pwong Fixed - '+today, status:'failing'
         ]
-      #get "stories/#{storynum}/tests", (testDetails)->
-      do(testDetails)->
-        # Categorize each test
-        tests = passing:[], failing:[], towrite:[]
-        for t in testDetails.tests
+      # </Testing ONLY>
+      
+      #get "stories/#{storynum}/tests", ({tests})->
+      do(testDetails)-> # TESTING ONLY
+        {tests} = testDetails # TESTING ONLY
+
+        for t in tests
           t.category =
             if t.status in ['passing','failing'] then t.status
             else
               'towrite'
           t.update = parseUpdate t.owner
           t.name = parseTestName t.name
-          tests[t.category].push t
 
         # Sort each category by
-        for cat,array of tests
-          array.sort (a,b)-> a.id - b.id
+        tests.sort ({id:a},{id:b})->a-b
 
         # Replace array of all tests with new hash of categorized tests
-        testDetails.tests = tests
-        done testDetails
+        done tests
 
   getStoryTaskDetails: (storynum,done)->
+    # <TESTING ONLY>
     taskDetails = [
-      {
-        id:12499,name:'Patron Comments Global Delete',owner:'JW',
+      O
+        id:12499
+        name:'Patron Comments Global Delete'
+        owner:'JW'
         tasks:
           needsAttn: [
-            {id: 55555, note:'Please change the permission description', updatedBy:'lrossell'}
-            {id: 55556, note:'When viewing My Quest Updates when someone made a comment on my shelf mov', updatedBy:'lrossell'}
+            O id: 55555, note:'Please change the permission description', updatedBy:'lrossell'
+            O id: 55556, note:'When viewing My Quest Updates when someone made a comment on my shelf mov', updatedBy:'lrossell'
           ]
           retest:[
-            {id: 55557, note:'Stuff', updatedBy:'pwong'}
-            {id: 55558, note:'Stuffy 2', updatedBy:'pwong'}
+            O id: 55557, note:'Stuff', updatedBy:'pwong'
+            O id: 55558, note:'Stuffy 2', updatedBy:'pwong'
           ]
-      }
-      {
-        id:12504,name:'DB Upgrade and Cleanup Script',owner:'TF',
+      O
+        id:12504
+        name:'DB Upgrade and Cleanup Script'
+        owner:'TF'
         tasks:
           needsAttn:[
-            {id: 55555, note:'DB Please change the permission description', updatedBy:'lrossell'}
-            {id: 55556, note:'DB When viewing My Quest Updates when someone made a comment on my shelf mov', updatedBy:'lrossell'}
+            O id: 55555, note:'DB Please change the permission description', updatedBy:'lrossell'
+            O id: 55556, note:'DB When viewing My Quest Updates when someone made a comment on my shelf mov', updatedBy:'lrossell'
           ]
           retest:[
-            {id: 55557, note:'DB Stuff', updatedBy:'pwong'}
-            {id: 55558, note:'DB Stuffy 2', updatedBy:'pwong'}
+            O id: 55557, note:'DB Stuff', updatedBy:'pwong'
+            O id: 55558, note:'DB Stuffy 2', updatedBy:'pwong'
           ]
-      }
     ]
-    done taskDetails
+    # </TESTING ONLY>
+
     #get "stories/#{storynum}/tasks", (taskDetails)->done taskDetails
+    do-> # TESTING ONLY
+      done taskDetails
 
 
 
