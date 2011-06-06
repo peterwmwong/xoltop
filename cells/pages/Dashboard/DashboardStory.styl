@@ -7,6 +7,26 @@
 @import 'mixins/text';
 @import 'mixins/triangle';
 
+triUpShape(borderSize = 10px, borderColor = #555)
+  content ""
+  display block
+  border-color transparent transparent borderColor transparent
+  border-style solid
+  border-width borderSize
+  height 0
+  width 0
+  z-index 2 
+
+
+triUp(size=8px,fgcolor,bordercolor,t=0px,r=0px,b=0px,l=0px)
+  &:before
+    abspos t r b l
+    triUpShape size bordercolor
+
+  &:after
+    abspos (t + 1px) r b l
+    triUpShape size fgcolor
+
 .DashboardStory
   color text-color
   font-family Helvetica, Arial, sans-serif
@@ -64,6 +84,7 @@
 
     > div
       display table-row
+      position relative
 
       > *
         display table-cell
@@ -86,6 +107,13 @@
         &:first-child
           padding-left 10px
         width 85px
+        padding-bottom 3px
+        position relative
+
+        &.selected
+          > .label
+            triUp(8px,shadow-color - rgb(3,3,3),#111,10px,0px,0px,5px)
+            color text-color
 
         > .label
           color text-disabled-color

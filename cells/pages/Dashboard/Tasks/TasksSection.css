@@ -4,4 +4,4 @@
 .TasksSection > .CatTable > table > tbody > tr > .category{text-align:right}
 .TasksSection > .CatTable > table > tbody > tr > .column{vertical-align:middle;}
 .TasksSection > .CatTable > table > tbody > tr > .column.name{padding-left:10px}
-.TasksSection > .CatTable > table > tbody > tr > .column.owner{text-align:center;width:100px}
+.TasksSection > .CatTable > table > tbody > tr > .column.owner{text-align:center;width:100px;min-width:100px}

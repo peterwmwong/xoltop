@@ -1,4 +1,5 @@
 define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection, TasksSection)->
+
   Count = cell.extend
     class: 'Count'
     'render <div>': (R)->
@@ -8,16 +9,18 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
         @options[color] != 0 and "<a class='badge #{color} count' href='#'>#{@options[color]}</a>"
       }
       """
-
     bind: do->
-      trigger = ->
-        $(@el).trigger 'selected'
-        false
-      'click :parent > .label': trigger
-      'click :parent > .count': trigger
+      select = ->
+        @$el.trigger 'selected'
+        @$el.toggleClass 'selected', true
+      'deselect': -> @$el.toggleClass 'selected', false
+      'click :parent > .label': select
+      'click :parent > .count': select
+
 
   render: (R)->
     {ats,tasks} = @model
+
     # Determine status color of the story, based on the state of the story's ATs and tasks
     statusColor =
       if ats.failing + tasks.needsAttn
@@ -56,7 +59,7 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
             yellow: tasks.retest
             gray: tasks.total} 
         <div id='name'>
-          <a href="#">#{@model.name}</a>
+          <div><a href="#">#{@model.name}</a></div>
         </div>
       </div>
     </div>
@@ -67,10 +70,11 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
 
   bind: do->
     selectDetail = (detail)->
-      (target)->
+      (ev)->
         # Don't expand if already expanded
         if detail::name != @options.expandedSection
           @options.expandedSection = detail::name
+          @$('.Count').trigger 'deselect'
           @$('.details').toggle true
 
           # hide all details

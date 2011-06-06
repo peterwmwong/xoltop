@@ -6,4 +6,4 @@
 .TestsSection > .CatTable > table > tbody > tr > .category.passing{background-color:rgba(88,122,36,0.25);color:#9ccc52}
 .TestsSection > .CatTable > table > tbody > tr > .category{text-align:right}
 .TestsSection > .CatTable > table > tbody > tr > .column{vertical-align:middle;}
-.TestsSection > .CatTable > table > tbody > tr > .column.id{width:60px;font-size:16px;font-weight:bold;text-align:center}
+.TestsSection > .CatTable > table > tbody > tr > .column.id{width:60px;min-width:60px;font-size:16px;font-weight:bold;text-align:center}

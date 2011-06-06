@@ -9,14 +9,17 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(Test
       }, this)));
     },
     bind: (function() {
-      var trigger;
-      trigger = function() {
-        $(this.el).trigger('selected');
-        return false;
+      var select;
+      select = function() {
+        this.$el.trigger('selected');
+        return this.$el.toggleClass('selected', true);
       };
       return {
-        'click :parent > .label': trigger,
-        'click :parent > .count': trigger
+        'deselect': function() {
+          return this.$el.toggleClass('selected', false);
+        },
+        'click :parent > .label': select,
+        'click :parent > .count': select
       };
     })()
   });
@@ -45,7 +48,7 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(Test
         red: tasks.needsAttn,
         yellow: tasks.retest,
         gray: tasks.total
-      })) + " \n    <div id='name'>\n      <a href=\"#\">" + this.model.name + "</a>\n    </div>\n  </div>\n</div>\n<div class='details' style='display: " + (initExpandedSection && 'block' || 'none') + "'>\n  " + (R((initExpandedSection != null) && R.cell(initExpandedSection, {
+      })) + " \n    <div id='name'>\n      <div><a href=\"#\">" + this.model.name + "</a></div>\n    </div>\n  </div>\n</div>\n<div class='details' style='display: " + (initExpandedSection && 'block' || 'none') + "'>\n  " + (R((initExpandedSection != null) && R.cell(initExpandedSection, {
         "class": 'detail',
         storynum: this.model.storynum
       }))) + "\n</div>";
@@ -53,10 +56,11 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(Test
     bind: (function() {
       var selectDetail;
       selectDetail = function(detail) {
-        return function(target) {
+        return function(ev) {
           var $detail;
           if (detail.prototype.name !== this.options.expandedSection) {
             this.options.expandedSection = detail.prototype.name;
+            this.$('.Count').trigger('deselect');
             this.$('.details').toggle(true);
             this.$('.detail').toggle(false);
             if (!($detail = this.$("." + detail.prototype.name))[0]) {
