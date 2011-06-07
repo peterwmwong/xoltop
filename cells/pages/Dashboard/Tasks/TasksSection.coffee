@@ -6,6 +6,8 @@ define ['data/DashboardService','cell!shared/cattable/CatTable'], (DashboardServ
           needsAttn:'Needs Attention'
           retest:'Retest'
           complete:'Complete'
-        mapMember: (task)->task.status
-        columnMap: {'name','owner'}
+        mapMember: ({task})->task.category
+        columnMap:
+          note: ({task})->task.note
+          owner: ({task})->task.owner
         members:tasks

@@ -16,12 +16,12 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(Test
       return "<div class='header'>\n  <div>\n    <div class='storyID'>\n      <div class='id badge " + statusColor + "'>\n        " + this.model.storynum + "\n      </div>\n    </div>\n    " + (R([['tests', [ats.failing, ats.unwritten]], ['tasks', [tasks.needsAttn, tasks.retest]]], function(_arg) {
         var label, red, yellow, _ref2;
         label = _arg[0], _ref2 = _arg[1], red = _ref2[0], yellow = _ref2[1];
-        return "      <div class='" + label + " countLabel'>        <div><a href=#'>" + (label.toUpperCase()) + "</a></div>      </div>      <div class='countBadges'>      " + (R([['red', red], ['yellow', yellow]], __bind(function(_arg2) {
+        return "      <div class='" + label + " countLabel'>        <div><a href='#'>" + (label.toUpperCase()) + "</a></div>      </div>      <div class='countBadges'>      " + (R([['red', red], ['yellow', yellow]], __bind(function(_arg2) {
           var color, count;
           color = _arg2[0], count = _arg2[1];
           return count !== 0 && ("<a class='badge " + color + " count'>" + count + "</a>");
         }, this))) + "               </div>    ";
-      })) + "\n    <div class='name'>\n      <div><a href=\"#\">" + this.model.name + "</a></div>\n    </div>\n  </div>\n</div>\n<div class='details' style='display: " + (initExpandedSection && 'block' || 'none') + "'>\n  " + (R((initExpandedSection != null) && R.cell(initExpandedSection, {
+      })) + "\n    <div class='name'>\n      <div><a href='#'>" + this.model.name + "</a></div>\n    </div>\n  </div>\n</div>\n<div class='details' style='display: " + (initExpandedSection && 'block' || 'none') + "'>\n  " + (R((initExpandedSection != null) && R.cell(initExpandedSection, {
         "class": 'detail',
         storynum: this.model.storynum
       }))) + "\n</div>";

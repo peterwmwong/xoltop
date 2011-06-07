@@ -9,12 +9,22 @@ define(['data/DashboardService', 'cell!shared/cattable/CatTable'], function(Dash
             retest: 'Retest',
             complete: 'Complete'
           },
-          mapMember: function(task) {
-            return task.status;
+          mapMember: function(_arg) {
+            var task;
+            task = _arg.task;
+            return task.category;
           },
           columnMap: {
-            'name': 'name',
-            'owner': 'owner'
+            note: function(_arg) {
+              var task;
+              task = _arg.task;
+              return task.note;
+            },
+            owner: function(_arg) {
+              var task;
+              task = _arg.task;
+              return task.owner;
+            }
           },
           members: tasks
         }));

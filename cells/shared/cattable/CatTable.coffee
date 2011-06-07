@@ -4,11 +4,14 @@ define [], do->
     (obj)->obj[prop]
   ->
     init: ->
-      @_categoryNames = (k for k,v of @options.categories)
       @_catToMembers = {}
+      @_categoryNames =
+        for k,v of @options.categories
+          @_catToMembers[k] = []
+          k
 
       for member in @options.members
-        (@_catToMembers[@options.mapMember member] ?= []).push member
+        @_catToMembers[@options.mapMember member].push member
 
       for col,funcOrProp of cmap = @options.columnMap
         if (type = typeof funcOrProp) == 'string'

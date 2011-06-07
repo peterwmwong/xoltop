@@ -12,26 +12,27 @@ define([], (function() {
   return function() {
     return {
       init: function() {
-        var cmap, col, funcOrProp, k, member, type, v, _base, _i, _len, _name, _ref, _ref2, _ref3;
+        var cmap, col, funcOrProp, k, member, type, v, _i, _len, _ref, _ref2;
+        this._catToMembers = {};
         this._categoryNames = (function() {
           var _ref, _results;
           _ref = this.options.categories;
           _results = [];
           for (k in _ref) {
             v = _ref[k];
+            this._catToMembers[k] = [];
             _results.push(k);
           }
           return _results;
         }).call(this);
-        this._catToMembers = {};
         _ref = this.options.members;
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           member = _ref[_i];
-          ((_ref2 = (_base = this._catToMembers)[_name = this.options.mapMember(member)]) != null ? _ref2 : _base[_name] = []).push(member);
+          this._catToMembers[this.options.mapMember(member)].push(member);
         }
-        _ref3 = cmap = this.options.columnMap;
-        for (col in _ref3) {
-          funcOrProp = _ref3[col];
+        _ref2 = cmap = this.options.columnMap;
+        for (col in _ref2) {
+          funcOrProp = _ref2[col];
           if ((type = typeof funcOrProp) === 'string') {
             cmap[col] = getPropFunc(funcOrProp);
           } else if (type === 'function') {

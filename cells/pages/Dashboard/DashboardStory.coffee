@@ -29,7 +29,7 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
         </div>
         #{R [['tests',[ats.failing, ats.unwritten]],['tasks',[tasks.needsAttn, tasks.retest]]], ([label,[red,yellow]])->"
           <div class='#{label} countLabel'>
-            <div><a href=#'>#{label.toUpperCase()}</a></div>
+            <div><a href='#'>#{label.toUpperCase()}</a></div>
           </div>
           <div class='countBadges'>
           #{R [['red',red],['yellow',yellow]], ([color,count])=>
@@ -38,7 +38,7 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
           </div>
         "}
         <div class='name'>
-          <div><a href="#">#{@model.name}</a></div>
+          <div><a href='#'>#{@model.name}</a></div>
         </div>
       </div>
     </div>

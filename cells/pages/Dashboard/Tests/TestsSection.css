@@ -1,9 +1,9 @@
-.TestsSection > .CatTable > table > tbody > tr.failing > .id{color:#d97f7f}
+.TestsSection > .CatTable > table > tbody > tr.fail > .id{color:#d97f7f}
 .TestsSection > .CatTable > table > tbody > tr.towrite > .id{color:#d0b065}
-.TestsSection > .CatTable > table > tbody > tr.passing > .id{color:#9bcc51}
-.TestsSection > .CatTable > table > tbody > tr > .category.failing{background-color:rgba(147,44,44,0.25);color:#dd8e8e}
+.TestsSection > .CatTable > table > tbody > tr.pass > .id{color:#9bcc51}
+.TestsSection > .CatTable > table > tbody > tr > .category.fail{background-color:rgba(147,44,44,0.25);color:#dd8e8e}
 .TestsSection > .CatTable > table > tbody > tr > .category.towrite{background-color:rgba(132,104,40,0.25);color:#d1b067}
-.TestsSection > .CatTable > table > tbody > tr > .category.passing{background-color:rgba(88,122,36,0.25);color:#9ccc52}
+.TestsSection > .CatTable > table > tbody > tr > .category.pass{background-color:rgba(88,122,36,0.25);color:#9ccc52}
 .TestsSection > .CatTable > table > tbody > tr > .category{text-align:left}
 .TestsSection > .CatTable > table > tbody > tr > .column{vertical-align:middle;}
 .TestsSection > .CatTable > table > tbody > tr > .column.id{width:60px;min-width:60px;font-size:16px;font-weight:bold;text-align:center}

@@ -6,19 +6,19 @@
 
 .TestsSection
   > .CatTable > table > tbody > tr
-    &.failing > .id
+    &.fail > .id
       color lighten(badge-red,80%)
 
     &.towrite > .id
       color lighten(badge-yellow,80%)
 
-    &.passing > .id
+    &.pass > .id
       color lighten(badge-green,80%)
 
     > .category
       amt = .25
       lamt = 90%
-      &.failing
+      &.fail
         background-color rgba(badge-red,amt)
         color lighten(badge-red,lamt)
 
@@ -26,7 +26,7 @@
         background-color rgba(badge-yellow,amt)
         color lighten(badge-yellow,lamt - 10%)
 
-      &.passing
+      &.pass
         background-color rgba(badge-green,amt)
         color lighten(badge-green,lamt - 10%)
 

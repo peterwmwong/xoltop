@@ -4,17 +4,20 @@ define ['data/DashboardService','cell!shared/cattable/CatTable'], (DashboardServ
     DashboardService.getStoryTestDetails @options.storynum, (tests)=>
       A R.cell CatTable,
         categories:
-          failing: 'Failing'
+          fail: 'Failing'
           towrite: 'To Write'
-          passing: 'Passing'
-        mapMember: ({category})->category
+          pass: 'Passing'
+        mapMember: ({status})->status
         columnMap:
           id:'id'
-          name:'name'
-          status: ({update})-> update.status
-          date:   ({update:{date:d,isToday}})->
+          name:'requirement'
+          status: ({update})->update.status or ''
+          date:   ({update:{date,isToday}})->
             if isToday then 'Today'
-            else "#{d.getMonth()+1}/#{d.getDate()}/#{d.getFullYear()}"
-          owner:  ({update})-> update.owner
+            else if date
+              "#{date.getMonth()+1}/#{date.getDate()}/#{date.getFullYear()}"
+            else
+              ''
+          owner:  ({update:{owner}})-> owner
         members: tests
 

@@ -9,36 +9,38 @@ define(['data/DashboardService', 'cell!shared/cattable/CatTable'], function(Dash
       return DashboardService.getStoryTestDetails(this.options.storynum, __bind(function(tests) {
         return A(R.cell(CatTable, {
           categories: {
-            failing: 'Failing',
+            fail: 'Failing',
             towrite: 'To Write',
-            passing: 'Passing'
+            pass: 'Passing'
           },
           mapMember: function(_arg) {
-            var category;
-            category = _arg.category;
-            return category;
+            var status;
+            status = _arg.status;
+            return status;
           },
           columnMap: {
             id: 'id',
-            name: 'name',
+            name: 'requirement',
             status: function(_arg) {
               var update;
               update = _arg.update;
-              return update.status;
+              return update.status || '';
             },
             date: function(_arg) {
-              var d, isToday, _ref;
-              _ref = _arg.update, d = _ref.date, isToday = _ref.isToday;
+              var date, isToday, _ref;
+              _ref = _arg.update, date = _ref.date, isToday = _ref.isToday;
               if (isToday) {
                 return 'Today';
+              } else if (date) {
+                return "" + (date.getMonth() + 1) + "/" + (date.getDate()) + "/" + (date.getFullYear());
               } else {
-                return "" + (d.getMonth() + 1) + "/" + (d.getDate()) + "/" + (d.getFullYear());
+                return '';
               }
             },
             owner: function(_arg) {
-              var update;
-              update = _arg.update;
-              return update.owner;
+              var owner;
+              owner = _arg.update.owner;
+              return owner;
             }
           },
           members: tests

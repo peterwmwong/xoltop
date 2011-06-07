@@ -3,5 +3,5 @@
 .TasksSection > .CatTable > table > tbody > tr > .category.complete{background-color:rgba(88,122,36,0.25);color:#9ccc52}
 .TasksSection > .CatTable > table > tbody > tr > .category{text-align:left}
 .TasksSection > .CatTable > table > tbody > tr > .column{vertical-align:middle;}
-.TasksSection > .CatTable > table > tbody > tr > .column.name{padding-left:10px}
+.TasksSection > .CatTable > table > tbody > tr > .column.note{width:100px;padding-left:10px;text-overflow:ellipsis;white-space:nowrap}
 .TasksSection > .CatTable > table > tbody > tr > .column.owner{text-align:center;width:100px;min-width:100px}
