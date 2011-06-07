@@ -1,5 +1,5 @@
 define ['data/DashboardService','cell!shared/cattable/CatTable'], (DashboardService,CatTable)->
-
+  defer = (f)-> setTimeout f,1000
   render: (R,A)->
     DashboardService.getStoryTestDetails @options.storynum, (tests)=>
       A R.cell CatTable,

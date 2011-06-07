@@ -1,28 +1,5 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(TestsSection, TasksSection) {
-  var Count;
-  Count = cell.extend({
-    "class": 'Count',
-    'render <div>': function(R) {
-      return "<a class='label' href='#'>" + this.options.label + "</a>\n" + (R(['yellow', 'red'], __bind(function(color) {
-        return this.options[color] !== 0 && ("<a class='badge " + color + " count' href='#'>" + this.options[color] + "</a>");
-      }, this)));
-    },
-    bind: (function() {
-      var select;
-      select = function() {
-        this.$el.trigger('selected');
-        return this.$el.toggleClass('selected', true);
-      };
-      return {
-        'deselect': function() {
-          return this.$el.toggleClass('selected', false);
-        },
-        'click :parent > .label': select,
-        'click :parent > .count': select
-      };
-    })()
-  });
   return {
     render: function(R) {
       var ats, initExpandedSection, statusColor, tasks, _ref;
@@ -36,19 +13,15 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(Test
             return TasksSection;
         }
       }).call(this);
-      return "<div id='header'>\n  <div>\n    <div id='storyID'>\n      <div id='id' class='badge " + statusColor + "'>\n        " + this.model.storynum + "\n      </div>\n    </div>\n    " + (R.cell(Count, {
-        id: 'tests',
-        label: 'TESTS',
-        red: ats.failing,
-        yellow: ats.unwritten,
-        gray: ats.total
-      })) + " \n    " + (R.cell(Count, {
-        id: 'tasks',
-        label: 'TASKS',
-        red: tasks.needsAttn,
-        yellow: tasks.retest,
-        gray: tasks.total
-      })) + " \n    <div id='name'>\n      <div><a href=\"#\">" + this.model.name + "</a></div>\n    </div>\n  </div>\n</div>\n<div class='details' style='display: " + (initExpandedSection && 'block' || 'none') + "'>\n  " + (R((initExpandedSection != null) && R.cell(initExpandedSection, {
+      return "<div class='header'>\n  <div>\n    <div class='storyID'>\n      <div class='id badge " + statusColor + "'>\n        " + this.model.storynum + "\n      </div>\n    </div>\n    " + (R([['tests', [ats.failing, ats.unwritten]], ['tasks', [tasks.needsAttn, tasks.retest]]], function(_arg) {
+        var label, red, yellow, _ref2;
+        label = _arg[0], _ref2 = _arg[1], red = _ref2[0], yellow = _ref2[1];
+        return "      <div class='" + label + " countLabel'>        <div><a href=#'>" + (label.toUpperCase()) + "</a></div>      </div>      <div class='countBadges'>      " + (R([['red', red], ['yellow', yellow]], __bind(function(_arg2) {
+          var color, count;
+          color = _arg2[0], count = _arg2[1];
+          return count !== 0 && ("<a class='badge " + color + " count'>" + count + "</a>");
+        }, this))) + "               </div>    ";
+      })) + "\n    <div class='name'>\n      <div><a href=\"#\">" + this.model.name + "</a></div>\n    </div>\n  </div>\n</div>\n<div class='details' style='display: " + (initExpandedSection && 'block' || 'none') + "'>\n  " + (R((initExpandedSection != null) && R.cell(initExpandedSection, {
         "class": 'detail',
         storynum: this.model.storynum
       }))) + "\n</div>";
@@ -57,27 +30,35 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(Test
       var selectDetail;
       selectDetail = function(detail) {
         return function(ev) {
-          var $detail;
+          var $detail, detailCell;
           if (detail.prototype.name !== this.options.expandedSection) {
             this.options.expandedSection = detail.prototype.name;
-            this.$('.Count').trigger('deselect');
+            this.$('.countLabel a.selected').toggleClass('selected', false);
+            $(ev.target).toggleClass('selected', true);
             this.$('.details').toggle(true);
             this.$('.detail').toggle(false);
             if (!($detail = this.$("." + detail.prototype.name))[0]) {
-              $detail = $(new detail({
+              detailCell = new detail({
                 "class": 'detail',
                 storynum: this.model.storynum
-              }).el);
-              return this.$('.details').append($detail);
+              });
+              this.$('.details').append(detailCell.el);
+              return detailCell.ready(function() {
+                return detailCell.$el.animate({
+                  height: 'toggle'
+                }, 'slow');
+              });
             } else {
-              return $detail.toggle();
+              return $detail.animate({
+                height: 'toggle'
+              }, 'slow');
             }
           }
         };
       };
       return {
-        'selected #header #tests': selectDetail(TestsSection),
-        'selected #header #tasks': selectDetail(TasksSection)
+        'click .tests.countLabel a': selectDetail(TestsSection, '.tests.countLabel'),
+        'click .tasks.countLabel a': selectDetail(TasksSection, '.tasks.countLabel')
       };
     })()
   };

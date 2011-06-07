@@ -1,23 +1,4 @@
 define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection, TasksSection)->
-
-  Count = cell.extend
-    class: 'Count'
-    'render <div>': (R)->
-      """
-      <a class='label' href='#'>#{@options.label}</a>
-      #{R ['yellow','red'], (color)=>
-        @options[color] != 0 and "<a class='badge #{color} count' href='#'>#{@options[color]}</a>"
-      }
-      """
-    bind: do->
-      select = ->
-        @$el.trigger 'selected'
-        @$el.toggleClass 'selected', true
-      'deselect': -> @$el.toggleClass 'selected', false
-      'click :parent > .label': select
-      'click :parent > .count': select
-
-
   render: (R)->
     {ats,tasks} = @model
 
@@ -39,26 +20,24 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
         when 'TasksSection' then TasksSection
 
     """
-    <div id='header'>
+    <div class='header'>
       <div>
-        <div id='storyID'>
-          <div id='id' class='badge #{statusColor}'>
+        <div class='storyID'>
+          <div class='id badge #{statusColor}'>
             #{@model.storynum}
           </div>
         </div>
-        #{R.cell Count,
-            id: 'tests'
-            label: 'TESTS'
-            red: ats.failing
-            yellow: ats.unwritten
-            gray: ats.total} 
-        #{R.cell Count,
-            id: 'tasks'
-            label: 'TASKS'
-            red: tasks.needsAttn
-            yellow: tasks.retest
-            gray: tasks.total} 
-        <div id='name'>
+        #{R [['tests',[ats.failing, ats.unwritten]],['tasks',[tasks.needsAttn, tasks.retest]]], ([label,[red,yellow]])->"
+          <div class='#{label} countLabel'>
+            <div><a href=#'>#{label.toUpperCase()}</a></div>
+          </div>
+          <div class='countBadges'>
+          #{R [['red',red],['yellow',yellow]], ([color,count])=>
+            count != 0 and "<a class='badge #{color} count'>#{count}</a>"
+          }         
+          </div>
+        "}
+        <div class='name'>
           <div><a href="#">#{@model.name}</a></div>
         </div>
       </div>
@@ -74,7 +53,8 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
         # Don't expand if already expanded
         if detail::name != @options.expandedSection
           @options.expandedSection = detail::name
-          @$('.Count').trigger 'deselect'
+          @$('.countLabel a.selected').toggleClass 'selected', false
+          $(ev.target).toggleClass 'selected', true
           @$('.details').toggle true
 
           # hide all details
@@ -82,12 +62,16 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
          
           # Load details for the first time
           if not ($detail = @$(".#{detail::name)}")[0]
-            $detail = $(new(detail)(class:'detail', storynum: @model.storynum).el)
-            @$('.details').append($detail)
-            
-          # Show already loaded details
-          else
-            $detail.toggle()
+            detailCell = new detail
+              class:'detail'
+              storynum: @model.storynum
+            @$('.details').append detailCell.el
+            detailCell.ready ->
+              detailCell.$el.animate height:'toggle', 'slow'
 
-    'selected #header #tests': selectDetail TestsSection
-    'selected #header #tasks': selectDetail TasksSection
+          else
+            # Show already loaded details
+            $detail.animate height:'toggle', 'slow'
+
+    'click .tests.countLabel a': selectDetail TestsSection, '.tests.countLabel'
+    'click .tasks.countLabel a': selectDetail TasksSection, '.tasks.countLabel'

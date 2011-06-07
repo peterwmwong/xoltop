@@ -1,5 +1,9 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 define(['data/DashboardService', 'cell!shared/cattable/CatTable'], function(DashboardService, CatTable) {
+  var defer;
+  defer = function(f) {
+    return setTimeout(f, 1000);
+  };
   return {
     render: function(R, A) {
       return DashboardService.getStoryTestDetails(this.options.storynum, __bind(function(tests) {
