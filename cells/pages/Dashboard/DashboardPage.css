@@ -1,1 +1,12 @@
-.DashboardPage{background-color:#333;width:100%;height:100%;overflow:auto}
+.DashboardPage{font-family:Helvetica,Arial,sans-serif;background-color:#333;width:100%;height:100%;overflow:auto;}
+.DashboardPage > .stats{width:100%;height:100px;background:#2b2b2b;background:-moz-linear-gradient(top,#333 0%,#222 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#333),color-stop(100%,#222));filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#333', endColorstr='#222',GradientType=0 );position:relative;overflow:hidden;padding-top:20px;}
+.DashboardPage > .stats:before{content:"";position:absolute;top:1px;right:-10px;bottom:0;left:-10px;box-shadow:inset 0 0 10px #1a1a1a}
+.DashboardPage > .stats > .iteration{margin-left:100px;display:inline-block;position:relative;width:80px;}
+.DashboardPage > .stats > .iteration > .iterNum{box-shadow:0 2px 5px #222;-moz-border-radius-topleft:2px;-moz-border-radius-topright:2px;-moz-border-radius-bottomright:2px;-moz-border-radius-bottomleft:2px;border-top-left-radius:2px;border-top-right-radius:2px;border-bottom-right-radius:2px;border-bottom-left-radius:2px;background-color:#666;color:#ddd;font-size:32px;font-weight:bold;text-align:center;margin-bottom:4px;padding:15px 0 8px 0;width:100%;height:100%;vertical-align:middle}
+.DashboardPage > .stats > .iteration > .iterNum::before{position:absolute;top:4px;left:20px}
+.DashboardPage > .stats > .iteration > .iterNum::after{position:absolute;top:4px;right:20px;}
+.DashboardPage > .stats > .iteration > .iterNum::after,.DashboardPage > .stats > .iteration > .iterNum::before{box-shadow:inset 0 1px 1px #111;background-color:#333;-moz-border-radius-topleft:5px;-moz-border-radius-topright:5px;-moz-border-radius-bottomright:5px;-moz-border-radius-bottomleft:5px;border-top-left-radius:5px;border-top-right-radius:5px;border-bottom-right-radius:5px;border-bottom-left-radius:5px;content:"";display:block;height:5px;width:5px}
+.DashboardPage > .stats > .iteration > .iterLabel{color:#999;text-align:center;font-size:13px;font-weight:bold;letter-spacing:1px}
+.DashboardPage > .stats > .failingTests{padding-left:50px;display:inline-block;}
+.DashboardPage > .stats > .failingTests > .iconLabel > .icon{color:#222;text-align:center;font-size:48px;font-weight:bold;background-color:#b44;-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;padding-bottom:1px;padding-top:2px;height:53px;margin-bottom:3px}
+.DashboardPage > .stats > .failingTests > .iconLabel > .label{font-weight:bold;font-size:13px;color:#999}

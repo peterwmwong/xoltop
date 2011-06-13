@@ -40,6 +40,10 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
         <div class='name'>
           <div><a href='#'>#{@model.name}</a></div>
         </div>
+        <div class='collapseStory'>
+          <div class='triangle'></div>
+          <div class='rect'></div>
+        </div>
       </div>
     </div>
     <div class='details'>
@@ -87,8 +91,9 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
 
     'click .tests.countLabel a': selectDetail TestsSection, '.tests.countLabel'
     'click .tasks.countLabel a': selectDetail TasksSection, '.tasks.countLabel'
-    'deselected': ->
-      @$('.detail.selected').animate height:'hide', 'slow', =>
+    'click .collapseStory': collapseStory = ->
+      @$('.detail.selected').animate height:'hide', 'fast', =>
         @$el.toggleClass 'selected', false
         @$('.countLabel a.selected').toggleClass 'selected', false
       @options.expandedSection = undefined
+    'deselected': collapseStory

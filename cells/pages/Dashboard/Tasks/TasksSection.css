@@ -12,5 +12,5 @@
 .TasksSection > .CatTable > table > tbody > tr > .column.note{width:100%;padding:20px 0 20px 10px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;vertical-align:middle;line-height:15px;}
 .TasksSection > .CatTable > table > tbody > tr > .column.note.expanded{white-space:normal;}
 .TasksSection > .CatTable > table > tbody > tr > .column.note.expanded .linebreak{display:block}
-.TasksSection > .CatTable > table > tbody > tr > .column.note .linebreak{display:inline-block;width:10px}
+.TasksSection > .CatTable > table > tbody > tr > .column.note .linebreak{display:inline-block;width:9999px}
 .TasksSection > .CatTable > table > tbody > tr > .column.owner{text-align:center;width:80px;min-width:80px}

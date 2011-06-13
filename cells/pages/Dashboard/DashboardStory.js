@@ -21,13 +21,13 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(Test
           color = _arg2[0], count = _arg2[1];
           return count !== 0 && ("<a class='badge " + color + " count'>" + count + "</a>");
         }, this))) + "               </div>    ";
-      })) + "\n    <div class='name'>\n      <div><a href='#'>" + this.model.name + "</a></div>\n    </div>\n  </div>\n</div>\n<div class='details'>\n  " + (R((initExpandedSection != null) && R.cell(initExpandedSection, {
+      })) + "\n    <div class='name'>\n      <div><a href='#'>" + this.model.name + "</a></div>\n    </div>\n    <div class='collapseStory'>\n      <div class='triangle'></div>\n      <div class='rect'></div>\n    </div>\n  </div>\n</div>\n<div class='details'>\n  " + (R((initExpandedSection != null) && R.cell(initExpandedSection, {
         "class": 'detail',
         storynum: this.model.storynum
       }))) + "\n</div>";
     },
     bind: (function() {
-      var selectDetail;
+      var collapseStory, selectDetail;
       selectDetail = function(detail) {
         return function(ev) {
           var $detail, alreadySelected, detailCell;
@@ -71,15 +71,16 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(Test
       return {
         'click .tests.countLabel a': selectDetail(TestsSection, '.tests.countLabel'),
         'click .tasks.countLabel a': selectDetail(TasksSection, '.tasks.countLabel'),
-        'deselected': function() {
+        'click .collapseStory': collapseStory = function() {
           this.$('.detail.selected').animate({
             height: 'hide'
-          }, 'slow', __bind(function() {
+          }, 'fast', __bind(function() {
             this.$el.toggleClass('selected', false);
             return this.$('.countLabel a.selected').toggleClass('selected', false);
           }, this));
           return this.options.expandedSection = void 0;
-        }
+        },
+        'deselected': collapseStory
       };
     })()
   };

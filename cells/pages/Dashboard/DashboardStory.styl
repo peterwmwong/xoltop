@@ -42,8 +42,13 @@ triUp(size=8px,fgcolor,bordercolor,t=0px,r=0px,b=0px,l=0px)
       font-weight bold
       text-shadow 0px -1px 0px #222
 
+    > .header > div > .collapseStory
+      .triangle, .rect
+        display block
+
     > .details
       display block
+
 
   .badge
     bgout(color)
@@ -151,4 +156,23 @@ triUp(size=8px,fgcolor,bordercolor,t=0px,r=0px,b=0px,l=0px)
           > a
             color text-color-dark
 
+      > .collapseStory
+        width 30px
+        iconColor = #222
+        > .rect
+          display none
+          abspos 0px 0px 0px false
+          width 30px
+          &:before
+            content ""
+            abspos 25px 16px false false
+            width 14px
+            height 2px
+            background-color iconColor
+
+        > .triangle
+          display none
+          abspos 0px 0px 0px false
+          width 30px
+          triUp(7px,iconColor,iconColor,8px,0px,0px,0px)
 
