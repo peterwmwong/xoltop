@@ -42,7 +42,7 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
         </div>
       </div>
     </div>
-    <div class='details' style='display: #{initExpandedSection and 'block' or 'none'}'>
+    <div class='details'>
       #{R initExpandedSection? and R.cell initExpandedSection, class:'detail', storynum: @model.storynum}
     </div>
     """
@@ -50,28 +50,45 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
   bind: do->
     selectDetail = (detail)->
       (ev)->
+        if not (alreadySelected = @$el.hasClass 'selected')
+          @$el.trigger 'selected'
+          @$el.toggleClass 'selected', true
+
         # Don't expand if already expanded
         if detail::name != @options.expandedSection
           @options.expandedSection = detail::name
           @$('.countLabel a.selected').toggleClass 'selected', false
           $(ev.target).toggleClass 'selected', true
-          @$('.details').toggle true
 
           # hide all details
-          @$('.detail').toggle false
+          @$('.detail.selected')
+            .toggleClass('selected', false)
+            .fadeOut()
          
           # Load details for the first time
           if not ($detail = @$(".#{detail::name)}")[0]
             detailCell = new detail
-              class:'detail'
+              class:'detail selected'
               storynum: @model.storynum
             @$('.details').append detailCell.el
             detailCell.ready ->
-              detailCell.$el.animate height:'toggle', 'slow'
+              if alreadySelected
+                detailCell.$el.fadeIn()
+              else
+                detailCell.$el.animate height:'show', 'slow'
 
           else
             # Show already loaded details
-            $detail.animate height:'toggle', 'slow'
+            $detail.toggleClass('selected', true)
+            if alreadySelected
+              $detail.fadeIn()
+            else
+              $detail.animate height:'show', 'slow'
 
     'click .tests.countLabel a': selectDetail TestsSection, '.tests.countLabel'
     'click .tasks.countLabel a': selectDetail TasksSection, '.tasks.countLabel'
+    'deselected': ->
+      @$('.detail.selected').animate height:'hide', 'slow', =>
+        @$el.toggleClass 'selected', false
+        @$('.countLabel a.selected').toggleClass 'selected', false
+      @options.expandedSection = undefined

@@ -1,7 +1,16 @@
+.TasksSection > .CatTable > table{table-layout:fixed}
 .TasksSection > .CatTable > table > tbody > tr > .category.needsAttn{background-color:rgba(147,44,44,0.25);color:#dd8e8e}
 .TasksSection > .CatTable > table > tbody > tr > .category.retest{background-color:rgba(132,104,40,0.25);color:#d1b067}
 .TasksSection > .CatTable > table > tbody > tr > .category.complete{background-color:rgba(88,122,36,0.25);color:#9ccc52}
 .TasksSection > .CatTable > table > tbody > tr > .category{text-align:left}
 .TasksSection > .CatTable > table > tbody > tr > .column{vertical-align:middle;}
-.TasksSection > .CatTable > table > tbody > tr > .column.note{width:100px;padding-left:10px;text-overflow:ellipsis;white-space:nowrap}
-.TasksSection > .CatTable > table > tbody > tr > .column.owner{text-align:center;width:100px;min-width:100px}
+.TasksSection > .CatTable > table > tbody > tr > .column.showMoreLess{width:30px;}
+.TasksSection > .CatTable > table > tbody > tr > .column.showMoreLess > .more{display:block}
+.TasksSection > .CatTable > table > tbody > tr > .column.showMoreLess > .less{display:none}
+.TasksSection > .CatTable > table > tbody > tr > .column.showMoreLess.showLess > .more{display:none}
+.TasksSection > .CatTable > table > tbody > tr > .column.showMoreLess.showLess > .less{display:block}
+.TasksSection > .CatTable > table > tbody > tr > .column.note{width:100%;padding:20px 0 20px 10px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;vertical-align:middle;line-height:15px;}
+.TasksSection > .CatTable > table > tbody > tr > .column.note.expanded{white-space:normal;}
+.TasksSection > .CatTable > table > tbody > tr > .column.note.expanded .linebreak{display:block}
+.TasksSection > .CatTable > table > tbody > tr > .column.note .linebreak{display:inline-block;width:10px}
+.TasksSection > .CatTable > table > tbody > tr > .column.owner{text-align:center;width:80px;min-width:80px}

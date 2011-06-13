@@ -1,5 +1,6 @@
 define ['data/JSONP'],(jsonp)->
   O = (obj)->obj
+  TESTING = true
 
   get = (path,done)->
     jsonp
@@ -12,7 +13,7 @@ define ['data/JSONP'],(jsonp)->
 
   getStoryTasksDetails: (storynum,done)->
     doDone = (chumpTasks)-> done chumpTasks
-    if testing = false
+    if TESTING
       require ['data/MockDashboardService-getStoryTasksDetail'], doDone
     else
       get "stories/#{storynum}/tasks", doDone
@@ -40,7 +41,7 @@ define ['data/JSONP'],(jsonp)->
           story.tags = match[1]?.split(' - ')?.slice 0, -1
         story
 
-    if testing = false
+    if TESTING
       require ['data/MockDashboardService-getStorySummaries'], doDone
     else
       get 'stories', doDone
@@ -90,7 +91,7 @@ define ['data/JSONP'],(jsonp)->
         # Replace array of all tests with new hash of categorized tests
         done tests
 
-      if testing = false
+      if TESTING
         require ['data/MockDashboardService-getStoryTestDetails'], doDone
       else
         get "stories/#{storynum}/tests", doDone

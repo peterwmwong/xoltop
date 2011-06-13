@@ -1,8 +1,9 @@
 define(['data/JSONP'], function(jsonp) {
-  var O, get, storyRegex;
+  var O, TESTING, get, storyRegex;
   O = function(obj) {
     return obj;
   };
+  TESTING = true;
   get = function(path, done) {
     jsonp({
       url: 'http://172.16.19.63:69/xptool/rest/jumbotron/iteration/' + path,
@@ -14,18 +15,18 @@ define(['data/JSONP'], function(jsonp) {
   storyRegex = /^((\w*[ ]+- )+)?(.*?)( \(([^\)]+)\))?$/;
   return {
     getStoryTasksDetails: function(storynum, done) {
-      var doDone, testing;
+      var doDone;
       doDone = function(chumpTasks) {
         return done(chumpTasks);
       };
-      if (testing = false) {
+      if (TESTING) {
         return require(['data/MockDashboardService-getStoryTasksDetail'], doDone);
       } else {
         return get("stories/" + storynum + "/tasks", doDone);
       }
     },
     getStorySummaries: function(done) {
-      var doDone, testing;
+      var doDone;
       doDone = function(stories) {
         return done((function() {
           var devs, match, s, story, testers, _i, _len, _ref, _ref2, _ref3, _ref4, _ref5, _results;
@@ -64,7 +65,7 @@ define(['data/JSONP'], function(jsonp) {
           return _results;
         })());
       };
-      if (testing = false) {
+      if (TESTING) {
         return require(['data/MockDashboardService-getStorySummaries'], doDone);
       } else {
         return get('stories', doDone);
@@ -114,7 +115,7 @@ define(['data/JSONP'], function(jsonp) {
       })();
       today = "" + ((t = new Date()).getMonth() + 1) + "/" + (t.getDate()) + "/" + (t.getFullYear());
       return function(storynum, done) {
-        var doDone, testing;
+        var doDone;
         doDone = function(tests) {
           tests = (function() {
             var _i, _len, _ref, _results;
@@ -135,7 +136,7 @@ define(['data/JSONP'], function(jsonp) {
           });
           return done(tests);
         };
-        if (testing = false) {
+        if (TESTING) {
           return require(['data/MockDashboardService-getStoryTestDetails'], doDone);
         } else {
           return get("stories/" + storynum + "/tests", doDone);

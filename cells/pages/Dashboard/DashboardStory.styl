@@ -33,14 +33,22 @@ triUp(size=8px,fgcolor,bordercolor,t=0px,r=0px,b=0px,l=0px)
   position relative
   border-bottom 1px solid #222 + rgb(5,5,5)
   padding-top 2px
-  //background-color #333 + rgb(7,7,7)
   gradient lighten(#333,20%), #333
+
+  &.selected
+    border-top 2px solid #579
+    > .header > div > .name > div > a
+      color text-color
+      font-weight bold
+      text-shadow 0px -1px 0px #222
+
+    > .details
+      display block
 
   .badge
     bgout(color)
       background-color color
       text-outline darken(color,30%) 1px
-      //border 1px solid lighten(color,10%)
 
     &.gray
       bgout badge-gray
@@ -55,7 +63,6 @@ triUp(size=8px,fgcolor,bordercolor,t=0px,r=0px,b=0px,l=0px)
       bgout badge-yellow
 
   > .details
-    box-shadow inset
     background-color shadow-color
     display none
     padding 10px
@@ -65,7 +72,7 @@ triUp(size=8px,fgcolor,bordercolor,t=0px,r=0px,b=0px,l=0px)
 
     &:before
       content ""
-      abspos 0px -5px -1px -5px
+      abspos 0px -5px 0px -5px
       box-shadow inset 0px 0px 7px #111
       background-color shadow-color
       z-index -1

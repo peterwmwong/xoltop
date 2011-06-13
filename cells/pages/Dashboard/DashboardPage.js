@@ -8,6 +8,13 @@ define(['data/DashboardService', 'cell!./DashboardStory'], function(DashboardSer
           });
         }));
       });
+    },
+    bind: {
+      'selected .DashboardStory': function(_arg) {
+        var target;
+        target = _arg.target;
+        return this.$('.DashboardStory.selected').trigger('deselected');
+      }
     }
   };
 });

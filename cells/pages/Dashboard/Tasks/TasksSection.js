@@ -20,6 +20,9 @@ define(['data/DashboardService', 'cell!shared/cattable/CatTable'], function(Dash
               task = _arg.task;
               return task.note;
             },
+            showMoreLess: function() {
+              return "<a class='more'>More</a><a class='less'>Less</a>";
+            },
             owner: function(_arg) {
               var task;
               task = _arg.task;
@@ -29,6 +32,17 @@ define(['data/DashboardService', 'cell!shared/cattable/CatTable'], function(Dash
           members: tasks
         }));
       }, this));
+    },
+    bind: {
+      afterRender: function() {
+        return this.$('.column.note br').replaceWith("<div class='linebreak'></div>");
+      },
+      'click .column.showMoreLess > a': function(ev) {
+        var $target;
+        $target = $(ev.target);
+        $target.parent().toggleClass('showLess');
+        return $('.column.note', $target.closest('tr')).toggleClass('expanded');
+      }
     }
   };
 });

@@ -21,7 +21,7 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(Test
           color = _arg2[0], count = _arg2[1];
           return count !== 0 && ("<a class='badge " + color + " count'>" + count + "</a>");
         }, this))) + "               </div>    ";
-      })) + "\n    <div class='name'>\n      <div><a href='#'>" + this.model.name + "</a></div>\n    </div>\n  </div>\n</div>\n<div class='details' style='display: " + (initExpandedSection && 'block' || 'none') + "'>\n  " + (R((initExpandedSection != null) && R.cell(initExpandedSection, {
+      })) + "\n    <div class='name'>\n      <div><a href='#'>" + this.model.name + "</a></div>\n    </div>\n  </div>\n</div>\n<div class='details'>\n  " + (R((initExpandedSection != null) && R.cell(initExpandedSection, {
         "class": 'detail',
         storynum: this.model.storynum
       }))) + "\n</div>";
@@ -30,35 +30,56 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(Test
       var selectDetail;
       selectDetail = function(detail) {
         return function(ev) {
-          var $detail, detailCell;
+          var $detail, alreadySelected, detailCell;
+          if (!(alreadySelected = this.$el.hasClass('selected'))) {
+            this.$el.trigger('selected');
+            this.$el.toggleClass('selected', true);
+          }
           if (detail.prototype.name !== this.options.expandedSection) {
             this.options.expandedSection = detail.prototype.name;
             this.$('.countLabel a.selected').toggleClass('selected', false);
             $(ev.target).toggleClass('selected', true);
-            this.$('.details').toggle(true);
-            this.$('.detail').toggle(false);
+            this.$('.detail.selected').toggleClass('selected', false).fadeOut();
             if (!($detail = this.$("." + detail.prototype.name))[0]) {
               detailCell = new detail({
-                "class": 'detail',
+                "class": 'detail selected',
                 storynum: this.model.storynum
               });
               this.$('.details').append(detailCell.el);
               return detailCell.ready(function() {
-                return detailCell.$el.animate({
-                  height: 'toggle'
-                }, 'slow');
+                if (alreadySelected) {
+                  return detailCell.$el.fadeIn();
+                } else {
+                  return detailCell.$el.animate({
+                    height: 'show'
+                  }, 'slow');
+                }
               });
             } else {
-              return $detail.animate({
-                height: 'toggle'
-              }, 'slow');
+              $detail.toggleClass('selected', true);
+              if (alreadySelected) {
+                return $detail.fadeIn();
+              } else {
+                return $detail.animate({
+                  height: 'show'
+                }, 'slow');
+              }
             }
           }
         };
       };
       return {
         'click .tests.countLabel a': selectDetail(TestsSection, '.tests.countLabel'),
-        'click .tasks.countLabel a': selectDetail(TasksSection, '.tasks.countLabel')
+        'click .tasks.countLabel a': selectDetail(TasksSection, '.tasks.countLabel'),
+        'deselected': function() {
+          this.$('.detail.selected').animate({
+            height: 'hide'
+          }, 'slow', __bind(function() {
+            this.$el.toggleClass('selected', false);
+            return this.$('.countLabel a.selected').toggleClass('selected', false);
+          }, this));
+          return this.options.expandedSection = void 0;
+        }
       };
     })()
   };
