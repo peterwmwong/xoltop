@@ -9,8 +9,8 @@ define ['data/DashboardService','cell!shared/cattable/CatTable'], (DashboardServ
           complete:'Complete'
         mapMember: ({task})->task.category
         columnMap:
+          expandCollapse: -> "<a href='#'></a>"
           note: ({task})->task.note
-          showMoreLess: -> "<a class='more'>More</a><a class='less'>Less</a>"
           owner: ({task})->task.owner
         members:tasks
 
@@ -18,8 +18,8 @@ define ['data/DashboardService','cell!shared/cattable/CatTable'], (DashboardServ
     afterRender: ->
       @$('.column.note br').replaceWith "<div class='linebreak'></div>"
 
-    'click .column.showMoreLess > a': (ev)->
-      $target = $(ev.target)
-      $target.parent().toggleClass 'showLess'
-      $('.column.note',$target.closest('tr')).toggleClass 'expanded'
+    'click .column.note, .column.expandCollapse > a': (ev)->
+      $row = $(ev.target).closest('tr')
+      $('.column.expandCollapse',$row).toggleClass 'showLess'
+      $('.column.note',$row).toggleClass 'expanded'
       

@@ -30,19 +30,24 @@
     > .column
       vertical-align middle
 
-      &.showMoreLess
-        width 30px
-        > .more
-          display block
-        > .less
-          display none
-          
+      &.expandCollapse
+        width 15px
+        text-align right
+        vertical-align top
+        padding 16px 0 0 10px
+
         &.showLess
-          > .more
-            display none
-          > .less
-            display block
-          
+          padding 18px 0 0 7px
+          > a
+            border-color text-color transparent transparent transparent
+        > a 
+          border-color transparent transparent transparent text-disabled-color
+          border-style solid
+          border-width 5px
+          height 0
+          width 0
+          line-height 0px
+          font-size 0px
 
       &.note
         width 100%
@@ -52,9 +57,11 @@
         overflow hidden
         vertical-align middle
         line-height 15px
+        color text-color-dark
 
         &.expanded
           white-space normal
+          color text-color
           .linebreak
             display block
 

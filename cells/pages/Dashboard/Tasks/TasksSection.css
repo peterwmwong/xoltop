@@ -4,13 +4,12 @@
 .TasksSection > .CatTable > table > tbody > tr > .category.complete{background-color:rgba(88,122,36,0.25);color:#9ccc52}
 .TasksSection > .CatTable > table > tbody > tr > .category{text-align:left}
 .TasksSection > .CatTable > table > tbody > tr > .column{vertical-align:middle;}
-.TasksSection > .CatTable > table > tbody > tr > .column.showMoreLess{width:30px;}
-.TasksSection > .CatTable > table > tbody > tr > .column.showMoreLess > .more{display:block}
-.TasksSection > .CatTable > table > tbody > tr > .column.showMoreLess > .less{display:none}
-.TasksSection > .CatTable > table > tbody > tr > .column.showMoreLess.showLess > .more{display:none}
-.TasksSection > .CatTable > table > tbody > tr > .column.showMoreLess.showLess > .less{display:block}
-.TasksSection > .CatTable > table > tbody > tr > .column.note{width:100%;padding:20px 0 20px 10px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;vertical-align:middle;line-height:15px;}
-.TasksSection > .CatTable > table > tbody > tr > .column.note.expanded{white-space:normal;}
+.TasksSection > .CatTable > table > tbody > tr > .column.expandCollapse{width:15px;text-align:right;vertical-align:top;padding:16px 0 0 10px;}
+.TasksSection > .CatTable > table > tbody > tr > .column.expandCollapse.showLess{padding:18px 0 0 7px;}
+.TasksSection > .CatTable > table > tbody > tr > .column.expandCollapse.showLess > a{border-color:#fff transparent transparent transparent}
+.TasksSection > .CatTable > table > tbody > tr > .column.expandCollapse > a{border-color:transparent transparent transparent #999;border-style:solid;border-width:5px;height:0;width:0;line-height:0;font-size:0}
+.TasksSection > .CatTable > table > tbody > tr > .column.note{width:100%;padding:20px 0 20px 10px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;vertical-align:middle;line-height:15px;color:#ddd;}
+.TasksSection > .CatTable > table > tbody > tr > .column.note.expanded{white-space:normal;color:#fff;}
 .TasksSection > .CatTable > table > tbody > tr > .column.note.expanded .linebreak{display:block}
 .TasksSection > .CatTable > table > tbody > tr > .column.note .linebreak{display:inline-block;width:9999px}
 .TasksSection > .CatTable > table > tbody > tr > .column.owner{text-align:center;width:80px;min-width:80px}
