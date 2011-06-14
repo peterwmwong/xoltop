@@ -27,6 +27,9 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
             #{@model.storynum}
           </div>
         </div>
+        <div class='name'>
+          <div><a href='#'>#{@model.name}</a></div>
+        </div>
         #{R [['tests',[ats.failing, ats.unwritten]],['tasks',[tasks.needsAttn, tasks.retest]]], ([label,[red,yellow]])->"
           <div class='#{label} countLabel'>
             <div><a href='#'>#{label.toUpperCase()}</a></div>
@@ -37,9 +40,6 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
           }         
           </div>
         "}
-        <div class='name'>
-          <div><a href='#'>#{@model.name}</a></div>
-        </div>
         <div class='collapseStory'>
           <div class='triangle'></div>
           <div class='rect'></div>
@@ -92,7 +92,7 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
     'click .tests.countLabel a': selectDetail TestsSection, '.tests.countLabel'
     'click .tasks.countLabel a': selectDetail TasksSection, '.tasks.countLabel'
     'click .collapseStory': collapseStory = ->
-      @$('.detail.selected').animate height:'hide', 'fast', =>
+      @$('.detail.selected').animate height:'hide', 'slow', =>
         @$el.toggleClass 'selected', false
         @$('.countLabel a.selected').toggleClass 'selected', false
       @options.expandedSection = undefined

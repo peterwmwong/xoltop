@@ -13,7 +13,7 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(Test
             return TasksSection;
         }
       }).call(this);
-      return "<div class='header'>\n  <div>\n    <div class='storyID'>\n      <div class='id badge " + statusColor + "'>\n        " + this.model.storynum + "\n      </div>\n    </div>\n    " + (R([['tests', [ats.failing, ats.unwritten]], ['tasks', [tasks.needsAttn, tasks.retest]]], function(_arg) {
+      return "<div class='header'>\n  <div>\n    <div class='storyID'>\n      <div class='id badge " + statusColor + "'>\n        " + this.model.storynum + "\n      </div>\n    </div>\n    <div class='name'>\n      <div><a href='#'>" + this.model.name + "</a></div>\n    </div>\n    " + (R([['tests', [ats.failing, ats.unwritten]], ['tasks', [tasks.needsAttn, tasks.retest]]], function(_arg) {
         var label, red, yellow, _ref2;
         label = _arg[0], _ref2 = _arg[1], red = _ref2[0], yellow = _ref2[1];
         return "      <div class='" + label + " countLabel'>        <div><a href='#'>" + (label.toUpperCase()) + "</a></div>      </div>      <div class='countBadges'>      " + (R([['red', red], ['yellow', yellow]], __bind(function(_arg2) {
@@ -21,7 +21,7 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(Test
           color = _arg2[0], count = _arg2[1];
           return count !== 0 && ("<a class='badge " + color + " count'>" + count + "</a>");
         }, this))) + "               </div>    ";
-      })) + "\n    <div class='name'>\n      <div><a href='#'>" + this.model.name + "</a></div>\n    </div>\n    <div class='collapseStory'>\n      <div class='triangle'></div>\n      <div class='rect'></div>\n    </div>\n  </div>\n</div>\n<div class='details'>\n  " + (R((initExpandedSection != null) && R.cell(initExpandedSection, {
+      })) + "\n    <div class='collapseStory'>\n      <div class='triangle'></div>\n      <div class='rect'></div>\n    </div>\n  </div>\n</div>\n<div class='details'>\n  " + (R((initExpandedSection != null) && R.cell(initExpandedSection, {
         "class": 'detail',
         storynum: this.model.storynum
       }))) + "\n</div>";
@@ -74,7 +74,7 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(Test
         'click .collapseStory': collapseStory = function() {
           this.$('.detail.selected').animate({
             height: 'hide'
-          }, 'fast', __bind(function() {
+          }, 'slow', __bind(function() {
             this.$el.toggleClass('selected', false);
             return this.$('.countLabel a.selected').toggleClass('selected', false);
           }, this));

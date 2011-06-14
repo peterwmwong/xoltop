@@ -8,10 +8,20 @@ define ['data/DashboardService','cell!./DashboardStory'], (DashboardService,Dash
             <div class='iterLabel'>ITERATION</div>
           </div>
           <div class='failingTests'>
-            <div class='iconLabel'>
-              <div class='icon'>x</div>
-              <div class='label'>FAILING</div>
-            </div>
+            <div class='icon'>FAILING</div>
+            <div class='label'>&nbsp;</div>
+          </div>
+          <div class='ATCount'>
+            <div class='count'>180</div>
+            <div class='label'>AT</div>
+          </div>
+          <div class='UnitCount'>
+            <div class='count'>50</div>
+            <div class='label'>UNIT</div>
+          </div>
+          <div class='SmallCount'>
+            <div class='count allPassing'>0</div>
+            <div class='label'>SMALL</div>
           </div>
         </div>
         #{R sums, (story)-> R.cell DashboardStory, model:story}

@@ -18,13 +18,13 @@ triUpShape(borderSize = 10px, borderColor = #555)
   z-index 2 
 
 
-triUp(size=8px,fgcolor,bordercolor,t=0px,r=0px,b=0px,l=0px)
+triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
   &:before
     abspos t r b l
     triUpShape size bordercolor
 
   &:after
-    abspos (t + 1px) r b l
+    abspos (t + offset) r b l
     triUpShape size fgcolor
 
 .DashboardStory
@@ -35,7 +35,11 @@ triUp(size=8px,fgcolor,bordercolor,t=0px,r=0px,b=0px,l=0px)
   padding-top 2px
   gradient lighten(#333,20%), #333
 
+  &:hover
+    gradient lighten(#333,35%), lighten(#333,35%)
+
   &.selected
+    gradient lighten(#333,40%), lighten(#333,40%)
     border-top 2px solid #579
     > .header > div > .name > div > a
       color text-color
@@ -43,17 +47,19 @@ triUp(size=8px,fgcolor,bordercolor,t=0px,r=0px,b=0px,l=0px)
       text-shadow 0px -1px 0px #222
 
     > .header > div > .collapseStory
+      width 36px
       .triangle, .rect
-        display block
+        opacity 1.0
 
     > .details
       display block
 
 
+
   .badge
     bgout(color)
       background-color color
-      text-outline darken(color,30%) 1px
+      text-shadow 0px -1px 0px rgba(0,0,0,.5)
 
     &.gray
       bgout badge-gray
@@ -91,6 +97,7 @@ triUp(size=8px,fgcolor,bordercolor,t=0px,r=0px,b=0px,l=0px)
     height 40px
     position relative
     display table
+    table-layout fixed
 
     a
       color #FFF
@@ -110,27 +117,34 @@ triUp(size=8px,fgcolor,bordercolor,t=0px,r=0px,b=0px,l=0px)
         vertical-align middle
 
       > .storyID
-        width 75px
+        width 90px
         position relative
         text-align center
-        padding 0 10px 0 8px
+        padding 0 10px 1px 8px
 
         > .id
+          box-shadow inset 0px 1px 1px rgba(0,0,0,.6)
           display inline-block
           font-weight bold
           border-radius 3px
           border none
           font-size 20px
-          padding 2px 5px 2px 5px
+          padding 3px 5px 2px 5px
+          color darken(text-color,5%)
 
       > .countLabel
-        width 20px
+        width 50px
         > div
           margin 0 3px 2px 0
           > a
-            font-size 9px
-            color text-color-dark
+            text-shadow 0px -1px 0px rgba(0,0,0,.5)
+            font-size 11px
+            font-weight bold
+            color text-disabled-color
             padding 4px 5px 4px 5px
+            &:hover
+              color text-color-dark
+              text-decoration none
 
             &.selected
               color text-color
@@ -138,41 +152,61 @@ triUp(size=8px,fgcolor,bordercolor,t=0px,r=0px,b=0px,l=0px)
               border-radius 4px
               box-shadow inset 0px 1px 2px rgba(#000,.5)
               background-color rgba(#000,.3)
+              padding 7px 45px 6px 8px
               position relative
-              triUp(5px,shadow-color - rgb(5,5,5),shadow-color - rgb(5,5,5),18px,0px,0px,13px)
+              triColor = shadow-color - rgb(5,5,5)
+              triUp(8px,triColor + rgb(2,2,2),triColor,3px,21px,0px,0px,34px)
 
       > .countBadges
-        width 40px
+        width 45px
         > a
+          box-shadow inset 0px 1px 1px rgba(0,0,0,.6)
+          text-shadow 0px -1px 0px rgba(0,0,0,.3)
           font-size 12px
           font-weight bold
-          margin-right 1px
-          padding 0px 2px 0px 2px
+          margin-right 2px
+          padding 2px 4px 1px 4px
+          line-height 20px
           border-radius 3px
 
       > .name
         > div
-          padding-top 3px
+          padding 0px 10px 2px 0 
+          overflow hidden
+          white-space nowrap
+          text-overflow ellipsis
+
           > a
-            color text-color-dark
+            color text-disabled-color
+            font-size 15px
+            font-weight bold
+            line-height 45px
+            text-shadow 0px -1px 0px rgba(0,0,0,.5)
 
       > .collapseStory
-        width 30px
-        iconColor = #222
+        transition width 150ms ease-in
+        width 10px
+        
+        iconColor = darken(text-disabled-color,30%)
+        iconColor-light = text-color-dark
+        &:hover
+          > .rect
+            background-color iconColor-light
+          > .triangle
+            triUp(7px,iconColor-light,iconColor-light,0px,8px,0px,0px,0px)
+        
+        > .rect, > .triangle
+          opacity 0.0
+          transition opacity 150ms ease-in
+
         > .rect
-          display none
-          abspos 0px 0px 0px false
-          width 30px
-          &:before
-            content ""
-            abspos 25px 16px false false
-            width 14px
-            height 2px
-            background-color iconColor
+          abspos 26px 16px false false
+          background-color iconColor
+          width 14px
+          height 3px
 
         > .triangle
-          display none
-          abspos 0px 0px 0px false
+          abspos 1px 0px 0px false
           width 30px
-          triUp(7px,iconColor,iconColor,8px,0px,0px,0px)
+          triUp(7px,iconColor,iconColor,0px,8px,0px,0px,0px)
 
