@@ -1,0 +1,3 @@
+define({
+  failures: 2
+});

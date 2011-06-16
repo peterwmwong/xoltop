@@ -1,4 +1,13 @@
 define ['data/DashboardService','cell!./DashboardStory'], (DashboardService,DashboardStory)->
+  
+  CountLabel = cell.extend
+    render: (R,A)->
+      DashboardService.getTestStatus (data)=>
+        A """
+          <div class='count'>#{data[@options.countProp]}</div>
+          <div class='label'>#{@options.label}</div>
+          """
+
   render: (R,A)->
     DashboardService.getStorySummaries (sums)->
       A """
@@ -8,21 +17,21 @@ define ['data/DashboardService','cell!./DashboardStory'], (DashboardService,Dash
             <div class='iterLabel'>ITERATION</div>
           </div>
           <div class='failingTests'>
-            <div class='icon'>FAILING</div>
+            <div class='icon'><div>FAILING<div>TESTS</div></div></div>
             <div class='label'>&nbsp;</div>
           </div>
-          <div class='ATCount'>
-            <div class='count'>180</div>
-            <div class='label'>AT</div>
-          </div>
-          <div class='UnitCount'>
-            <div class='count'>50</div>
-            <div class='label'>UNIT</div>
-          </div>
-          <div class='SmallCount'>
-            <div class='count allPassing'>0</div>
-            <div class='label'>SMALL</div>
-          </div>
+          #{R.cell CountLabel,
+              class:'ATCount'
+              label: 'AT'
+              countProp: 'failingATs'}
+          #{R.cell CountLabel,
+              class:'UnitCount'
+              label: 'UNIT'
+              countProp: 'failingUnits'}
+          #{R.cell CountLabel,
+              class:'SmallCount'
+              label: 'SMALL'
+              countProp: 'failingSmalls'}
         </div>
         #{R sums, (story)-> R.cell DashboardStory, model:story}
         """
