@@ -54,6 +54,7 @@ define(['data/JSONP'], function(jsonp) {
             for (_i = 0, _len = _ref.length; _i < _len; _i++) {
               s = _ref[_i].story;
               story = {
+                codeCompletePct: s.codeCompletePct,
                 type: 'story',
                 ats: {
                   failing: s.failingATs,

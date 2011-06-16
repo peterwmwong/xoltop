@@ -117,10 +117,10 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
         vertical-align middle
 
       > .storyID
-        width 90px
+        width 85px
         position relative
         text-align center
-        padding 0 10px 1px 8px
+        padding 0 0 1px 0
 
         > .id
           box-shadow inset 0px 1px 1px rgba(0,0,0,.6)
@@ -132,14 +132,26 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
           padding 3px 5px 2px 5px
           color darken(text-color,5%)
 
+      > .code
+        &.countLabel
+          width 43px
+
+        &.countBadges
+          .pct
+            text-shadow none
+            vertical-align middle
+            font-size 8px
+            padding-left 1px
+            color text-color-dark
+
       > .countLabel
-        width 50px
+        width 47px
         > div
-          margin 0 3px 2px 0
+          margin 0 0 2px 0
           > a
             text-shadow 0px -1px 0px rgba(0,0,0,.5)
-            font-size 11px
-            font-weight bold
+            font-size 10px
+            //font-weight bold
             color text-disabled-color
             padding 4px 5px 4px 5px
             &:hover
@@ -152,7 +164,7 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
               border-radius 4px
               box-shadow inset 0px 1px 2px rgba(#000,.5)
               background-color rgba(#000,.3)
-              padding 7px 45px 6px 8px
+              padding 7px 44px 6px 6px
               position relative
               triColor = shadow-color - rgb(5,5,5)
               triUp(8px,triColor + rgb(2,2,2),triColor,3px,21px,0px,0px,34px)
@@ -161,7 +173,7 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
         width 45px
         > a
           box-shadow inset 0px 1px 1px rgba(0,0,0,.6)
-          text-shadow 0px -1px 0px rgba(0,0,0,.3)
+          text-shadow 0px 0px 1px #000
           font-size 12px
           font-weight bold
           margin-right 2px
@@ -175,6 +187,18 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
           overflow hidden
           white-space nowrap
           text-overflow ellipsis
+
+          > .chumps
+            display inline-block
+            text-shadow 0px -1px 0px rgba(0,0,0,.5)
+            min-width 40px
+            padding-right 5px
+            color text-disabled-color
+            font-size 10px
+
+            > .divider
+              padding 0 1px 0 1px
+              color #555
 
           > a
             color text-disabled-color

@@ -1,5 +1,15 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(TestsSection, TasksSection) {
+  var getCodeCompleteColor;
+  getCodeCompleteColor = function(pct) {
+    if (pct < 50) {
+      return 'red';
+    } else if ((50 < pct && pct < 100)) {
+      return 'yellow';
+    } else {
+      return 'green';
+    }
+  };
   return {
     render: function(R) {
       var ats, initExpandedSection, statusColor, tasks, _ref;
@@ -13,7 +23,8 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(Test
             return TasksSection;
         }
       }).call(this);
-      return "<div class='header'>\n  <div>\n    <div class='storyID'>\n      <div class='id badge " + statusColor + "'>\n        " + this.model.storynum + "\n      </div>\n    </div>\n    <div class='name'>\n      <div><a href='#'>" + this.model.name + "</a></div>\n    </div>\n    " + (R([['tests', [ats.failing, ats.unwritten]], ['tasks', [tasks.needsAttn, tasks.retest]]], function(_arg) {
+      console.log(this.model);
+      return "<div class='header'>\n  <div>\n    <div class='storyID'>\n      <div class='id badge " + statusColor + "'>\n        " + this.model.storynum + "\n      </div>\n    </div>\n    <div class='name'>\n      <div>\n        <span class='chumps'>" + (this.model.devs.concat(this.model.testers).join("<span class='divider'>&nbsp;</span>")) + "</span>\n        <a href='#'>" + this.model.name + "</a>\n      </div>\n    </div>\n    <div class='countLabel code'>\n      <div><a href='#'>CODE</a></div>\n    </div>\n    <div class='countBadges code'>\n      <a class='badge " + (getCodeCompleteColor(this.model.codeCompletePct)) + " count'>\n        " + (Math.floor(this.model.codeCompletePct)) + "<span class='pct'>%</span>\n      </a>\n    </div>\n    " + (R([['tests', [ats.failing, ats.unwritten]], ['tasks', [tasks.needsAttn, tasks.retest]]], function(_arg) {
         var label, red, yellow, _ref2;
         label = _arg[0], _ref2 = _arg[1], red = _ref2[0], yellow = _ref2[1];
         return "      <div class='" + label + " countLabel'>        <div><a href='#'>" + (label.toUpperCase()) + "</a></div>      </div>      <div class='countBadges'>      " + (R([['red', red], ['yellow', yellow]], __bind(function(_arg2) {

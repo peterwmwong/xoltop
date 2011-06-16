@@ -43,6 +43,7 @@ define ['data/JSONP'],(jsonp)->
         (stories)->
           done do-> for {story:s} in stories.sort( ({story:a},{story:b})->a.num-b.num )
             story =
+              codeCompletePct: s.codeCompletePct
               type: 'story'
               ats:
                 failing: s.failingATs

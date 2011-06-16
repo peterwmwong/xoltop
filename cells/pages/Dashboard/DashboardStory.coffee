@@ -1,4 +1,11 @@
 define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection, TasksSection)->
+
+  getCodeCompleteColor = (pct)->
+    if pct < 50 then 'red'
+    else if 50 < pct < 100 then 'yellow'
+    else 'green'
+
+
   render: (R)->
     {ats,tasks} = @model
 
@@ -19,6 +26,8 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
         when 'TestsSection' then TestsSection
         when 'TasksSection' then TasksSection
 
+    console.log @model
+
     """
     <div class='header'>
       <div>
@@ -28,7 +37,18 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
           </div>
         </div>
         <div class='name'>
-          <div><a href='#'>#{@model.name}</a></div>
+          <div>
+            <span class='chumps'>#{@model.devs.concat(@model.testers).join "<span class='divider'>&nbsp;</span>"}</span>
+            <a href='#'>#{@model.name}</a>
+          </div>
+        </div>
+        <div class='countLabel code'>
+          <div><a href='#'>CODE</a></div>
+        </div>
+        <div class='countBadges code'>
+          <a class='badge #{getCodeCompleteColor @model.codeCompletePct} count'>
+            #{Math.floor @model.codeCompletePct}<span class='pct'>%</span>
+          </a>
         </div>
         #{R [['tests',[ats.failing, ats.unwritten]],['tasks',[tasks.needsAttn, tasks.retest]]], ([label,[red,yellow]])->"
           <div class='#{label} countLabel'>
