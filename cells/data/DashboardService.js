@@ -1,14 +1,15 @@
 define(['data/JSONP'], function(jsonp) {
-  var TESTING, get, xptoolurl;
-  TESTING = true;
+  var get, xptoolurl;
   xptoolurl = function(path) {
     return "http://172.16.19.63:69/xptool/rest/jumbotron/" + path;
   };
   get = function(testpath, url, done) {
-    if (TESTING) {
+    var TESTING;
+    if (TESTING = true) {
       require([testpath], done);
     } else {
       jsonp({
+        callback: 'jsonp',
         url: url,
         success: done
       });
@@ -26,13 +27,16 @@ define(['data/JSONP'], function(jsonp) {
       return get('data/MockDashboardService-getTestStatus', xptoolurl("testsnapshot"), function(_arg) {
         var tests;
         tests = _arg.tests;
-        return get('data/MockDashboardService-getTestStatus-smallTests', "http://HUDSON-URL", function(_arg2) {
-          var failures;
-          failures = _arg2.failures;
-          tests.failingSmalls = failures;
+        return get('data/MockDashboardService-getTestStatus-smallTests', "http://build-linux-01.fdr.follett.com:8080/ci/view/Destiny/job/destiny-small-tests/lastCompletedBuild/testReport/api/json", function(_arg2) {
+          var failCount;
+          failCount = _arg2.failCount;
+          tests.failingSmalls = failCount;
           return done(tests);
         });
       });
+    },
+    getStoryCodeTasksDetails: function(storynum, done) {
+      return get('data/MockDashboardService-getStoryCodeTasksDetail', xptoolurl("iteration/stories/" + storynum + "/codetasks"), done);
     },
     getStoryTasksDetails: function(storynum, done) {
       return get('data/MockDashboardService-getStoryTasksDetail', xptoolurl("iteration/stories/" + storynum + "/tasks"), done);

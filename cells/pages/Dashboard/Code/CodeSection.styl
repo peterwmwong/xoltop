@@ -1,0 +1,38 @@
+@import 'mixins/pos';
+@import 'mixins/badge';
+@import 'mixins/box';
+@import 'mixins/border';
+@import 'mixins/colors';
+
+.CodeSection
+  > .CatTable > table
+    table-layout fixed
+
+  > .CatTable > table > tbody > tr
+    > .category
+      text-align left
+      amt = .25
+      lamt = 90%
+      &.notStarted
+        background-color rgba(badge-red,amt)
+        color lighten(badge-red,lamt)
+
+      &.inProgress
+        background-color rgba(badge-yellow,amt)
+        color lighten(badge-yellow,lamt - 10%)
+
+      &.complete
+        background-color rgba(badge-green,amt)
+        color lighten(badge-green,lamt - 10%)
+
+    > .column
+      vertical-align middle
+
+      &.description
+        width 100%
+        padding 0 0 0 10px
+
+      &.owner
+        text-align center
+        width 80px
+        min-width 80px

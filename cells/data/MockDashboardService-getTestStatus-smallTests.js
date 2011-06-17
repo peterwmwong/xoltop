@@ -1,3 +1,3 @@
 define({
-  failures: 2
+  failCount:0 
 });

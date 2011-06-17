@@ -1,15 +1,14 @@
 define ['data/JSONP'],(jsonp)->
-  TESTING = true
-
   xptoolurl = (path)->
     "http://172.16.19.63:69/xptool/rest/jumbotron/#{path}"
 
   get = (testpath,url,done)->
-    if TESTING
+    if TESTING = true
       require [testpath], done
     else
       jsonp
         #url: 'http://destinyxptool/xptool/rest/jumbotron/iteration/'+path
+        callback: 'jsonp'
         url: url
         success: done
     return
@@ -24,11 +23,15 @@ define ['data/JSONP'],(jsonp)->
       xptoolurl "testsnapshot"
       ({tests})->
         get 'data/MockDashboardService-getTestStatus-smallTests',
-          "http://HUDSON-URL"
-          ({failures})->
-            tests.failingSmalls = failures
+          "http://build-linux-01.fdr.follett.com:8080/ci/view/Destiny/job/destiny-small-tests/lastCompletedBuild/testReport/api/json"
+          ({failCount})->
+            tests.failingSmalls = failCount
             done tests
 
+  getStoryCodeTasksDetails: (storynum,done)->
+    get 'data/MockDashboardService-getStoryCodeTasksDetail',
+      xptoolurl "iteration/stories/#{storynum}/codetasks"
+      done
 
   getStoryTasksDetails: (storynum,done)->
     get 'data/MockDashboardService-getStoryTasksDetail',

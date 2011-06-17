@@ -2,16 +2,16 @@
 .DashboardStory:hover{background:#464646;background:-moz-linear-gradient(top,#454545 0%,#454545 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#454545),color-stop(100%,#454545));filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#454545', endColorstr='#454545',GradientType=0 )}
 .DashboardStory.selected{background:#484848;background:-moz-linear-gradient(top,#474747 0%,#474747 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#474747),color-stop(100%,#474747));filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#474747', endColorstr='#474747',GradientType=0 );border-top:2px solid #579;}
 .DashboardStory.selected > .header > div > .name > div > a{color:#fff;font-weight:bold;text-shadow:0 -1px 0 #222}
-.DashboardStory.selected > .header > div > .collapseStory{width:36px;}
+.DashboardStory.selected > .header > div > .collapseStory{width:30px;}
 .DashboardStory.selected > .header > div > .collapseStory .triangle,.DashboardStory.selected > .header > div > .collapseStory .rect{opacity:1}
 .DashboardStory.selected > .details{display:block}
-.DashboardStory .badge.gray{background-color:#222;text-shadow:0 -1px 0 rgba(0,0,0,0.5)}
-.DashboardStory .badge.red{background-color:#932c2c;text-shadow:0 -1px 0 rgba(0,0,0,0.5)}
-.DashboardStory .badge.green{background-color:#4f6e20;text-shadow:0 -1px 0 rgba(0,0,0,0.5)}
-.DashboardStory .badge.yellow{background-color:#846828;text-shadow:0 -1px 0 rgba(0,0,0,0.5)}
+.DashboardStory .badge.gray{background-color:#1f1f1f;text-shadow:0 -1px 0 rgba(0,0,0,0.5)}
+.DashboardStory .badge.red{background-color:#7f2d2d;text-shadow:0 -1px 0 rgba(0,0,0,0.5)}
+.DashboardStory .badge.green{background-color:#3e5320;text-shadow:0 -1px 0 rgba(0,0,0,0.5)}
+.DashboardStory .badge.yellow{background-color:#624e22;text-shadow:0 -1px 0 rgba(0,0,0,0.5)}
 .DashboardStory > .details{background-color:#222;display:none;padding:10px;position:relative;overflow:hidden;z-index:1;}
 .DashboardStory > .details:before{content:"";position:absolute;top:0;right:-5px;bottom:0;left:-5px;-webkit-box-shadow:inset 0 0 7px #111;-moz-box-shadow:inset 0 0 7px #111;box-shadow:inset 0 0 7px #111;background-color:#222;z-index:-1}
-.DashboardStory > .details > .detail{display:none}
+.DashboardStory > .details > .detail{display:none;z-index:-1}
 .DashboardStory > .header{-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;width:100%;height:40px;position:relative;display:table;table-layout:fixed;}
 .DashboardStory > .header a{color:#fff;text-decoration:none;position:relative;}
 .DashboardStory > .header a:hover{text-decoration:underline;position:relative}
@@ -25,21 +25,24 @@
 .DashboardStory > .header > div > .countLabel > div{margin:0 0 2px 0;}
 .DashboardStory > .header > div > .countLabel > div > a{text-shadow:0 -1px 0 rgba(0,0,0,0.5);font-size:10px;color:#999;padding:4px 5px 4px 5px;}
 .DashboardStory > .header > div > .countLabel > div > a:hover{color:#ddd;text-decoration:none}
-.DashboardStory > .header > div > .countLabel > div > a.selected{color:#fff;font-weight:bold;-moz-border-radius-topleft:4px;-moz-border-radius-topright:4px;-moz-border-radius-bottomright:4px;-moz-border-radius-bottomleft:4px;border-top-left-radius:4px;border-top-right-radius:4px;border-bottom-right-radius:4px;border-bottom-left-radius:4px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.5);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,0.5);box-shadow:inset 0 1px 2px rgba(0,0,0,0.5);background-color:rgba(0,0,0,0.3);padding:7px 44px 6px 6px;position:relative;}
+.DashboardStory > .header > div > .countLabel > div > a.selected{color:#fff;font-weight:bold;-moz-border-radius-topleft:4px;-moz-border-radius-topright:4px;-moz-border-radius-bottomright:4px;-moz-border-radius-bottomleft:4px;border-top-left-radius:4px;border-top-right-radius:4px;border-bottom-right-radius:4px;border-bottom-left-radius:4px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.5);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,0.5);box-shadow:inset 0 1px 2px rgba(0,0,0,0.5);background-color:rgba(0,0,0,0.3);padding:7px 46px 6px 6px;position:relative;}
 .DashboardStory > .header > div > .countLabel > div > a.selected:before{position:absolute;top:21px;right:0;bottom:0;left:34px;content:"";display:block;border-color:transparent transparent #1d1d1d transparent;border-style:solid;border-width:8px;height:0;width:0;z-index:2}
 .DashboardStory > .header > div > .countLabel > div > a.selected:after{position:absolute;top:24px;right:0;bottom:0;left:34px;content:"";display:block;border-color:transparent transparent #1f1f1f transparent;border-style:solid;border-width:8px;height:0;width:0;z-index:2}
 .DashboardStory > .header > div > .countBadges{width:45px;}
 .DashboardStory > .header > div > .countBadges > a{-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.6);-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,0.6);box-shadow:inset 0 1px 1px rgba(0,0,0,0.6);text-shadow:0 0 1px #000;font-size:12px;font-weight:bold;margin-right:2px;padding:2px 4px 1px 4px;line-height:20px;-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px}
-.DashboardStory > .header > div > .name > div{padding:0 10px 2px 0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
-.DashboardStory > .header > div > .name > div > .chumps{display:inline-block;text-shadow:0 -1px 0 rgba(0,0,0,0.5);min-width:40px;padding-right:5px;color:#999;font-size:10px;}
-.DashboardStory > .header > div > .name > div > .chumps > .divider{padding:0 1px 0 1px;color:#555}
-.DashboardStory > .header > div > .name > div > a{color:#999;font-size:15px;font-weight:bold;line-height:45px;text-shadow:0 -1px 0 rgba(0,0,0,0.5)}
-.DashboardStory > .header > div > .collapseStory{-webkit-transition:width 150ms ease-in;-moz-transition:width 150ms ease-in;-o-transition:width 150ms ease-in;transition:width 150ms ease-in;width:10px;}
-.DashboardStory > .header > div > .collapseStory:hover > .rect{background-color:#ddd}
-.DashboardStory > .header > div > .collapseStory:hover > .triangle:before{position:absolute;top:8px;right:0;bottom:0;left:0;content:"";display:block;border-color:transparent transparent #ddd transparent;border-style:solid;border-width:7px;height:0;width:0;z-index:2}
-.DashboardStory > .header > div > .collapseStory:hover > .triangle:after{position:absolute;top:8px;right:0;bottom:0;left:0;content:"";display:block;border-color:transparent transparent #ddd transparent;border-style:solid;border-width:7px;height:0;width:0;z-index:2}
-.DashboardStory > .header > div > .collapseStory > .rect,.DashboardStory > .header > div > .collapseStory > .triangle{opacity:0;-webkit-transition:opacity 150ms ease-in;-moz-transition:opacity 150ms ease-in;-o-transition:opacity 150ms ease-in;transition:opacity 150ms ease-in}
-.DashboardStory > .header > div > .collapseStory > .rect{position:absolute;top:26px;right:16px;background-color:#6b6b6b;width:14px;height:3px}
-.DashboardStory > .header > div > .collapseStory > .triangle{position:absolute;top:1px;right:0;bottom:0;width:30px;}
-.DashboardStory > .header > div > .collapseStory > .triangle:before{position:absolute;top:8px;right:0;bottom:0;left:0;content:"";display:block;border-color:transparent transparent #6b6b6b transparent;border-style:solid;border-width:7px;height:0;width:0;z-index:2}
-.DashboardStory > .header > div > .collapseStory > .triangle:after{position:absolute;top:8px;right:0;bottom:0;left:0;content:"";display:block;border-color:transparent transparent #6b6b6b transparent;border-style:solid;border-width:7px;height:0;width:0;z-index:2}
+.DashboardStory > .header > div > .name{position:relative;}
+.DashboardStory > .header > div > .name > div{width:100%;display:inline-block;padding:0 10px 2px 0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.DashboardStory > .header > div > .name > div > a{color:#999;font-size:15px;font-weight:bold;line-height:45px;text-shadow:0 -1px 0 rgba(0,0,0,0.5);}
+.DashboardStory > .header > div > .name > div > a:hover{text-decoration:none}
+.DashboardStory > .header > div > .chumps{width:70px;text-shadow:0 -1px 0 rgba(0,0,0,0.5);color:#999;font-size:10px;padding-right:10px;text-align:right;}
+.DashboardStory > .header > div > .chumps > .divider{padding:0 1px 0 1px;color:#555}
+.DashboardStory > .header > div > .collapseStory{-webkit-transition:width 150ms ease-in;-moz-transition:width 150ms ease-in;-o-transition:width 150ms ease-in;transition:width 150ms ease-in;width:0;}
+.DashboardStory > .header > div > .collapseStory > div{position:relative;height:100%;}
+.DashboardStory > .header > div > .collapseStory > div:hover > .rect{background-color:#ddd}
+.DashboardStory > .header > div > .collapseStory > div:hover > .triangle:before{position:absolute;top:8px;right:0;bottom:0;left:12px;content:"";display:block;border-color:transparent transparent #ddd transparent;border-style:solid;border-width:7px;height:0;width:0;z-index:2}
+.DashboardStory > .header > div > .collapseStory > div:hover > .triangle:after{position:absolute;top:8px;right:0;bottom:0;left:12px;content:"";display:block;border-color:transparent transparent #ddd transparent;border-style:solid;border-width:7px;height:0;width:0;z-index:2}
+.DashboardStory > .header > div > .collapseStory > div > .rect,.DashboardStory > .header > div > .collapseStory > div > .triangle{opacity:0;-webkit-transition:opacity 150ms ease-in;-moz-transition:opacity 150ms ease-in;-o-transition:opacity 150ms ease-in;transition:opacity 150ms ease-in}
+.DashboardStory > .header > div > .collapseStory > div > .rect{position:absolute;top:26px;left:12px;background-color:#6b6b6b;width:14px;height:3px}
+.DashboardStory > .header > div > .collapseStory > div > .triangle{position:absolute;top:1px;right:0;bottom:0;width:30px;}
+.DashboardStory > .header > div > .collapseStory > div > .triangle:before{position:absolute;top:8px;right:0;bottom:0;left:12px;content:"";display:block;border-color:transparent transparent #6b6b6b transparent;border-style:solid;border-width:7px;height:0;width:0;z-index:2}
+.DashboardStory > .header > div > .collapseStory > div > .triangle:after{position:absolute;top:8px;right:0;bottom:0;left:12px;content:"";display:block;border-color:transparent transparent #6b6b6b transparent;border-style:solid;border-width:7px;height:0;width:0;z-index:2}

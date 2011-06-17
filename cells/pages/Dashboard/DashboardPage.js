@@ -4,7 +4,8 @@ define(['data/DashboardService', 'cell!./DashboardStory'], function(DashboardSer
   CountLabel = cell.extend({
     render: function(R, A) {
       return DashboardService.getTestStatus(__bind(function(data) {
-        return A("<div class='count'>" + data[this.options.countProp] + "</div>\n<div class='label'>" + this.options.label + "</div>");
+        var count;
+        return A("<div class='count " + (R(!(count = data[this.options.countProp]) && "passing")) + "'>" + count + "</div>\n<div class='label'>" + this.options.label + "</div>");
       }, this));
     }
   });

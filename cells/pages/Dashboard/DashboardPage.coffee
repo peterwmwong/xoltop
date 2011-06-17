@@ -4,7 +4,7 @@ define ['data/DashboardService','cell!./DashboardStory'], (DashboardService,Dash
     render: (R,A)->
       DashboardService.getTestStatus (data)=>
         A """
-          <div class='count'>#{data[@options.countProp]}</div>
+          <div class='count #{R not (count = data[@options.countProp]) and "passing"}'>#{count}</div>
           <div class='label'>#{@options.label}</div>
           """
 

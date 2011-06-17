@@ -1,10 +1,10 @@
-define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection, TasksSection)->
+define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection','cell!./Code/CodeSection'], (TestsSection, TasksSection,CodeSection)->
 
   getCodeCompleteColor = (pct)->
-    if pct < 50 then 'red'
+    if typeof pct != 'number' then 'gray'
+    else if pct < 50 then 'red'
     else if 50 < pct < 100 then 'yellow'
     else 'green'
-
 
   render: (R)->
     {ats,tasks} = @model
@@ -19,27 +19,19 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
         'green'
       else
         'gray'
-    
-    # Initially expanded section
-    initExpandedSection =
-      switch @options.expandedSection
-        when 'TestsSection' then TestsSection
-        when 'TasksSection' then TasksSection
-
-    console.log @model
 
     """
     <div class='header'>
       <div>
+        <div class='collapseStory'>
+          <div>
+            <div class='triangle'></div>
+            <div class='rect'></div>
+          </div>
+        </div>
         <div class='storyID'>
           <div class='id badge #{statusColor}'>
             #{@model.storynum}
-          </div>
-        </div>
-        <div class='name'>
-          <div>
-            <span class='chumps'>#{@model.devs.concat(@model.testers).join "<span class='divider'>&nbsp;</span>"}</span>
-            <a href='#'>#{@model.name}</a>
           </div>
         </div>
         <div class='countLabel code'>
@@ -47,7 +39,9 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
         </div>
         <div class='countBadges code'>
           <a class='badge #{getCodeCompleteColor @model.codeCompletePct} count'>
-            #{Math.floor @model.codeCompletePct}<span class='pct'>%</span>
+            #{R typeof @model.codeCompletePct == 'number' and "
+              #{Math.floor @model.codeCompletePct}<span class='pct'>%</span>
+            "}
           </a>
         </div>
         #{R [['tests',[ats.failing, ats.unwritten]],['tasks',[tasks.needsAttn, tasks.retest]]], ([label,[red,yellow]])->"
@@ -60,15 +54,17 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
           }         
           </div>
         "}
-        <div class='collapseStory'>
-          <div class='triangle'></div>
-          <div class='rect'></div>
+        <div class='name'>
+          <div>
+            <a href='#'>#{@model.name}</a>
+          </div>
+        </div>
+        <div class='chumps'>
+          #{R @model.devs?.concat(@model.testers).join "<span class='divider'>&nbsp;</span>"}
         </div>
       </div>
     </div>
-    <div class='details'>
-      #{R initExpandedSection? and R.cell initExpandedSection, class:'detail', storynum: @model.storynum}
-    </div>
+    <div class='details'></div>
     """
 
   bind: do->
@@ -84,33 +80,30 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection'], (TestsSection,
           @$('.countLabel a.selected').toggleClass 'selected', false
           $(ev.target).toggleClass 'selected', true
 
-          # hide all details
+          # hide current details
           @$('.detail.selected')
             .toggleClass('selected', false)
             .fadeOut()
          
-          # Load details for the first time
+          # Load new details for the first time
           if not ($detail = @$(".#{detail::name)}")[0]
             detailCell = new detail
               class:'detail selected'
               storynum: @model.storynum
-            @$('.details').append detailCell.el
+            @$('.details').prepend detailCell.el
             detailCell.ready ->
-              if alreadySelected
-                detailCell.$el.fadeIn()
-              else
-                detailCell.$el.animate height:'show', 'slow'
+              detailCell.$el.fadeIn()
 
+          # Show already loaded details
           else
-            # Show already loaded details
-            $detail.toggleClass('selected', true)
-            if alreadySelected
-              $detail.fadeIn()
-            else
-              $detail.animate height:'show', 'slow'
+            $detail
+              .prependTo($detail.parent())
+              .toggleClass('selected', true)
+              .fadeIn()
 
-    'click .tests.countLabel a': selectDetail TestsSection, '.tests.countLabel'
-    'click .tasks.countLabel a': selectDetail TasksSection, '.tasks.countLabel'
+    'click .tests.countLabel a': selectDetail TestsSection
+    'click .tasks.countLabel a': selectDetail TasksSection
+    'click .code.countLabel a': selectDetail CodeSection
     'click .collapseStory': collapseStory = ->
       @$('.detail.selected').animate height:'hide', 'slow', =>
         @$el.toggleClass 'selected', false

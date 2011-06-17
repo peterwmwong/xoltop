@@ -1,8 +1,10 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(TestsSection, TasksSection) {
+define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection', 'cell!./Code/CodeSection'], function(TestsSection, TasksSection, CodeSection) {
   var getCodeCompleteColor;
   getCodeCompleteColor = function(pct) {
-    if (pct < 50) {
+    if (typeof pct !== 'number') {
+      return 'gray';
+    } else if (pct < 50) {
       return 'red';
     } else if ((50 < pct && pct < 100)) {
       return 'yellow';
@@ -12,19 +14,10 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(Test
   };
   return {
     render: function(R) {
-      var ats, initExpandedSection, statusColor, tasks, _ref;
+      var ats, statusColor, tasks, _ref, _ref2;
       _ref = this.model, ats = _ref.ats, tasks = _ref.tasks;
       statusColor = ats.failing + tasks.needsAttn ? 'red' : ats.unwritten + tasks.retest ? 'yellow' : ats.total + tasks.total ? 'green' : 'gray';
-      initExpandedSection = (function() {
-        switch (this.options.expandedSection) {
-          case 'TestsSection':
-            return TestsSection;
-          case 'TasksSection':
-            return TasksSection;
-        }
-      }).call(this);
-      console.log(this.model);
-      return "<div class='header'>\n  <div>\n    <div class='storyID'>\n      <div class='id badge " + statusColor + "'>\n        " + this.model.storynum + "\n      </div>\n    </div>\n    <div class='name'>\n      <div>\n        <span class='chumps'>" + (this.model.devs.concat(this.model.testers).join("<span class='divider'>&nbsp;</span>")) + "</span>\n        <a href='#'>" + this.model.name + "</a>\n      </div>\n    </div>\n    <div class='countLabel code'>\n      <div><a href='#'>CODE</a></div>\n    </div>\n    <div class='countBadges code'>\n      <a class='badge " + (getCodeCompleteColor(this.model.codeCompletePct)) + " count'>\n        " + (Math.floor(this.model.codeCompletePct)) + "<span class='pct'>%</span>\n      </a>\n    </div>\n    " + (R([['tests', [ats.failing, ats.unwritten]], ['tasks', [tasks.needsAttn, tasks.retest]]], function(_arg) {
+      return "<div class='header'>\n  <div>\n    <div class='collapseStory'>\n      <div>\n        <div class='triangle'></div>\n        <div class='rect'></div>\n      </div>\n    </div>\n    <div class='storyID'>\n      <div class='id badge " + statusColor + "'>\n        " + this.model.storynum + "\n      </div>\n    </div>\n    <div class='countLabel code'>\n      <div><a href='#'>CODE</a></div>\n    </div>\n    <div class='countBadges code'>\n      <a class='badge " + (getCodeCompleteColor(this.model.codeCompletePct)) + " count'>\n        " + (R(typeof this.model.codeCompletePct === 'number' && ("          " + (Math.floor(this.model.codeCompletePct)) + "<span class='pct'>%</span>        "))) + "\n      </a>\n    </div>\n    " + (R([['tests', [ats.failing, ats.unwritten]], ['tasks', [tasks.needsAttn, tasks.retest]]], function(_arg) {
         var label, red, yellow, _ref2;
         label = _arg[0], _ref2 = _arg[1], red = _ref2[0], yellow = _ref2[1];
         return "      <div class='" + label + " countLabel'>        <div><a href='#'>" + (label.toUpperCase()) + "</a></div>      </div>      <div class='countBadges'>      " + (R([['red', red], ['yellow', yellow]], __bind(function(_arg2) {
@@ -32,10 +25,7 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(Test
           color = _arg2[0], count = _arg2[1];
           return count !== 0 && ("<a class='badge " + color + " count'>" + count + "</a>");
         }, this))) + "               </div>    ";
-      })) + "\n    <div class='collapseStory'>\n      <div class='triangle'></div>\n      <div class='rect'></div>\n    </div>\n  </div>\n</div>\n<div class='details'>\n  " + (R((initExpandedSection != null) && R.cell(initExpandedSection, {
-        "class": 'detail',
-        storynum: this.model.storynum
-      }))) + "\n</div>";
+      })) + "\n    <div class='name'>\n      <div>\n        <a href='#'>" + this.model.name + "</a>\n      </div>\n    </div>\n    <div class='chumps'>\n      " + (R((_ref2 = this.model.devs) != null ? _ref2.concat(this.model.testers).join("<span class='divider'>&nbsp;</span>") : void 0)) + "\n    </div>\n  </div>\n</div>\n<div class='details'></div>";
     },
     bind: (function() {
       var collapseStory, selectDetail;
@@ -56,32 +46,20 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection'], function(Test
                 "class": 'detail selected',
                 storynum: this.model.storynum
               });
-              this.$('.details').append(detailCell.el);
+              this.$('.details').prepend(detailCell.el);
               return detailCell.ready(function() {
-                if (alreadySelected) {
-                  return detailCell.$el.fadeIn();
-                } else {
-                  return detailCell.$el.animate({
-                    height: 'show'
-                  }, 'slow');
-                }
+                return detailCell.$el.fadeIn();
               });
             } else {
-              $detail.toggleClass('selected', true);
-              if (alreadySelected) {
-                return $detail.fadeIn();
-              } else {
-                return $detail.animate({
-                  height: 'show'
-                }, 'slow');
-              }
+              return $detail.prependTo($detail.parent()).toggleClass('selected', true).fadeIn();
             }
           }
         };
       };
       return {
-        'click .tests.countLabel a': selectDetail(TestsSection, '.tests.countLabel'),
-        'click .tasks.countLabel a': selectDetail(TasksSection, '.tasks.countLabel'),
+        'click .tests.countLabel a': selectDetail(TestsSection),
+        'click .tasks.countLabel a': selectDetail(TasksSection),
+        'click .code.countLabel a': selectDetail(CodeSection),
         'click .collapseStory': collapseStory = function() {
           this.$('.detail.selected').animate({
             height: 'hide'
