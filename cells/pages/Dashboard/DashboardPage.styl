@@ -28,7 +28,7 @@
     > *
       display inline-block
 
-    red = darken(desaturate(badge-red,20%),20%)
+    red = lighten(saturate(badge-red,0%),0%)
     > .iteration
       position relative
       width 70px
@@ -108,7 +108,7 @@
 
       > .count.passing
         color lighten(desaturate(badge-green,40%),100%)
-        background-color badge-green
+        background-color desaturate(badge-green,30%)
 
       > .count
         color lighten(badge-red,70%)
