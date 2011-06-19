@@ -4,6 +4,7 @@
 #===================================================================
 coffee = node_modules/.bin/coffee
 stylus = node_modules/.bin/stylus
+uglifyjs = node_modules/.bin/uglifyjs
 express = node_modules/express/package.json
 
 #-------------------------------------------------------------------
@@ -55,8 +56,11 @@ dev-mock-server: $(coffee) $(express)
 #-------------------------------------------------------------------
 # BUILD
 #------------------------------------------------------------------- 
-cells/bootstrap.js: cells/cell.js cells/cell-pluginBuilder.js
-	$(requirejsBuild) name=cell!App out=cells/bootstrap.js baseUrl=cells includeRequire=true
+cells/bootstrap.js: $(uglifyjs) cells/cell.js cells/cell-pluginBuilder.js
+	$(requirejsBuild) name=cell!App out=cells/bootstrap-tmp.js baseUrl=cells includeRequire=true
+	cat vendor/jquery.min.js cells/bootstrap-tmp.js | $(uglifyjs) > cells/bootstrap.js
+	cat vendor/reset.css cells/bootstrap-tmp.css > cells/bootstrap.css
+	rm cells/bootstrap-tmp.*
 
 #-------------------------------------------------------------------
 # Dependencies 
@@ -69,6 +73,9 @@ $(coffee):
 
 $(express):
 	npm install express
+
+$(uglifyjs):
+	npm install uglify-js
 
 #-------------------------------------------------------------------
 # TEST
