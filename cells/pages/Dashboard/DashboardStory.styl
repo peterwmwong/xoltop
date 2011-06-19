@@ -72,40 +72,6 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
     &.yellow
       bgout lighten(badge-yellow,0%)
 
-  .countBadge
-    padding 3px 2px 0px 2px
-    line-height 16px
-    display inline-block
-    width 35px
-    background-color lighten(#222,20%)
-    color color
-    text-align center
-    height 18px
-    box-shadow inset 0px 1px 1px rgba(0,0,0,.2)
-    border-radius 2px
-    font-size 13px
-    margin-right 2px
-    text-shadow 0px -1px 0px rgba(0,0,0,.3)
-
-    > span
-      &:first-child
-        padding 0 0 0 0
-
-      padding 0 0 0 6px
-
-    .gray
-      color badge-gray
-
-    .red
-      font-weight bold
-      color lighten(saturate(badge-red,40%),50%)
-
-    .green
-      color lighten(desaturate(badge-green,70%),10%)
-
-    .yellow
-      font-weight bold
-      color lighten(badge-yellow,30%)
 
   > .details
     background-color shadow-color
@@ -152,10 +118,10 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
         vertical-align middle
 
       > .storyID
-        width 85px
+        width 75px
         position relative
-        text-align center
-        padding 0 0 1px 0
+        text-align right
+        padding 0 4px 1px 0
 
         > .id
           box-shadow 0px 1px 1px rgba(0,0,0,.3)
@@ -167,47 +133,86 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
           padding 3px 5px 2px 5px
           color darken(text-color,5%)
 
-      > .code
-        &.countBadges
-          .pct
-            vertical-align middle
-            font-size 8px
-            padding-left 1px
-            opacity .75 
+      > .countCol
+        width 100px
 
-      > .countLabel
-        width 45px
+        &.code
+          > div
+            .countBadge
+              .pct
+                font-size 8px
+                padding-left 1px
+                line-height 10px
+                opacity .75
+                vertical-align middle
         > div
-          margin 0 0 2px 0
-          > a
+          margin-left 5px
+          position relative
+          background-color lighten(#222,30%)
+          border-radius 2px
+          box-shadow inset 0px 1px 1px rgba(0,0,0,.3)
+          padding 4px 0 3px 0
+
+          &.selected
+            background-color #222
+
+            > a
+              color text-color
+              font-weight bold
+              border-radius 4px
+              position relative
+              triColor = shadow-color - rgb(5,5,5)
+              triUp(8px,triColor + rgb(2,2,2),triColor,3px,19px,0px,0px,34px)
+
+          > a 
+            display inline-block
             text-shadow 0px -1px 0px rgba(0,0,0,.5)
             font-size 10px
-            color text-disabled-color
-            padding 4px 5px 4px 5px
+            line-height 19px
+            color rgba(text-disabled-color,.75)
+            padding 0px 0 0 8px
             &:hover
               color text-color-dark
               text-decoration none
 
-            &.selected
-              color text-color
-              font-weight bold
-              border-radius 4px
-              box-shadow inset 0px 1px 2px rgba(#000,.5)
-              background-color rgba(#000,.3)
-              padding 7px 46px 6px 6px
-              position relative
-              triColor = shadow-color - rgb(5,5,5)
-              triUp(8px,triColor + rgb(2,2,2),triColor,3px,21px,0px,0px,34px)
+          > .countBadge
+            float right
+            border-radius 2px
+            color color
+            display inline-block
+            font-size 14px
+            line-height 19px
+            padding 0px 4px 0px 4px
+            text-align center
+            text-shadow 0px -1px 0px rgba(0,0,0,.6)
+            width 35px
 
-      > .countBadges
-        width 45px
+            > span
+              &:first-child
+                padding 0 0 0 0
+
+              padding 0 0 0 6px
+
+            .gray
+              color badge-gray
+
+            .red
+              font-weight bold
+              color lighten(saturate(badge-red,40%),50%)
+
+            .green
+              color lighten(desaturate(badge-green,70%),10%)
+
+            .yellow
+              font-weight bold
+              color lighten(badge-yellow,30%)
 
       > .name
         position relative
         > div
           width 100%
           display inline-block
-          padding 0px 10px 2px 7px 
+          padding 0px 10px 2px 10px 
           overflow hidden
           white-space nowrap
           text-overflow ellipsis
@@ -236,7 +241,7 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
 
       > .collapseStory
         transition width 150ms ease-in
-        width 0px
+        width 2px
 
         > div
           position relative

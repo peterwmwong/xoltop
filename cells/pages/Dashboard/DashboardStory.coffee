@@ -34,31 +34,31 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection','cell!./Code/Cod
             #{@model.storynum}
           </div>
         </div>
-        <div class='countLabel code'>
-          <div><a href='#'>CODE</a></div>
-        </div>
-        <div class='countBadges code'>
-          <span class='countBadge count'>
-            <a class='#{getCodeCompleteColor codeCompletePct}'>
+        <div class='countCol code'>
+          <div>
+            <a href='#'>CODE</a>
+            <span class='countBadge'>
             #{R typeof codeCompletePct == 'number' and "
-              #{Math.floor codeCompletePct}<span class='pct'>%</span>
+              <span class='#{getCodeCompleteColor codeCompletePct}'>
+                #{Math.floor codeCompletePct}<span class='pct'>%</span>
+              </span>
             "}
-            </a>
-          </span>
+            </span>
+          </div>
         </div>
         #{R [['tests',[ats.failing, ats.unwritten, ats.total]],['tasks',[tasks.needsAttn, tasks.retest, tasks.total]]], ([label,[red,yellow,total]])->"
-          <div class='#{label} countLabel'>
-            <div><a href='#'>#{label.toUpperCase()}</a></div>
-          </div>
-          <div class='countBadges'>
-            <span class='countBadge count'>
-            #{
-            if red or yellow then R [['red',red],['yellow',yellow]], ([color,count])=>
-              R count != 0 and "<span class='#{color}'>#{count}</span>"
-            else
-              R "<span class='green'>#{total}</span>"
-            }
-            </span>
+          <div class='countCol #{label}'>
+            <div>
+              <a href='#'>#{label.toUpperCase()}</a>
+              <span class='countBadge'>
+              #{
+              if red or yellow then R [['red',red],['yellow',yellow]], ([color,count])=>
+                R count != 0 and "<span class='#{color}'>#{count}</span>"
+              else
+                R "<span class='green'>#{total}</span>"
+              }
+              </span>
+            </div>
           </div>
         "}
         <div class='name'>
@@ -84,8 +84,8 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection','cell!./Code/Cod
         # Don't expand if already expanded
         if detail::name != @options.expandedSection
           @options.expandedSection = detail::name
-          @$('.countLabel a.selected').toggleClass 'selected', false
-          $(ev.target).toggleClass 'selected', true
+          @$('.countCol > .selected').toggleClass 'selected', false
+          $(ev.target).parent().toggleClass 'selected', true
 
           # hide current details
           @$('.detail.selected')
@@ -108,12 +108,12 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection','cell!./Code/Cod
               .toggleClass('selected', true)
               .fadeIn()
 
-    'click .tests.countLabel a': selectDetail TestsSection
-    'click .tasks.countLabel a': selectDetail TasksSection
-    'click .code.countLabel a': selectDetail CodeSection
+    'click .tests.countCol a': selectDetail TestsSection
+    'click .tasks.countCol a': selectDetail TasksSection
+    'click .code.countCol a': selectDetail CodeSection
     'click .collapseStory': collapseStory = ->
       @$('.detail.selected').animate height:'hide', 'slow', =>
         @$el.toggleClass 'selected', false
-        @$('.countLabel a.selected').toggleClass 'selected', false
+        @$('.countCol > .selected').toggleClass 'selected', false
       @options.expandedSection = undefined
     'deselected': collapseStory
