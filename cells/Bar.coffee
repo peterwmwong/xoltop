@@ -1,4 +1,4 @@
-define
+define ['cell!SearchInput'], (SearchInput)->
   init: ->
     @options.items ?= []
     @options.selectedItem ?= @options.items[0]

@@ -41,7 +41,7 @@ endif
 #===================================================================
 .PHONY : clean server
 
-all: client/cells/bootstrap.js
+all: cells/bootstrap.js
 
 #-------------------------------------------------------------------
 # DEV 
@@ -55,8 +55,8 @@ dev-mock-server: $(coffee) $(express)
 #-------------------------------------------------------------------
 # BUILD
 #------------------------------------------------------------------- 
-client/cells/bootstrap.js: client/cells/cell.js client/cells/cell-pluginBuilder.js
-	$(requirejsBuild) name=cell!App out=client/cells/bootstrap.js baseUrl=client/cells includeRequire=true
+cells/bootstrap.js: cells/cell.js cells/cell-pluginBuilder.js
+	$(requirejsBuild) name=cell!App out=cells/bootstrap.js baseUrl=cells includeRequire=true
 
 #-------------------------------------------------------------------
 # Dependencies 

@@ -1,4 +1,4 @@
-define ['cell!shared/Page/Page','cell!shared/ComingSoonPage','cell!pages/Dashboard/DashboardPage'], (Page, ComingSoonPage,DashboardPage)->
+define ['cell!shared/Page/Page','cell!shared/ComingSoonPage','cell!pages/Dashboard/DashboardPage','cell!Bar'], (Page, ComingSoonPage,DashboardPage,Bar)->
   defer = (f)-> setTimeout f,0
   pages =
     Dashboard:
@@ -20,7 +20,7 @@ define ['cell!shared/Page/Page','cell!shared/ComingSoonPage','cell!pages/Dashboa
   render: (R)->
     defer => @loadPage @options.selectedPage
     """
-    #{R.cell 'Bar', selectedItem:@options.selectedPage, items:(p for p of pages)}
+    #{R.cell Bar, selectedItem:@options.selectedPage, items:(p for p of pages)}
     <div id='content'></div>
     """
 

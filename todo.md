@@ -1,9 +1,9 @@
 TODO
 ====
 
-
 Dashboard
 ---------
+FIX: Dashboard Story collapse icon messed up in FF
 Test health monitors (Graphs, instead of numbers)
 Lighter hover text color for stories
 Add new Story Description section

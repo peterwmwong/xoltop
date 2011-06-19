@@ -1,5 +1,5 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-define(['cell!shared/Page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/Dashboard/DashboardPage'], function(Page, ComingSoonPage, DashboardPage) {
+define(['cell!shared/Page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/Dashboard/DashboardPage', 'cell!Bar'], function(Page, ComingSoonPage, DashboardPage, Bar) {
   var defer, pages;
   defer = function(f) {
     return setTimeout(f, 0);
@@ -30,7 +30,7 @@ define(['cell!shared/Page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/Dashb
       defer(__bind(function() {
         return this.loadPage(this.options.selectedPage);
       }, this));
-      return "" + (R.cell('Bar', {
+      return "" + (R.cell(Bar, {
         selectedItem: this.options.selectedPage,
         items: (function() {
           var _results;
