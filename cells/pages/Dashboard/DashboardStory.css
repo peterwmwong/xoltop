@@ -12,20 +12,22 @@
 .DashboardStory > .details{background-color:#222;display:none;padding:10px;position:relative;overflow:hidden;z-index:1;}
 .DashboardStory > .details:before{content:"";position:absolute;top:0;right:-5px;bottom:0;left:-5px;-webkit-box-shadow:inset 0 0 7px #111;-moz-box-shadow:inset 0 0 7px #111;box-shadow:inset 0 0 7px #111;background-color:#222;z-index:-1}
 .DashboardStory > .details > .detail{display:none;z-index:-1}
-.DashboardStory > .header{-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;width:100%;height:40px;position:relative;display:table;table-layout:fixed;}
+.DashboardStory > .header{-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;width:100%;position:relative;display:table;table-layout:fixed;}
 .DashboardStory > .header a{color:#fff;text-decoration:none;position:relative;}
 .DashboardStory > .header a:hover{text-decoration:underline;position:relative}
 .DashboardStory > .header > div{display:table-row;position:relative;}
 .DashboardStory > .header > div > *{display:table-cell;vertical-align:middle}
-.DashboardStory > .header > div > .storyID{width:75px;position:relative;text-align:right;padding:0 4px 1px 0;}
-.DashboardStory > .header > div > .storyID > .id{-webkit-box-shadow:0 1px 1px rgba(0,0,0,0.3);-moz-box-shadow:0 1px 1px rgba(0,0,0,0.3);box-shadow:0 1px 1px rgba(0,0,0,0.3);display:inline-block;font-weight:bold;-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;border:none;font-size:20px;padding:3px 5px 2px 5px;color:#f2f2f2}
+.DashboardStory > .header > div > .storyID{width:75px;position:relative;text-align:right;}
+.DashboardStory > .header > div > .storyID > .id{-webkit-box-shadow:0 1px 1px rgba(0,0,0,0.3);-moz-box-shadow:0 1px 1px rgba(0,0,0,0.3);box-shadow:0 1px 1px rgba(0,0,0,0.3);display:inline-block;font-weight:bold;-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;border:none;padding:2px 5px 0 5px;margin-right:5px;color:#f2f2f2;}
+.DashboardStory > .header > div > .storyID > .id span{font-size:20px;line-height:23px}
 .DashboardStory > .header > div > .countCol{width:100px;}
 .DashboardStory > .header > div > .countCol.code > div .countBadge .pct{font-size:8px;padding-left:1px;line-height:10px;opacity:.75;vertical-align:middle}
 .DashboardStory > .header > div > .countCol > div{margin-left:5px;position:relative;background-color:#2c2c2c;-moz-border-radius-topleft:2px;-moz-border-radius-topright:2px;-moz-border-radius-bottomright:2px;-moz-border-radius-bottomleft:2px;border-top-left-radius:2px;border-top-right-radius:2px;border-bottom-right-radius:2px;border-bottom-left-radius:2px;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.3);-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,0.3);box-shadow:inset 0 1px 1px rgba(0,0,0,0.3);padding:4px 0 3px 0;}
+.DashboardStory > .header > div > .countCol > div:hover > a{color:#ddd}
 .DashboardStory > .header > div > .countCol > div.selected{background-color:#222;}
 .DashboardStory > .header > div > .countCol > div.selected > a{color:#fff;font-weight:bold;-moz-border-radius-topleft:4px;-moz-border-radius-topright:4px;-moz-border-radius-bottomright:4px;-moz-border-radius-bottomleft:4px;border-top-left-radius:4px;border-top-right-radius:4px;border-bottom-right-radius:4px;border-bottom-left-radius:4px;position:relative;}
-.DashboardStory > .header > div > .countCol > div.selected > a:before{position:absolute;top:19px;right:0;bottom:0;left:34px;content:"";display:block;border-color:transparent transparent #1d1d1d transparent;border-style:solid;border-width:8px;height:0;width:0;z-index:2}
-.DashboardStory > .header > div > .countCol > div.selected > a:after{position:absolute;top:22px;right:0;bottom:0;left:34px;content:"";display:block;border-color:transparent transparent #1f1f1f transparent;border-style:solid;border-width:8px;height:0;width:0;z-index:2}
+.DashboardStory > .header > div > .countCol > div.selected > a:before{position:absolute;top:18px;right:0;bottom:0;left:34px;content:"";display:block;border-color:rgba(29,29,29,0) rgba(29,29,29,0) #1d1d1d rgba(29,29,29,0);border-style:solid;border-width:8px;height:0;width:0;z-index:2}
+.DashboardStory > .header > div > .countCol > div.selected > a:after{position:absolute;top:21px;right:0;bottom:0;left:34px;content:"";display:block;border-color:rgba(29,29,29,0) rgba(29,29,29,0) #1f1f1f rgba(29,29,29,0);border-style:solid;border-width:8px;height:0;width:0;z-index:2}
 .DashboardStory > .header > div > .countCol > div > a{display:inline-block;text-shadow:0 -1px 0 rgba(0,0,0,0.5);font-size:10px;line-height:19px;color:rgba(153,153,153,0.75);padding:0 0 0 8px;}
 .DashboardStory > .header > div > .countCol > div > a:hover{color:#ddd;text-decoration:none}
 .DashboardStory > .header > div > .countCol > div > .countBadge{float:right;-moz-border-radius-topleft:2px;-moz-border-radius-topright:2px;-moz-border-radius-bottomright:2px;-moz-border-radius-bottomleft:2px;border-top-left-radius:2px;border-top-right-radius:2px;border-bottom-right-radius:2px;border-bottom-left-radius:2px;color:color;display:inline-block;font-size:14px;line-height:19px;padding:0 4px 0 4px;text-align:center;text-shadow:0 -1px 0 rgba(0,0,0,0.6);width:35px;}
@@ -36,18 +38,14 @@
 .DashboardStory > .header > div > .countCol > div > .countBadge .green{color:#505b41}
 .DashboardStory > .header > div > .countCol > div > .countBadge .yellow{font-weight:bold;color:#ac8734}
 .DashboardStory > .header > div > .name{position:relative;}
-.DashboardStory > .header > div > .name > div{width:100%;display:inline-block;padding:0 10px 2px 10px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.DashboardStory > .header > div > .name > div{width:100%;display:inline-block;padding:0 10px 0 10px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;vertical-align:middle;}
 .DashboardStory > .header > div > .name > div > a{color:#999;font-size:15px;font-weight:bold;line-height:45px;text-shadow:0 -1px 0 rgba(0,0,0,0.5);}
 .DashboardStory > .header > div > .name > div > a:hover{text-decoration:none}
 .DashboardStory > .header > div > .chumps{width:70px;text-shadow:0 -1px 0 rgba(0,0,0,0.5);color:#999;font-size:10px;padding-right:10px;text-align:right;}
 .DashboardStory > .header > div > .chumps > .divider{padding:0 1px 0 1px;color:#555}
 .DashboardStory > .header > div > .collapseStory{-webkit-transition:width 150ms ease-in;-moz-transition:width 150ms ease-in;-o-transition:width 150ms ease-in;transition:width 150ms ease-in;width:2px;}
-.DashboardStory > .header > div > .collapseStory > div{position:relative;height:100%;}
-.DashboardStory > .header > div > .collapseStory > div:hover > .rect{background-color:#ddd}
-.DashboardStory > .header > div > .collapseStory > div:hover > .triangle:before{position:absolute;top:8px;right:0;bottom:0;left:12px;content:"";display:block;border-color:transparent transparent #ddd transparent;border-style:solid;border-width:7px;height:0;width:0;z-index:2}
-.DashboardStory > .header > div > .collapseStory > div:hover > .triangle:after{position:absolute;top:8px;right:0;bottom:0;left:12px;content:"";display:block;border-color:transparent transparent #ddd transparent;border-style:solid;border-width:7px;height:0;width:0;z-index:2}
-.DashboardStory > .header > div > .collapseStory > div > .rect,.DashboardStory > .header > div > .collapseStory > div > .triangle{opacity:0;-webkit-transition:opacity 150ms ease-in;-moz-transition:opacity 150ms ease-in;-o-transition:opacity 150ms ease-in;transition:opacity 150ms ease-in}
-.DashboardStory > .header > div > .collapseStory > div > .rect{position:absolute;top:26px;left:12px;background-color:#6b6b6b;width:14px;height:3px}
-.DashboardStory > .header > div > .collapseStory > div > .triangle{position:absolute;top:1px;right:0;bottom:0;width:30px;}
-.DashboardStory > .header > div > .collapseStory > div > .triangle:before{position:absolute;top:8px;right:0;bottom:0;left:12px;content:"";display:block;border-color:transparent transparent #6b6b6b transparent;border-style:solid;border-width:7px;height:0;width:0;z-index:2}
-.DashboardStory > .header > div > .collapseStory > div > .triangle:after{position:absolute;top:8px;right:0;bottom:0;left:12px;content:"";display:block;border-color:transparent transparent #6b6b6b transparent;border-style:solid;border-width:7px;height:0;width:0;z-index:2}
+.DashboardStory > .header > div > .collapseStory:hover > .rect{background-color:#ddd}
+.DashboardStory > .header > div > .collapseStory:hover > .triangle{content:"";display:block;border-color:rgba(51,51,51,0) rgba(51,51,51,0) #ddd rgba(51,51,51,0);border-style:solid;border-width:7px;height:0;width:0;z-index:2}
+.DashboardStory > .header > div > .collapseStory > .rect,.DashboardStory > .header > div > .collapseStory > .triangle{opacity:0;-webkit-transition:opacity 150ms ease-in;-moz-transition:opacity 150ms ease-in;-o-transition:opacity 150ms ease-in;transition:opacity 150ms ease-in}
+.DashboardStory > .header > div > .collapseStory > .rect{position:absolute;top:26px;left:10px;background-color:#6b6b6b;width:14px;height:3px}
+.DashboardStory > .header > div > .collapseStory > .triangle{position:absolute;top:9px;right:0;bottom:0;left:10px;content:"";display:block;border-color:rgba(51,51,51,0) rgba(51,51,51,0) #6b6b6b rgba(51,51,51,0);border-style:solid;border-width:7px;height:0;width:0;z-index:2}

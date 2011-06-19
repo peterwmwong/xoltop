@@ -17,7 +17,7 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection', 'cell!./Code/C
       var ats, codeCompletePct, statusColor, tasks, _ref, _ref2;
       _ref = this.model, ats = _ref.ats, tasks = _ref.tasks, codeCompletePct = _ref.codeCompletePct;
       statusColor = codeCompletePct < 100 ? 'red' : ats.failing + tasks.needsAttn ? 'red' : ats.unwritten + tasks.retest ? 'yellow' : 'green';
-      return "<div class='header'>\n  <div>\n    <div class='collapseStory'>\n      <div>\n        <div class='triangle'></div>\n        <div class='rect'></div>\n      </div>\n    </div>\n    <div class='storyID'>\n      <div class='id badge " + statusColor + "'>\n        " + this.model.storynum + "\n      </div>\n    </div>\n    <div class='countCol code'>\n      <div>\n        <a href='#'>CODE</a>\n        <span class='countBadge'>\n        " + (R(typeof codeCompletePct === 'number' && ("          <span class='" + (getCodeCompleteColor(codeCompletePct)) + "'>            " + (Math.floor(codeCompletePct)) + "<span class='pct'>%</span>          </span>        "))) + "\n        </span>\n      </div>\n    </div>\n    " + (R([['tests', [ats.failing, ats.unwritten, ats.total]], ['tasks', [tasks.needsAttn, tasks.retest, tasks.total]]], function(_arg) {
+      return "<div class='header'>\n  <div>\n    <div class='collapseStory'>\n      <div class='triangle'></div>\n      <div class='rect'></div>\n    </div>\n    <div class='storyID'>\n      <div class='id badge " + statusColor + "'>\n        <span>" + this.model.storynum + "</span>\n      </div>\n    </div>\n    <div class='countCol code'>\n      <div>\n        <a href='#'>CODE</a>\n        <span class='countBadge'>\n        " + (R(typeof codeCompletePct === 'number' && ("          <span class='" + (getCodeCompleteColor(codeCompletePct)) + "'>            " + (Math.floor(codeCompletePct)) + "<span class='pct'>%</span>          </span>        "))) + "\n        </span>\n      </div>\n    </div>\n    " + (R([['tests', [ats.failing, ats.unwritten, ats.total]], ['tasks', [tasks.needsAttn, tasks.retest, tasks.total]]], function(_arg) {
         var label, red, total, yellow, _ref2;
         label = _arg[0], _ref2 = _arg[1], red = _ref2[0], yellow = _ref2[1], total = _ref2[2];
         return "      <div class='countCol " + label + "'>        <div>          <a href='#'>" + (label.toUpperCase()) + "</a>          <span class='countBadge'>          " + (red || yellow ? R([['red', red], ['yellow', yellow]], __bind(function(_arg2) {
@@ -39,7 +39,7 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection', 'cell!./Code/C
           if (detail.prototype.name !== this.options.expandedSection) {
             this.options.expandedSection = detail.prototype.name;
             this.$('.countCol > .selected').toggleClass('selected', false);
-            $(ev.target).parent().toggleClass('selected', true);
+            $(ev.target).closest('div').toggleClass('selected', true);
             this.$('.detail.selected').toggleClass('selected', false).fadeOut();
             if (!($detail = this.$("." + detail.prototype.name))[0]) {
               detailCell = new detail({
@@ -57,9 +57,9 @@ define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection', 'cell!./Code/C
         };
       };
       return {
-        'click .tests.countCol a': selectDetail(TestsSection),
-        'click .tasks.countCol a': selectDetail(TasksSection),
-        'click .code.countCol a': selectDetail(CodeSection),
+        'click .tests.countCol': selectDetail(TestsSection),
+        'click .tasks.countCol': selectDetail(TasksSection),
+        'click .code.countCol': selectDetail(CodeSection),
         'click .collapseStory': collapseStory = function() {
           this.$('.detail.selected').animate({
             height: 'hide'

@@ -24,14 +24,12 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection','cell!./Code/Cod
     <div class='header'>
       <div>
         <div class='collapseStory'>
-          <div>
-            <div class='triangle'></div>
-            <div class='rect'></div>
-          </div>
+          <div class='triangle'></div>
+          <div class='rect'></div>
         </div>
         <div class='storyID'>
           <div class='id badge #{statusColor}'>
-            #{@model.storynum}
+            <span>#{@model.storynum}</span>
           </div>
         </div>
         <div class='countCol code'>
@@ -85,7 +83,7 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection','cell!./Code/Cod
         if detail::name != @options.expandedSection
           @options.expandedSection = detail::name
           @$('.countCol > .selected').toggleClass 'selected', false
-          $(ev.target).parent().toggleClass 'selected', true
+          $(ev.target).closest('div').toggleClass 'selected', true
 
           # hide current details
           @$('.detail.selected')
@@ -108,9 +106,9 @@ define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection','cell!./Code/Cod
               .toggleClass('selected', true)
               .fadeIn()
 
-    'click .tests.countCol a': selectDetail TestsSection
-    'click .tasks.countCol a': selectDetail TasksSection
-    'click .code.countCol a': selectDetail CodeSection
+    'click .tests.countCol': selectDetail TestsSection
+    'click .tasks.countCol': selectDetail TasksSection
+    'click .code.countCol': selectDetail CodeSection
     'click .collapseStory': collapseStory = ->
       @$('.detail.selected').animate height:'hide', 'slow', =>
         @$el.toggleClass 'selected', false

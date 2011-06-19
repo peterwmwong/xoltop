@@ -75,5 +75,5 @@ $(express):
 #------------------------------------------------------------------- 
 
 clean: 
-	@@rm client/cells/bootstrap.*
+	@@rm cells/bootstrap.*
 

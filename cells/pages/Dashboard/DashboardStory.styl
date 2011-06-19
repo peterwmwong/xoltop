@@ -7,10 +7,11 @@
 @import 'mixins/text';
 @import 'mixins/triangle';
 
-triUpShape(borderSize = 10px, borderColor = #555)
+triUpShape(borderSize = 10px, borderColor, tranColor)
+  tranColor2 = rgba(tranColor,0)
   content ""
   display block
-  border-color transparent transparent borderColor transparent
+  border-color tranColor2 tranColor2 borderColor tranColor2
   border-style solid
   border-width borderSize
   height 0
@@ -21,11 +22,11 @@ triUpShape(borderSize = 10px, borderColor = #555)
 triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
   &:before
     abspos t r b l
-    triUpShape size bordercolor
+    triUpShape size bordercolor bordercolor
 
   &:after
     abspos (t + offset) r b l
-    triUpShape size fgcolor
+    triUpShape size fgcolor bordercolor
 
 .DashboardStory
   color text-color
@@ -95,7 +96,6 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
   > .header
     border-radius 3px
     width 100%
-    height 40px
     position relative
     display table
     table-layout fixed
@@ -121,7 +121,6 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
         width 75px
         position relative
         text-align right
-        padding 0 4px 1px 0
 
         > .id
           box-shadow 0px 1px 1px rgba(0,0,0,.3)
@@ -129,9 +128,13 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
           font-weight bold
           border-radius 3px
           border none
-          font-size 20px
-          padding 3px 5px 2px 5px
+          padding 2px 5px 0px 5px
+          margin-right 5px
           color darken(text-color,5%)
+
+          span
+            font-size 20px
+            line-height 23px
 
       > .countCol
         width 100px
@@ -153,6 +156,10 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
           box-shadow inset 0px 1px 1px rgba(0,0,0,.3)
           padding 4px 0 3px 0
 
+          &:hover
+            > a
+              color text-color-dark
+
           &.selected
             background-color #222
 
@@ -162,7 +169,7 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
               border-radius 4px
               position relative
               triColor = shadow-color - rgb(5,5,5)
-              triUp(8px,triColor + rgb(2,2,2),triColor,3px,19px,0px,0px,34px)
+              triUp 8px (triColor + rgb(2,2,2)) triColor 3px 18px 0px 0px 34px
 
           > a 
             display inline-block
@@ -212,10 +219,11 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
         > div
           width 100%
           display inline-block
-          padding 0px 10px 2px 10px 
+          padding 0px 10px 0px 10px 
           overflow hidden
           white-space nowrap
           text-overflow ellipsis
+          vertical-align middle
 
           > a
             color text-disabled-color
@@ -243,31 +251,27 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
         transition width 150ms ease-in
         width 2px
 
-        > div
-          position relative
-          height 100%
-          
-          iconColor = darken(text-disabled-color,30%)
-          iconColor-light = text-color-dark
-          myleft = 12px
-          &:hover
-            > .rect
-              background-color iconColor-light
-            > .triangle
-              triUp(7px,iconColor-light,iconColor-light,0px,8px,0px,0px,myleft)
-          
-          > .rect, > .triangle
-            opacity 0.0
-            transition opacity 150ms ease-in
-
+        iconColor = darken(text-disabled-color,30%)
+        iconColor-light = text-color-dark
+        myleft = 10px
+        mytop = 12px
+        &:hover
           > .rect
-            abspos 26px false false myleft
-            background-color iconColor
-            width 14px
-            height 3px
-
+            background-color iconColor-light
           > .triangle
-            abspos 1px 0px 0px false
-            width 30px
-            triUp(7px,iconColor,iconColor,0px,8px,0px,0px,myleft)
+            triUpShape 7px iconColor-light #333
+        
+        > .rect, > .triangle
+          opacity 0.0
+          transition opacity 150ms ease-in
+
+        > .rect
+          abspos (mytop + 14px) false false myleft
+          background-color iconColor
+          width 14px
+          height 3px
+
+        > .triangle
+          abspos (mytop - 3px) 0px 0px myleft
+          triUpShape 7px iconColor #333
 
