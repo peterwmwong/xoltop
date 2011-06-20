@@ -6,13 +6,13 @@
 
 .TestsSection
   > .CatTable > table > tbody > tr
-    &.fail > .id
+    &.fail > .id > a
       color lighten(badge-red,80%)
 
-    &.towrite > .id
+    &.towrite > .id > a
       color lighten(badge-yellow,80%)
 
-    &.pass > .id
+    &.pass > .id > a
       color lighten(badge-green,80%)
 
     > .category
@@ -36,10 +36,29 @@
     > .column
       vertical-align middle
 
+      &.status, &.date, &.owner
+        padding 0 5px 0 5px
+
+      &.name > a
+        color text-color-dark
+        text-decoration none
+
+        &:hover
+          text-decoration underline
+
       &.id
         width 60px
         min-width 60px
         font-size 16px
         font-weight bold
         text-align center
+
+        > a
+          text-decoration none
+
+          &:hover
+            text-decoration underline
+
+
+
 

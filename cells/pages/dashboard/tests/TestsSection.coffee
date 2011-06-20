@@ -9,8 +9,8 @@ define ['data/DashboardService','cell!shared/cattable/CatTable'], (DashboardServ
           pass: 'Passing'
         mapMember: ({status})->status
         columnMap:
-          id:'id'
-          name:'requirement'
+          id:({id})->"<a href='#{DashboardService.getXPToolBaseUrl "xp.testnoteview.do?testNumber=#{id}"}' target='_blank'>#{id}</a>"
+          name:({id,requirement})->"<a href='#{DashboardService.getXPToolBaseUrl "xp.testnoteview.do?testNumber=#{id}"}' target='_blank'>#{requirement}</a>"
           status: ({update})->update.status or ''
           date:   ({update:{date,isToday}})->
             if isToday then 'Today'

@@ -1,7 +1,6 @@
 define ['data/JSONP'],(jsonp)->
-  xptoolurl = (path)->
-    "http://172.16.19.63:69/xptool/rest/jumbotron/#{path}"
 
+  xptoolurl = (path)-> getXPToolBaseUrl "rest/jumbotron/#{path}"
   get = (testpath,url,done)->
     if TESTING = false
       require [testpath], done
@@ -12,6 +11,8 @@ define ['data/JSONP'],(jsonp)->
         url: url
         success: done
     return
+
+  getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.19.63:69/xptool/#{relPath}"
 
   getIterationTestStatus: (done)->
     get 'data/MockDashboardService-getIterationTestStatus',
@@ -49,31 +50,46 @@ define ['data/JSONP'],(jsonp)->
 
   getStorySummaries: do->
     storyRegex = /^((\w*[ ]+- )+)?(.*?)( \(([^\)]+)\))?$/
+    getStatus = ({codeCompletePct,ats,tasks})->
+      if codeCompletePct < 100
+        0
+      else if ats.failing + tasks.needsAttn
+        0
+      else if ats.unwritten + tasks.retest
+        1
+      else
+        2
     (done)->
       get 'data/MockDashboardService-getStorySummaries',
         xptoolurl 'iteration/stories/'
         (stories)->
-          done do-> for {story:s} in stories.sort( ({story:a},{story:b})->a.num-b.num )
-            story =
-              codeCompletePct: s.codeCompletePct
-              type: 'story'
-              ats:
-                failing: s.failingATs
-                unwritten: s.unwrittenATs
-                total: s.failingATs + s.passingATs + s.unwrittenATs
-              tasks:
-                retest: s.chumpTaskRetest
-                needsAttn: s.chumpTaskNA
-                total: s.chumpTaskComplete
+          stories = do->
+            for {story:s} in stories.sort( ({story:a},{story:b})->a.num-b.num )
+              story =
+                codeCompletePct: s.codeCompletePct
+                type: 'story'
+                ats:
+                  failing: s.failingATs
+                  unwritten: s.unwrittenATs
+                  total: s.failingATs + s.passingATs + s.unwrittenATs
+                tasks:
+                  retest: s.chumpTaskRetest
+                  needsAttn: s.chumpTaskNA
+                  total: s.chumpTaskComplete
 
-            if match = storyRegex.exec s.description+' '+s.chumps
-              [devs,testers] = match[5] and match[5]?.split(' - ') or []
-              story.storynum = s.num
-              story.name = match[3]
-              story.testers = testers?.split '/'
-              story.devs = devs?.split '/'
-              story.tags = match[1]?.split(' - ')?.slice 0, -1
-            story
+              if match = storyRegex.exec s.description+' '+s.chumps
+                [devs,testers] = match[5] and match[5]?.split(' - ') or []
+                story.storynum = s.num
+                story.name = match[3]
+                story.testers = testers?.split '/'
+                story.devs = devs?.split '/'
+                story.tags = match[1]?.split(' - ')?.slice 0, -1
+              story
+          
+          stories.sort (a,b)->
+            getStatus(a) - getStatus(b)
+
+          done stories
 
   getStoryTestDetails : do->
     parseUpdate = do->

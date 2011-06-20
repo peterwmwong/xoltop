@@ -1,7 +1,7 @@
 define(['data/JSONP'], function(jsonp) {
-  var get, xptoolurl;
+  var get, getXPToolBaseUrl, xptoolurl;
   xptoolurl = function(path) {
-    return "http://172.16.19.63:69/xptool/rest/jumbotron/" + path;
+    return getXPToolBaseUrl("rest/jumbotron/" + path);
   };
   get = function(testpath, url, done) {
     var TESTING;
@@ -16,6 +16,9 @@ define(['data/JSONP'], function(jsonp) {
     }
   };
   return {
+    getXPToolBaseUrl: getXPToolBaseUrl = function(relPath) {
+      return "http://172.16.19.63:69/xptool/" + relPath;
+    },
     getIterationTestStatus: function(done) {
       return get('data/MockDashboardService-getIterationTestStatus', xptoolurl("iteration/tests"), function(_arg) {
         var test;
@@ -49,11 +52,24 @@ define(['data/JSONP'], function(jsonp) {
       return get('data/MockDashboardService-getStoryTasksDetail', xptoolurl("iteration/stories/" + storynum + "/tasks"), done);
     },
     getStorySummaries: (function() {
-      var storyRegex;
+      var getStatus, storyRegex;
       storyRegex = /^((\w*[ ]+- )+)?(.*?)( \(([^\)]+)\))?$/;
+      getStatus = function(_arg) {
+        var ats, codeCompletePct, tasks;
+        codeCompletePct = _arg.codeCompletePct, ats = _arg.ats, tasks = _arg.tasks;
+        if (codeCompletePct < 100) {
+          return 0;
+        } else if (ats.failing + tasks.needsAttn) {
+          return 0;
+        } else if (ats.unwritten + tasks.retest) {
+          return 1;
+        } else {
+          return 2;
+        }
+      };
       return function(done) {
         return get('data/MockDashboardService-getStorySummaries', xptoolurl('iteration/stories/'), function(stories) {
-          return done((function() {
+          stories = (function() {
             var devs, match, s, story, testers, _i, _len, _ref, _ref2, _ref3, _ref4, _ref5, _results;
             _ref = stories.sort(function(_arg, _arg2) {
               var a, b;
@@ -89,7 +105,11 @@ define(['data/JSONP'], function(jsonp) {
               _results.push(story);
             }
             return _results;
-          })());
+          })();
+          stories.sort(function(a, b) {
+            return getStatus(a) - getStatus(b);
+          });
+          return done(stories);
         });
       };
     })(),

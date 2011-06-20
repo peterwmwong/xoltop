@@ -19,8 +19,16 @@ define(['data/DashboardService', 'cell!shared/cattable/CatTable'], function(Dash
             return status;
           },
           columnMap: {
-            id: 'id',
-            name: 'requirement',
+            id: function(_arg) {
+              var id;
+              id = _arg.id;
+              return "<a href='" + (DashboardService.getXPToolBaseUrl("xp.testnoteview.do?testNumber=" + id)) + "' target='_blank'>" + id + "</a>";
+            },
+            name: function(_arg) {
+              var id, requirement;
+              id = _arg.id, requirement = _arg.requirement;
+              return "<a href='" + (DashboardService.getXPToolBaseUrl("xp.testnoteview.do?testNumber=" + id)) + "' target='_blank'>" + requirement + "</a>";
+            },
             status: function(_arg) {
               var update;
               update = _arg.update;
