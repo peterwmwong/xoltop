@@ -18,9 +18,6 @@ define(['data/DashboardService', 'cell!./DashboardStory', 'cell!./statusshelf/te
         })) + "\n  " + (R.cell(TestResultsGraph, {
           type: 'units',
           label: 'UNIT'
-        })) + "\n  " + (R.cell(TestResultsGraph, {
-          type: 'units',
-          label: 'SMALL'
         })) + "\n</div>\n" + (R(sums, function(story) {
           return R.cell(DashboardStory, {
             model: story

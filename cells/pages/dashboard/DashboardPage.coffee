@@ -14,6 +14,7 @@ define [
 
   render: (R,A)->
     DashboardService.getStorySummaries (sums)->
+      #{R.cell TestResultsGraph, type: 'units', label: 'SMALL'}
       A """
         <div class='stats'>
           <div class='iteration'>
@@ -22,7 +23,6 @@ define [
           </div>
           #{R.cell TestResultsGraph, type: 'ats', label: 'AT'}
           #{R.cell TestResultsGraph, type: 'units', label: 'UNIT'}
-          #{R.cell TestResultsGraph, type: 'units', label: 'SMALL'}
         </div>
         #{R sums, (story)-> R.cell DashboardStory, model:story}
         """
