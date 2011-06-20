@@ -6,11 +6,13 @@ define(['data/DashboardService'], function(DashboardService) {
   };
   return {
     render: function(R, A) {
+      var self;
+      self = this;
       return DashboardService.getRecentTestResults(this.options.type, __bind(function(_arg) {
         var failures, h, lc, lines, r, results, w, xs, ys, _ref;
         results = _arg.results;
         _ref = [125, 55], w = _ref[0], h = _ref[1];
-        r = Raphael(0, 0, w, h);
+        r = Raphael(0, 1, w, h);
         xs = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]];
         ys = [
           (function() {
@@ -28,21 +30,21 @@ define(['data/DashboardService'], function(DashboardService) {
           symbol: "o"
         });
         lines = lc.hoverColumn.call(lc, function() {
-          var i, ii, tag, _ref2;
-          this.tags = r.set();
-          _ref2 = [-1, this.y.length], i = _ref2[0], ii = _ref2[1];
-          while (++i < ii) {
-            (tag = r.g.tag(this.x, this.y[i], this.values[i], 160, 10)).insertBefore(this).attr([
-              O({
-                fill: "#FFF"
-              }), O({
-                fill: this.symbols[i].attr('fill')
-              })
-            ]);
-            this.tags.push(tag);
-          }
+          this.attr({
+            fill: '#F00',
+            opacity: .2
+          });
+          this.origSymbolColor = this.symbols[0].attr('fill');
+          this.symbols[0].attr({
+            fill: '#F00'
+          });
         }, function() {
-          return this.tags && this.tags.remove();
+          this.attr({
+            opacity: 0
+          });
+          return this.symbols[0].attr({
+            fill: this.origSymbolColor
+          });
         });
         lines.symbols.attr({
           r: 3
