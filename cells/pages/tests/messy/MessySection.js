@@ -122,10 +122,10 @@ define(['data/MessyTestService', 'cell!./MessySuite', 'cell!./MessyTest'], funct
   })();
   return {
     render: function(R) {
-      return "" + (R.cell('shared/Page/SectionTitle', {
+      return "" + (R.cell('shared/page/SectionTitle', {
         title: 'Messy Tests',
         description: "Tests that don't pick up after themselves"
-      })) + "\n" + (R.cell('shared/TableTree/TableTree', {
+      })) + "\n" + (R.cell('shared/tabletree/TableTree', {
         id: 'Messy',
         cols: ['Chump Tasks'],
         dataProviders: dataProviders()

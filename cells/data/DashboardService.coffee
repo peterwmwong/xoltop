@@ -18,6 +18,15 @@ define ['data/JSONP'],(jsonp)->
       xptoolurl "iteration/tests"
       ({test})-> done test
 
+  getRecentTestResults: (type,done)->
+    if type in ['ats','units']
+      get "data/MockDashboardService-getRecentTestResults-#{type}",
+        xptoolurl "tests/#{type}?recent=10"
+        done
+    else if type is 'smalls'
+      get 'data/MockDashboardService-getRecentTestResults-smalls',
+        "http://build-linux-01.fdr.follett.com:8080/ci/view/Destiny/job/destiny-small-tests/lastCompletedBuild/testReport/api/json"
+
   getTestStatus: (done)->
     get 'data/MockDashboardService-getTestStatus',
       xptoolurl "testsnapshot"

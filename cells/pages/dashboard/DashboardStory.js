@@ -1,5 +1,5 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-define(['cell!./Tests/TestsSection', 'cell!./Tasks/TasksSection', 'cell!./Code/CodeSection'], function(TestsSection, TasksSection, CodeSection) {
+define(['cell!./tests/TestsSection', 'cell!./tasks/TasksSection', 'cell!./code/CodeSection'], function(TestsSection, TasksSection, CodeSection) {
   var getCodeCompleteColor;
   getCodeCompleteColor = function(pct) {
     if (typeof pct !== 'number') {

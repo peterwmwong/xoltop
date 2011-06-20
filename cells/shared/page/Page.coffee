@@ -9,7 +9,7 @@ define ['require','cell!./Nav'], (require,Nav)->
     @options.selectedSection = section.replace ' ','-'
     content = @$ '> #content'
     content.html ''
-    require ["cell!#{@options.baseurl}/#{section}/#{section}Section"], (NewSection)=>
+    require ["cell!#{@options.baseurl}/#{section.toLowerCase()}/#{section}Section"], (NewSection)=>
       if @options.selectedSection == section
         content.html ''
         content.append new NewSection().el

@@ -1,4 +1,4 @@
-define ['cell!./Tests/TestsSection','cell!./Tasks/TasksSection','cell!./Code/CodeSection'], (TestsSection, TasksSection,CodeSection)->
+define ['cell!./tests/TestsSection','cell!./tasks/TasksSection','cell!./code/CodeSection'], (TestsSection, TasksSection,CodeSection)->
 
   getCodeCompleteColor = (pct)->
     if typeof pct != 'number' then 'gray'

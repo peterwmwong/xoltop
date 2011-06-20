@@ -1,0 +1,2 @@
+.TestResultsGraph > .graphContainer{background-color:rgba(0,0,0,0.4);-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;width:125px;height:53px;position:relative;padding:2px 0 2px 0;margin-bottom:3px}
+.TestResultsGraph > .label{color:#999;text-align:center;font-size:13px;font-weight:bold}

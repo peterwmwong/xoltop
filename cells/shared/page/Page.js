@@ -19,7 +19,7 @@ define(['require', 'cell!./Nav'], function(require, Nav) {
       this.options.selectedSection = section.replace(' ', '-');
       content = this.$('> #content');
       content.html('');
-      return require(["cell!" + this.options.baseurl + "/" + section + "/" + section + "Section"], __bind(function(NewSection) {
+      return require(["cell!" + this.options.baseurl + "/" + (section.toLowerCase()) + "/" + section + "Section"], __bind(function(NewSection) {
         if (this.options.selectedSection === section) {
           content.html('');
           return content.append(new NewSection().el);

@@ -23,6 +23,13 @@ define(['data/JSONP'], function(jsonp) {
         return done(test);
       });
     },
+    getRecentTestResults: function(type, done) {
+      if (type === 'ats' || type === 'units') {
+        return get("data/MockDashboardService-getRecentTestResults-" + type, xptoolurl("tests/" + type + "?recent=10"), done);
+      } else if (type === 'smalls') {
+        return get('data/MockDashboardService-getRecentTestResults-smalls', "http://build-linux-01.fdr.follett.com:8080/ci/view/Destiny/job/destiny-small-tests/lastCompletedBuild/testReport/api/json");
+      }
+    },
     getTestStatus: function(done) {
       return get('data/MockDashboardService-getTestStatus', xptoolurl("testsnapshot"), function(_arg) {
         var tests;

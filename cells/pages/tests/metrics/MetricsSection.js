@@ -156,10 +156,10 @@ define(['data/MetricsService', 'cell!./MetricsNode'], function(MetricsService, M
   };
   return {
     render: function(R) {
-      return "" + (R.cell('shared/Page/SectionTitle', {
+      return "" + (R.cell('shared/page/SectionTitle', {
         title: 'Metrics',
         description: 'Iteration and Story complexity based on number of tasks and tests'
-      })) + "\n" + (R.cell('shared/TableTree/TableTree', {
+      })) + "\n" + (R.cell('shared/tabletree/TableTree', {
         id: 'Metrics',
         cols: ['ATs', 'Chump Tasks'],
         dataProviders: dataProviders

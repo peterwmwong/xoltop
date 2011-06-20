@@ -1,4 +1,3 @@
-
 #===================================================================
 #--------------------------- Variables -----------------------------
 #===================================================================
@@ -58,8 +57,13 @@ dev-mock-server: $(coffee) $(express)
 #------------------------------------------------------------------- 
 cells/bootstrap.js: $(uglifyjs) cells/cell.js cells/cell-pluginBuilder.js
 	$(requirejsBuild) name=cell!App out=cells/bootstrap-tmp.js baseUrl=cells includeRequire=true
-	cat vendor/jquery.min.js cells/bootstrap-tmp.js | $(uglifyjs) > cells/bootstrap.js
-	cat vendor/reset.css cells/bootstrap-tmp.css > cells/bootstrap.css
+	cat vendor/jquery.min.js \
+		  vendor/raphael.js \
+			vendor/g.raphael.js \
+			vendor/g.line.js \
+			cells/bootstrap-tmp.js | $(uglifyjs)> cells/bootstrap.js
+	cat vendor/reset.css \
+			cells/bootstrap-tmp.css > cells/bootstrap.css
 	rm cells/bootstrap-tmp.*
 
 #-------------------------------------------------------------------

@@ -1,4 +1,8 @@
-define ['data/DashboardService','cell!./DashboardStory'], (DashboardService,DashboardStory)->
+define [
+  'data/DashboardService'
+  'cell!./DashboardStory'
+  'cell!./statusshelf/testresultsgraph/TestResultsGraph'
+], (DashboardService,DashboardStory,TestResultsGraph)->
   
   CountLabel = cell.extend
     render: (R,A)->
@@ -16,22 +20,9 @@ define ['data/DashboardService','cell!./DashboardStory'], (DashboardService,Dash
             <div class='iterNum'>314</div>
             <div class='iterLabel'>ITERATION</div>
           </div>
-          <div class='failingTests'>
-            <div class='icon'><div>FAILING<div>TESTS</div></div></div>
-            <div class='label'>&nbsp;</div>
-          </div>
-          #{R.cell CountLabel,
-              class:'ATCount'
-              label: 'AT'
-              countProp: 'failingATs'}
-          #{R.cell CountLabel,
-              class:'UnitCount'
-              label: 'UNIT'
-              countProp: 'failingUnits'}
-          #{R.cell CountLabel,
-              class:'SmallCount'
-              label: 'SMALL'
-              countProp: 'failingSmalls'}
+          #{R.cell TestResultsGraph, type: 'ats', label: 'AT'}
+          #{R.cell TestResultsGraph, type: 'units', label: 'UNIT'}
+          #{R.cell TestResultsGraph, type: 'units', label: 'SMALL'}
         </div>
         #{R sums, (story)-> R.cell DashboardStory, model:story}
         """

@@ -1,5 +1,5 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-define(['cell!shared/Page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/Dashboard/DashboardPage', 'cell!Bar'], function(Page, ComingSoonPage, DashboardPage, Bar) {
+define(['cell!shared/page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/dashboard/DashboardPage', 'cell!Bar'], function(Page, ComingSoonPage, DashboardPage, Bar) {
   var defer, pages;
   defer = function(f) {
     return setTimeout(f, 0);
@@ -11,7 +11,7 @@ define(['cell!shared/Page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/Dashb
     Tests: {
       cell: Page,
       options: {
-        baseurl: 'pages/Tests',
+        baseurl: 'pages/tests',
         sections: ['Messy', 'Metrics'],
         selectedSection: 'Metrics'
       }

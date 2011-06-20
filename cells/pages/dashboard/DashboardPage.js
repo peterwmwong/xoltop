@@ -1,5 +1,5 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-define(['data/DashboardService', 'cell!./DashboardStory'], function(DashboardService, DashboardStory) {
+define(['data/DashboardService', 'cell!./DashboardStory', 'cell!./statusshelf/testresultsgraph/TestResultsGraph'], function(DashboardService, DashboardStory, TestResultsGraph) {
   var CountLabel;
   CountLabel = cell.extend({
     render: function(R, A) {
@@ -12,18 +12,15 @@ define(['data/DashboardService', 'cell!./DashboardStory'], function(DashboardSer
   return {
     render: function(R, A) {
       return DashboardService.getStorySummaries(function(sums) {
-        return A("<div class='stats'>\n  <div class='iteration'>\n    <div class='iterNum'>314</div>\n    <div class='iterLabel'>ITERATION</div>\n  </div>\n  <div class='failingTests'>\n    <div class='icon'><div>FAILING<div>TESTS</div></div></div>\n    <div class='label'>&nbsp;</div>\n  </div>\n  " + (R.cell(CountLabel, {
-          "class": 'ATCount',
-          label: 'AT',
-          countProp: 'failingATs'
-        })) + "\n  " + (R.cell(CountLabel, {
-          "class": 'UnitCount',
-          label: 'UNIT',
-          countProp: 'failingUnits'
-        })) + "\n  " + (R.cell(CountLabel, {
-          "class": 'SmallCount',
-          label: 'SMALL',
-          countProp: 'failingSmalls'
+        return A("<div class='stats'>\n  <div class='iteration'>\n    <div class='iterNum'>314</div>\n    <div class='iterLabel'>ITERATION</div>\n  </div>\n  " + (R.cell(TestResultsGraph, {
+          type: 'ats',
+          label: 'AT'
+        })) + "\n  " + (R.cell(TestResultsGraph, {
+          type: 'units',
+          label: 'UNIT'
+        })) + "\n  " + (R.cell(TestResultsGraph, {
+          type: 'units',
+          label: 'SMALL'
         })) + "\n</div>\n" + (R(sums, function(story) {
           return R.cell(DashboardStory, {
             model: story

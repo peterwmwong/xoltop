@@ -75,10 +75,10 @@ define ['data/MessyTestService','cell!./MessySuite','cell!./MessyTest'],
 
     render: (R)->
       """
-      #{R.cell 'shared/Page/SectionTitle',
+      #{R.cell 'shared/page/SectionTitle',
           title: 'Messy Tests',
           description: "Tests that don't pick up after themselves"}
-      #{R.cell 'shared/TableTree/TableTree',
+      #{R.cell 'shared/tabletree/TableTree',
           id:'Messy'
           cols: ['Chump Tasks']
           dataProviders: dataProviders()}

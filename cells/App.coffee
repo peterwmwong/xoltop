@@ -1,4 +1,4 @@
-define ['cell!shared/Page/Page','cell!shared/ComingSoonPage','cell!pages/Dashboard/DashboardPage','cell!Bar'], (Page, ComingSoonPage,DashboardPage,Bar)->
+define ['cell!shared/page/Page','cell!shared/ComingSoonPage','cell!pages/dashboard/DashboardPage','cell!Bar'], (Page, ComingSoonPage,DashboardPage,Bar)->
   defer = (f)-> setTimeout f,0
   pages =
     Dashboard:
@@ -7,7 +7,7 @@ define ['cell!shared/Page/Page','cell!shared/ComingSoonPage','cell!pages/Dashboa
     Tests:
       cell: Page
       options:
-        baseurl: 'pages/Tests'
+        baseurl: 'pages/tests'
         sections: ['Messy','Metrics']
         selectedSection: 'Metrics'
 

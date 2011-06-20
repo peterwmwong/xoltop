@@ -70,10 +70,10 @@ define ['data/MetricsService','cell!./MetricsNode'], (MetricsService,MetricsNode
 
   render: (R)->
     """
-    #{R.cell 'shared/Page/SectionTitle',
+    #{R.cell 'shared/page/SectionTitle',
         title: 'Metrics'
         description: 'Iteration and Story complexity based on number of tasks and tests'}
-    #{R.cell 'shared/TableTree/TableTree',
+    #{R.cell 'shared/tabletree/TableTree',
         id:'Metrics'
         cols: ['ATs','Chump Tasks']
         dataProviders:dataProviders}
