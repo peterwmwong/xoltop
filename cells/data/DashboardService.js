@@ -17,7 +17,7 @@ define(['data/JSONP'], function(jsonp) {
   };
   return {
     getXPToolBaseUrl: getXPToolBaseUrl = function(relPath) {
-      return "http://172.16.19.63:69/xptool/" + relPath;
+      return "http://172.16.0.230/xptool/" + relPath;
     },
     getIterationTestStatus: function(done) {
       return get('data/MockDashboardService-getIterationTestStatus', xptoolurl("iteration/tests"), function(_arg) {

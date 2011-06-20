@@ -12,7 +12,7 @@ define ['data/JSONP'],(jsonp)->
         success: done
     return
 
-  getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.19.63:69/xptool/#{relPath}"
+  getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.0.230/xptool/#{relPath}"
 
   getIterationTestStatus: (done)->
     get 'data/MockDashboardService-getIterationTestStatus',
