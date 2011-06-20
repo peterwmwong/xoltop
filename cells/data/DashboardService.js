@@ -5,7 +5,7 @@ define(['data/JSONP'], function(jsonp) {
   };
   get = function(testpath, url, done) {
     var TESTING;
-    if (TESTING = true) {
+    if (TESTING = false) {
       require([testpath], done);
     } else {
       jsonp({
@@ -43,7 +43,7 @@ define(['data/JSONP'], function(jsonp) {
       });
     },
     getStoryCodeTasksDetails: function(storynum, done) {
-      return get('data/MockDashboardService-getStoryCodeTasksDetail', xptoolurl("iteration/stories/" + storynum + "/codetasks"), done);
+      return get('data/MockDashboardService-getStoryCodeTasksDetail', xptoolurl("iteration/stories/" + storynum + "/codeTasks"), done);
     },
     getStoryTasksDetails: function(storynum, done) {
       return get('data/MockDashboardService-getStoryTasksDetail', xptoolurl("iteration/stories/" + storynum + "/tasks"), done);

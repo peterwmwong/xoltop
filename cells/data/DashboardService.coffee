@@ -3,7 +3,7 @@ define ['data/JSONP'],(jsonp)->
     "http://172.16.19.63:69/xptool/rest/jumbotron/#{path}"
 
   get = (testpath,url,done)->
-    if TESTING = true
+    if TESTING = false
       require [testpath], done
     else
       jsonp
@@ -39,7 +39,7 @@ define ['data/JSONP'],(jsonp)->
 
   getStoryCodeTasksDetails: (storynum,done)->
     get 'data/MockDashboardService-getStoryCodeTasksDetail',
-      xptoolurl "iteration/stories/#{storynum}/codetasks"
+      xptoolurl "iteration/stories/#{storynum}/codeTasks"
       done
 
   getStoryTasksDetails: (storynum,done)->
