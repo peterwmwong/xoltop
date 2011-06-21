@@ -1,6 +1,6 @@
 define ['data/JSONP'],(jsonp)->
 
-  url = 'http://localhost:6969/xptool/rest/testmetrics/'
+  url = 'http://172.16.0.230/xptool/rest/testmetrics/'
   #url = 'http://destinyxptool/xptool/rest/testmetrics/'
   get = jsonp.makeget url,
     callback: 'callback'

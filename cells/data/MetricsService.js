@@ -1,6 +1,6 @@
 define(['data/JSONP'], function(jsonp) {
   var get, url;
-  url = 'http://localhost:6969/xptool/rest/testmetrics/';
+  url = 'http://172.16.0.230/xptool/rest/testmetrics/';
   get = jsonp.makeget(url, {
     callback: 'callback',
     process: function(rs) {
