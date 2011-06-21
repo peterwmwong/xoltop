@@ -1,5 +1,5 @@
 define ['data/JSONP'], (jsonp)->
-  TESTING = (window.xoltop.DashboardService.useMockData == true)
+  TESTING = window.xoltop?.DashboardService?.useMockData?
 
   xptoolurl = (path)-> getXPToolBaseUrl "rest/jumbotron/#{path}"
   get = (testpath,url,done)->

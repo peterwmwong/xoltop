@@ -1,6 +1,6 @@
 define(['data/JSONP'], function(jsonp) {
-  var TESTING, get, getXPToolBaseUrl, xptoolurl;
-  TESTING = window.xoltop.DashboardService.useMockData === true;
+  var TESTING, get, getXPToolBaseUrl, xptoolurl, _ref, _ref2;
+  TESTING = ((_ref = window.xoltop) != null ? (_ref2 = _ref.DashboardService) != null ? _ref2.useMockData : void 0 : void 0) != null;
   xptoolurl = function(path) {
     return getXPToolBaseUrl("rest/jumbotron/" + path);
   };
@@ -70,16 +70,16 @@ define(['data/JSONP'], function(jsonp) {
       return function(done) {
         return get('data/MockDashboardService-getStorySummaries', xptoolurl('iteration/stories/'), function(stories) {
           stories = (function() {
-            var devs, match, s, story, testers, _i, _len, _ref, _ref2, _ref3, _ref4, _ref5, _results;
-            _ref = stories.sort(function(_arg, _arg2) {
+            var devs, match, s, story, testers, _i, _len, _ref3, _ref4, _ref5, _ref6, _ref7, _results;
+            _ref3 = stories.sort(function(_arg, _arg2) {
               var a, b;
               a = _arg.story;
               b = _arg2.story;
               return a.num - b.num;
             });
             _results = [];
-            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-              s = _ref[_i].story;
+            for (_i = 0, _len = _ref3.length; _i < _len; _i++) {
+              s = _ref3[_i].story;
               story = {
                 codeCompletePct: s.codeCompletePct,
                 type: 'story',
@@ -95,12 +95,12 @@ define(['data/JSONP'], function(jsonp) {
                 }
               };
               if (match = storyRegex.exec(s.description + ' ' + s.chumps)) {
-                _ref3 = match[5] && ((_ref2 = match[5]) != null ? _ref2.split(' - ') : void 0) || [], devs = _ref3[0], testers = _ref3[1];
+                _ref5 = match[5] && ((_ref4 = match[5]) != null ? _ref4.split(' - ') : void 0) || [], devs = _ref5[0], testers = _ref5[1];
                 story.storynum = s.num;
                 story.name = match[3];
                 story.testers = testers != null ? testers.split('/') : void 0;
                 story.devs = devs != null ? devs.split('/') : void 0;
-                story.tags = (_ref4 = match[1]) != null ? (_ref5 = _ref4.split(' - ')) != null ? _ref5.slice(0, -1) : void 0 : void 0;
+                story.tags = (_ref6 = match[1]) != null ? (_ref7 = _ref6.split(' - ')) != null ? _ref7.slice(0, -1) : void 0 : void 0;
               }
               _results.push(story);
             }
@@ -153,11 +153,11 @@ define(['data/JSONP'], function(jsonp) {
       return function(storynum, done) {
         return get('data/MockDashboardService-getStoryTestDetails', xptoolurl("iteration/stories/" + storynum + "/tests"), function(tests) {
           tests = (function() {
-            var _i, _len, _ref, _results;
+            var _i, _len, _ref3, _results;
             _results = [];
             for (_i = 0, _len = tests.length; _i < _len; _i++) {
               t = tests[_i].test;
-              t.status = ((_ref = t.status) === 'pass' || _ref === 'fail' || _ref === 'na' || _ref === 'towrite') && t.status || 'unknown';
+              t.status = ((_ref3 = t.status) === 'pass' || _ref3 === 'fail' || _ref3 === 'na' || _ref3 === 'towrite') && t.status || 'unknown';
               t.update = parseUpdate(t.owner);
               _results.push(t);
             }
