@@ -18,11 +18,13 @@ define ['cell!shared/page/Page','cell!shared/ComingSoonPage','cell!pages/dashboa
     @options.selectedPage ?= 'Dashboard'
 
   render: (R)->
-    defer => @loadPage @options.selectedPage
-    """
-    #{R.cell Bar, selectedItem:@options.selectedPage, items:(p for p of pages)}
-    <div id='content'></div>
-    """
+    if $.browser.msie then R.cell 'IEGTFO'
+    else
+      defer => @loadPage @options.selectedPage
+      """
+      #{R.cell Bar, selectedItem:@options.selectedPage, items:(p for p of pages)}
+      <div id='content'></div>
+      """
 
   bind:
     'selectedItemChanged :parent > .Bar': (e,{item})->

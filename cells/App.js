@@ -27,20 +27,24 @@ define(['cell!shared/page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/dashb
     },
     render: function(R) {
       var p;
-      defer(__bind(function() {
-        return this.loadPage(this.options.selectedPage);
-      }, this));
-      return "" + (R.cell(Bar, {
-        selectedItem: this.options.selectedPage,
-        items: (function() {
-          var _results;
-          _results = [];
-          for (p in pages) {
-            _results.push(p);
-          }
-          return _results;
-        })()
-      })) + "\n<div id='content'></div>";
+      if ($.browser.msie) {
+        return R.cell('IEGTFO');
+      } else {
+        defer(__bind(function() {
+          return this.loadPage(this.options.selectedPage);
+        }, this));
+        return "" + (R.cell(Bar, {
+          selectedItem: this.options.selectedPage,
+          items: (function() {
+            var _results;
+            _results = [];
+            for (p in pages) {
+              _results.push(p);
+            }
+            return _results;
+          })()
+        })) + "\n<div id='content'></div>";
+      }
     },
     bind: {
       'selectedItemChanged :parent > .Bar': function(e, _arg) {
