@@ -3,8 +3,8 @@ define
     @options.selectedTab ?= @options.tabs[0]
 
   render: (R)->
-    """
     #{R.cell 'SearchInput'}
+    """
     <ul>
       #{R @options.tabs, (tab,i)=>"
         <li #{R @options.selectedTab==tab and "class='selected'"}>

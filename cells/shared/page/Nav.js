@@ -5,7 +5,7 @@ define({
     return (_ref = (_base = this.options).selectedTab) != null ? _ref : _base.selectedTab = this.options.tabs[0];
   },
   render: function(R) {
-    return "" + (R.cell('SearchInput')) + "\n<ul>\n  " + (R(this.options.tabs, __bind(function(tab, i) {
+    return "<ul>\n  " + (R(this.options.tabs, __bind(function(tab, i) {
       return "    <li " + (R(this.options.selectedTab === tab && "class='selected'")) + ">      <a href='#' id='" + tab + "'>" + tab + "</a><div class='triangle'></div>    </li>  ";
     }, this))) + "\n</ul>";
   },

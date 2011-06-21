@@ -7,7 +7,7 @@
 .Nav > .SearchInput > #searchInputContainer > #searchinput:focus{color:#aaa;background-color:#111;font-style:normal}
 .Nav > .SearchInput > #searchIcon #circle{border-color:#666}
 .Nav > .SearchInput > #searchIcon #rect{background-color:#666}
-.Nav > ul{position:absolute;top:35px;right:0;left:0;list-style-type:none;padding-top:2px;padding-left:0;}
+.Nav > ul{position:absolute;top:5px;right:0;left:0;list-style-type:none;padding-top:2px;padding-left:0;}
 .Nav > ul > li{margin:8px 0 8px 0;padding:4px 0 2px 10px;position:relative;display:block;}
 .Nav > ul > li > a{height:14px;color:#999;display:block;font-size:12px;font-weight:bold;letter-spacing:1px;text-decoration:none;text-shadow:1px 1px 0 #222;vertical-align:6px;width:100%}
 .Nav > ul > li.selected,.Nav > ul > li.selected:hover{background:#31638c;background:-moz-linear-gradient(top,rgba(54,114,159,0.7) 0%,rgba(44,84,119,0.75) 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(54,114,159,0.7)),color-stop(100%,rgba(44,84,119,0.75)));filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='rgba(54,114,159,0.7)', endColorstr='rgba(44,84,119,0.75)',GradientType=0 );border-top:1px solid #2a2a2a;}

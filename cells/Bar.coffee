@@ -1,9 +1,10 @@
-define ['cell!SearchInput'], (SearchInput)->
+define
   init: ->
     @options.items ?= []
     @options.selectedItem ?= @options.items[0]
 
   render: (R)->
+    #{R.cell 'SearchInput'}
     """
     <div id='xoltop'>
       <div id='label'>XOLTOP</div>
@@ -15,7 +16,6 @@ define ['cell!SearchInput'], (SearchInput)->
            data-item='#{item}'>#{item.toUpperCase()}</a>
       </div>
     "}
-    #{R.cell 'SearchInput'}
     """
 
   bind:
