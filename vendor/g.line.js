@@ -55,7 +55,6 @@ Raphael.fn.g.linechart = function (x, y, width, height, valuesx, valuesy, opts) 
         symbol = opts.symbol || "",
         colors = opts.colors || Raphael.fn.g.colors,
         that = this,
-        columns = null,
         dots = null,
         chart = this.set(),
         path = [];
@@ -178,7 +177,7 @@ Raphael.fn.g.linechart = function (x, y, width, height, valuesx, valuesy, opts) 
             }
             f && f.call(C);
         }
-        !f && (columns = cvrs);
+        !f && (chart.columns = cvrs);
     }
     function createDots(f) {
         var cvrs = f || that.set(),
@@ -202,33 +201,33 @@ Raphael.fn.g.linechart = function (x, y, width, height, valuesx, valuesy, opts) 
         }
         !f && (dots = cvrs);
     }
-    chart.push(lines, shades, symbols, axis, columns, dots);
+    chart.push(lines, shades, symbols, axis, chart.columns, dots);
     chart.lines = lines;
     chart.shades = shades;
     chart.symbols = symbols;
     chart.axis = axis;
     chart.hoverColumn = function (fin, fout) {
-        !columns && createColumns();
-        columns.mouseover(fin).mouseout(fout);
+        !chart.columns && createColumns();
+        chart.columns.mouseover(fin).mouseout(fout);
         return this;
     };
     chart.clickColumn = function (f) {
-        !columns && createColumns();
-        columns.click(f);
+        !chart.columns && createColumns();
+        chart.columns.click(f);
         return this;
     };
     chart.hrefColumn = function (cols) {
         var hrefs = that.raphael.is(arguments[0], "array") ? arguments[0] : arguments;
         if (!(arguments.length - 1) && typeof cols == "object") {
             for (var x in cols) {
-                for (var i = 0, ii = columns.length; i < ii; i++) if (columns[i].axis == x) {
-                    columns[i].attr("href", cols[x]);
+                for (var i = 0, ii = chart.columns.length; i < ii; i++) if (chart.columns[i].axis == x) {
+                    chart.columns[i].attr("href", cols[x]);
                 }
             }
         }
-        !columns && createColumns();
+        !chart.columns && createColumns();
         for (i = 0, ii = hrefs.length; i < ii; i++) {
-            columns[i] && columns[i].attr("href", hrefs[i]);
+            chart.columns[i] && chart.columns[i].attr("href", hrefs[i]);
         }
         return this;
     };

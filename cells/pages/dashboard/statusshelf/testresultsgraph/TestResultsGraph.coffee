@@ -1,40 +1,66 @@
 define ['data/DashboardService'], (DashboardService)->
   O = (o)->o
+  passColor = '#62872C'
+  failColor = '#992626'
+  highlightCol = (col)->
+    [color,colColor]= col.values[0] > 0 and ['#F88','#F00'] or ['#8F8','#090']
+    col.attr fill: colColor, opacity: .15
+    col.symbols.attr stroke: color, 'stroke-width': 2, 'stroke-opacity': 1
+
+  unhighlightCol = (col)->
+    color = col.values[0] > 0 and failColor or passColor
+    col.attr opacity: 0
+    col.symbols[0].attr fill:color,'stroke-opacity': 0
+
   render: (R,A)->
     self = this
     DashboardService.getRecentTestResults @options.type, (results)=>
-      [w,h] = [125,55]
-      r = Raphael 0,1, w,h
-      xs = [[0...10]]
-      ys = [(failures for {testResult:{failures}} in results)]
+      [w,h] = [125,64]
+      r = Raphael 0,3, w,h
+      lc = r.g.linechart 0,0, w,h,
+        [[0...results.length]]
+        [(failures for {testResult:{failures}} in results)]
+        nostroke: false
+        symbol: "o"
+        colors:['#4A1A1A']
 
-      lc = r.g.linechart 0,0, w,h, xs,ys, nostroke: false, symbol: "o"
-      lines = lc.hoverColumn.call lc,
+      lc.hoverColumn.call lc,
         -> # Hover IN
-          @attr
-            fill: '#F00'
-            opacity: .2
-          @origSymbolColor = @symbols[0].attr 'fill'
-          @symbols[0].attr
-            fill: '#F00'
+          highlightCol this
+          if lastCol != this
+            unhighlightCol lastCol
           self.$el.trigger type: 'resultHovered', column: this
 
         -> # Hover OUT
-          @attr opacity: 0
-          @symbols[0].attr
-            fill: @origSymbolColor
+          unhighlightCol this
           self.$el.trigger type: 'resultUnhovered'
 
-      lines.symbols.attr r: 3
+      for col,i in lc.columns
+        col.symbols[0].attr fill: if col.values[0] == 0 then passColor else failColor
+      highlightCol (lastCol = @lastCol = lc.columns[lc.columns.length-1])
+
+      lc.symbols.attr r: 3
       r.canvas.class = 'graph'
       A """
-        #{R $("<div class='graphContainer'></div>").append(r.canvas)[0]}
-        <div class='label'><span class='count'></span>#{@options.label}</div>
+        <table><tr>
+          <td>
+            #{R $("<div class='graphContainer'></div>").append(r.canvas)[0]}
+          </td>
+          <td class='labelRow #{R @lastCol.values[0] and "fail"}'>
+            <div class='label'>#{@options.label}</div>
+            <div class='count'>#{@lastCol.values[0]}</div>
+          </td>
+        </tr></table>
         """
   
   bind:
+    'mouseout': ->
+      highlightCol @lastCol
+
     'resultUnhovered': ->
-      @$('.count').html ""
+      @$('.labelRow').toggleClass 'fail', @lastCol.values[0] > 0
+      @$('.count').html "#{@lastCol.values[0]}"
 
     'resultHovered': (ev)->
-      @$('.count').html "#{ev.column.values[0]}&nbsp;"
+      @$('.labelRow').toggleClass 'fail', ev.column.values[0] > 0
+      @$('.count').html "#{ev.column.values[0]}"

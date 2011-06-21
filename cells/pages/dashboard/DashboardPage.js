@@ -12,7 +12,7 @@ define(['data/DashboardService', 'cell!./DashboardStory', 'cell!./statusshelf/te
   return {
     render: function(R, A) {
       return DashboardService.getStorySummaries(function(sums) {
-        return A("<div class='stats'>\n  <div class='iteration'>\n    <div class='iterNum'>314</div>\n    <div class='iterLabel'>ITERATION</div>\n  </div>\n  " + (R.cell(TestResultsGraph, {
+        return A("<div class='stats'>\n  <div class='iteration'>\n    <div class='iterNum'>236</div>\n    <div class='iterLabel'>ITERATION</div>\n  </div>\n  " + (R.cell(TestResultsGraph, {
           type: 'ats',
           label: 'AT'
         })) + "\n  " + (R.cell(TestResultsGraph, {

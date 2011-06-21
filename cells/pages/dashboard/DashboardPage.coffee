@@ -14,11 +14,10 @@ define [
 
   render: (R,A)->
     DashboardService.getStorySummaries (sums)->
-      #{R.cell TestResultsGraph, type: 'units', label: 'SMALL'}
       A """
         <div class='stats'>
           <div class='iteration'>
-            <div class='iterNum'>314</div>
+            <div class='iterNum'>236</div>
             <div class='iterLabel'>ITERATION</div>
           </div>
           #{R.cell TestResultsGraph, type: 'ats', label: 'AT'}

@@ -4,19 +4,28 @@
 @import 'mixins/transition';
 
 .TestResultsGraph
+  background-color rgba(0,0,0,.4)
+  border-radius 3px
+  position relative
+  padding-left 5px
 
-  > .graphContainer
-    background-color rgba(0,0,0,.4)
-    border-radius 3px
+  .graphContainer
     width 125px
-    height 53px
-    position relative
+    height 63px
     padding 2px 0 2px 0
+    position relative
     margin-bottom 3px
 
-  > .label
-    color text-disabled-color
+  .labelRow
     text-align center
-    font-size 13px
+    font-size 18px
     font-weight bold
+    vertical-align middle
+    padding 0 12px 0 8px
+    color desaturate(lighten(#62872C,70%),20%)
+    >.label
+      opacity .5
+      padding 0 0 2px 0
+    &.fail
+      color desaturate(lighten(badge-red,70%),30%)
 
