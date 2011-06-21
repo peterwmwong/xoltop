@@ -1,33 +1,29 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 define(['data/DashboardService', 'cell!shared/cattable/CatTable'], function(DashboardService, CatTable) {
-  var defer;
-  defer = function(f) {
-    return setTimeout(f, 1000);
-  };
   return {
     render: function(R, A) {
       return DashboardService.getStoryTestDetails(this.options.storynum, __bind(function(tests) {
         return A(R.cell(CatTable, {
           categories: {
-            fail: 'Failing',
+            fail: 'Failing / NA',
             towrite: 'To Write',
             pass: 'Passing'
           },
           mapMember: function(_arg) {
             var status;
             status = _arg.status;
-            return status;
+            return status === 'na' && 'fail' || status;
           },
           columnMap: {
             id: function(_arg) {
               var id;
               id = _arg.id;
-              return "<a href='" + (DashboardService.getXPToolBaseUrl("xp.testnoteview.do?testNumber=" + id)) + "' target='_blank'>" + id + "</a>";
+              return "<a target='_blank' href='" + (DashboardService.getXPToolBaseUrl("xp.testnoteview.do?testNumber=" + id)) + "'>\n  " + id + "\n</a>";
             },
             name: function(_arg) {
-              var id, requirement;
-              id = _arg.id, requirement = _arg.requirement;
-              return "<a href='" + (DashboardService.getXPToolBaseUrl("xp.testnoteview.do?testNumber=" + id)) + "' target='_blank'>" + requirement + "</a>";
+              var id, requirement, status;
+              id = _arg.id, status = _arg.status, requirement = _arg.requirement;
+              return "" + (R(status === 'na' && "<span class='needsAttn'>NA</span>")) + "\n<a target='_blank' href='" + (DashboardService.getXPToolBaseUrl("xp.testnoteview.do?testNumber=" + id)) + "'>\n  " + requirement + "\n</a>";
             },
             status: function(_arg) {
               var update;

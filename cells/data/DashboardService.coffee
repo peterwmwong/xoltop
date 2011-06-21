@@ -1,8 +1,9 @@
-define ['data/JSONP'],(jsonp)->
+define ['data/JSONP'], (jsonp)->
+  TESTING = (window.xoltop.DashboardService.useMockData == true)
 
   xptoolurl = (path)-> getXPToolBaseUrl "rest/jumbotron/#{path}"
   get = (testpath,url,done)->
-    if TESTING = false
+    if TESTING
       require [testpath], done
     else
       jsonp
@@ -27,6 +28,7 @@ define ['data/JSONP'],(jsonp)->
     else if type is 'smalls'
       get 'data/MockDashboardService-getRecentTestResults-smalls',
         "http://build-linux-01.fdr.follett.com:8080/ci/view/Destiny/job/destiny-small-tests/lastCompletedBuild/testReport/api/json"
+        done
 
   getTestStatus: (done)->
     get 'data/MockDashboardService-getTestStatus',
@@ -123,7 +125,7 @@ define ['data/JSONP'],(jsonp)->
         xptoolurl "iteration/stories/#{storynum}/tests"
         (tests)->
           tests = for {test:t} in tests
-            t.status = t.status in ['pass','fail','towrite'] and t.status or 'unknown'
+            t.status = t.status in ['pass','fail','na','towrite'] and t.status or 'unknown'
             t.update = parseUpdate t.owner
             t
 

@@ -1,11 +1,11 @@
 define(['data/JSONP'], function(jsonp) {
-  var get, getXPToolBaseUrl, xptoolurl;
+  var TESTING, get, getXPToolBaseUrl, xptoolurl;
+  TESTING = window.xoltop.DashboardService.useMockData === true;
   xptoolurl = function(path) {
     return getXPToolBaseUrl("rest/jumbotron/" + path);
   };
   get = function(testpath, url, done) {
-    var TESTING;
-    if (TESTING = false) {
+    if (TESTING) {
       require([testpath], done);
     } else {
       jsonp({
@@ -30,7 +30,7 @@ define(['data/JSONP'], function(jsonp) {
       if (type === 'ats' || type === 'units') {
         return get("data/MockDashboardService-getRecentTestResults-" + type, xptoolurl("tests/" + type + "?recent=10"), done);
       } else if (type === 'smalls') {
-        return get('data/MockDashboardService-getRecentTestResults-smalls', "http://build-linux-01.fdr.follett.com:8080/ci/view/Destiny/job/destiny-small-tests/lastCompletedBuild/testReport/api/json");
+        return get('data/MockDashboardService-getRecentTestResults-smalls', "http://build-linux-01.fdr.follett.com:8080/ci/view/Destiny/job/destiny-small-tests/lastCompletedBuild/testReport/api/json", done);
       }
     },
     getTestStatus: function(done) {
@@ -157,7 +157,7 @@ define(['data/JSONP'], function(jsonp) {
             _results = [];
             for (_i = 0, _len = tests.length; _i < _len; _i++) {
               t = tests[_i].test;
-              t.status = ((_ref = t.status) === 'pass' || _ref === 'fail' || _ref === 'towrite') && t.status || 'unknown';
+              t.status = ((_ref = t.status) === 'pass' || _ref === 'fail' || _ref === 'na' || _ref === 'towrite') && t.status || 'unknown';
               t.update = parseUpdate(t.owner);
               _results.push(t);
             }

@@ -4,13 +4,11 @@ TODO
 
 BUILD
 -----
-Production index.html should NOT use testing DashboardService
 
 
 Dashboard
 ---------
 Get Iteration Number
-Tests Needs Attention status
 Test health monitors
   - Automatically select latest AT/Unit Run
   - Small tests

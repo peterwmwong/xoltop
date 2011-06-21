@@ -39,12 +39,20 @@
       &.status, &.date, &.owner
         padding 0 5px 0 5px
 
-      &.name > a
-        color text-color-dark
-        text-decoration none
+      &.name
+        > .needsAttn
+          background-color badge-red
+          border-radius 7px
+          padding 2px 3px 2px 3px
+          font-size 11px
+          color text-color
+          font-weight bold
+        > a
+          color text-color-dark
+          text-decoration none
 
-        &:hover
-          text-decoration underline
+          &:hover
+            text-decoration underline
 
       &.id
         width 60px

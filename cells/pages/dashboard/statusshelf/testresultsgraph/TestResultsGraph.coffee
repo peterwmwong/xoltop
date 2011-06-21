@@ -4,7 +4,6 @@ define ['data/DashboardService'], (DashboardService)->
     self = this
     DashboardService.getRecentTestResults @options.type, (results)=>
       [w,h] = [125,55]
-
       r = Raphael 0,1, w,h
       xs = [[0...10]]
       ys = [(failures for {testResult:{failures}} in results)]

@@ -158,6 +158,7 @@ a:active, a:focus {
 .TestsSection > .CatTable > table > tbody > tr > .category{text-align:left}
 .TestsSection > .CatTable > table > tbody > tr > .column{vertical-align:middle;}
 .TestsSection > .CatTable > table > tbody > tr > .column.status,.TestsSection > .CatTable > table > tbody > tr > .column.date,.TestsSection > .CatTable > table > tbody > tr > .column.owner{padding:0 5px 0 5px}
+.TestsSection > .CatTable > table > tbody > tr > .column.name > .needsAttn{background-color:#932c2c;-moz-border-radius-topleft:7px;-moz-border-radius-topright:7px;-moz-border-radius-bottomright:7px;-moz-border-radius-bottomleft:7px;border-top-left-radius:7px;border-top-right-radius:7px;border-bottom-right-radius:7px;border-bottom-left-radius:7px;padding:2px 3px 2px 3px;font-size:11px;color:#fff;font-weight:bold}
 .TestsSection > .CatTable > table > tbody > tr > .column.name > a{color:#ddd;text-decoration:none;}
 .TestsSection > .CatTable > table > tbody > tr > .column.name > a:hover{text-decoration:underline}
 .TestsSection > .CatTable > table > tbody > tr > .column.id{width:60px;min-width:60px;font-size:16px;font-weight:bold;text-align:center;}
