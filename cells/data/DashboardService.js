@@ -1,6 +1,6 @@
 define(['data/JSONP'], function(jsonp) {
   var TESTING, get, getXPToolBaseUrl, xptoolurl, _ref, _ref2;
-  TESTING = ((_ref = window.xoltop) != null ? (_ref2 = _ref.DashboardService) != null ? _ref2.useMockData : void 0 : void 0) != null;
+  TESTING = (_ref = window.xoltop) != null ? (_ref2 = _ref.DashboardService) != null ? _ref2.useMockData : void 0 : void 0;
   xptoolurl = function(path) {
     return getXPToolBaseUrl("rest/jumbotron/" + path);
   };
@@ -18,6 +18,13 @@ define(['data/JSONP'], function(jsonp) {
   return {
     getXPToolBaseUrl: getXPToolBaseUrl = function(relPath) {
       return "http://172.16.0.230/xptool/" + relPath;
+    },
+    getCurrentIterationNumber: function(done) {
+      return get('data/MockDashboardService-getCurrentIterationNumber', xptoolurl("/iteration/current"), function(_arg) {
+        var iterationNo;
+        iterationNo = _arg.iterationInfo.iterationNo;
+        return done(iterationNo);
+      });
     },
     getIterationTestStatus: function(done) {
       return get('data/MockDashboardService-getIterationTestStatus', xptoolurl("iteration/tests"), function(_arg) {
@@ -67,19 +74,21 @@ define(['data/JSONP'], function(jsonp) {
           return 2;
         }
       };
-      return function(done) {
-        return get('data/MockDashboardService-getStorySummaries', xptoolurl('iteration/stories/'), function(stories) {
+      return function(iterNo, done) {
+        return get('data/MockDashboardService-getStorySummaries', xptoolurl("iteration/" + ((iterNo != null) && ("" + iterNo + "/") || "") + "stories/"), function(_arg) {
+          var iterationNo, stories, _ref3;
+          _ref3 = _arg.iterationStories, iterationNo = _ref3.iterationNo, stories = _ref3.stories;
           stories = (function() {
-            var devs, match, s, story, testers, _i, _len, _ref3, _ref4, _ref5, _ref6, _ref7, _results;
-            _ref3 = stories.sort(function(_arg, _arg2) {
+            var devs, match, s, story, testers, _i, _len, _ref4, _ref5, _ref6, _ref7, _ref8, _results;
+            _ref4 = stories.sort(function(_arg2, _arg3) {
               var a, b;
-              a = _arg.story;
-              b = _arg2.story;
-              return a.num - b.num;
+              a = _arg2.num;
+              b = _arg3.num;
+              return a - b;
             });
             _results = [];
-            for (_i = 0, _len = _ref3.length; _i < _len; _i++) {
-              s = _ref3[_i].story;
+            for (_i = 0, _len = _ref4.length; _i < _len; _i++) {
+              s = _ref4[_i];
               story = {
                 codeCompletePct: s.codeCompletePct,
                 type: 'story',
@@ -95,12 +104,12 @@ define(['data/JSONP'], function(jsonp) {
                 }
               };
               if (match = storyRegex.exec(s.description + ' ' + s.chumps)) {
-                _ref5 = match[5] && ((_ref4 = match[5]) != null ? _ref4.split(' - ') : void 0) || [], devs = _ref5[0], testers = _ref5[1];
+                _ref6 = match[5] && ((_ref5 = match[5]) != null ? _ref5.split(' - ') : void 0) || [], devs = _ref6[0], testers = _ref6[1];
                 story.storynum = s.num;
                 story.name = match[3];
                 story.testers = testers != null ? testers.split('/') : void 0;
                 story.devs = devs != null ? devs.split('/') : void 0;
-                story.tags = (_ref6 = match[1]) != null ? (_ref7 = _ref6.split(' - ')) != null ? _ref7.slice(0, -1) : void 0 : void 0;
+                story.tags = (_ref7 = match[1]) != null ? (_ref8 = _ref7.split(' - ')) != null ? _ref8.slice(0, -1) : void 0 : void 0;
               }
               _results.push(story);
             }
@@ -109,7 +118,10 @@ define(['data/JSONP'], function(jsonp) {
           stories.sort(function(a, b) {
             return getStatus(a) - getStatus(b);
           });
-          return done(stories);
+          return done({
+            stories: stories,
+            iterationNo: iterationNo
+          });
         });
       };
     })(),

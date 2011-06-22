@@ -1,5 +1,5 @@
 define ['data/JSONP'], (jsonp)->
-  TESTING = window.xoltop?.DashboardService?.useMockData?
+  TESTING = window.xoltop?.DashboardService?.useMockData
 
   xptoolurl = (path)-> getXPToolBaseUrl "rest/jumbotron/#{path}"
   get = (testpath,url,done)->
@@ -15,6 +15,11 @@ define ['data/JSONP'], (jsonp)->
 
   getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.0.230/xptool/#{relPath}"
   #getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.19.63:69/xptool/#{relPath}"
+
+  getCurrentIterationNumber: (done)->
+    get 'data/MockDashboardService-getCurrentIterationNumber',
+      xptoolurl "/iteration/current"
+      ({iterationInfo:{iterationNo}})-> done iterationNo
 
   getIterationTestStatus: (done)->
     get 'data/MockDashboardService-getIterationTestStatus',
@@ -62,12 +67,12 @@ define ['data/JSONP'], (jsonp)->
         1
       else
         2
-    (done)->
+    (iterNo,done)->
       get 'data/MockDashboardService-getStorySummaries',
-        xptoolurl 'iteration/stories/'
-        (stories)->
+        xptoolurl "iteration/#{iterNo? and "#{iterNo}/" or ""}stories/"
+        ({iterationStories:{iterationNo,stories}})->
           stories = do->
-            for {story:s} in stories.sort( ({story:a},{story:b})->a.num-b.num )
+            for s in stories.sort( ({num:a},{num:b})->a-b )
               story =
                 codeCompletePct: s.codeCompletePct
                 type: 'story'
@@ -92,7 +97,7 @@ define ['data/JSONP'], (jsonp)->
           stories.sort (a,b)->
             getStatus(a) - getStatus(b)
 
-          done stories
+          done {stories,iterationNo}
 
   getStoryTestDetails : do->
     parseUpdate = do->

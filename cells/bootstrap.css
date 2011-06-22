@@ -63,12 +63,7 @@ a:active, a:focus {
 .DashboardPage > .stats:before{content:"";position:absolute;top:0;right:-15px;bottom:-1px;left:-15px;box-shadow:inset 0 0 15px #1d1d1d}
 .DashboardPage > .stats > *{display:inline-block}
 .DashboardPage > .stats > .TestResultsGraph{vertical-align:top;margin:0 5px 0 5px}
-.DashboardPage > .stats > .iteration{position:relative;width:70px;margin-right:20px;}
-.DashboardPage > .stats > .iteration > .iterNum{box-shadow:0 2px 5px #1b1b1b;text-shadow:0 -1px 0 rgba(0,0,0,0.5);-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;background-color:#666;color:#ddd;font-size:32px;font-weight:bold;height:100%;margin-bottom:4px;padding:15px 0 8px 0;text-align:center;vertical-align:middle;width:100%}
-.DashboardPage > .stats > .iteration > .iterNum::before{position:absolute;top:4px;left:17px}
-.DashboardPage > .stats > .iteration > .iterNum::after{position:absolute;top:4px;right:17px;}
-.DashboardPage > .stats > .iteration > .iterNum::after,.DashboardPage > .stats > .iteration > .iterNum::before{box-shadow:inset 0 1px 1px #111;background-color:#333;-moz-border-radius-topleft:5px;-moz-border-radius-topright:5px;-moz-border-radius-bottomright:5px;-moz-border-radius-bottomleft:5px;border-top-left-radius:5px;border-top-right-radius:5px;border-bottom-right-radius:5px;border-bottom-left-radius:5px;content:"";display:block;height:6px;width:6px}
-.DashboardPage > .stats > .iteration > .iterLabel{color:#999;text-align:center;font-size:13px;font-weight:bold}
+.DashboardPage > .stats > .IterationChooser{margin-right:30px}
 .Bar{background-color:#36729f;-webkit-box-shadow:0 1px 3px #111;-moz-box-shadow:0 1px 3px #111;box-shadow:0 1px 3px #111;font-family:Helvetica,Arial,sans-serif;letter-spacing:1px;font-size:12px;}
 .Bar > *{display:inline-block}
 .Bar > #xoltop{position:relative;width:112px;}
@@ -147,6 +142,18 @@ a:active, a:focus {
 .DashboardStory > .header > div > .collapseStory > .rect,.DashboardStory > .header > div > .collapseStory > .triangle{opacity:0;-webkit-transition:opacity 150ms ease-in;-moz-transition:opacity 150ms ease-in;-o-transition:opacity 150ms ease-in;transition:opacity 150ms ease-in}
 .DashboardStory > .header > div > .collapseStory > .rect{position:absolute;top:26px;left:10px;background-color:#6b6b6b;width:14px;height:3px}
 .DashboardStory > .header > div > .collapseStory > .triangle{position:absolute;top:9px;right:0;bottom:0;left:10px;content:"";display:block;border-color:rgba(51,51,51,0) rgba(51,51,51,0) #6b6b6b rgba(51,51,51,0);border-style:solid;border-width:7px;height:0;width:0;z-index:2}
+.IterationChooser{font-family:Helvetica,Arial,sans-serif;position:relative;width:70px;margin-right:20px;}
+.IterationChooser > .iterNum{box-shadow:0 2px 5px #1b1b1b;text-shadow:0 -1px 0 rgba(0,0,0,0.5);-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;background-color:#666;color:#ddd;font-size:32px;font-weight:bold;height:100%;margin-bottom:4px;padding:15px 0 8px 0;position:relative;text-align:center;vertical-align:middle;width:100%;}
+.IterationChooser > .iterNum::before{position:absolute;top:4px;left:17px}
+.IterationChooser > .iterNum::after{position:absolute;top:4px;right:17px;}
+.IterationChooser > .iterNum::after,.IterationChooser > .iterNum::before{box-shadow:inset 0 1px 1px #111;background-color:#333;-moz-border-radius-topleft:5px;-moz-border-radius-topright:5px;-moz-border-radius-bottomright:5px;-moz-border-radius-bottomleft:5px;border-top-left-radius:5px;border-top-right-radius:5px;border-bottom-right-radius:5px;border-bottom-left-radius:5px;content:"";display:block;height:6px;width:6px}
+.IterationChooser > .iterNum:hover > .prevIter,.IterationChooser > .iterNum:hover > .nextIter{opacity:.4}
+.IterationChooser > .iterNum > .prevIter,.IterationChooser > .iterNum > .nextIter{display:block;font-family:"Nunito",serif;font-size:28px;font-style:normal;font-weight:700;opacity:0;text-decoration:none;color:#fff;}
+.IterationChooser > .iterNum > .prevIter:visited,.IterationChooser > .iterNum > .nextIter:visited{color:#fff}
+.IterationChooser > .iterNum > .prevIter:hover,.IterationChooser > .iterNum > .nextIter:hover{opacity:1}
+.IterationChooser > .iterNum > .prevIter.nextIter,.IterationChooser > .iterNum > .nextIter.nextIter{position:absolute;top:15px;right:-22px;bottom:0;}
+.IterationChooser > .iterNum > .prevIter.prevIter,.IterationChooser > .iterNum > .nextIter.prevIter{position:absolute;top:15px;bottom:0;left:-22px}
+.IterationChooser > .iterLabel{color:#999;text-align:center;font-size:13px;font-weight:bold}
 .TestResultsGraph{background-color:rgba(0,0,0,0.4);-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;position:relative;padding-left:5px;}
 .TestResultsGraph .graphContainer{width:125px;height:63px;padding:2px 0 2px 0;position:relative;margin-bottom:3px}
 .TestResultsGraph .labelRow{text-align:center;font-size:18px;font-weight:bold;vertical-align:middle;padding:0 12px 0 8px;color:#a0c26e;}

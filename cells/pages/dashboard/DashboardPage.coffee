@@ -1,8 +1,9 @@
 define [
   'data/DashboardService'
   'cell!./DashboardStory'
+  'cell!./statusshelf/IterationChooser'
   'cell!./statusshelf/testresultsgraph/TestResultsGraph'
-], (DashboardService,DashboardStory,TestResultsGraph)->
+], (DashboardService,DashboardStory,IterationChooser,TestResultsGraph)->
   
   CountLabel = cell.extend
     render: (R,A)->
@@ -13,20 +14,25 @@ define [
           """
 
   render: (R,A)->
-    DashboardService.getStorySummaries (sums)->
+    DashboardService.getStorySummaries null, ({iterationNo,stories})->
       A """
         <div class='stats'>
-          <div class='iteration'>
-            <div class='iterNum'>235</div>
-            <div class='iterLabel'>ITERATION</div>
-          </div>
+          #{R.cell IterationChooser, iterationNo:iterationNo}
           #{R.cell TestResultsGraph, type: 'ats', label: 'AT'}
           #{R.cell TestResultsGraph, type: 'units', label: 'UNIT'}
         </div>
-        #{R sums, (story)-> R.cell DashboardStory, model:story}
+        #{R stories, (story)-> R.cell DashboardStory, model:story}
         """
 
   bind:
     'selected .DashboardStory': ({target})->
       @$('.DashboardStory.selected').trigger('deselected')
+
+
+    'iterationNoChanged .IterationChooser': ({newIterationNo})->
+      @$('.DashboardStory').remove()
+      DashboardService.getStorySummaries newIterationNo, ({stories})=>
+        for s in stories
+          (new DashboardStory model: s).$el.appendTo @el
+
    

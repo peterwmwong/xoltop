@@ -1,5 +1,5 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-define(['data/DashboardService', 'cell!./DashboardStory', 'cell!./statusshelf/testresultsgraph/TestResultsGraph'], function(DashboardService, DashboardStory, TestResultsGraph) {
+define(['data/DashboardService', 'cell!./DashboardStory', 'cell!./statusshelf/IterationChooser', 'cell!./statusshelf/testresultsgraph/TestResultsGraph'], function(DashboardService, DashboardStory, IterationChooser, TestResultsGraph) {
   var CountLabel;
   CountLabel = cell.extend({
     render: function(R, A) {
@@ -11,14 +11,18 @@ define(['data/DashboardService', 'cell!./DashboardStory', 'cell!./statusshelf/te
   });
   return {
     render: function(R, A) {
-      return DashboardService.getStorySummaries(function(sums) {
-        return A("<div class='stats'>\n  <div class='iteration'>\n    <div class='iterNum'>235</div>\n    <div class='iterLabel'>ITERATION</div>\n  </div>\n  " + (R.cell(TestResultsGraph, {
+      return DashboardService.getStorySummaries(null, function(_arg) {
+        var iterationNo, stories;
+        iterationNo = _arg.iterationNo, stories = _arg.stories;
+        return A("<div class='stats'>\n  " + (R.cell(IterationChooser, {
+          iterationNo: iterationNo
+        })) + "\n  " + (R.cell(TestResultsGraph, {
           type: 'ats',
           label: 'AT'
         })) + "\n  " + (R.cell(TestResultsGraph, {
           type: 'units',
           label: 'UNIT'
-        })) + "\n</div>\n" + (R(sums, function(story) {
+        })) + "\n</div>\n" + (R(stories, function(story) {
           return R.cell(DashboardStory, {
             model: story
           });
@@ -30,6 +34,23 @@ define(['data/DashboardService', 'cell!./DashboardStory', 'cell!./statusshelf/te
         var target;
         target = _arg.target;
         return this.$('.DashboardStory.selected').trigger('deselected');
+      },
+      'iterationNoChanged .IterationChooser': function(_arg) {
+        var newIterationNo;
+        newIterationNo = _arg.newIterationNo;
+        this.$('.DashboardStory').remove();
+        return DashboardService.getStorySummaries(newIterationNo, __bind(function(_arg2) {
+          var s, stories, _i, _len, _results;
+          stories = _arg2.stories;
+          _results = [];
+          for (_i = 0, _len = stories.length; _i < _len; _i++) {
+            s = stories[_i];
+            _results.push((new DashboardStory({
+              model: s
+            })).$el.appendTo(this.el));
+          }
+          return _results;
+        }, this));
       }
     }
   };
