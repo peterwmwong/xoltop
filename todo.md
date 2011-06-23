@@ -8,6 +8,7 @@ Make Test Resuls, Code Tasks and Chump Tasks linkable
 
 Dashboard
 ---------
+* Show Test Status (to distinguish NA and NA and Failing)
 * Show "No Code Tasks/Tests/Chump Tasks" when none exist
 * Handle Roll Over Stories
 * Test health monitors

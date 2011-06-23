@@ -2,6 +2,7 @@ define ['data/DashboardService','cell!shared/cattable/CatTable'], (DashboardServ
 
   render: (R,A)->
     DashboardService.getStoryTasksDetails @options.storynum, (tasks)=>
+      console.log tasks
       A R.cell CatTable,
         categories:
           needsAttn:'Needs Attention'
@@ -9,9 +10,9 @@ define ['data/DashboardService','cell!shared/cattable/CatTable'], (DashboardServ
           complete:'Complete'
         mapMember: ({task})->task.category
         columnMap:
-          note: ({task:{note,id}})->
+          note: ({task:{note,chumpTaskID}})->
             """
-            <a target='_blank' href='#{DashboardService.getXPToolBaseUrl "xp.chumptaskview.do?storyNum=#{id}"}'>
+            <a target='_blank' href='#{DashboardService.getXPToolBaseUrl "projecttool/projecttool.taskview.do?taskID=#{chumpTaskID}"}'>
               #{note}
             </a>
             """

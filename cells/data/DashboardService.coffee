@@ -16,8 +16,8 @@ define ['data/JSONP'], (jsonp)->
       return
  
 
-  getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.0.230/xptool/#{relPath}"
-  #getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.19.63:69/xptool/#{relPath}"
+  #getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.0.230/xptool/#{relPath}"
+  getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.19.63:69/xptool/#{relPath}"
 
   getCurrentIterationNumber: (done)->
     get 'data/MockDashboardService-getCurrentIterationNumber',

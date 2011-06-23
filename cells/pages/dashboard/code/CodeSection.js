@@ -3,6 +3,8 @@ define(['data/DashboardService', 'cell!shared/cattable/CatTable'], function(Dash
   return {
     render: function(R, A) {
       return DashboardService.getStoryCodeTasksDetails(this.options.storynum, __bind(function(codeTasks) {
+        var storynum;
+        storynum = this.options.storynum;
         return A(R.cell(CatTable, {
           categories: {
             notStarted: 'Not Started',
@@ -18,7 +20,7 @@ define(['data/DashboardService', 'cell!shared/cattable/CatTable'], function(Dash
             description: function(_arg) {
               var description, id, _ref;
               _ref = _arg.task, id = _ref.id, description = _ref.description;
-              return "<a target='_blank' href='" + (DashboardService.getXPToolBaseUrl("xp.taskview.do?taskId=" + id)) + "'>\n  " + description + "\n</a>";
+              return "<a target='_blank' href='" + (DashboardService.getXPToolBaseUrl("xptool/projecttool/projecttool.tasklogtime.do?taskID=" + id + "&chumpStoryID=" + storynum)) + "'>\n  " + description + "\n</a>";
             },
             owner: function(_arg) {
               var owner;
