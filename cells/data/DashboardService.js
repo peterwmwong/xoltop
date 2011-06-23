@@ -4,17 +4,25 @@ define(['data/JSONP'], function(jsonp) {
   xptoolurl = function(path) {
     return getXPToolBaseUrl("rest/jumbotron/" + path);
   };
-  get = function(testpath, url, done) {
-    if (TESTING) {
-      require([testpath], done);
-    } else {
-      jsonp({
-        callback: 'jsonp',
-        url: url,
-        success: done
-      });
-    }
-  };
+  get = (function() {
+    var defer;
+    defer = function(f) {
+      return setTimeout(f, 1000);
+    };
+    return function(testpath, url, done) {
+      if (TESTING) {
+        defer(function() {
+          return require([testpath], done);
+        });
+      } else {
+        jsonp({
+          callback: 'jsonp',
+          url: url,
+          success: done
+        });
+      }
+    };
+  })();
   return {
     getXPToolBaseUrl: getXPToolBaseUrl = function(relPath) {
       return "http://172.16.0.230/xptool/" + relPath;

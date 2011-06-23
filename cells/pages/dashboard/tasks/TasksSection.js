@@ -15,13 +15,10 @@ define(['data/DashboardService', 'cell!shared/cattable/CatTable'], function(Dash
             return task.category;
           },
           columnMap: {
-            expandCollapse: function() {
-              return "<a href='#'></a>";
-            },
             note: function(_arg) {
-              var task;
-              task = _arg.task;
-              return task.note;
+              var id, note, _ref;
+              _ref = _arg.task, note = _ref.note, id = _ref.id;
+              return "<a target='_blank' href='" + (DashboardService.getXPToolBaseUrl("xp.chumptaskview.do?storyNum=" + id)) + "'>\n  " + note + "\n</a>";
             },
             owner: function(_arg) {
               var task;
@@ -36,12 +33,6 @@ define(['data/DashboardService', 'cell!shared/cattable/CatTable'], function(Dash
     bind: {
       afterRender: function() {
         return this.$('.column.note br').replaceWith("<div class='linebreak'></div>");
-      },
-      'click .column.note, .column.expandCollapse > a': function(ev) {
-        var $row;
-        $row = $(ev.target).closest('tr');
-        $('.column.expandCollapse', $row).toggleClass('showLess');
-        return $('.column.note', $row).toggleClass('expanded');
       }
     }
   };

@@ -9,7 +9,12 @@ define ['data/DashboardService','cell!shared/cattable/CatTable'], (DashboardServ
           complete:'Complete'
         mapMember: ({task:{status}})-> status
         columnMap:
-          description: ({task:{description}})-> description
+          description: ({task:{id,description}})->
+            """
+            <a target='_blank' href='#{DashboardService.getXPToolBaseUrl "xp.taskview.do?taskId=#{id}"}'>
+              #{description}
+            </a>
+            """
           owner: ({task:{owner}})-> owner
         members:codeTasks
       

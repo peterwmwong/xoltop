@@ -25,7 +25,7 @@ define(['cell!./tests/TestsSection', 'cell!./tasks/TasksSection', 'cell!./code/C
           color = _arg2[0], count = _arg2[1];
           return R(count !== 0 && ("<span class='" + color + "'>" + count + "</span>"));
         }, this)) : R("<span class='green'>" + total + "</span>")) + "          </span>        </div>      </div>    ";
-      })) + "\n    <div class='name'>\n      <div>\n        <a href='#'>" + this.model.name + "</a>\n      </div>\n    </div>\n    <div class='chumps'>\n      " + (R((_ref2 = this.model.devs) != null ? _ref2.concat(this.model.testers).join("<span class='divider'>&nbsp;</span>") : void 0)) + "\n    </div>\n  </div>\n</div>\n<div class='details'></div>";
+      })) + "\n    <div class='name'>\n      <div>\n        <a href='#'>" + this.model.name + "</a>\n      </div>\n    </div>\n    <div class='chumps'>\n      " + (R((_ref2 = this.model.devs) != null ? _ref2.concat(this.model.testers).join("<span class='divider'>&nbsp;</span>") : void 0)) + "\n    </div>\n  </div>\n</div>\n<div class='details'>\n  <div class='loading'>Loading...</div>\n  <div class='contents'></div>\n</div>";
     },
     bind: (function() {
       var collapseStory, selectDetail;
@@ -46,8 +46,10 @@ define(['cell!./tests/TestsSection', 'cell!./tasks/TasksSection', 'cell!./code/C
                 "class": 'detail selected',
                 storynum: this.model.storynum
               });
-              this.$('.details').prepend(detailCell.el);
+              this.$('.details > .contents').prepend(detailCell.el);
+              this.$('.loading').toggleClass('enableLoading', true);
               return detailCell.ready(function() {
+                this.$('.loading').toggleClass('enableLoading', false);
                 return detailCell.$el.fadeIn();
               });
             } else {

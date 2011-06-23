@@ -1,5 +1,6 @@
 @import 'mixins/border';
 @import 'mixins/colors';
+@import 'mixins/loading';
 @import 'mixins/pos';
 @import 'mixins/transition';
 
@@ -9,6 +10,10 @@
   width 100%
   height 100%
   overflow auto
+
+  > .loading
+    abspos 110px 0px 0px 0px
+    loadingText()
 
   > .stats
     width 100%

@@ -2,16 +2,18 @@ define ['data/JSONP'], (jsonp)->
   TESTING = window.xoltop?.DashboardService?.useMockData
 
   xptoolurl = (path)-> getXPToolBaseUrl "rest/jumbotron/#{path}"
-  get = (testpath,url,done)->
-    if TESTING
-      require [testpath], done
-    else
-      jsonp
-        #url: 'http://destinyxptool/xptool/rest/jumbotron/iteration/'+path
-        callback: 'jsonp'
-        url: url
-        success: done
-    return
+  get = do->
+    defer = (f)-> setTimeout f, 1000
+    (testpath,url,done)->
+      if TESTING
+        defer -> require [testpath], done
+      else
+        jsonp
+          #url: 'http://destinyxptool/xptool/rest/jumbotron/iteration/'+path
+          callback: 'jsonp'
+          url: url
+          success: done
+      return
 
   getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.0.230/xptool/#{relPath}"
   #getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.19.63:69/xptool/#{relPath}"

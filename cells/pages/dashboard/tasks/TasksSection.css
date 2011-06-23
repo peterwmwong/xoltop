@@ -9,6 +9,8 @@
 .TasksSection > .CatTable > table > tbody > tr > .column.expandCollapse.showLess > a{border-color:#fff transparent transparent transparent}
 .TasksSection > .CatTable > table > tbody > tr > .column.expandCollapse > a{border-color:transparent transparent transparent #999;border-style:solid;border-width:5px;height:0;width:0;line-height:0;font-size:0}
 .TasksSection > .CatTable > table > tbody > tr > .column.note{width:100%;padding:20px 0 20px 10px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;vertical-align:middle;line-height:15px;color:#ddd;}
+.TasksSection > .CatTable > table > tbody > tr > .column.note > a{color:#ddd;text-decoration:none;}
+.TasksSection > .CatTable > table > tbody > tr > .column.note > a:hover{text-decoration:underline}
 .TasksSection > .CatTable > table > tbody > tr > .column.note.expanded{white-space:normal;color:#fff;}
 .TasksSection > .CatTable > table > tbody > tr > .column.note.expanded .linebreak{display:block}
 .TasksSection > .CatTable > table > tbody > tr > .column.note .linebreak{display:inline-block;width:9999px}

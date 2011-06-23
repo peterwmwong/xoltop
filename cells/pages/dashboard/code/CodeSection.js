@@ -16,9 +16,9 @@ define(['data/DashboardService', 'cell!shared/cattable/CatTable'], function(Dash
           },
           columnMap: {
             description: function(_arg) {
-              var description;
-              description = _arg.task.description;
-              return description;
+              var description, id, _ref;
+              _ref = _arg.task, id = _ref.id, description = _ref.description;
+              return "<a target='_blank' href='" + (DashboardService.getXPToolBaseUrl("xp.taskview.do?taskId=" + id)) + "'>\n  " + description + "\n</a>";
             },
             owner: function(_arg) {
               var owner;

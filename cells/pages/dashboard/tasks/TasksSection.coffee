@@ -9,17 +9,16 @@ define ['data/DashboardService','cell!shared/cattable/CatTable'], (DashboardServ
           complete:'Complete'
         mapMember: ({task})->task.category
         columnMap:
-          expandCollapse: -> "<a href='#'></a>"
-          note: ({task})->task.note
+          note: ({task:{note,id}})->
+            """
+            <a target='_blank' href='#{DashboardService.getXPToolBaseUrl "xp.chumptaskview.do?storyNum=#{id}"}'>
+              #{note}
+            </a>
+            """
           owner: ({task})->task.owner
         members:tasks
 
   bind:
     afterRender: ->
       @$('.column.note br').replaceWith "<div class='linebreak'></div>"
-
-    'click .column.note, .column.expandCollapse > a': (ev)->
-      $row = $(ev.target).closest('tr')
-      $('.column.expandCollapse',$row).toggleClass 'showLess'
-      $('.column.note',$row).toggleClass 'expanded'
       

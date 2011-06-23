@@ -69,7 +69,10 @@ define ['cell!./tests/TestsSection','cell!./tasks/TasksSection','cell!./code/Cod
         </div>
       </div>
     </div>
-    <div class='details'></div>
+    <div class='details'>
+      <div class='loading'>Loading...</div>
+      <div class='contents'></div>
+    </div>
     """
 
   bind: do->
@@ -95,8 +98,10 @@ define ['cell!./tests/TestsSection','cell!./tasks/TasksSection','cell!./code/Cod
             detailCell = new detail
               class:'detail selected'
               storynum: @model.storynum
-            @$('.details').prepend detailCell.el
+            @$('.details > .contents').prepend detailCell.el
+            @$('.loading').toggleClass 'enableLoading', true
             detailCell.ready ->
+              @$('.loading').toggleClass 'enableLoading', false
               detailCell.$el.fadeIn()
 
           # Show already loaded details

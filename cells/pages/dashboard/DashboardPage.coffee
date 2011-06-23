@@ -21,6 +21,7 @@ define [
           #{R.cell TestResultsGraph, type: 'ats', label: 'AT'}
           #{R.cell TestResultsGraph, type: 'units', label: 'UNIT'}
         </div>
+        <div class='loading'>Loading...</div>
         #{R stories, (story)-> R.cell DashboardStory, model:story}
         """
 
@@ -31,7 +32,9 @@ define [
 
     'iterationNoChanged .IterationChooser': ({newIterationNo})->
       @$('.DashboardStory').remove()
+      @$('.loading').toggleClass 'enableLoading', true
       DashboardService.getStorySummaries newIterationNo, ({stories})=>
+        @$('.loading').toggleClass 'enableLoading', false
         for s in stories
           (new DashboardStory model: s).$el.appendTo @el
 

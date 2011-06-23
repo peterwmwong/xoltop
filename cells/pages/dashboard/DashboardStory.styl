@@ -2,6 +2,7 @@
 @import 'mixins/box';
 @import 'mixins/colors';
 @import 'mixins/gradient';
+@import 'mixins/loading';
 @import 'mixins/pos';
 @import 'mixins/transition';
 @import 'mixins/text';
@@ -54,7 +55,7 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
 
     > .details
       display block
-
+      min-height 50px
 
   .badge
     bgout(color)
@@ -89,7 +90,11 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
       background-color shadow-color
       z-index -1
 
-    > .detail
+    > .loading
+      loadingText()
+      abspos 10px 0px 0px 0px
+      
+    > .contents > .detail
       display none
       z-index -1
 

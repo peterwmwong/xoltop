@@ -1,17 +1,22 @@
-.DashboardStory{color:#fff;font-family:Helvetica,Arial,sans-serif;position:relative;border-bottom:1px solid #272727;padding-top:2px;background:#393939;background:-moz-linear-gradient(top,#3d3d3d 0%,#333 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#3d3d3d),color-stop(100%,#333));filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#3d3d3d', endColorstr='#333',GradientType=0 );}
+@-webkit-keyframes loadingText-pulsate{0%{color:rgba(255,255,255,0.35)}
+50%{color:rgba(255,255,255,0.75)}
+100%{color:rgba(255,255,255,0.35)}
+}.DashboardStory{color:#fff;font-family:Helvetica,Arial,sans-serif;position:relative;border-bottom:1px solid #272727;padding-top:2px;background:#393939;background:-moz-linear-gradient(top,#3d3d3d 0%,#333 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#3d3d3d),color-stop(100%,#333));filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#3d3d3d', endColorstr='#333',GradientType=0 );}
 .DashboardStory:hover{background:#464646;background:-moz-linear-gradient(top,#454545 0%,#454545 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#454545),color-stop(100%,#454545));filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#454545', endColorstr='#454545',GradientType=0 )}
 .DashboardStory.selected{background:#484848;background:-moz-linear-gradient(top,#474747 0%,#474747 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#474747),color-stop(100%,#474747));filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#474747', endColorstr='#474747',GradientType=0 );border-top:2px solid #579;}
 .DashboardStory.selected > .header > div > .name > div > a{color:#fff;font-weight:bold;text-shadow:0 -1px 0 #222}
 .DashboardStory.selected > .header > div > .collapseStory{width:30px;}
 .DashboardStory.selected > .header > div > .collapseStory .triangle,.DashboardStory.selected > .header > div > .collapseStory .rect{opacity:1}
-.DashboardStory.selected > .details{display:block}
+.DashboardStory.selected > .details{display:block;min-height:50px}
 .DashboardStory .badge.gray{background-color:#1f1f1f;text-shadow:0 -1px 0 rgba(0,0,0,0.3)}
 .DashboardStory .badge.red{background-color:#902d2d;text-shadow:0 -1px 0 rgba(0,0,0,0.3)}
 .DashboardStory .badge.green{background-color:#44562a;text-shadow:0 -1px 0 rgba(0,0,0,0.3)}
 .DashboardStory .badge.yellow{background-color:#735c28;text-shadow:0 -1px 0 rgba(0,0,0,0.3)}
 .DashboardStory > .details{background-color:#222;display:none;padding:10px;position:relative;overflow:hidden;z-index:1;}
 .DashboardStory > .details:before{content:"";position:absolute;top:0;right:-5px;bottom:0;left:-5px;-webkit-box-shadow:inset 0 0 7px #111;-moz-box-shadow:inset 0 0 7px #111;box-shadow:inset 0 0 7px #111;background-color:#222;z-index:-1}
-.DashboardStory > .details > .detail{display:none;z-index:-1}
+.DashboardStory > .details > .loading{display:none;width:200px;height:50px;margin:0 auto;-moz-border-radius-topleft:5px;-moz-border-radius-topright:5px;-moz-border-radius-bottomright:5px;-moz-border-radius-bottomleft:5px;border-top-left-radius:5px;border-top-right-radius:5px;border-bottom-right-radius:5px;border-bottom-left-radius:5px;opacity:.75;line-height:50px;color:#fff;position:absolute;top:10px;right:0;bottom:0;left:0}
+.DashboardStory > .details > .loading.enableLoading{display:block;-webkit-animation-name:loadingText-pulsate;-moz-animation-name:loadingText-pulsate;-webkit-animation-duration:500ms;-moz-animation-duration:500ms;-webkit-animation-iteration-count:infinite;-moz-animation-iteration-count:infinite;-webkit-animation-timing-function:ease-in-out;-moz-animation-timing-function:ease-in-out;letter-spacing:1px;font-size:20px;font-weight:bold;text-align:center}
+.DashboardStory > .details > .contents > .detail{display:none;z-index:-1}
 .DashboardStory > .header{-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;width:100%;position:relative;display:table;table-layout:fixed;}
 .DashboardStory > .header a{color:#fff;text-decoration:none;position:relative;}
 .DashboardStory > .header a:hover{text-decoration:underline;position:relative}

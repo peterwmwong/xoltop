@@ -2,18 +2,19 @@ TODO
 ====
 
 
+XPTool Integration
+------------------
+Make Code Tasks and Chump Tasks linkable
+
+
 BUILD
 -----
 
 
 Dashboard
 ---------
-Make Code Tasks and Chump Tasks linkable
 Show "No Code Tasks/Tests/Chump Tasks" when none exist
 Handle Roll Over Stories
-Show "Loading..."
-  - when loading story section (tests,codes,tasks)
-Fix styling of multi-line test requirements
 Test health monitors
   - Small tests
 AUTO Update

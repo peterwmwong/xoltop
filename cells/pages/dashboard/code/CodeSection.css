@@ -4,5 +4,7 @@
 .CodeSection > .CatTable > table > tbody > tr > .category.inProgress{background-color:rgba(132,104,40,0.25);color:#d1b067}
 .CodeSection > .CatTable > table > tbody > tr > .category.complete{background-color:rgba(79,110,32,0.25);color:#8fc63b}
 .CodeSection > .CatTable > table > tbody > tr > .column{vertical-align:middle;}
-.CodeSection > .CatTable > table > tbody > tr > .column.description{width:100%;padding:0 0 0 10px}
+.CodeSection > .CatTable > table > tbody > tr > .column.description{width:100%;padding:0 0 0 10px;}
+.CodeSection > .CatTable > table > tbody > tr > .column.description > a{color:#ddd;text-decoration:none;}
+.CodeSection > .CatTable > table > tbody > tr > .column.description > a:hover{text-decoration:underline}
 .CodeSection > .CatTable > table > tbody > tr > .column.owner{text-align:center;width:80px;min-width:80px}

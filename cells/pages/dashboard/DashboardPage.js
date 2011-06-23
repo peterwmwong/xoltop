@@ -22,7 +22,7 @@ define(['data/DashboardService', 'cell!./DashboardStory', 'cell!./statusshelf/It
         })) + "\n  " + (R.cell(TestResultsGraph, {
           type: 'units',
           label: 'UNIT'
-        })) + "\n</div>\n" + (R(stories, function(story) {
+        })) + "\n</div>\n<div class='loading'>Loading...</div>\n" + (R(stories, function(story) {
           return R.cell(DashboardStory, {
             model: story
           });
@@ -39,9 +39,11 @@ define(['data/DashboardService', 'cell!./DashboardStory', 'cell!./statusshelf/It
         var newIterationNo;
         newIterationNo = _arg.newIterationNo;
         this.$('.DashboardStory').remove();
+        this.$('.loading').toggleClass('enableLoading', true);
         return DashboardService.getStorySummaries(newIterationNo, __bind(function(_arg2) {
           var s, stories, _i, _len, _results;
           stories = _arg2.stories;
+          this.$('.loading').toggleClass('enableLoading', false);
           _results = [];
           for (_i = 0, _len = stories.length; _i < _len; _i++) {
             s = stories[_i];
