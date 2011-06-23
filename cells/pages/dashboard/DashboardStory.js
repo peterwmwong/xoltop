@@ -1,5 +1,5 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-define(['cell!./tests/TestsSection', 'cell!./tasks/TasksSection', 'cell!./code/CodeSection'], function(TestsSection, TasksSection, CodeSection) {
+define(['cell!shared/loadingindicator/LoadingIndicator', 'cell!./tests/TestsSection', 'cell!./tasks/TasksSection', 'cell!./code/CodeSection'], function(LoadingIndicator, TestsSection, TasksSection, CodeSection) {
   var getCodeCompleteColor;
   getCodeCompleteColor = function(pct) {
     if (typeof pct !== 'number') {
@@ -25,7 +25,7 @@ define(['cell!./tests/TestsSection', 'cell!./tasks/TasksSection', 'cell!./code/C
           color = _arg2[0], count = _arg2[1];
           return R(count !== 0 && ("<span class='" + color + "'>" + count + "</span>"));
         }, this)) : R("<span class='green'>" + total + "</span>")) + "          </span>        </div>      </div>    ";
-      })) + "\n    <div class='name'>\n      <div>\n        <a href='#'>" + this.model.name + "</a>\n      </div>\n    </div>\n    <div class='chumps'>\n      " + (R((_ref2 = this.model.devs) != null ? _ref2.concat(this.model.testers).join("<span class='divider'>&nbsp;</span>") : void 0)) + "\n    </div>\n  </div>\n</div>\n<div class='details'>\n  <div class='loading'>Loading...</div>\n  <div class='contents'></div>\n</div>";
+      })) + "\n    <div class='name'>\n      <div>\n        <a href='#'>" + this.model.name + "</a>\n      </div>\n    </div>\n    <div class='chumps'>\n      " + (R((_ref2 = this.model.devs) != null ? _ref2.concat(this.model.testers).join("<span class='divider'>&nbsp;</span>") : void 0)) + "\n    </div>\n  </div>\n</div>\n<div class='details'>\n  " + (R.cell(LoadingIndicator)) + "\n  <div class='contents'></div>\n</div>";
     },
     bind: (function() {
       var collapseStory, selectDetail;
@@ -47,9 +47,9 @@ define(['cell!./tests/TestsSection', 'cell!./tasks/TasksSection', 'cell!./code/C
                 storynum: this.model.storynum
               });
               this.$('.details > .contents').prepend(detailCell.el);
-              this.$('.loading').toggleClass('enableLoading', true);
+              this.$('.LoadingIndicator').trigger('enable');
               return detailCell.ready(function() {
-                this.$('.loading').toggleClass('enableLoading', false);
+                this.$('.LoadingIndicator').trigger('disable');
                 return detailCell.$el.fadeIn();
               });
             } else {

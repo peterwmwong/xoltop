@@ -39,18 +39,7 @@ endif
 #===================================================================
 #­--------------------------- TARGETS ------------------------------
 #===================================================================
-.PHONY : clean server
-
-all: cells/bootstrap.js
-
-#-------------------------------------------------------------------
-# DEV 
-#------------------------------------------------------------------- 
-dev-stylus: $(stylus)
-	find -name '*.styl' -type f | xargs $(stylus) --watch --compress
-
-dev-mock-server: $(coffee) $(express)
-	$(coffee) test/mock/data/mock-metrics-service.coffee
+.PHONY : clean
 
 #-------------------------------------------------------------------
 # BUILD
@@ -65,6 +54,15 @@ cells/bootstrap.js: $(uglifyjs) cells/cell.js cells/cell-pluginBuilder.js
 	cat vendor/reset.css \
 			cells/bootstrap-tmp.css > cells/bootstrap.css
 	rm cells/bootstrap-tmp.*
+
+#-------------------------------------------------------------------
+# DEV 
+#------------------------------------------------------------------- 
+dev-stylus: $(stylus)
+	find -name '*.styl' -type f | xargs $(stylus) --watch --compress
+
+dev-mock-server: $(coffee) $(express)
+	$(coffee) test/mock/data/mock-metrics-service.coffee
 
 #-------------------------------------------------------------------
 # Dependencies 

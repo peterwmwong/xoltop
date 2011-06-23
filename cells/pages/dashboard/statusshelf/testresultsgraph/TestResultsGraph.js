@@ -1,6 +1,6 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 define(['data/DashboardService'], function(DashboardService) {
-  var O, failColor, highlightCol, passColor, unhighlightCol;
+  var O, failColor, getDate, highlightCol, i, mapDate, offsetDayMap, passColor, today, unhighlightCol;
   O = function(o) {
     return o;
   };
@@ -19,6 +19,21 @@ define(['data/DashboardService'], function(DashboardService) {
       'stroke-opacity': 1
     });
   };
+  offsetDayMap = ['Today', 'Yesterday'].concat((function() {
+    var _results;
+    _results = [];
+    for (i = 2; i < 7; i++) {
+      _results.push("" + i + " days ago");
+    }
+    return _results;
+  })(), "a week ago");
+  today = new Date();
+  mapDate = function(o) {
+    return today.getMonth() === o.getMonth() && offsetDayMap[today.getDate() - o.getDate()];
+  };
+  getDate = function(d) {
+    return mapDate(d = new Date(d)) || ("" + (d.getMonth()) + "-" + (d.getDate()));
+  };
   unhighlightCol = function(col) {
     var color;
     color = col.values[0] > 0 && failColor || passColor;
@@ -32,10 +47,11 @@ define(['data/DashboardService'], function(DashboardService) {
   };
   return {
     render: function(R, A) {
-      var self;
-      self = this;
+      var $el;
+      $el = this.$el;
       return DashboardService.getRecentTestResults(this.options.type, __bind(function(results) {
-        var col, failures, h, i, lastCol, lc, r, w, _i, _len, _ref, _ref2, _ref3, _results;
+        var col, failures, h, i, lastCol, lc, r, urlPrefix, w, _i, _len, _ref, _ref2, _ref3, _results;
+        this.results = results;
         _ref = [125, 64], w = _ref[0], h = _ref[1];
         r = Raphael(0, 3, w, h);
         lc = r.g.linechart(0, 0, w, h, [
@@ -59,18 +75,22 @@ define(['data/DashboardService'], function(DashboardService) {
           symbol: "o",
           colors: ['#4A1A1A']
         });
+        urlPrefix = this.options.urlPrefix;
+        lc.clickColumn(function() {
+          return window.open(urlPrefix + results[this.axis].testResult.runid, "_blank");
+        });
         lc.hoverColumn.call(lc, function() {
           highlightCol(this);
           if (lastCol !== this) {
             unhighlightCol(lastCol);
           }
-          return self.$el.trigger({
+          return $el.trigger({
             type: 'resultHovered',
             column: this
           });
         }, function() {
           unhighlightCol(this);
-          return self.$el.trigger({
+          return $el.trigger({
             type: 'resultUnhovered'
           });
         });
@@ -86,7 +106,7 @@ define(['data/DashboardService'], function(DashboardService) {
           r: 3
         });
         r.canvas["class"] = 'graph';
-        return A("<table><tr>\n  <td>\n    " + (R($("<div class='graphContainer'></div>").append(r.canvas)[0])) + "\n  </td>\n  <td class='labelRow " + (R(this.lastCol.values[0] && "fail")) + "'>\n    <div class='label'>" + this.options.label + "</div>\n    <div class='count'>" + this.lastCol.values[0] + "</div>\n  </td>\n</tr></table>");
+        return A("<table><tr>\n  <td>\n    " + (R($("<div class='graphContainer'></div>").append(r.canvas)[0])) + "\n  </td>\n  <td class='labelRow " + (R(this.lastCol.values[0] && "fail")) + "'>\n    <div class='label'>" + this.options.label + "</div>\n    <div class='count'>" + this.lastCol.values[0] + "</div>\n    <div class='when'></div>\n  </td>\n</tr></table>");
       }, this));
     },
     bind: {
@@ -95,11 +115,13 @@ define(['data/DashboardService'], function(DashboardService) {
       },
       'resultUnhovered': function() {
         this.$('.labelRow').toggleClass('fail', this.lastCol.values[0] > 0);
-        return this.$('.count').html("" + this.lastCol.values[0]);
+        this.$('.count').html(this.lastCol.values[0]);
+        return this.$('.when').html("");
       },
       'resultHovered': function(ev) {
         this.$('.labelRow').toggleClass('fail', ev.column.values[0] > 0);
-        return this.$('.count').html("" + ev.column.values[0]);
+        this.$('.count').html(ev.column.values[0]);
+        return this.$('.when').html(getDate(this.results[ev.column.axis].testResult.datetime));
       }
     }
   };

@@ -23,9 +23,17 @@
     vertical-align middle
     padding 0 12px 0 8px
     color desaturate(lighten(#62872C,70%),20%)
-    >.label
+    > *
       opacity .5
-      padding 0 0 2px 0
+      padding-top 2px
+    >.label
+      padding-top 0
+    >.count
+      padding-top 5px
+      opacity 1
+    >.when
+      font-size 10px
+      min-width 50px
     &.fail
       color desaturate(lighten(badge-red,70%),30%)
 

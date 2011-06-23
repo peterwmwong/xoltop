@@ -1,9 +1,6 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 define([], (function() {
   var getPropFunc;
-  if (typeof $ === "function") {
-    $('head').append("<link href='http://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'/>");
-  }
   getPropFunc = function(prop) {
     return function(obj) {
       return obj[prop];

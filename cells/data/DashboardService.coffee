@@ -3,7 +3,7 @@ define ['data/JSONP'], (jsonp)->
 
   xptoolurl = (path)-> getXPToolBaseUrl "rest/jumbotron/#{path}"
   get = do->
-    defer = (f)-> setTimeout f, 1000
+    defer = (f)-> setTimeout f, 0
     (testpath,url,done)->
       if TESTING
         defer -> require [testpath], done
@@ -14,6 +14,7 @@ define ['data/JSONP'], (jsonp)->
           url: url
           success: done
       return
+ 
 
   getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.0.230/xptool/#{relPath}"
   #getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.19.63:69/xptool/#{relPath}"
@@ -102,20 +103,21 @@ define ['data/JSONP'], (jsonp)->
           done {stories,iterationNo}
 
   getStoryTestDetails : do->
+
+    isToday = (o)->
+      (today = new Date()).getYear() == o.getYear() and
+        today.getMonth() == o.getMonth() and
+        today.getDate() == o.getDate()
+
     parseUpdate = do->
       ownerRegex = /^(\w*)[ ]+(([a-zA-Z ])*?)(-[ ]*)?(\d+\/\d+\/\d\d\d\d)/
       developerRegex = /^Developer/
-      isToday = (o)->
-        (today = new Date()).getYear() == o.getYear() and
-          today.getMonth() == o.getMonth() and
-          today.getDate() == o.getDate()
-
       (ownerString)->
         if match = ownerRegex.exec(ownerString)
           owner: match[1]
           status: match[2].trim()
           date: (d = new Date match[5])
-          isToday: isToday(d)
+          isToday: isToday d
         else
           owner: 'Developer'
           status: ''

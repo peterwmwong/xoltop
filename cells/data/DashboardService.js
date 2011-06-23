@@ -7,7 +7,7 @@ define(['data/JSONP'], function(jsonp) {
   get = (function() {
     var defer;
     defer = function(f) {
-      return setTimeout(f, 1000);
+      return setTimeout(f, 0);
     };
     return function(testpath, url, done) {
       if (TESTING) {
@@ -134,15 +134,15 @@ define(['data/JSONP'], function(jsonp) {
       };
     })(),
     getStoryTestDetails: (function() {
-      var parseTestName, parseUpdate, t, today;
+      var isToday, parseTestName, parseUpdate, t, today;
+      isToday = function(o) {
+        var today;
+        return (today = new Date()).getYear() === o.getYear() && today.getMonth() === o.getMonth() && today.getDate() === o.getDate();
+      };
       parseUpdate = (function() {
-        var developerRegex, isToday, ownerRegex;
+        var developerRegex, ownerRegex;
         ownerRegex = /^(\w*)[ ]+(([a-zA-Z ])*?)(-[ ]*)?(\d+\/\d+\/\d\d\d\d)/;
         developerRegex = /^Developer/;
-        isToday = function(o) {
-          var today;
-          return (today = new Date()).getYear() === o.getYear() && today.getMonth() === o.getMonth() && today.getDate() === o.getDate();
-        };
         return function(ownerString) {
           var d, match;
           if (match = ownerRegex.exec(ownerString)) {

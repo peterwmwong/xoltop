@@ -1,4 +1,9 @@
-define ['cell!./tests/TestsSection','cell!./tasks/TasksSection','cell!./code/CodeSection'], (TestsSection, TasksSection,CodeSection)->
+define [
+  'cell!shared/loadingindicator/LoadingIndicator'
+  'cell!./tests/TestsSection'
+  'cell!./tasks/TasksSection'
+  'cell!./code/CodeSection'
+], (LoadingIndicator,TestsSection,TasksSection,CodeSection)->
 
   getCodeCompleteColor = (pct)->
     if typeof pct != 'number' then 'gray'
@@ -70,7 +75,7 @@ define ['cell!./tests/TestsSection','cell!./tasks/TasksSection','cell!./code/Cod
       </div>
     </div>
     <div class='details'>
-      <div class='loading'>Loading...</div>
+      #{R.cell LoadingIndicator}
       <div class='contents'></div>
     </div>
     """
@@ -99,9 +104,9 @@ define ['cell!./tests/TestsSection','cell!./tasks/TasksSection','cell!./code/Cod
               class:'detail selected'
               storynum: @model.storynum
             @$('.details > .contents').prepend detailCell.el
-            @$('.loading').toggleClass 'enableLoading', true
+            @$('.LoadingIndicator').trigger 'enable'
             detailCell.ready ->
-              @$('.loading').toggleClass 'enableLoading', false
+              @$('.LoadingIndicator').trigger 'disable'
               detailCell.$el.fadeIn()
 
           # Show already loaded details

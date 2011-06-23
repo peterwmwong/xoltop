@@ -1,9 +1,10 @@
 define [
   'data/DashboardService'
+  'cell!shared/loadingindicator/LoadingIndicator'
   'cell!./DashboardStory'
   'cell!./statusshelf/IterationChooser'
   'cell!./statusshelf/testresultsgraph/TestResultsGraph'
-], (DashboardService,DashboardStory,IterationChooser,TestResultsGraph)->
+], (DashboardService,LoadingIndicator,DashboardStory,IterationChooser,TestResultsGraph)->
   
   CountLabel = cell.extend
     render: (R,A)->
@@ -18,10 +19,16 @@ define [
       A """
         <div class='stats'>
           #{R.cell IterationChooser, iterationNo:iterationNo}
-          #{R.cell TestResultsGraph, type: 'ats', label: 'AT'}
-          #{R.cell TestResultsGraph, type: 'units', label: 'UNIT'}
+          #{R.cell TestResultsGraph,
+              type: 'ats'
+              label: 'AT'
+              urlPrefix: DashboardService.getXPToolBaseUrl 'xp.testresults.do?runId='}
+          #{R.cell TestResultsGraph,
+              type: 'units'
+              label: 'UNIT'
+              urlPrefix: DashboardService.getXPToolBaseUrl 'xp.unittestresults.do?runId='}
         </div>
-        <div class='loading'>Loading...</div>
+        #{R.cell LoadingIndicator}
         #{R stories, (story)-> R.cell DashboardStory, model:story}
         """
 
@@ -32,10 +39,8 @@ define [
 
     'iterationNoChanged .IterationChooser': ({newIterationNo})->
       @$('.DashboardStory').remove()
-      @$('.loading').toggleClass 'enableLoading', true
+      @$('.LoadingIndicator').trigger 'enable'
       DashboardService.getStorySummaries newIterationNo, ({stories})=>
-        @$('.loading').toggleClass 'enableLoading', false
+        @$('.LoadingIndicator').trigger 'disable'
         for s in stories
           (new DashboardStory model: s).$el.appendTo @el
-
-   

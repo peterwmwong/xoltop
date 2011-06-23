@@ -2,7 +2,6 @@
 @import 'mixins/box';
 @import 'mixins/colors';
 @import 'mixins/gradient';
-@import 'mixins/loading';
 @import 'mixins/pos';
 @import 'mixins/transition';
 @import 'mixins/text';
@@ -38,17 +37,20 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
   gradient lighten(#333,20%), #333
 
   &:hover
+    > .header
+      .chumps, .name a 
+        color text-color
     gradient lighten(#333,35%), lighten(#333,35%)
 
   &.selected
     gradient lighten(#333,40%), lighten(#333,40%)
     border-top 2px solid #579
-    > .header > div > .name > div > a
+    > .header .name a
       color text-color
       font-weight bold
       text-shadow 0px -1px 0px #222
 
-    > .header > div > .collapseStory
+    > .header .collapseStory
       width 30px
       .triangle, .rect
         opacity 1.0
@@ -85,14 +87,13 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
 
     &:before
       content ""
-      abspos 0px -5px 0px -5px
+      abspos 0px -5px -2px -5px
       box-shadow inset 0px 0px 7px #111
       background-color shadow-color
       z-index -1
 
-    > .loading
-      loadingText()
-      abspos 10px 0px 0px 0px
+    > .LoadingIndicator
+      abspos 15px 0px 0px 0px
       
     > .contents > .detail
       display none

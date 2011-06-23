@@ -1,5 +1,4 @@
 define [], do->
-  $?('head').append "<link href='http://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'/>"
   getPropFunc = (prop)->
     (obj)->obj[prop]
   ->
