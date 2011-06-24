@@ -2,22 +2,25 @@ define ['data/DashboardService','cell!shared/cattable/CatTable'], (DashboardServ
 
   render: (R,A)->
     DashboardService.getStoryTasksDetails @options.storynum, (tasks)=>
-      console.log tasks
-      A R.cell CatTable,
-        categories:
-          needsAttn:'Needs Attention'
-          retest:'Retest'
-          complete:'Complete'
-        mapMember: ({task})->task.category
-        columnMap:
-          note: ({task:{note,chumpTaskID}})->
-            """
-            <a target='_blank' href='#{DashboardService.getXPToolBaseUrl "projecttool/projecttool.taskview.do?taskID=#{chumpTaskID}"}'>
-              #{note}
-            </a>
-            """
-          owner: ({task})->task.owner
-        members:tasks
+      A do=>
+        if tasks?.length == 0
+          "<div class='notests'>No Tasks</div>"
+        else
+          R.cell CatTable,
+            categories:
+              needsAttn:'Needs Attention'
+              retest:'Retest'
+              complete:'Complete'
+            mapMember: ({task})->task.category
+            columnMap:
+              note: ({task:{note,chumpTaskID}})->
+                """
+                <a target='_blank' href='#{DashboardService.getXPToolBaseUrl "projecttool/projecttool.taskview.do?taskID=#{chumpTaskID}"}'>
+                  #{note}
+                </a>
+                """
+              owner: ({task})->task.owner
+            members:tasks
 
   bind:
     afterRender: ->

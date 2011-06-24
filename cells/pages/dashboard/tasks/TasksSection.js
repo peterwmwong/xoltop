@@ -3,32 +3,37 @@ define(['data/DashboardService', 'cell!shared/cattable/CatTable'], function(Dash
   return {
     render: function(R, A) {
       return DashboardService.getStoryTasksDetails(this.options.storynum, __bind(function(tasks) {
-        console.log(tasks);
-        return A(R.cell(CatTable, {
-          categories: {
-            needsAttn: 'Needs Attention',
-            retest: 'Retest',
-            complete: 'Complete'
-          },
-          mapMember: function(_arg) {
-            var task;
-            task = _arg.task;
-            return task.category;
-          },
-          columnMap: {
-            note: function(_arg) {
-              var chumpTaskID, note, _ref;
-              _ref = _arg.task, note = _ref.note, chumpTaskID = _ref.chumpTaskID;
-              return "<a target='_blank' href='" + (DashboardService.getXPToolBaseUrl("projecttool/projecttool.taskview.do?taskID=" + chumpTaskID)) + "'>\n  " + note + "\n</a>";
-            },
-            owner: function(_arg) {
-              var task;
-              task = _arg.task;
-              return task.owner;
-            }
-          },
-          members: tasks
-        }));
+        return A(__bind(function() {
+          if ((tasks != null ? tasks.length : void 0) === 0) {
+            return "<div class='notests'>No Tasks</div>";
+          } else {
+            return R.cell(CatTable, {
+              categories: {
+                needsAttn: 'Needs Attention',
+                retest: 'Retest',
+                complete: 'Complete'
+              },
+              mapMember: function(_arg) {
+                var task;
+                task = _arg.task;
+                return task.category;
+              },
+              columnMap: {
+                note: function(_arg) {
+                  var chumpTaskID, note, _ref;
+                  _ref = _arg.task, note = _ref.note, chumpTaskID = _ref.chumpTaskID;
+                  return "<a target='_blank' href='" + (DashboardService.getXPToolBaseUrl("projecttool/projecttool.taskview.do?taskID=" + chumpTaskID)) + "'>\n  " + note + "\n</a>";
+                },
+                owner: function(_arg) {
+                  var task;
+                  task = _arg.task;
+                  return task.owner;
+                }
+              },
+              members: tasks
+            });
+          }
+        }, this)());
       }, this));
     },
     bind: {

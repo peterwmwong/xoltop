@@ -1,3 +1,4 @@
+.CodeSection > .nocodetasks{width:100%;text-align:center;font-weight:bold;padding:15px 0 0 0;color:#4d4d4d}
 .CodeSection > .CatTable > table{table-layout:fixed}
 .CodeSection > .CatTable > table > tbody > tr > .category{text-align:left;}
 .CodeSection > .CatTable > table > tbody > tr > .category.notStarted{background-color:rgba(147,44,44,0.25);color:#dd8e8e}

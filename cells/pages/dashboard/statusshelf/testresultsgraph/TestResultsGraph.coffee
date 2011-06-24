@@ -1,5 +1,4 @@
 define ['data/DashboardService'], (DashboardService)->
-  O = (o)->o
   passColor = '#62872C'
   failColor = '#992626'
   highlightCol = (col)->

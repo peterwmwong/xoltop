@@ -25,7 +25,7 @@ define(['data/JSONP'], function(jsonp) {
   })();
   return {
     getXPToolBaseUrl: getXPToolBaseUrl = function(relPath) {
-      return "http://172.16.19.63:69/xptool/" + relPath;
+      return "http://172.16.0.230/xptool/" + relPath;
     },
     getCurrentIterationNumber: function(done) {
       return get('data/MockDashboardService-getCurrentIterationNumber', xptoolurl("/iteration/current"), function(_arg) {
@@ -72,7 +72,7 @@ define(['data/JSONP'], function(jsonp) {
       getStatus = function(_arg) {
         var ats, codeCompletePct, tasks;
         codeCompletePct = _arg.codeCompletePct, ats = _arg.ats, tasks = _arg.tasks;
-        if (codeCompletePct < 100) {
+        if (codeCompletePct < 100 || ats.total === 0) {
           return 0;
         } else if (ats.failing + tasks.needsAttn) {
           return 0;
@@ -99,10 +99,12 @@ define(['data/JSONP'], function(jsonp) {
               s = _ref4[_i];
               story = {
                 codeCompletePct: s.codeCompletePct,
+                codeTasksIncomplete: s.codeTasksIncomplete,
                 type: 'story',
                 ats: {
                   failing: s.failingATs,
                   unwritten: s.unwrittenATs,
+                  needsAttn: s.needsAttentionATs,
                   total: s.failingATs + s.passingATs + s.unwrittenATs
                 },
                 tasks: {

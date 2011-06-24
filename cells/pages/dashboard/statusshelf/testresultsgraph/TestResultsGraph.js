@@ -1,9 +1,6 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 define(['data/DashboardService'], function(DashboardService) {
-  var O, failColor, getDate, highlightCol, i, mapDate, offsetDayMap, passColor, today, unhighlightCol;
-  O = function(o) {
-    return o;
-  };
+  var failColor, getDate, highlightCol, i, mapDate, offsetDayMap, passColor, today, unhighlightCol;
   passColor = '#62872C';
   failColor = '#992626';
   highlightCol = function(col) {

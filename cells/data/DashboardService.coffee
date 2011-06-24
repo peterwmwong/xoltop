@@ -16,8 +16,8 @@ define ['data/JSONP'], (jsonp)->
       return
  
 
-  #getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.0.230/xptool/#{relPath}"
-  getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.19.63:69/xptool/#{relPath}"
+  getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.0.230/xptool/#{relPath}"
+  #getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.19.63:69/xptool/#{relPath}"
 
   getCurrentIterationNumber: (done)->
     get 'data/MockDashboardService-getCurrentIterationNumber',
@@ -62,7 +62,7 @@ define ['data/JSONP'], (jsonp)->
   getStorySummaries: do->
     storyRegex = /^((\w*[ ]+- )+)?(.*?)( \(([^\)]+)\))?$/
     getStatus = ({codeCompletePct,ats,tasks})->
-      if codeCompletePct < 100
+      if codeCompletePct < 100 or ats.total == 0
         0
       else if ats.failing + tasks.needsAttn
         0
@@ -78,10 +78,12 @@ define ['data/JSONP'], (jsonp)->
             for s in stories.sort( ({num:a},{num:b})->a-b )
               story =
                 codeCompletePct: s.codeCompletePct
+                codeTasksIncomplete: s.codeTasksIncomplete
                 type: 'story'
                 ats:
                   failing: s.failingATs
                   unwritten: s.unwrittenATs
+                  needsAttn: s.needsAttentionATs
                   total: s.failingATs + s.passingATs + s.unwrittenATs
                 tasks:
                   retest: s.chumpTaskRetest

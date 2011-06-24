@@ -5,18 +5,21 @@ define [
   'cell!./code/CodeSection'
 ], (LoadingIndicator,TestsSection,TasksSection,CodeSection)->
 
-  getCodeCompleteColor = (pct)->
+  getCodeCompleteColor = (pct,incomplete)->
     if typeof pct != 'number' then 'gray'
     else if pct < 50 then 'red'
     else if 50 < pct < 100 then 'yellow'
-    else 'green'
+    else if incomplete > 0
+      'yellow'
+    else
+      'green'
 
   render: (R)->
-    {ats,tasks,codeCompletePct} = @model
-
+    {ats,tasks,codeCompletePct,codeTasksIncomplete} = @model
+    
     # Determine status color of the story, based on the state of the story's ATs and tasks
     statusColor =
-      if codeCompletePct < 100
+      if codeCompletePct < 100 or ats.total == 0
         'red'
       else if ats.failing + tasks.needsAttn
         'red'
@@ -42,23 +45,24 @@ define [
             <a href='#'>CODE</a>
             <span class='countBadge'>
             #{R typeof codeCompletePct == 'number' and "
-              <span class='#{getCodeCompleteColor codeCompletePct}'>
+              <span class='#{getCodeCompleteColor codeCompletePct, codeTasksIncomplete}'>
                 #{Math.floor codeCompletePct}<span class='pct'>%</span>
               </span>
             "}
             </span>
           </div>
         </div>
-        #{R [['tests',[ats.failing, ats.unwritten, ats.total]],['tasks',[tasks.needsAttn, tasks.retest, tasks.total]]], ([label,[red,yellow,total]])->"
+        #{R [['tests',[ats.failing,ats.unwritten, ats.total,ats.needsAttn]],['tasks',[tasks.needsAttn, tasks.retest, tasks.total]]], ([label,[red,yellow,total,needsAttn]])->"
           <div class='countCol #{label}'>
             <div>
               <a href='#'>#{label.toUpperCase()}</a>
               <span class='countBadge'>
               #{
-              if red or yellow then R [['red',red],['yellow',yellow]], ([color,count])=>
-                R count != 0 and "<span class='#{color}'>#{count}</span>"
+              if red or yellow or needsAttn
+                R [['needsAttn',needsAttn],['red',red],['yellow',yellow]], ([color,count])=>
+                  R count? and count > 0 and "<span class='#{color}'>#{count}</span>"
               else
-                R "<span class='green'>#{total}</span>"
+                R "<span class='#{if label == 'tests' and total == 0 then 'red' else 'green'}'>#{total}</span>"
               }
               </span>
             </div>

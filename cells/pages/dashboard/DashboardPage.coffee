@@ -22,11 +22,11 @@ define [
           #{R.cell TestResultsGraph,
               type: 'ats'
               label: 'AT'
-              urlPrefix: DashboardService.getXPToolBaseUrl 'xp.testresults.do?runId='}
+              urlPrefix: DashboardService.getXPToolBaseUrl 'xp.failingtestsbypackage.do?runID='}
           #{R.cell TestResultsGraph,
               type: 'units'
               label: 'UNIT'
-              urlPrefix: DashboardService.getXPToolBaseUrl 'xp.unittestresults.do?runId='}
+              urlPrefix: DashboardService.getXPToolBaseUrl 'unittool.failingtestsbysuite.do?testRunID='}
         </div>
         #{R.cell LoadingIndicator}
         #{R stories, (story)-> R.cell DashboardStory, model:story}
@@ -41,6 +41,7 @@ define [
       @$('.DashboardStory').remove()
       @$('.LoadingIndicator').trigger 'enable'
       DashboardService.getStorySummaries newIterationNo, ({stories})=>
+        @$('.DashboardStory').remove()
         @$('.LoadingIndicator').trigger 'disable'
         for s in stories
           (new DashboardStory model: s).$el.appendTo @el

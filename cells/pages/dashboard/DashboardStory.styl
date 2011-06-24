@@ -76,7 +76,6 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
     &.yellow
       bgout lighten(badge-yellow,0%)
 
-
   > .details
     background-color shadow-color
     display none
@@ -143,7 +142,12 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
             line-height 23px
 
       > .countCol
-        width 100px
+        width 105px
+
+        &.tests
+          width 117px
+          .countBadge
+            width 57px
 
         &.code
           > div
@@ -175,7 +179,7 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
               border-radius 4px
               position relative
               triColor = shadow-color - rgb(5,5,5)
-              triUp 8px (triColor + rgb(2,2,2)) triColor 3px 18px 0px 0px 34px
+              triUp 8px (triColor + rgb(2,2,2)) triColor 3px 18px 0px 0px 16px
 
           > a 
             display inline-block
@@ -197,8 +201,8 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
             line-height 19px
             padding 0px 4px 0px 4px
             text-align center
-            text-shadow 0px -1px 0px rgba(0,0,0,.6)
-            width 35px
+            text-shadow 0px -1px 0px rgba(0,0,0,.3)
+            width 42px
 
             > span
               &:first-child
@@ -219,6 +223,16 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
             .yellow
               font-weight bold
               color lighten(badge-yellow,30%)
+
+            .needsAttn:first-child
+              text-shadow 0px -1px 0px rgba(0,0,0,.2)
+              background-color badge-red
+              border-radius 7px
+              padding 1px 3px 1px 3px
+              font-size 12px
+              color text-color
+              font-weight bold
+              vertical-align baseline
 
       > .name
         position relative

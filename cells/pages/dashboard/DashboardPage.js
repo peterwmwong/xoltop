@@ -19,11 +19,11 @@ define(['data/DashboardService', 'cell!shared/loadingindicator/LoadingIndicator'
         })) + "\n  " + (R.cell(TestResultsGraph, {
           type: 'ats',
           label: 'AT',
-          urlPrefix: DashboardService.getXPToolBaseUrl('xp.testresults.do?runId=')
+          urlPrefix: DashboardService.getXPToolBaseUrl('xp.failingtestsbypackage.do?runID=')
         })) + "\n  " + (R.cell(TestResultsGraph, {
           type: 'units',
           label: 'UNIT',
-          urlPrefix: DashboardService.getXPToolBaseUrl('xp.unittestresults.do?runId=')
+          urlPrefix: DashboardService.getXPToolBaseUrl('unittool.failingtestsbysuite.do?testRunID=')
         })) + "\n</div>\n" + (R.cell(LoadingIndicator)) + "\n" + (R(stories, function(story) {
           return R.cell(DashboardStory, {
             model: story
@@ -45,6 +45,7 @@ define(['data/DashboardService', 'cell!shared/loadingindicator/LoadingIndicator'
         return DashboardService.getStorySummaries(newIterationNo, __bind(function(_arg2) {
           var s, stories, _i, _len, _results;
           stories = _arg2.stories;
+          this.$('.DashboardStory').remove();
           this.$('.LoadingIndicator').trigger('disable');
           _results = [];
           for (_i = 0, _len = stories.length; _i < _len; _i++) {
