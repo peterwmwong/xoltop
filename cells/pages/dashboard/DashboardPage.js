@@ -1,14 +1,5 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 define(['data/DashboardService', 'cell!shared/loadingindicator/LoadingIndicator', 'cell!./DashboardStory', 'cell!./statusshelf/IterationChooser', 'cell!./statusshelf/testresultsgraph/TestResultsGraph'], function(DashboardService, LoadingIndicator, DashboardStory, IterationChooser, TestResultsGraph) {
-  var CountLabel;
-  CountLabel = cell.extend({
-    render: function(R, A) {
-      return DashboardService.getTestStatus(__bind(function(data) {
-        var count;
-        return A("<div class='count " + (R(!(count = data[this.options.countProp]) && "passing")) + "'>" + count + "</div>\n<div class='label'>" + this.options.label + "</div>");
-      }, this));
-    }
-  });
   return {
     render: function(R, A) {
       return DashboardService.getStorySummaries(null, function(_arg) {

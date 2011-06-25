@@ -6,14 +6,6 @@ define [
   'cell!./statusshelf/testresultsgraph/TestResultsGraph'
 ], (DashboardService,LoadingIndicator,DashboardStory,IterationChooser,TestResultsGraph)->
   
-  CountLabel = cell.extend
-    render: (R,A)->
-      DashboardService.getTestStatus (data)=>
-        A """
-          <div class='count #{R not (count = data[@options.countProp]) and "passing"}'>#{count}</div>
-          <div class='label'>#{@options.label}</div>
-          """
-
   render: (R,A)->
     DashboardService.getStorySummaries null, ({iterationNo,stories})->
       A """
@@ -33,13 +25,17 @@ define [
         """
 
   bind:
+    # When a Dashboard Story is selected
     'selected .DashboardStory': ({target})->
       @$('.DashboardStory.selected').trigger('deselected')
 
 
+    # When a new Interation is chosen
     'iterationNoChanged .IterationChooser': ({newIterationNo})->
       @$('.DashboardStory').remove()
       @$('.LoadingIndicator').trigger 'enable'
+
+      # Fetch Stories for newly selected iteration
       DashboardService.getStorySummaries newIterationNo, ({stories})=>
         @$('.DashboardStory').remove()
         @$('.LoadingIndicator').trigger 'disable'

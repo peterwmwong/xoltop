@@ -3,11 +3,15 @@ TODO
 
 Backend Integration
 -------------------
-
+* Refresh data/mock XPTool server response snapshots
 
 Dashboard
 ---------
+* "My Stories" divider
+* Status Shelf - Overall Iteration Health
+  * Percentages of Code, Tests, and Tasks
 * Code Tasks - show total time spent and time left
+* Show story ballpark (ex. bars/color)
 * Handle Roll Over Stories
 * Test health monitors
   * Small tests

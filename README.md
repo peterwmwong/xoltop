@@ -21,8 +21,7 @@ Getting involved (suggestions, ideas, contributing)
 ---------------------------------------------------
 Come talk to me, I don't bite.
 
-Developing
-----------
+### Developing
 * [make](http://www.gnu.org/software/make) - Ant and Maven would be overkill
 * [node.js](https://github.com/joyent/node) - Running CoffeeScript and Stylus compilers
 
@@ -40,5 +39,6 @@ Credit
 * [CoffeeScript](http://jashkenas.github.com/coffee-script/) - Better than JavaScript
 * [Stylus](https://github.com/peterwmwong/cell) - Better than CSS
 * [JQuery](http://jquery.com/) - Better than DOM
+* [live.js](http://livejs.com) - Better than Alt-Tab, F5
 * [RequireJS](https://github.com/jrburke/requirejs) - Modular JavaScript
 * [cell](https://github.com/peterwmwong/cell) - Modular HTML/CSS/JavaScript
