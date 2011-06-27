@@ -3,6 +3,7 @@ TODO
 
 Backend Integration
 -------------------
+* Auth (Resteasy/JAXRS)
 * Refresh data/mock XPTool server response snapshots
 
 Dashboard
