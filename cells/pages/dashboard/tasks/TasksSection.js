@@ -1,8 +1,8 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-define(['data/DashboardService', 'cell!shared/cattable/CatTable'], function(DashboardService, CatTable) {
+define(['Services', 'cell!shared/cattable/CatTable'], function(S, CatTable) {
   return {
     render: function(R, A) {
-      return DashboardService.getStoryTasksDetails(this.options.storynum, __bind(function(tasks) {
+      return S.dashboard.getStoryTasksDetails(this.options.storynum, __bind(function(tasks) {
         return A(__bind(function() {
           if ((tasks != null ? tasks.length : void 0) === 0) {
             return "<div class='notests'>No Tasks</div>";
@@ -22,7 +22,7 @@ define(['data/DashboardService', 'cell!shared/cattable/CatTable'], function(Dash
                 note: function(_arg) {
                   var chumpTaskID, note, _ref;
                   _ref = _arg.task, note = _ref.note, chumpTaskID = _ref.chumpTaskID;
-                  return "<a target='_blank' href='" + (DashboardService.getXPToolBaseUrl("projecttool/projecttool.taskview.do?taskID=" + chumpTaskID)) + "'>\n  " + note + "\n</a>";
+                  return "<a target='_blank' href='" + (S.getXPToolBaseUrl("projecttool/projecttool.taskview.do?taskID=" + chumpTaskID)) + "'>\n  " + note + "\n</a>";
                 },
                 owner: function(_arg) {
                   var task;

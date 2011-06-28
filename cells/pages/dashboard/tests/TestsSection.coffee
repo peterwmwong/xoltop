@@ -1,6 +1,6 @@
-define ['data/DashboardService','cell!shared/cattable/CatTable'], (DashboardService,CatTable)->
+define ['Services','cell!shared/cattable/CatTable'], (S,CatTable)->
   render: (R,A)->
-    DashboardService.getStoryTestDetails @options.storynum, (tests)=>
+    S.dashboard.getStoryTestDetails @options.storynum, (tests)=>
       A do=>
         if tests?.length == 0
           "<div class='notests'>No Tests</div>"
@@ -14,14 +14,14 @@ define ['data/DashboardService','cell!shared/cattable/CatTable'], (DashboardServ
             columnMap:
               id:({id})->
                 """
-                <a target='_blank' href='#{DashboardService.getXPToolBaseUrl "xp.testnoteview.do?testNumber=#{id}"}'>
+                <a target='_blank' href='#{S.getXPToolBaseUrl "xp.testnoteview.do?testNumber=#{id}"}'>
                   #{id}
                 </a>
                 """
               name:({id,status,needsAttn,requirement})->
                 """
                 #{R needsAttn == true and "<span class='needsAttn'>NA</span>"}
-                <a target='_blank' href='#{DashboardService.getXPToolBaseUrl "xp.testnoteview.do?testNumber=#{id}"}'>
+                <a target='_blank' href='#{S.getXPToolBaseUrl "xp.testnoteview.do?testNumber=#{id}"}'>
                   #{requirement}
                 </a>
                 """

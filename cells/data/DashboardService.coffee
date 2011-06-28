@@ -1,63 +1,45 @@
-define ['data/JSONP'], (jsonp)->
-  TESTING = window.xoltop?.DashboardService?.useMockData
-
-  xptoolurl = (path)-> getXPToolBaseUrl "rest/jumbotron/#{path}"
-  get = do->
-    defer = (f)-> setTimeout f, 0
-    (testpath,url,done)->
-      if TESTING
-        defer -> require [testpath], done
-      else
-        jsonp
-          #url: 'http://destinyxptool/xptool/rest/jumbotron/iteration/'+path
-          callback: 'jsonp'
-          url: url
-          success: done
-      return
- 
-
-  getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.0.230/xptool/#{relPath}"
-  #getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.19.63:69/xptool/#{relPath}"
+define ['data/JSONP'], ({get,serviceurl})->
 
   getCurrentIterationNumber: (done)->
-    get 'data/MockDashboardService-getCurrentIterationNumber',
-      xptoolurl "/iteration/current"
+    get
+      mock: 'data/mock/MockDashboardService-getCurrentIterationNumber',
+      real: serviceurl "/iteration/current"
       ({iterationInfo:{iterationNo}})-> done iterationNo
 
+
   getIterationTestStatus: (done)->
-    get 'data/MockDashboardService-getIterationTestStatus',
-      xptoolurl "iteration/tests"
+    get
+      mock: 'data/mock/MockDashboardService-getIterationTestStatus',
+      real: serviceurl "iteration/tests"
       ({test})-> done test
+
 
   getRecentTestResults: (type,done)->
     if type in ['ats','units']
-      get "data/MockDashboardService-getRecentTestResults-#{type}",
-        xptoolurl "tests/#{type}?recent=10"
+      get
+        mock: "data/mock/MockDashboardService-getRecentTestResults-#{type}",
+        real: serviceurl "tests/#{type}?recent=10"
         done
     else if type is 'smalls'
-      get 'data/MockDashboardService-getRecentTestResults-smalls',
-        "http://build-linux-01.fdr.follett.com:8080/ci/view/Destiny/job/destiny-small-tests/lastCompletedBuild/testReport/api/json"
+      get
+        mock: 'data/mock/MockDashboardService-getRecentTestResults-smalls',
+        real: "http://build-linux-01.fdr.follett.com:8080/ci/view/Destiny/job/destiny-small-tests/lastCompletedBuild/testReport/api/json"
         done
 
-  getTestStatus: (done)->
-    get 'data/MockDashboardService-getTestStatus',
-      xptoolurl "testsnapshot"
-      ({tests})->
-        get 'data/MockDashboardService-getTestStatus-smallTests',
-          "http://build-linux-01.fdr.follett.com:8080/ci/view/Destiny/job/destiny-small-tests/lastCompletedBuild/testReport/api/json"
-          ({failCount})->
-            tests.failingSmalls = failCount
-            done tests
 
   getStoryCodeTasksDetails: (storynum,done)->
-    get 'data/MockDashboardService-getStoryCodeTasksDetail',
-      xptoolurl "iteration/stories/#{storynum}/codeTasks"
+    get
+      mock: 'data/mock/MockDashboardService-getStoryCodeTasksDetail',
+      real: serviceurl "iteration/stories/#{storynum}/codeTasks"
       done
 
+
   getStoryTasksDetails: (storynum,done)->
-    get 'data/MockDashboardService-getStoryTasksDetail',
-      xptoolurl "iteration/stories/#{storynum}/tasks"
+    get
+      mock: 'data/mock/MockDashboardService-getStoryTasksDetail',
+      real: serviceurl "iteration/stories/#{storynum}/tasks"
       done
+
 
   getStorySummaries: do->
     storyRegex = /^((\w*[ ]+- )+)?(.*?)( \(([^\)]+)\))?$/
@@ -71,8 +53,9 @@ define ['data/JSONP'], (jsonp)->
       else
         2
     (iterNo,done)->
-      get 'data/MockDashboardService-getStorySummaries',
-        xptoolurl "iteration/#{iterNo? and "#{iterNo}/" or ""}stories/"
+      get
+        mock: 'data/mock/MockDashboardService-getStorySummaries',
+        real: serviceurl "iteration/#{iterNo? and "#{iterNo}/" or ""}stories/"
         ({iterationStories:{iterationNo,stories}})->
           stories = do->
             for s in stories.sort( ({num:a},{num:b})->a-b )
@@ -104,6 +87,7 @@ define ['data/JSONP'], (jsonp)->
 
           done {stories,iterationNo}
 
+
   getStoryTestDetails : do->
 
     isToday = (o)->
@@ -133,8 +117,9 @@ define ['data/JSONP'], (jsonp)->
     today = "#{(t = new Date()).getMonth()+1}/#{t.getDate()}/#{t.getFullYear()}"
 
     (storynum,done)->
-      get 'data/MockDashboardService-getStoryTestDetails',
-        xptoolurl "iteration/stories/#{storynum}/tests"
+      get
+        mock: 'data/mock/MockDashboardService-getStoryTestDetails',
+        real: serviceurl "iteration/stories/#{storynum}/tests"
         (tests)->
           tests = for {test:t} in tests
             t.status = t.status in ['pass','fail','na','towrite'] and t.status or 'unknown'

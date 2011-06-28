@@ -1,24 +1,24 @@
 define [
-  'data/DashboardService'
+  'Services'
   'cell!shared/loadingindicator/LoadingIndicator'
   'cell!./DashboardStory'
   'cell!./statusshelf/IterationChooser'
   'cell!./statusshelf/testresultsgraph/TestResultsGraph'
-], (DashboardService,LoadingIndicator,DashboardStory,IterationChooser,TestResultsGraph)->
+], (S,LoadingIndicator,DashboardStory,IterationChooser,TestResultsGraph)->
   
   render: (R,A)->
-    DashboardService.getStorySummaries null, ({iterationNo,stories})->
+    S.dashboard.getStorySummaries null, ({iterationNo,stories})->
       A """
         <div class='stats'>
           #{R.cell IterationChooser, iterationNo:iterationNo}
           #{R.cell TestResultsGraph,
               type: 'ats'
               label: 'AT'
-              urlPrefix: DashboardService.getXPToolBaseUrl 'xp.failingtestsbypackage.do?runID='}
+              urlPrefix: S.getXPToolBaseUrl 'xp.failingtestsbypackage.do?runID='}
           #{R.cell TestResultsGraph,
               type: 'units'
               label: 'UNIT'
-              urlPrefix: DashboardService.getXPToolBaseUrl 'unittool.failingtestsbysuite.do?testRunID='}
+              urlPrefix: S.getXPToolBaseUrl 'unittool.failingtestsbysuite.do?testRunID='}
         </div>
         #{R.cell LoadingIndicator}
         #{R stories, (story)-> R.cell DashboardStory, model:story}
@@ -36,7 +36,7 @@ define [
       @$('.LoadingIndicator').trigger 'enable'
 
       # Fetch Stories for newly selected iteration
-      DashboardService.getStorySummaries newIterationNo, ({stories})=>
+      S.dashboard.getStorySummaries newIterationNo, ({stories})=>
         @$('.DashboardStory').remove()
         @$('.LoadingIndicator').trigger 'disable'
         for s in stories

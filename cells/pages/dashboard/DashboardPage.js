@@ -1,8 +1,8 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-define(['data/DashboardService', 'cell!shared/loadingindicator/LoadingIndicator', 'cell!./DashboardStory', 'cell!./statusshelf/IterationChooser', 'cell!./statusshelf/testresultsgraph/TestResultsGraph'], function(DashboardService, LoadingIndicator, DashboardStory, IterationChooser, TestResultsGraph) {
+define(['Services', 'cell!shared/loadingindicator/LoadingIndicator', 'cell!./DashboardStory', 'cell!./statusshelf/IterationChooser', 'cell!./statusshelf/testresultsgraph/TestResultsGraph'], function(S, LoadingIndicator, DashboardStory, IterationChooser, TestResultsGraph) {
   return {
     render: function(R, A) {
-      return DashboardService.getStorySummaries(null, function(_arg) {
+      return S.dashboard.getStorySummaries(null, function(_arg) {
         var iterationNo, stories;
         iterationNo = _arg.iterationNo, stories = _arg.stories;
         return A("<div class='stats'>\n  " + (R.cell(IterationChooser, {
@@ -10,11 +10,11 @@ define(['data/DashboardService', 'cell!shared/loadingindicator/LoadingIndicator'
         })) + "\n  " + (R.cell(TestResultsGraph, {
           type: 'ats',
           label: 'AT',
-          urlPrefix: DashboardService.getXPToolBaseUrl('xp.failingtestsbypackage.do?runID=')
+          urlPrefix: S.getXPToolBaseUrl('xp.failingtestsbypackage.do?runID=')
         })) + "\n  " + (R.cell(TestResultsGraph, {
           type: 'units',
           label: 'UNIT',
-          urlPrefix: DashboardService.getXPToolBaseUrl('unittool.failingtestsbysuite.do?testRunID=')
+          urlPrefix: S.getXPToolBaseUrl('unittool.failingtestsbysuite.do?testRunID=')
         })) + "\n</div>\n" + (R.cell(LoadingIndicator)) + "\n" + (R(stories, function(story) {
           return R.cell(DashboardStory, {
             model: story
@@ -33,7 +33,7 @@ define(['data/DashboardService', 'cell!shared/loadingindicator/LoadingIndicator'
         newIterationNo = _arg.newIterationNo;
         this.$('.DashboardStory').remove();
         this.$('.LoadingIndicator').trigger('enable');
-        return DashboardService.getStorySummaries(newIterationNo, __bind(function(_arg2) {
+        return S.dashboard.getStorySummaries(newIterationNo, __bind(function(_arg2) {
           var s, stories, _i, _len, _results;
           stories = _arg2.stories;
           this.$('.DashboardStory').remove();

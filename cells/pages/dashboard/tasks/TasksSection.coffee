@@ -1,7 +1,7 @@
-define ['data/DashboardService','cell!shared/cattable/CatTable'], (DashboardService,CatTable)->
+define ['Services','cell!shared/cattable/CatTable'], (S,CatTable)->
 
   render: (R,A)->
-    DashboardService.getStoryTasksDetails @options.storynum, (tasks)=>
+    S.dashboard.getStoryTasksDetails @options.storynum, (tasks)=>
       A do=>
         if tasks?.length == 0
           "<div class='notests'>No Tasks</div>"
@@ -15,7 +15,7 @@ define ['data/DashboardService','cell!shared/cattable/CatTable'], (DashboardServ
             columnMap:
               note: ({task:{note,chumpTaskID}})->
                 """
-                <a target='_blank' href='#{DashboardService.getXPToolBaseUrl "projecttool/projecttool.taskview.do?taskID=#{chumpTaskID}"}'>
+                <a target='_blank' href='#{S.getXPToolBaseUrl "projecttool/projecttool.taskview.do?taskID=#{chumpTaskID}"}'>
                   #{note}
                 </a>
                 """

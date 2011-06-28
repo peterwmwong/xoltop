@@ -1,8 +1,8 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-define(['data/DashboardService', 'cell!shared/cattable/CatTable'], function(DashboardService, CatTable) {
+define(['Services', 'cell!shared/cattable/CatTable'], function(S, CatTable) {
   return {
     render: function(R, A) {
-      return DashboardService.getStoryTestDetails(this.options.storynum, __bind(function(tests) {
+      return S.dashboard.getStoryTestDetails(this.options.storynum, __bind(function(tests) {
         return A(__bind(function() {
           if ((tests != null ? tests.length : void 0) === 0) {
             return "<div class='notests'>No Tests</div>";
@@ -22,12 +22,12 @@ define(['data/DashboardService', 'cell!shared/cattable/CatTable'], function(Dash
                 id: function(_arg) {
                   var id;
                   id = _arg.id;
-                  return "<a target='_blank' href='" + (DashboardService.getXPToolBaseUrl("xp.testnoteview.do?testNumber=" + id)) + "'>\n  " + id + "\n</a>";
+                  return "<a target='_blank' href='" + (S.getXPToolBaseUrl("xp.testnoteview.do?testNumber=" + id)) + "'>\n  " + id + "\n</a>";
                 },
                 name: function(_arg) {
                   var id, needsAttn, requirement, status;
                   id = _arg.id, status = _arg.status, needsAttn = _arg.needsAttn, requirement = _arg.requirement;
-                  return "" + (R(needsAttn === true && "<span class='needsAttn'>NA</span>")) + "\n<a target='_blank' href='" + (DashboardService.getXPToolBaseUrl("xp.testnoteview.do?testNumber=" + id)) + "'>\n  " + requirement + "\n</a>";
+                  return "" + (R(needsAttn === true && "<span class='needsAttn'>NA</span>")) + "\n<a target='_blank' href='" + (S.getXPToolBaseUrl("xp.testnoteview.do?testNumber=" + id)) + "'>\n  " + requirement + "\n</a>";
                 },
                 status: function(_arg) {
                   var update;

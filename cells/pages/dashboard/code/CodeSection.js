@@ -1,8 +1,8 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-define(['data/DashboardService', 'cell!shared/cattable/CatTable'], function(DashboardService, CatTable) {
+define(['Services', 'cell!shared/cattable/CatTable'], function(S, CatTable) {
   return {
     render: function(R, A) {
-      return DashboardService.getStoryCodeTasksDetails(this.options.storynum, __bind(function(codeTasks) {
+      return S.dashboard.getStoryCodeTasksDetails(this.options.storynum, __bind(function(codeTasks) {
         return A(__bind(function() {
           var storynum;
           if ((codeTasks != null ? codeTasks.length : void 0) === 0) {
@@ -24,7 +24,7 @@ define(['data/DashboardService', 'cell!shared/cattable/CatTable'], function(Dash
                 description: function(_arg) {
                   var description, id, _ref;
                   _ref = _arg.task, id = _ref.id, description = _ref.description;
-                  return "<a target='_blank' href='" + (DashboardService.getXPToolBaseUrl("xptool/projecttool/projecttool.tasklogtime.do?taskID=" + id + "&chumpStoryID=" + storynum)) + "'>\n  " + description + "\n</a>";
+                  return "<a target='_blank' href='" + (S.getXPToolBaseUrl("xptool/projecttool/projecttool.tasklogtime.do?taskID=" + id + "&chumpStoryID=" + storynum)) + "'>\n  " + description + "\n</a>";
                 },
                 owner: function(_arg) {
                   var owner;

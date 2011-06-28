@@ -1,4 +1,4 @@
-define ['data/DashboardService'], (DashboardService)->
+define ['Services'], (S)->
   passColor = '#62872C'
   failColor = '#992626'
   highlightCol = (col)->
@@ -20,7 +20,7 @@ define ['data/DashboardService'], (DashboardService)->
 
   render: (R,A)->
     $el = @$el
-    DashboardService.getRecentTestResults @options.type, (results)=>
+    S.dashboard.getRecentTestResults @options.type, (results)=>
       @results = results
 
       [w,h] = [125,64]

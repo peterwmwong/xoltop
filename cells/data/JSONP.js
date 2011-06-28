@@ -1,17 +1,18 @@
 var __slice = Array.prototype.slice;
 define(function() {
-  var jsonp, jsonpID;
+  var TESTING, jsonp, jsonpID, _ref, _ref2;
+  TESTING = (_ref = window.xoltop) != null ? (_ref2 = _ref.services) != null ? _ref2.useMockData : void 0 : void 0;
   jsonpID = 0;
   jsonp = function(options) {
-    var jsonpString, s, _ref;
+    var jsonpString, s, _ref3;
     jsonpString = '__jsonp' + ++jsonpID;
     window[jsonpString] = function(j) {
       options.success(j);
       window[jsonpString] = void 0;
       return $('#' + jsonpString).remove();
     };
-        if ((_ref = options.callback) != null) {
-      _ref;
+        if ((_ref3 = options.callback) != null) {
+      _ref3;
     } else {
       options.callback = 'callback';
     };
@@ -70,6 +71,33 @@ define(function() {
         });
       };
     };
+  };
+  jsonp.get = (function() {
+    var defer;
+    defer = function(f) {
+      return setTimeout(f, 0);
+    };
+    return function(_arg, done) {
+      var mock, real;
+      mock = _arg.mock, real = _arg.real;
+      if (TESTING) {
+        defer(function() {
+          return require([mock], done);
+        });
+      } else {
+        jsonp({
+          callback: 'jsonp',
+          url: real,
+          success: done
+        });
+      }
+    };
+  })();
+  jsonp.getXPToolBaseUrl = function(relPath) {
+    return "http://172.16.0.230/xptool/" + relPath;
+  };
+  jsonp.serviceurl = function(path) {
+    return jsonp.getXPToolBaseUrl("rest/jumbotron/" + path);
   };
   return jsonp;
 });

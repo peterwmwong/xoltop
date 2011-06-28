@@ -1,5 +1,5 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-define(['data/DashboardService'], function(DashboardService) {
+define(['Services'], function(S) {
   var failColor, getDate, highlightCol, i, mapDate, offsetDayMap, passColor, today, unhighlightCol;
   passColor = '#62872C';
   failColor = '#992626';
@@ -46,7 +46,7 @@ define(['data/DashboardService'], function(DashboardService) {
     render: function(R, A) {
       var $el;
       $el = this.$el;
-      return DashboardService.getRecentTestResults(this.options.type, __bind(function(results) {
+      return S.dashboard.getRecentTestResults(this.options.type, __bind(function(results) {
         var col, failures, h, i, lastCol, lc, r, urlPrefix, w, _i, _len, _ref, _ref2, _ref3, _results;
         this.results = results;
         _ref = [125, 64], w = _ref[0], h = _ref[1];
