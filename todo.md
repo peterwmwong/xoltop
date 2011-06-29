@@ -25,6 +25,10 @@ Dashboard
   * Signup
 
 ### General
+* Auto Refresh
+* Clicking on Stories should take you somewhere (story info or tasks)
+* Clicking on Story Section when it's expanded should collapse it
+* Put more visual emphasis when hovering over Story Sections
 * Status Shelf - Overall Iteration Health
   * Percentages of Code, Tests, and Tasks
 * Link to expanded stuff
