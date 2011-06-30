@@ -1,5 +1,4 @@
 define ['cell!shared/page/Page','cell!shared/ComingSoonPage','cell!pages/dashboard/DashboardPage','cell!Bar'], (Page, ComingSoonPage,DashboardPage,Bar)->
-  defer = (f)-> setTimeout f,0
   pages =
     Dashboard:
       cell: DashboardPage
@@ -20,7 +19,7 @@ define ['cell!shared/page/Page','cell!shared/ComingSoonPage','cell!pages/dashboa
   render: (R)->
     if $.browser.msie then R.cell 'IEGTFO'
     else
-      defer => @loadPage @options.selectedPage
+      setTimeout (=> @loadPage @options.selectedPage), 0
       """
       #{R.cell Bar, selectedItem:@options.selectedPage, items:(p for p of pages)}
       <div id='content'></div>
@@ -34,5 +33,5 @@ define ['cell!shared/page/Page','cell!shared/ComingSoonPage','cell!pages/dashboa
     content = @$ '> #content'
     content.html ''
     if p = pages[page]
-      content.append(new(p.cell)(p.options or {}).el)
+      content.append (new p.cell (p.options or {})).el
 

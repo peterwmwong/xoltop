@@ -1,9 +1,6 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 define(['cell!shared/page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/dashboard/DashboardPage', 'cell!Bar'], function(Page, ComingSoonPage, DashboardPage, Bar) {
-  var defer, pages;
-  defer = function(f) {
-    return setTimeout(f, 0);
-  };
+  var pages;
   pages = {
     Dashboard: {
       cell: DashboardPage
@@ -30,9 +27,9 @@ define(['cell!shared/page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/dashb
       if ($.browser.msie) {
         return R.cell('IEGTFO');
       } else {
-        defer(__bind(function() {
+        setTimeout((__bind(function() {
           return this.loadPage(this.options.selectedPage);
-        }, this));
+        }, this)), 0);
         return "" + (R.cell(Bar, {
           selectedItem: this.options.selectedPage,
           items: (function() {
@@ -58,7 +55,7 @@ define(['cell!shared/page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/dashb
       content = this.$('> #content');
       content.html('');
       if (p = pages[page]) {
-        return content.append(new p.cell(p.options || {}).el);
+        return content.append((new p.cell(p.options || {})).el);
       }
     }
   };
