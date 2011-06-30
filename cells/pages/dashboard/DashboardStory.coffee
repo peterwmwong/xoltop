@@ -85,14 +85,19 @@ define [
     """
 
   bind: do->
-    selectDetail = (detail)->
+    selectSection = (detail)->
       (ev)->
         if not (alreadySelected = @$el.hasClass 'selected')
           @$el.trigger 'selected'
           @$el.toggleClass 'selected', true
 
-        # Don't expand if already expanded
-        if detail::name != @options.expandedSection
+
+        # Collapse if already expanded
+        if detail::name == @options.expandedSection
+          collapseStory.call this
+
+        # Expand another section
+        else
           @options.expandedSection = detail::name
           @$('.countCol > .selected').toggleClass 'selected', false
           $(ev.target).closest('div').toggleClass 'selected', true
@@ -120,9 +125,9 @@ define [
               .toggleClass('selected', true)
               .fadeIn()
 
-    'click .tests.countCol': selectDetail TestsSection
-    'click .tasks.countCol': selectDetail TasksSection
-    'click .code.countCol': selectDetail CodeSection
+    'click .tests.countCol': selectSection TestsSection
+    'click .tasks.countCol': selectSection TasksSection
+    'click .code.countCol': selectSection CodeSection
     'click .collapseStory': collapseStory = ->
       @$('.detail.selected').animate height:'hide', 'slow', =>
         @$el.toggleClass 'selected', false

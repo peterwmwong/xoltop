@@ -30,15 +30,17 @@ define(['cell!shared/loadingindicator/LoadingIndicator', 'cell!./tests/TestsSect
       })) + "\n    <div class='name'>\n      <div>\n        <a href='#'>" + this.model.name + "</a>\n      </div>\n    </div>\n    <div class='chumps'>\n      " + (R((_ref2 = this.model.devs) != null ? _ref2.concat(this.model.testers).join("<span class='divider'>&nbsp;</span>") : void 0)) + "\n    </div>\n  </div>\n</div>\n<div class='details'>\n  " + (R.cell(LoadingIndicator)) + "\n  <div class='contents'></div>\n</div>";
     },
     bind: (function() {
-      var collapseStory, selectDetail;
-      selectDetail = function(detail) {
+      var collapseStory, selectSection;
+      selectSection = function(detail) {
         return function(ev) {
           var $detail, alreadySelected, detailCell;
           if (!(alreadySelected = this.$el.hasClass('selected'))) {
             this.$el.trigger('selected');
             this.$el.toggleClass('selected', true);
           }
-          if (detail.prototype.name !== this.options.expandedSection) {
+          if (detail.prototype.name === this.options.expandedSection) {
+            return collapseStory.call(this);
+          } else {
             this.options.expandedSection = detail.prototype.name;
             this.$('.countCol > .selected').toggleClass('selected', false);
             $(ev.target).closest('div').toggleClass('selected', true);
@@ -61,9 +63,9 @@ define(['cell!shared/loadingindicator/LoadingIndicator', 'cell!./tests/TestsSect
         };
       };
       return {
-        'click .tests.countCol': selectDetail(TestsSection),
-        'click .tasks.countCol': selectDetail(TasksSection),
-        'click .code.countCol': selectDetail(CodeSection),
+        'click .tests.countCol': selectSection(TestsSection),
+        'click .tasks.countCol': selectSection(TasksSection),
+        'click .code.countCol': selectSection(CodeSection),
         'click .collapseStory': collapseStory = function() {
           this.$('.detail.selected').animate({
             height: 'hide'

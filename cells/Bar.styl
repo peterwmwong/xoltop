@@ -16,7 +16,7 @@
   line-height 32px
   text-shadow 0 -1px 0 rgba(#000,.3)
 
-  #xoltop
+  > #xoltop
     color rgba(#FFF,.8)
     padding 0 20px 0 20px
     font-size 16px
@@ -42,51 +42,7 @@
         box-shadow inset 0px 1px 2px rgba(#000,.5)
         background-color rgba(#000,.3)
 
-  #auth
+  > .SignIn
     float right
-    position relative
-    panelcolor = hsl(205deg,49%,55%)
     margin-right 5px
-    text-align right
 
-    &:hover
-      background-color panelcolor
-      border-radius 0 0 5px 5px
-      box-shadow 0 0 5px rgba(#000,.4)
-      color #FFF
-
-      > a
-        color #FFF
-
-      > #auth-login-panel
-        display block
-
-
-    > a
-      color rgba(#FFF,.8)
-      text-decoration none
-      display inline-block
-      padding 0 10px 0 10px
-      width 150px
-
-      &:hover
-        color #FFF
-    
-    > #auth-login-panel
-      display none
-      padding 0px 20px 10px 20px
-      color #FFF
-      text-align right
-
-      input
-        color bg-color-dark
-        margin 0 0 0 7px
-        padding 2px 5px 2px 5px
-        width 100px
-        outline none
-        border none
-        border-radius 2px
-        box-shadow inset 0 1px 1px rgba(#000,.7)
-
-        &.invalid
-          border 2px solid rgba(#F00,.7)

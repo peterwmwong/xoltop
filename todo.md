@@ -26,8 +26,6 @@ Dashboard
   * Signup
 
 ### General
-* Clicking on Story Section when it's expanded should collapse it
-* Put more visual emphasis when hovering over Story Sections
 * Clicking on Stories should take you somewhere (story info or tasks)
   * Story headline section?
     * X Incomplete Tasks

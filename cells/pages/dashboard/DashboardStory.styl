@@ -39,7 +39,7 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
   &:hover
     > .header
       .chumps, .name a 
-        color text-color
+        color lighten(text-disabled-color,20%)
     gradient lighten(#333,35%), lighten(#333,35%)
 
   &.selected
@@ -167,8 +167,11 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
           padding 4px 0 3px 0
 
           &:hover
+            background-color lighten(#222,10%)
             > a
-              color text-color-dark
+              color text-color
+              text-decoration underline
+              font-weight bold
 
           &.selected
             background-color #222
@@ -188,9 +191,6 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
             line-height 19px
             color rgba(text-disabled-color,.75)
             padding 0px 0 0 8px
-            &:hover
-              color text-color-dark
-              text-decoration none
 
           > .countBadge
             float right
