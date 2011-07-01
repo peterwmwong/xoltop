@@ -1,13 +1,20 @@
-define ['data/JSONP'], ({get,serviceurl})->
+define ['data/JSONP','Bus'], ({get,getXPToolBaseUrl},Bus)->
+  user = null
 
-  login: (user,pass,done)->
+  getUser: -> return user
+
+  login$: (username,pass,done)->
     get
       mock: 'data/mock/Auth-login'
-      real: serviceurl "auth/login?user=#{user}&pass=#{pass}"
-      done
+      real: getXPToolBaseUrl "rest/xoltop/auth/login?user=#{username}&pass=#{pass}"
+      ({user:u})->
+        done user = u
+        if user then Bus.trigger type: 'auth.userLoggedIn', user: user
 
-  logout: (done)->
+  logout$: (done)->
+    user = null
     get
       mock: 'data/mock/Auth-login'
-      real: serviceurl 'auth/logout'
+      real: getXPToolBaseUrl "rest/xoltop/auth/logout"
       done
+    Bus.trigger type: 'auth.userLoggedOut'

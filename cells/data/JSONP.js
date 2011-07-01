@@ -66,7 +66,7 @@ define(function() {
           callback: callback,
           url: "" + baseurl + (pathFunc.apply(null, args)),
           success: function(dataArray) {
-            return done(process(dataArray));
+            return typeof done === "function" ? done(process(dataArray)) : void 0;
           }
         });
       };
@@ -88,13 +88,13 @@ define(function() {
         jsonp({
           callback: 'jsonp',
           url: real,
-          success: done
+          success: done || function() {}
         });
       }
     };
   })();
   jsonp.getXPToolBaseUrl = function(relPath) {
-    return "http://172.16.0.230/xptool/" + relPath;
+    return "http://172.16.19.63:69/xptool/" + relPath;
   };
   jsonp.serviceurl = function(path) {
     return jsonp.getXPToolBaseUrl("rest/jumbotron/" + path);

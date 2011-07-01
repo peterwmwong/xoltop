@@ -70,7 +70,7 @@ define [
         "}
         <div class='name'>
           <div>
-            <a href='#'>#{@model.name}</a>
+            <a target='_blank' href='http://destinyxptool/xptool/projecttool/projecttool.storyedit.do?storyID=#{@model.storynum}'>#{@model.name}</a>
           </div>
         </div>
         <div class='chumps'>

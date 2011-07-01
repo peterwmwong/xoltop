@@ -41,7 +41,7 @@ define ->
         jsonp
           callback: callback
           url: "#{baseurl}#{pathFunc args...}"
-          success: (dataArray)-> done process dataArray
+          success: (dataArray)-> done? process dataArray
         return
 
   jsonp.get = do->
@@ -53,11 +53,11 @@ define ->
         jsonp
           callback: 'jsonp'
           url: real
-          success: done
+          success: done or ->
       return
  
-  #jsonp.getXPToolBaseUrl = (relPath)-> "http://172.16.19.63:69/xptool/#{relPath}"
-  jsonp.getXPToolBaseUrl = (relPath)-> "http://172.16.0.230/xptool/#{relPath}"
+  jsonp.getXPToolBaseUrl = (relPath)-> "http://172.16.19.63:69/xptool/#{relPath}"
+  #jsonp.getXPToolBaseUrl = (relPath)-> "http://172.16.0.230/xptool/#{relPath}"
   jsonp.serviceurl = (path)-> jsonp.getXPToolBaseUrl "rest/jumbotron/#{path}"
 
   jsonp

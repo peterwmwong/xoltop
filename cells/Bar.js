@@ -1,5 +1,5 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-define(['Services', 'cell!SignIn'], function(S, SignIn) {
+define(['Services', 'cell!signin/SignIn'], function(S, SignIn) {
   return {
     render: function(R) {
       return "<span id='xoltop'>XOLTOP</span>\n" + (R(this.options.items, __bind(function(item, i) {

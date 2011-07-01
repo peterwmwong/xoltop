@@ -1,4 +1,4 @@
-define ['Services','cell!SignIn'], (S, SignIn)->
+define ['Services','cell!signin/SignIn'], (S, SignIn)->
   render: (R)->
     #{R.cell 'SearchInput'}
     """

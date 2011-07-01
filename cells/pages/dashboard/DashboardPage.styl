@@ -40,5 +40,17 @@
     red = lighten(saturate(badge-red,0%),0%)
     > .IterationChooser
       margin-right 30px
+  
+  > .myStoryDivider
+    //gradient bg-color-dark shadow-color
+    color text-color-dark
+    position relative
+    padding 5px
+    font-size 10px
+    z-index 100
 
-    
+    &:before
+      content ""
+      abspos 0px -15px -1px -15px
+      box-shadow inset 0px 0px 10px #111
+

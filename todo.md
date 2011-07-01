@@ -31,6 +31,12 @@ Dashboard
     * X Incomplete Tasks
     * X Failing Tests
     * X Needs Attention Tasks
+* News Flash
+  * Message, Severity (Red, Yellow)
+  * Arbritrary Messages (Backend Integration, JSONP submission and get)
+  * Examples
+    * Regression - "Sign up for Objectives, # Left"
+    * Small tests integration - "Build Broken!"
 * Auto Update
   * Update Dashboard every... 2 minutes?
   * Add "Updated 5 minutes ago" message somewhere

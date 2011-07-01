@@ -1,0 +1,13 @@
+.SignIn{position:relative;text-align:right;}
+.SignIn.loggedin > #signin-group{display:none}
+.SignIn.loggedin > .SignedIn{display:inline-block}
+.SignIn.selected > #signin-group{background-color:#5496c4;-moz-border-radius-topleft:0;-moz-border-radius-topright:0;-moz-border-radius-bottomright:5px;-moz-border-radius-bottomleft:5px;border-top-left-radius:0;border-top-right-radius:0;border-bottom-right-radius:5px;border-bottom-left-radius:5px;-webkit-box-shadow:0 2px 5px rgba(0,0,0,0.5);-moz-box-shadow:0 2px 5px rgba(0,0,0,0.5);box-shadow:0 2px 5px rgba(0,0,0,0.5);color:#fff;}
+.SignIn.selected > #signin-group > a{color:#fff}
+.SignIn.selected > #signin-group > #input-group{display:block}
+.SignIn > .SignedIn{display:none}
+.SignIn > #signin-group > #signin-toggle{color:rgba(255,255,255,0.8);text-decoration:none;display:inline-block;padding:0 10px 0 10px;width:150px;}
+.SignIn > #signin-group > #signin-toggle:hover{color:#fff}
+.SignIn > #signin-group > #input-group{display:none;padding:0 20px 5px 20px;color:#fff;text-align:right;}
+.SignIn > #signin-group > #input-group input{color:#333;background-color:rgba(255,255,255,0.8);margin:0 2px 0 7px;padding:2px 5px 2px 5px;width:100px;outline:none;-moz-border-radius-topleft:2px;-moz-border-radius-topright:2px;-moz-border-radius-bottomright:2px;-moz-border-radius-bottomleft:2px;border-top-left-radius:2px;border-top-right-radius:2px;border-bottom-right-radius:2px;border-bottom-left-radius:2px;border:none;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.8);-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,0.8);box-shadow:inset 0 1px 1px rgba(0,0,0,0.8);}
+.SignIn > #signin-group > #input-group input:focus{background-color:#fff}
+.SignIn > #signin-group > #input-group input.invalid{border:2px solid rgba(255,0,0,0.7);margin:0 0 0 5px}

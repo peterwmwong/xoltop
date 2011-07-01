@@ -27,7 +27,7 @@ define(['cell!shared/loadingindicator/LoadingIndicator', 'cell!./tests/TestsSect
           color = _arg2[0], count = _arg2[1];
           return R((count != null) && count > 0 && ("<span class='" + color + "'>" + count + "</span>"));
         }, this)) : R("<span class='" + (label === 'tests' && total === 0 ? 'red' : 'green') + "'>" + total + "</span>")) + "          </span>        </div>      </div>    ";
-      })) + "\n    <div class='name'>\n      <div>\n        <a href='#'>" + this.model.name + "</a>\n      </div>\n    </div>\n    <div class='chumps'>\n      " + (R((_ref2 = this.model.devs) != null ? _ref2.concat(this.model.testers).join("<span class='divider'>&nbsp;</span>") : void 0)) + "\n    </div>\n  </div>\n</div>\n<div class='details'>\n  " + (R.cell(LoadingIndicator)) + "\n  <div class='contents'></div>\n</div>";
+      })) + "\n    <div class='name'>\n      <div>\n        <a target='_blank' href='http://destinyxptool/xptool/projecttool/projecttool.storyedit.do?storyID=" + this.model.storynum + "'>" + this.model.name + "</a>\n      </div>\n    </div>\n    <div class='chumps'>\n      " + (R((_ref2 = this.model.devs) != null ? _ref2.concat(this.model.testers).join("<span class='divider'>&nbsp;</span>") : void 0)) + "\n    </div>\n  </div>\n</div>\n<div class='details'>\n  " + (R.cell(LoadingIndicator)) + "\n  <div class='contents'></div>\n</div>";
     },
     bind: (function() {
       var collapseStory, selectSection;

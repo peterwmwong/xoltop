@@ -1,13 +1,40 @@
 define [
   'Services'
+  'Bus'
   'cell!shared/loadingindicator/LoadingIndicator'
   'cell!./DashboardStory'
   'cell!./statusshelf/IterationChooser'
   'cell!./statusshelf/testresultsgraph/TestResultsGraph'
-], (S,LoadingIndicator,DashboardStory,IterationChooser,TestResultsGraph)->
-  
+], (S,Bus,LoadingIndicator,DashboardStory,IterationChooser,TestResultsGraph)->
+
+
+  init: ->
+    @iterationNo = null
+    Bus.bind 'auth.userLoggedIn', =>
+      S.dashboard.getStorySummaries @iterationNo, ({iterationNo,stories})=>
+        @renderStories stories
+      
+  renderStories: (stories)->
+    user = S.auth.getUser()
+    @$('.DashboardStory').remove()
+
+    mystories =
+      if user?
+        for s in stories when (s.devs? and user.initials in s.devs) or (s.testers? and user.initials in s.testers)
+          @$el.append (new DashboardStory model: s).$el
+          s.storynum
+      else []
+
+    if mystories.length > 0
+      @$el.append $("<div class='myStoryDivider'>My Stories</div>")
+
+    for s in stories when s.storynum not in mystories
+      @$el.append (new DashboardStory model: s).$el
+
+
   render: (R,A)->
-    S.dashboard.getStorySummaries null, ({iterationNo,stories})->
+    S.dashboard.getStorySummaries null, ({iterationNo,stories})=>
+      setTimeout (=> @renderStories stories), 0
       A """
         <div class='stats'>
           #{R.cell IterationChooser, iterationNo:iterationNo}
@@ -21,7 +48,6 @@ define [
               urlPrefix: S.getXPToolBaseUrl 'unittool.failingtestsbysuite.do?testRunID='}
         </div>
         #{R.cell LoadingIndicator}
-        #{R stories, (story)-> R.cell DashboardStory, model:story}
         """
 
   bind:
@@ -32,12 +58,11 @@ define [
 
     # When a new Interation is chosen
     'iterationNoChanged .IterationChooser': ({newIterationNo})->
+      @iterationNo = newIterationNo
       @$('.DashboardStory').remove()
       @$('.LoadingIndicator').trigger 'enable'
 
       # Fetch Stories for newly selected iteration
-      S.dashboard.getStorySummaries newIterationNo, ({stories})=>
-        @$('.DashboardStory').remove()
+      S.dashboard.getStorySummaries @iterationNo, ({stories})=>
         @$('.LoadingIndicator').trigger 'disable'
-        for s in stories
-          (new DashboardStory model: s).$el.appendTo @el
+        @renderStories stories
