@@ -1,3 +1,5 @@
-define([], function() {
-  return "OK";
+define({
+  user: {
+    loginName: 'pwong'
+  }
 });

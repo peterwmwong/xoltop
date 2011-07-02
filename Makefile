@@ -2,6 +2,7 @@
 #--------------------------- Variables -----------------------------
 #===================================================================
 coffee = node_modules/.bin/coffee
+serve= node_modules/.bin/serve
 stylus = node_modules/.bin/stylus
 uglifyjs = node_modules/.bin/uglifyjs
 express = node_modules/express/package.json
@@ -58,8 +59,14 @@ cells/bootstrap.js: $(uglifyjs) cells/cell.js cells/cell-pluginBuilder.js
 #-------------------------------------------------------------------
 # DEV 
 #------------------------------------------------------------------- 
+dev-server: $(serve)
+	$(serve) -D -L -I
+
 dev-stylus: $(stylus)
-	find -name '*.styl' -type f | xargs $(stylus) --watch --compress
+	find . -name '*.styl' -type f | xargs $(stylus) --watch --compress
+
+dev-coffee: $(coffee)
+	find . -name '*.coffee' -type f | xargs $(coffee) -c -b --watch
 
 dev-mock-server: $(coffee) $(express)
 	$(coffee) test/mock/data/mock-metrics-service.coffee
@@ -78,6 +85,9 @@ $(express):
 
 $(uglifyjs):
 	npm install uglify-js
+
+$(serve):
+	npm install serve
 
 #-------------------------------------------------------------------
 # TEST

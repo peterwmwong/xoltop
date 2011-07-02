@@ -1,1 +1,2 @@
-define [], -> "OK"
+define user:
+  loginName: 'pwong'

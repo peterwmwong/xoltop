@@ -1,5 +1,5 @@
-define do->
-  bus = $ document.createElement()
+define ->
+  bus = $ document.createElement 'div'
   
   trigger: (ev)-> bus.trigger ev
   one: (type, cb)-> bus.one type, cb

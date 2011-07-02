@@ -1,6 +1,6 @@
-define((function() {
+define(function() {
   var bus;
-  bus = $(document.createElement());
+  bus = $(document.createElement('div'));
   return {
     trigger: function(ev) {
       return bus.trigger(ev);
@@ -17,4 +17,4 @@ define((function() {
       }
     }
   };
-})());
+});
