@@ -1,9 +1,10 @@
 define [
+  'Services'
   'cell!shared/loadingindicator/LoadingIndicator'
   'cell!./tests/TestsSection'
   'cell!./tasks/TasksSection'
   'cell!./code/CodeSection'
-], (LoadingIndicator,TestsSection,TasksSection,CodeSection)->
+], (S, LoadingIndicator,TestsSection,TasksSection,CodeSection)->
 
   getCodeCompleteColor = (pct,incomplete)->
     if typeof pct != 'number' then 'gray'

@@ -1,5 +1,6 @@
 define({
   user: {
-    loginName: 'pwong'
+    loginName: 'pwong',
+    initials: 'PW'
   }
 });

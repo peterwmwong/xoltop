@@ -75,7 +75,7 @@ define(function() {
   jsonp.get = (function() {
     var defer;
     defer = function(f) {
-      return setTimeout(f, 0);
+      return setTimeout(f, 500);
     };
     return function(_arg, done) {
       var mock, real;

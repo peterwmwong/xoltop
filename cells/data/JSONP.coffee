@@ -45,7 +45,7 @@ define ->
         return
 
   jsonp.get = do->
-    defer = (f)-> setTimeout f, 0
+    defer = (f)-> setTimeout f, 500
     ({mock,real},done)->
       if TESTING
         defer -> require [mock], done

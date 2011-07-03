@@ -18,7 +18,6 @@ triUpShape(borderSize = 10px, borderColor, tranColor)
   width 0
   z-index 2 
 
-
 triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
   &:before
     abspos t r b l
@@ -32,15 +31,18 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
   color text-color
   font-family Helvetica, Arial, sans-serif
   position relative
-  border-bottom 1px solid #222 + rgb(5,5,5)
-  padding-top 2px
+  border-bottom 1px solid rgba(#000,.3)
+  border-top 1px solid rgba(#888,.25)
   gradient lighten(#333,20%), #333
 
   &:hover
+    gradient lighten(#333,35%), lighten(#333,20%)
+    border-top 1px solid rgba(#FFF,.15)
+    border-bottom 1px solid rgba(#000,.7)
+
     > .header
       .chumps, .name a 
-        color lighten(text-disabled-color,20%)
-    gradient lighten(#333,35%), lighten(#333,35%)
+        color lighten(text-disabled-color,50%)
 
   &.selected
     gradient lighten(#333,40%), lighten(#333,40%)

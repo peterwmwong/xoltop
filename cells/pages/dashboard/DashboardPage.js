@@ -19,7 +19,7 @@ define(['Services', 'Bus', 'cell!shared/loadingindicator/LoadingIndicator', 'cel
     renderStories: function(stories) {
       var mystories, s, user, _i, _len, _ref, _results;
       user = S.auth.getUser();
-      this.$('.DashboardStory').remove();
+      this.$('.DashboardStory,.myStoryDivider').remove();
       mystories = (function() {
         var _i, _len, _ref, _ref2, _results;
         if (user != null) {
@@ -39,7 +39,7 @@ define(['Services', 'Bus', 'cell!shared/loadingindicator/LoadingIndicator', 'cel
         }
       }).call(this);
       if (mystories.length > 0) {
-        this.$el.append($("<div class='myStoryDivider'>My Stories</div>"));
+        this.$el.append($("<div class='myStoryDivider'><span class='leftTri'></span>MY STORIES</div>"));
       }
       _results = [];
       for (_i = 0, _len = stories.length; _i < _len; _i++) {
@@ -82,7 +82,7 @@ define(['Services', 'Bus', 'cell!shared/loadingindicator/LoadingIndicator', 'cel
         var newIterationNo;
         newIterationNo = _arg.newIterationNo;
         this.iterationNo = newIterationNo;
-        this.$('.DashboardStory').remove();
+        this.$('.DashboardStory,.myStoryDivider').remove();
         this.$('.LoadingIndicator').trigger('enable');
         return S.dashboard.getStorySummaries(this.iterationNo, __bind(function(_arg2) {
           var stories;

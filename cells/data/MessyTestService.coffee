@@ -16,7 +16,6 @@ define ['data/JSONP'],(jsonp)->
   #getTests: (suitename, done)->
   #  done (for i in [0..10] then t i,20+i)
   getTestDetails: get (testnum)->
-    if testnum == undefined then debugger
     "jsontest.php?testid=#{testnum}"
 
   ###

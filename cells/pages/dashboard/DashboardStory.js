@@ -1,5 +1,5 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-define(['cell!shared/loadingindicator/LoadingIndicator', 'cell!./tests/TestsSection', 'cell!./tasks/TasksSection', 'cell!./code/CodeSection'], function(LoadingIndicator, TestsSection, TasksSection, CodeSection) {
+define(['Services', 'cell!shared/loadingindicator/LoadingIndicator', 'cell!./tests/TestsSection', 'cell!./tasks/TasksSection', 'cell!./code/CodeSection'], function(S, LoadingIndicator, TestsSection, TasksSection, CodeSection) {
   var getCodeCompleteColor;
   getCodeCompleteColor = function(pct, incomplete) {
     if (typeof pct !== 'number') {

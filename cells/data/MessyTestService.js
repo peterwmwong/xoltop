@@ -19,9 +19,6 @@ define(['data/JSONP'], function(jsonp) {
       return "jsonmain.php?sn=" + suiteName;
     }),
     getTestDetails: get(function(testnum) {
-      if (testnum === void 0) {
-        debugger;
-      }
       return "jsontest.php?testid=" + testnum;
     })
     /*

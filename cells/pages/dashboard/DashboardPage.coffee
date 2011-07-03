@@ -16,7 +16,7 @@ define [
       
   renderStories: (stories)->
     user = S.auth.getUser()
-    @$('.DashboardStory').remove()
+    @$('.DashboardStory,.myStoryDivider').remove()
 
     mystories =
       if user?
@@ -26,7 +26,7 @@ define [
       else []
 
     if mystories.length > 0
-      @$el.append $("<div class='myStoryDivider'>My Stories</div>")
+      @$el.append $("<div class='myStoryDivider'><span class='leftTri'></span>MY STORIES</div>")
 
     for s in stories when s.storynum not in mystories
       @$el.append (new DashboardStory model: s).$el
@@ -59,7 +59,7 @@ define [
     # When a new Interation is chosen
     'iterationNoChanged .IterationChooser': ({newIterationNo})->
       @iterationNo = newIterationNo
-      @$('.DashboardStory').remove()
+      @$('.DashboardStory,.myStoryDivider').remove()
       @$('.LoadingIndicator').trigger 'enable'
 
       # Fetch Stories for newly selected iteration
