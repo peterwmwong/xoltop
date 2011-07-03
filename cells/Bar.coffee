@@ -2,7 +2,7 @@ define ['Services','cell!signin/SignIn'], (S, SignIn)->
   render: (R)->
     #{R.cell 'SearchInput'}
     """
-    <span id='xoltop'>XOLTOP</span>
+    <div id='xoltop'>XOLTOP</div>
     #{R @options.items, (item,i)=>"
       <span class='navItemContainer'>
         <a href='#'

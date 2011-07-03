@@ -2,7 +2,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
 define(['Services', 'cell!signin/SignIn'], function(S, SignIn) {
   return {
     render: function(R) {
-      return "<span id='xoltop'>XOLTOP</span>\n" + (R(this.options.items, __bind(function(item, i) {
+      return "<div id='xoltop'>XOLTOP</div>\n" + (R(this.options.items, __bind(function(item, i) {
         return "  <span class='navItemContainer'>    <a href='#'       class='navItem " + (R(i === 0 && 'selected')) + "'       data-item='" + item + "'>" + (item.toUpperCase()) + "</a>  </span>";
       }, this))) + "\n" + (R.cell(SignIn)) + " ";
     },
