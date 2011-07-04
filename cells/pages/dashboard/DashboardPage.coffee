@@ -7,7 +7,6 @@ define [
   'cell!./statusshelf/testresultsgraph/TestResultsGraph'
 ], (S,Bus,LoadingIndicator,DashboardStory,IterationChooser,TestResultsGraph)->
 
-
   init: ->
     @iterationNo = null
     Bus.bind 'auth.userLoggedIn', =>

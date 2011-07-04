@@ -5,7 +5,7 @@ define(['data/JSONP'], function(_arg) {
     getCurrentIterationNumber: function(done) {
       return get({
         mock: 'data/mock/MockDashboardService-getCurrentIterationNumber',
-        real: serviceurl("/iteration/current")
+        real: serviceurl("iteration/current")
       }, function(_arg2) {
         var iterationNo;
         iterationNo = _arg2.iterationInfo.iterationNo;

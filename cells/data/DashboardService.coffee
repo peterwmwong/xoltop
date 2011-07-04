@@ -3,7 +3,7 @@ define ['data/JSONP'], ({get,serviceurl})->
   getCurrentIterationNumber: (done)->
     get
       mock: 'data/mock/MockDashboardService-getCurrentIterationNumber',
-      real: serviceurl "/iteration/current"
+      real: serviceurl "iteration/current"
       ({iterationInfo:{iterationNo}})-> done iterationNo
 
 

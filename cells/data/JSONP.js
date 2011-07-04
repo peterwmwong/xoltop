@@ -1,18 +1,17 @@
-var __slice = Array.prototype.slice;
+var __slice = Array.prototype.slice, __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 define(function() {
-  var TESTING, jsonp, jsonpID, _ref, _ref2;
-  TESTING = (_ref = window.xoltop) != null ? (_ref2 = _ref.services) != null ? _ref2.useMockData : void 0 : void 0;
+  var get, getXPToolBaseUrl, jsonp, jsonpID;
   jsonpID = 0;
   jsonp = function(options) {
-    var jsonpString, s, _ref3;
+    var jsonpString, s, _ref;
     jsonpString = '__jsonp' + ++jsonpID;
     window[jsonpString] = function(j) {
       options.success(j);
       window[jsonpString] = void 0;
       return $('#' + jsonpString).remove();
     };
-        if ((_ref3 = options.callback) != null) {
-      _ref3;
+        if ((_ref = options.callback) != null) {
+      _ref;
     } else {
       options.callback = 'callback';
     };
@@ -22,82 +21,81 @@ define(function() {
     s.setAttribute('src', "" + options.url + (options.url.indexOf('?') === -1 && '?' || '&') + options.callback + "=" + jsonpString);
     return $('head').append(s);
   };
-  /*
-    Creates a builder function for creating Service methods
-    ex. A Service that gets todos could use this method as
-        follows:
-  
-      Service = do->
-        get = jsonp.makeget 'http://serverservice/root/'
-  
-        getTodos: get 'todos'
-        getTodo:  get (todoid)-> "todos/#{todoid}"
-  
-      Service.getTodos (todos)-> # do stuff with todos
-      Service.getTodo 1234, (todo)-> # do stuff with todo #1234
-    */
-  jsonp.makeget = function(baseurl, _arg) {
-    var callback, process;
-    callback = _arg.callback, process = _arg.process;
-        if (callback != null) {
-      callback;
-    } else {
-      callback = 'callback';
-    };
-        if (process != null) {
-      process;
-    } else {
-      process = function(result) {
-        return result;
-      };
-    };
-    return function(pathFunc) {
-      var path;
-      if (typeof pathFunc === 'string') {
-        path = pathFunc;
-        pathFunc = function() {
-          return path;
+  return {
+    get: get = (function() {
+      var _ref, _ref2;
+      if ((_ref = window.xoltop) != null ? (_ref2 = _ref.services) != null ? _ref2.useMockData : void 0 : void 0) {
+        return function(_arg, done) {
+          var mock;
+          mock = _arg.mock;
+          return setTimeout((function() {
+            return require([mock], done);
+          }), 500);
+        };
+      } else {
+        return function(_arg, done) {
+          var real;
+          real = _arg.real;
+          return jsonp({
+            callback: 'jsonp',
+            url: real,
+            success: done || function() {}
+          });
         };
       }
-      return function() {
-        var args, done, _i;
-        args = 2 <= arguments.length ? __slice.call(arguments, 0, _i = arguments.length - 1) : (_i = 0, []), done = arguments[_i++];
-        jsonp({
-          callback: callback,
-          url: "" + baseurl + (pathFunc.apply(null, args)),
-          success: function(dataArray) {
-            return typeof done === "function" ? done(process(dataArray)) : void 0;
+    })(),
+    getXPToolBaseUrl: getXPToolBaseUrl = function(relPath) {
+      return "http://172.16.19.63:69/xptool/" + relPath;
+    },
+    serviceurl: function(path) {
+      return getXPToolBaseUrl("rest/jumbotron/" + path);
+    },
+    JSONPService: (function() {
+      function _Class(serviceName, _arg) {
+        var baseURL, methods, name, pathFunc, process, _fn;
+        baseURL = _arg.baseURL, process = _arg.process, methods = _arg.methods;
+                if (process != null) {
+          process;
+        } else {
+          process = function(rs) {
+            return rs;
+          };
+        };
+        _fn = __bind(function(name, pathFunc) {
+          var methodProcess, t;
+          methodProcess = process;
+          if ((t = typeof pathFunc) === 'object' && t !== 'function') {
+            if (pathFunc.process != null) {
+              methodProcess = pathFunc.process;
+            }
+            pathFunc = pathFunc.path;
           }
-        });
-      };
-    };
-  };
-  jsonp.get = (function() {
-    var defer;
-    defer = function(f) {
-      return setTimeout(f, 500);
-    };
-    return function(_arg, done) {
-      var mock, real;
-      mock = _arg.mock, real = _arg.real;
-      if (TESTING) {
-        defer(function() {
-          return require([mock], done);
-        });
-      } else {
-        jsonp({
-          callback: 'jsonp',
-          url: real,
-          success: done || function() {}
-        });
+          if (typeof pathFunc === 'string') {
+            (function() {
+              var p;
+              p = pathFunc;
+              return pathFunc = function() {
+                return p;
+              };
+            })();
+          }
+          return this[name] = function() {
+            var args, done, _i;
+            args = 2 <= arguments.length ? __slice.call(arguments, 0, _i = arguments.length - 1) : (_i = 0, []), done = arguments[_i++];
+            get({
+              mock: "data/mock/" + serviceName + "-" + name,
+              real: baseURL + pathFunc.apply(null, args)
+            }, function(rs) {
+              return done(methodProcess(rs));
+            });
+          };
+        }, this);
+        for (name in methods) {
+          pathFunc = methods[name];
+          _fn(name, pathFunc);
+        }
       }
-    };
-  })();
-  jsonp.getXPToolBaseUrl = function(relPath) {
-    return "http://172.16.19.63:69/xptool/" + relPath;
+      return _Class;
+    })()
   };
-  jsonp.serviceurl = function(path) {
-    return jsonp.getXPToolBaseUrl("rest/jumbotron/" + path);
-  };
-  return jsonp;
 });

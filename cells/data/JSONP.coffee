@@ -1,7 +1,5 @@
 define ->
-  TESTING = window.xoltop?.services?.useMockData
   jsonpID = 0
-
   jsonp = (options)->
     jsonpString = '__jsonp' + ++jsonpID
     window[jsonpString] = (j)->
@@ -16,49 +14,41 @@ define ->
     s.setAttribute 'src', "#{options.url}#{options.url.indexOf('?') == -1 and '?' or '&'}#{options.callback}=#{jsonpString}"
     $('head').append s
 
-  ###
-  Creates a builder function for creating Service methods
-  ex. A Service that gets todos could use this method as
-      follows:
-
-    Service = do->
-      get = jsonp.makeget 'http://serverservice/root/'
-
-      getTodos: get 'todos'
-      getTodo:  get (todoid)-> "todos/#{todoid}"
-
-    Service.getTodos (todos)-> # do stuff with todos
-    Service.getTodo 1234, (todo)-> # do stuff with todo #1234
-  ###
-  jsonp.makeget = (baseurl,{callback,process})->
-    callback?='callback'
-    process?=(result)->result
-    (pathFunc)->
-      if typeof pathFunc == 'string'
-        path = pathFunc
-        pathFunc = -> path
-      (args...,done)->
-        jsonp
-          callback: callback
-          url: "#{baseurl}#{pathFunc args...}"
-          success: (dataArray)-> done? process dataArray
-        return
-
-  jsonp.get = do->
-    defer = (f)-> setTimeout f, 500
-    ({mock,real},done)->
-      if TESTING
-        defer -> require [mock], done
-      else
+  get: get = do->
+    if window.xoltop?.services?.useMockData
+      ({mock},done)-> setTimeout (-> require [mock], done), 500
+    else
+      ({real},done)->
         jsonp
           callback: 'jsonp'
           url: real
           success: done or ->
-      return
  
-  jsonp.getXPToolBaseUrl = (relPath)-> "http://172.16.19.63:69/xptool/#{relPath}"
-  #jsonp.getXPToolBaseUrl = (relPath)-> "http://172.16.0.230/xptool/#{relPath}"
-  jsonp.serviceurl = (path)-> jsonp.getXPToolBaseUrl "rest/jumbotron/#{path}"
+  getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.19.63:69/xptool/#{relPath}"
+  #getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.0.230/xptool/#{relPath}"
 
-  jsonp
+  serviceurl: (path)-> getXPToolBaseUrl "rest/jumbotron/#{path}"
 
+  JSONPService: class
+    constructor: (serviceName,{baseURL,process,methods})->
+      process ?= (rs)->rs
+
+      for name,pathFunc of methods then do(name,pathFunc)=>
+        methodProcess = process
+
+        if (t = typeof pathFunc) == 'object' and t != 'function'
+          methodProcess = pathFunc.process if pathFunc.process?
+          pathFunc = pathFunc.path
+
+        if typeof pathFunc == 'string' then do->
+          p = pathFunc
+          pathFunc = -> p
+
+        @[name] = (args...,done)->
+          get
+            mock: "data/mock/#{serviceName}-#{name}"
+            real: baseURL + pathFunc args...
+            (rs)-> done methodProcess rs
+          return
+        
+        

@@ -48,9 +48,10 @@ endif
 cells/bootstrap.js: $(uglifyjs) cells/cell.js cells/cell-pluginBuilder.js
 	$(requirejsBuild) name=cell!App out=cells/bootstrap-tmp.js baseUrl=cells includeRequire=true
 	cat vendor/jquery.min.js \
-		  vendor/raphael.js \
+			vendor/raphael.js \
 			vendor/g.raphael.js \
 			vendor/g.line.js \
+			vendor/iscroll-lite.js \
 			cells/bootstrap-tmp.js | $(uglifyjs)> cells/bootstrap.js
 	cat vendor/reset.css \
 			cells/bootstrap-tmp.css > cells/bootstrap.css
@@ -67,9 +68,6 @@ dev-stylus: $(stylus)
 
 dev-coffee: $(coffee)
 	find . -name '*.coffee' -type f | xargs $(coffee) -c -b --watch
-
-dev-mock-server: $(coffee) $(express)
-	$(coffee) test/mock/data/mock-metrics-service.coffee
 
 #-------------------------------------------------------------------
 # Dependencies 

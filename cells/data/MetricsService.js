@@ -1,8 +1,8 @@
-define(['data/JSONP'], function(jsonp) {
-  var get, url;
-  url = 'http://172.16.0.230/xptool/rest/testmetrics/';
-  get = jsonp.makeget(url, {
-    callback: 'callback',
+define(['data/JSONP'], function(_arg) {
+  var JSONPService, getXPToolBaseUrl;
+  JSONPService = _arg.JSONPService, getXPToolBaseUrl = _arg.getXPToolBaseUrl;
+  return new JSONPService('Metrics', {
+    baseURL: getXPToolBaseUrl('rest/testmetrics/'),
     process: function(rs) {
       var m, _i, _len, _results;
       _results = [];
@@ -11,21 +11,15 @@ define(['data/JSONP'], function(jsonp) {
         _results.push(m.metrics);
       }
       return _results;
+    },
+    methods: {
+      getReleases: 'releases',
+      getReleaseIterations: function(rid) {
+        return "releases/" + rid + "/iterations";
+      },
+      getReleaseIterationStories: function(iterNo) {
+        return "iteration/" + iterNo + "/stories";
+      }
     }
   });
-  return {
-    getReleases: get('releases'),
-    getReleaseIterations: get(function(releaseid) {
-      return 'releases/' + releaseid + '/iterations';
-    }),
-    getReleaseChumps: get(function(releaseid) {
-      return 'releases/' + releaseid + '/chumps';
-    }),
-    getReleaseIterationStories: get(function(releaseIterationIds) {
-      return 'iterations/' + releaseIterationIds.iteration + '/stories';
-    }),
-    getReleaseChumpStories: get(function(releaseChumpIds) {
-      return 'releases/' + releaseChumpIds.release + '/chumps/' + releaseChumpIds.chump + '/stories';
-    })
-  };
 });
