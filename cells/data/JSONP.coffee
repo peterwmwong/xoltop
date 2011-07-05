@@ -14,7 +14,7 @@ define ->
     s.setAttribute 'src', "#{options.url}#{options.url.indexOf('?') == -1 and '?' or '&'}#{options.callback}=#{jsonpString}"
     $('head').append s
 
-  get: get = do->
+  get =
     if window.xoltop?.services?.useMockData
       ({mock},done)-> setTimeout (-> require [mock], done), 500
     else
@@ -26,8 +26,6 @@ define ->
  
   getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.19.63:69/xptool/#{relPath}"
   #getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.0.230/xptool/#{relPath}"
-
-  serviceurl: (path)-> getXPToolBaseUrl "rest/jumbotron/#{path}"
 
   JSONPService: class
     constructor: (serviceName,{baseURL,process,methods})->
@@ -48,7 +46,9 @@ define ->
           get
             mock: "data/mock/#{serviceName}-#{name}"
             real: baseURL + pathFunc args...
-            (rs)-> done methodProcess rs
+            (rs)->
+              rs = methodProcess rs
+              done? rs
           return
         
         

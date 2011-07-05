@@ -13,7 +13,7 @@ define(['Services', 'Bus'], function(S, Bus) {
     },
     bind: {
       'click #signout-button': function() {
-        S.auth.logout$();
+        S.auth.logout();
         return this.$el.toggleClass('expanded', false);
       },
       'click #username': function() {

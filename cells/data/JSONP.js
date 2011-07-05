@@ -1,6 +1,6 @@
 var __slice = Array.prototype.slice, __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 define(function() {
-  var get, getXPToolBaseUrl, jsonp, jsonpID;
+  var get, getXPToolBaseUrl, jsonp, jsonpID, _ref, _ref2;
   jsonpID = 0;
   jsonp = function(options) {
     var jsonpString, s, _ref;
@@ -21,34 +21,24 @@ define(function() {
     s.setAttribute('src', "" + options.url + (options.url.indexOf('?') === -1 && '?' || '&') + options.callback + "=" + jsonpString);
     return $('head').append(s);
   };
+  get = ((_ref = window.xoltop) != null ? (_ref2 = _ref.services) != null ? _ref2.useMockData : void 0 : void 0) ? function(_arg, done) {
+    var mock;
+    mock = _arg.mock;
+    return setTimeout((function() {
+      return require([mock], done);
+    }), 500);
+  } : function(_arg, done) {
+    var real;
+    real = _arg.real;
+    return jsonp({
+      callback: 'jsonp',
+      url: real,
+      success: done || function() {}
+    });
+  };
   return {
-    get: get = (function() {
-      var _ref, _ref2;
-      if ((_ref = window.xoltop) != null ? (_ref2 = _ref.services) != null ? _ref2.useMockData : void 0 : void 0) {
-        return function(_arg, done) {
-          var mock;
-          mock = _arg.mock;
-          return setTimeout((function() {
-            return require([mock], done);
-          }), 500);
-        };
-      } else {
-        return function(_arg, done) {
-          var real;
-          real = _arg.real;
-          return jsonp({
-            callback: 'jsonp',
-            url: real,
-            success: done || function() {}
-          });
-        };
-      }
-    })(),
     getXPToolBaseUrl: getXPToolBaseUrl = function(relPath) {
       return "http://172.16.19.63:69/xptool/" + relPath;
-    },
-    serviceurl: function(path) {
-      return getXPToolBaseUrl("rest/jumbotron/" + path);
     },
     JSONPService: (function() {
       function _Class(serviceName, _arg) {
@@ -86,7 +76,8 @@ define(function() {
               mock: "data/mock/" + serviceName + "-" + name,
               real: baseURL + pathFunc.apply(null, args)
             }, function(rs) {
-              return done(methodProcess(rs));
+              rs = methodProcess(rs);
+              return typeof done === "function" ? done(rs) : void 0;
             });
           };
         }, this);
