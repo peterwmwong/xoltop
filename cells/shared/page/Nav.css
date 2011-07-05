@@ -2,7 +2,7 @@
 .Nav::after{content:"";position:absolute;top:0;right:0;bottom:0;left:0;background:#3a3a3a;background:-moz-linear-gradient(top,#333 0%,#404040 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#333),color-stop(100%,#404040));filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#333', endColorstr='#404040',GradientType=0 );z-index:-1}
 .Nav::before{content:"";position:absolute;top:0;right:-1px;bottom:0;left:0;background:#313131;background:-moz-linear-gradient(top,#222 0%,#404040 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(20%,#222),color-stop(100%,#404040));filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#222', endColorstr='#404040',GradientType=0 );z-index:-1}
 .Nav > .SearchInput{position:absolute;top:15px;right:5px;left:5px;}
-.Nav > .SearchInput > #searchInputContainer > #searchinput{color:#666;background-color:#1d1d1d;box-shadow:inset 0 1px 1px #000;}
+.Nav > .SearchInput > #searchInputContainer > #searchinput{color:#666;background-color:#1d1d1d;-webkit-box-shadow:inset 0 1px 1px #000;-moz-box-shadow:inset 0 1px 1px #000;box-shadow:inset 0 1px 1px #000;}
 .Nav > .SearchInput > #searchInputContainer > #searchinput::-webkit-input-placeholder,.Nav > .SearchInput > #searchInputContainer > #searchinput::-moz-placeholder{color:#666}
 .Nav > .SearchInput > #searchInputContainer > #searchinput:focus{color:#aaa;background-color:#111;font-style:normal}
 .Nav > .SearchInput > #searchIcon #circle{border-color:#666}
