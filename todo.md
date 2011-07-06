@@ -3,16 +3,14 @@ TODO
 
 Backend Integration
 -------------------
-* Auth (Resteasy/JAXRS)
 * Allow for "special" stories that don't have any tests
+  * XPTool should automatically create Chump Task and ATs Task
+  * If AT Task is deleted and NO ATs have been written, it is assumed that ATs are not necessary
 * Refresh data/mock XPTool server response snapshots
-* Split up DashboardService
 
 Dashboard
 ---------
 ### Authed features
-* "My Stories" divider
-* Signin
 * Chump Tasks
   * Add
   * Send to Retest
@@ -40,7 +38,6 @@ Dashboard
 * Auto Update
   * Update Dashboard every... 2 minutes?
   * Add "Updated 5 minutes ago" message somewhere
-* IE Support
 * Status Shelf - Overall Iteration Health
   * Percentages of Code, Tests, and Tasks
 * Burnup Charts based on Code Completion
@@ -52,6 +49,7 @@ Dashboard
   * Small tests
 * Add new Story Description section
 * Light theme for cbloom
+* IE Support
 
 
 Misc
