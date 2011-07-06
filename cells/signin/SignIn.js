@@ -20,7 +20,7 @@ define(['Services', 'cell!./SignedIn', 'Bus'], function(S, SignedIn, Bus) {
         this.$('#signin-button').attr('disabled', 'true');
         this.$el.toggleClass('loading', true);
         if (user.length + pass.length > 0) {
-          return S.auth.login$(user, pass, __bind(function(user) {
+          return S.auth.login(user, pass, __bind(function(user) {
             this.$('#signin-button').removeAttr('disabled');
             this.$el.toggleClass('loading', false);
             if (user != null) {

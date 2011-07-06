@@ -32,7 +32,7 @@ define ['Services','cell!./SignedIn','Bus'], (S, SignedIn, Bus)->
       @$el.toggleClass 'loading', true
 
       if user.length + pass.length > 0
-        S.auth.login$ user, pass, (user)=>
+        S.auth.login user, pass, (user)=>
           @$('#signin-button').removeAttr 'disabled'
           @$el.toggleClass 'loading', false
           if user?

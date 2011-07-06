@@ -14,7 +14,7 @@ define ['Services','Bus'], (S,Bus)->
 
   bind:
     'click #signout-button': ->
-      S.auth.logout$()
+      S.auth.logout()
       @$el.toggleClass 'expanded', false
 
     'click #username': ->
