@@ -10,7 +10,7 @@ define({
     changeIter = function(addAmt) {
       return function() {
         var newIter, _ref;
-        if ((0 < (_ref = (newIter = this.options.iterationNo + addAmt)) && _ref < 237)) {
+        if ((0 < (_ref = (newIter = this.options.iterationNo + addAmt)) && _ref < 238)) {
           this.options.iterationNo = newIter;
           this.$('.num').html(this.options.iterationNo);
           return this.$el.trigger({
