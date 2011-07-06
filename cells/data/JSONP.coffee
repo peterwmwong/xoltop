@@ -1,4 +1,5 @@
 define ->
+  idFunc = (o)->o
   jsonpID = 0
   jsonp = (options)->
     jsonpString = '__jsonp' + ++jsonpID
@@ -29,26 +30,31 @@ define ->
 
   JSONPService: class
     constructor: (serviceName,{baseURL,process,methods})->
-      process ?= (rs)->rs
+      process ?= idFunc
 
       for name,pathFunc of methods then do(name,pathFunc)=>
         methodProcess = process
+        cacheFunc = idFunc
 
         if (t = typeof pathFunc) == 'object' and t != 'function'
           methodProcess = pathFunc.process if pathFunc.process?
           pathFunc = pathFunc.path
+          cacheFunc = pathFunc.getCache if pathFunc.getCache?
 
         if typeof pathFunc == 'string' then do->
           p = pathFunc
           pathFunc = -> p
 
-        @[name] = (args...,done)->
-          get
-            mock: "data/mock/#{serviceName}-#{name}"
-            real: baseURL + pathFunc args...
-            (rs)->
-              rs = methodProcess rs
-              done? rs
+        @[name] = (args...,done = idFunc)=>
+          if (cacheValue = cacheFunc()) !== undefined
+            done cacheValue
+          else
+            get
+              mock: "data/mock/#{serviceName}-#{name}"
+              real: baseURL + pathFunc args...
+              (rs)->
+                rs = methodProcess rs
+                done rs
           return
         
         

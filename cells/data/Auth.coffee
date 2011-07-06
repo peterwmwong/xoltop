@@ -1,11 +1,16 @@
 define ['data/JSONP','Bus'],({JSONPService,getXPToolBaseUrl},Bus)->
-  user = null
+  user = undefined
   service = new JSONPService 'Auth'
     baseURL: getXPToolBaseUrl 'rest/xoltop/auth/'
     methods:
 
+      user:
+        getCached: -> user
+        path: "user"
+        process: ({user:u})-> user = u or null
+
       login:
-        path: (username,pass,done)-> "login?user=#{username}&pass=#{pass}"
+        path: (username,pass)-> "login?user=#{username}&pass=#{pass}"
         process: ({user:u})->
           if user = u then Bus.trigger type: 'auth.userLoggedIn', user: user
           user
@@ -13,7 +18,7 @@ define ['data/JSONP','Bus'],({JSONPService,getXPToolBaseUrl},Bus)->
       logout:
         path: 'logout'
         process: (result)->
-          debugger
+          user = null
           Bus.trigger type: 'auth.userLoggedOut'
           result
 

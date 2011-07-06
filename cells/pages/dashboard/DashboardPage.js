@@ -7,14 +7,16 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
 define(['Services', 'Bus', 'cell!shared/loadingindicator/LoadingIndicator', 'cell!./DashboardStory', 'cell!./statusshelf/IterationChooser', 'cell!./statusshelf/testresultsgraph/TestResultsGraph'], function(S, Bus, LoadingIndicator, DashboardStory, IterationChooser, TestResultsGraph) {
   return {
     init: function() {
+      var rerender;
       this.iterationNo = null;
-      return Bus.bind('auth.userLoggedIn', __bind(function() {
+      Bus.bind('auth.userLoggedIn', rerender = __bind(function() {
         return S.dashboard.getStorySummaries(this.iterationNo, __bind(function(_arg) {
           var iterationNo, stories;
           iterationNo = _arg.iterationNo, stories = _arg.stories;
           return this.renderStories(stories);
         }, this));
       }, this));
+      return Bus.bind('auth.userLoggedOut', rerender);
     },
     renderStories: function(stories) {
       var mystories, s, user, _i, _len, _ref, _results;
@@ -53,23 +55,25 @@ define(['Services', 'Bus', 'cell!shared/loadingindicator/LoadingIndicator', 'cel
       return _results;
     },
     render: function(R, A) {
-      return S.dashboard.getStorySummaries(null, __bind(function(_arg) {
-        var iterationNo, stories;
-        iterationNo = _arg.iterationNo, stories = _arg.stories;
-        setTimeout((__bind(function() {
-          return this.renderStories(stories);
-        }, this)), 0);
-        return A("<div class='stats'>\n  " + (R.cell(IterationChooser, {
-          iterationNo: iterationNo
-        })) + "\n  " + (R.cell(TestResultsGraph, {
-          type: 'ats',
-          label: 'AT',
-          urlPrefix: S.getXPToolBaseUrl('xp.failingtestsbypackage.do?runID=')
-        })) + "\n  " + (R.cell(TestResultsGraph, {
-          type: 'units',
-          label: 'UNIT',
-          urlPrefix: S.getXPToolBaseUrl('unittool.failingtestsbysuite.do?testRunID=')
-        })) + "\n</div>\n" + (R.cell(LoadingIndicator)));
+      return S.auth.user(__bind(function(user) {
+        return S.dashboard.getStorySummaries(null, __bind(function(_arg) {
+          var iterationNo, stories;
+          iterationNo = _arg.iterationNo, stories = _arg.stories;
+          setTimeout((__bind(function() {
+            return this.renderStories(stories);
+          }, this)), 0);
+          return A("<div class='stats'>\n  " + (R.cell(IterationChooser, {
+            iterationNo: iterationNo
+          })) + "\n  " + (R.cell(TestResultsGraph, {
+            type: 'ats',
+            label: 'AT',
+            urlPrefix: S.getXPToolBaseUrl('xp.failingtestsbypackage.do?runID=')
+          })) + "\n  " + (R.cell(TestResultsGraph, {
+            type: 'units',
+            label: 'UNIT',
+            urlPrefix: S.getXPToolBaseUrl('unittool.failingtestsbysuite.do?testRunID=')
+          })) + "\n</div>\n" + (R.cell(LoadingIndicator)));
+        }, this));
       }, this));
     },
     bind: {

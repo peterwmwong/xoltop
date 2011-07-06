@@ -7,8 +7,15 @@ define(['Services', 'cell!./SignedIn', 'Bus'], function(S, SignedIn, Bus) {
         return this.$el.toggleClass('loggedin', false);
       }, this));
     },
-    'render <span>': function(R) {
-      return "<div id='signin-group'>\n  <a id='signin-toggle' href='#'>Sign in</a>\n  <div id='input-group'>\n    <div>\n      User <input type='text' id='auth-user'></input>\n    </div>\n    <div>\n      Pass <input type='password' id='auth-pass'></input>\n    </div>\n    <button id='signin-button'>Sign in</button>\n  </div>\n</div>\n" + (R.cell(SignedIn));
+    'render <span>': function(R, A) {
+      return S.auth.user(__bind(function(user) {
+        if (user != null) {
+          this.$el.toggleClass('loggedin');
+        }
+        return A("<div id='signin-group'>\n  <a id='signin-toggle' href='#'>Sign in</a>\n  <div id='input-group'>\n    <div>\n      User <input type='text' id='auth-user'></input>\n    </div>\n    <div>\n      Pass <input type='password' id='auth-pass'></input>\n    </div>\n    <button id='signin-button'>Sign in</button>\n  </div>\n</div>\n" + (R.cell(SignedIn, {
+          user: user
+        })));
+      }, this));
     },
     bind: {
       'click #signin-button': doSubmit = function() {

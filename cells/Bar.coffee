@@ -1,4 +1,6 @@
 define ['Services','cell!signin/SignIn'], (S, SignIn)->
+  $('<link  href="http://fonts.googleapis.com/css?family=Maven+Pro:400,500,700,900&v1" rel="stylesheet" type="text/css" >').appendTo 'head'
+  
   render: (R)->
     #{R.cell 'SearchInput'}
     """

@@ -1,6 +1,9 @@
 var __slice = Array.prototype.slice, __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 define(function() {
-  var get, getXPToolBaseUrl, jsonp, jsonpID, _ref, _ref2;
+  var get, getXPToolBaseUrl, idFunc, jsonp, jsonpID, _ref, _ref2;
+  idFunc = function(o) {
+    return o;
+  };
   jsonpID = 0;
   jsonp = function(options) {
     var jsonpString, s, _ref;
@@ -47,18 +50,20 @@ define(function() {
                 if (process != null) {
           process;
         } else {
-          process = function(rs) {
-            return rs;
-          };
+          process = idFunc;
         };
         _fn = __bind(function(name, pathFunc) {
-          var methodProcess, t;
+          var cacheFunc, methodProcess, t;
           methodProcess = process;
+          cacheFunc = idFunc;
           if ((t = typeof pathFunc) === 'object' && t !== 'function') {
             if (pathFunc.process != null) {
               methodProcess = pathFunc.process;
             }
             pathFunc = pathFunc.path;
+            if (pathFunc.getCache != null) {
+              cacheFunc = pathFunc.getCache;
+            }
           }
           if (typeof pathFunc === 'string') {
             (function() {
@@ -69,17 +74,24 @@ define(function() {
               };
             })();
           }
-          return this[name] = function() {
-            var args, done, _i;
+          return this[name] = __bind(function() {
+            var args, cacheValue, done, _i;
             args = 2 <= arguments.length ? __slice.call(arguments, 0, _i = arguments.length - 1) : (_i = 0, []), done = arguments[_i++];
-            get({
-              mock: "data/mock/" + serviceName + "-" + name,
-              real: baseURL + pathFunc.apply(null, args)
-            }, function(rs) {
-              rs = methodProcess(rs);
-              return typeof done === "function" ? done(rs) : void 0;
-            });
-          };
+            if (done == null) {
+              done = idFunc;
+            }
+            if (cacheValue = cacheFunc()) {
+              done(cacheValue);
+            } else {
+              get({
+                mock: "data/mock/" + serviceName + "-" + name,
+                real: baseURL + pathFunc.apply(null, args)
+              }, function(rs) {
+                rs = methodProcess(rs);
+                return done(rs);
+              });
+            }
+          }, this);
         }, this);
         for (name in methods) {
           pathFunc = methods[name];

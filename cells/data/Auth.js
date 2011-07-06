@@ -1,12 +1,23 @@
 define(['data/JSONP', 'Bus'], function(_arg, Bus) {
   var JSONPService, getXPToolBaseUrl, service, user;
   JSONPService = _arg.JSONPService, getXPToolBaseUrl = _arg.getXPToolBaseUrl;
-  user = null;
+  user = void 0;
   service = new JSONPService('Auth', {
     baseURL: getXPToolBaseUrl('rest/xoltop/auth/'),
     methods: {
+      user: {
+        getCached: function() {
+          return user;
+        },
+        path: "user",
+        process: function(_arg2) {
+          var u;
+          u = _arg2.user;
+          return user = u || null;
+        }
+      },
       login: {
-        path: function(username, pass, done) {
+        path: function(username, pass) {
           return "login?user=" + username + "&pass=" + pass;
         },
         process: function(_arg2) {
@@ -24,7 +35,8 @@ define(['data/JSONP', 'Bus'], function(_arg, Bus) {
       logout: {
         path: 'logout',
         process: function(result) {
-          debugger;          Bus.trigger({
+          user = null;
+          Bus.trigger({
             type: 'auth.userLoggedOut'
           });
           return result;

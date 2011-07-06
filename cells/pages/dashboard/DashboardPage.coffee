@@ -9,9 +9,12 @@ define [
 
   init: ->
     @iterationNo = null
-    Bus.bind 'auth.userLoggedIn', =>
+
+    Bus.bind 'auth.userLoggedIn', rerender = =>
       S.dashboard.getStorySummaries @iterationNo, ({iterationNo,stories})=>
         @renderStories stories
+
+    Bus.bind 'auth.userLoggedOut', rerender
       
   renderStories: (stories)->
     user = S.auth.getUser()
@@ -32,22 +35,23 @@ define [
 
 
   render: (R,A)->
-    S.dashboard.getStorySummaries null, ({iterationNo,stories})=>
-      setTimeout (=> @renderStories stories), 0
-      A """
-        <div class='stats'>
-          #{R.cell IterationChooser, iterationNo:iterationNo}
-          #{R.cell TestResultsGraph,
-              type: 'ats'
-              label: 'AT'
-              urlPrefix: S.getXPToolBaseUrl 'xp.failingtestsbypackage.do?runID='}
-          #{R.cell TestResultsGraph,
-              type: 'units'
-              label: 'UNIT'
-              urlPrefix: S.getXPToolBaseUrl 'unittool.failingtestsbysuite.do?testRunID='}
-        </div>
-        #{R.cell LoadingIndicator}
-        """
+    S.auth.user (user)=>
+      S.dashboard.getStorySummaries null, ({iterationNo,stories})=>
+        setTimeout (=> @renderStories stories), 0
+        A """
+          <div class='stats'>
+            #{R.cell IterationChooser, iterationNo:iterationNo}
+            #{R.cell TestResultsGraph,
+                type: 'ats'
+                label: 'AT'
+                urlPrefix: S.getXPToolBaseUrl 'xp.failingtestsbypackage.do?runID='}
+            #{R.cell TestResultsGraph,
+                type: 'units'
+                label: 'UNIT'
+                urlPrefix: S.getXPToolBaseUrl 'unittool.failingtestsbysuite.do?testRunID='}
+          </div>
+          #{R.cell LoadingIndicator}
+          """
 
   bind:
     # When a Dashboard Story is selected

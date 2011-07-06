@@ -6,7 +6,7 @@ define ['Services','Bus'], (S,Bus)->
 
   'render <span>': (R)->
     """
-    <a id='username' href='#'></a>
+    <a id='username' href='#'><span class='initialBadge'>#{R @options.user?.initials}</span>#{R @options.user?.loginName}</a>
     <div id='options-group'>
       <button id='signout-button'>Sign Out</button>
     </div>

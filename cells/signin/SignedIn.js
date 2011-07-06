@@ -9,7 +9,8 @@ define(['Services', 'Bus'], function(S, Bus) {
       }, this));
     },
     'render <span>': function(R) {
-      return "<a id='username' href='#'></a>\n<div id='options-group'>\n  <button id='signout-button'>Sign Out</button>\n</div>";
+      var _ref, _ref2;
+      return "<a id='username' href='#'><span class='initialBadge'>" + (R((_ref = this.options.user) != null ? _ref.initials : void 0)) + "</span>" + (R((_ref2 = this.options.user) != null ? _ref2.loginName : void 0)) + "</a>\n<div id='options-group'>\n  <button id='signout-button'>Sign Out</button>\n</div>";
     },
     bind: {
       'click #signout-button': function() {
