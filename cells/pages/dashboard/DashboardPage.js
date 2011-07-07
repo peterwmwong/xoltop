@@ -4,24 +4,26 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   }
   return -1;
 };
-define(['Services', 'Bus', 'cell!shared/loadingindicator/LoadingIndicator', 'cell!./DashboardStory', 'cell!./statusshelf/IterationChooser', 'cell!./statusshelf/testresultsgraph/TestResultsGraph'], function(S, Bus, LoadingIndicator, DashboardStory, IterationChooser, TestResultsGraph) {
+define(['Services', 'Bus', 'cell!shared/loadingindicator/LoadingIndicator', 'cell!./DashboardStory', 'cell!./statusshelf/IterationChooser', 'cell!./statusshelf/testresultsgraph/TestResultsGraph', 'cell!shared/InitialsList'], function(S, Bus, LoadingIndicator, DashboardStory, IterationChooser, TestResultsGraph, InitialsList) {
   return {
     init: function() {
       var rerender;
       this.iterationNo = null;
-      Bus.bind('auth.userLoggedIn', rerender = __bind(function() {
-        return S.dashboard.getStorySummaries(this.iterationNo, __bind(function(_arg) {
-          var iterationNo, stories;
-          iterationNo = _arg.iterationNo, stories = _arg.stories;
-          return this.renderStories(stories);
-        }, this));
-      }, this));
-      return Bus.bind('auth.userLoggedOut', rerender);
+      return Bus.bind({
+        'auth.userLoggedIn': rerender = __bind(function() {
+          return S.dashboard.getStorySummaries(this.iterationNo, __bind(function(_arg) {
+            var iterationNo, stories;
+            iterationNo = _arg.iterationNo, stories = _arg.stories;
+            return this.renderStories(stories);
+          }, this));
+        }, this),
+        'auth.userLoggedOut': rerender
+      });
     },
     renderStories: function(stories) {
       var mystories, s, user, _i, _len, _ref, _results;
       user = S.auth.getUser();
-      this.$('.DashboardStory,.myStoryDivider').remove();
+      this.$('.DashboardStory').remove();
       mystories = (function() {
         var _i, _len, _ref, _ref2, _results;
         if (user != null) {
@@ -41,7 +43,14 @@ define(['Services', 'Bus', 'cell!shared/loadingindicator/LoadingIndicator', 'cel
         }
       }).call(this);
       if (mystories.length > 0) {
-        this.$el.append($("<div class='myStoryDivider'><span class='leftTri'></span>MY STORIES</div>"));
+        this.$('.myStoryDivider .InitialsList').remove();
+        this.$('.myStoryDivider > .leftTri').after(new InitialsList({
+          initials: user && [user.initials] || []
+        }).el);
+        this.$('.myStoryDivider').toggle(true);
+        this.$el.append(this.$('.myStoryDivider'));
+      } else {
+        this.$('.myStoryDivider').toggle(false);
       }
       _results = [];
       for (_i = 0, _len = stories.length; _i < _len; _i++) {
@@ -62,7 +71,7 @@ define(['Services', 'Bus', 'cell!shared/loadingindicator/LoadingIndicator', 'cel
           setTimeout((__bind(function() {
             return this.renderStories(stories);
           }, this)), 0);
-          return A("<div class='stats'>\n  " + (R.cell(IterationChooser, {
+          return A("<div class='myStoryDivider'>\n  <span class='leftTri'></span>\n  STORIES\n</div>\n<div class='stats'>\n  " + (R.cell(IterationChooser, {
             iterationNo: iterationNo
           })) + "\n  " + (R.cell(TestResultsGraph, {
             type: 'ats',
@@ -86,7 +95,7 @@ define(['Services', 'Bus', 'cell!shared/loadingindicator/LoadingIndicator', 'cel
         var newIterationNo;
         newIterationNo = _arg.newIterationNo;
         this.iterationNo = newIterationNo;
-        this.$('.DashboardStory,.myStoryDivider').remove();
+        this.$('.DashboardStory').remove();
         this.$('.LoadingIndicator').trigger('enable');
         return S.dashboard.getStorySummaries(this.iterationNo, __bind(function(_arg2) {
           var stories;

@@ -3,8 +3,8 @@
 @import 'mixins/transition';
 
 c = desaturate(#3672BF,10%)
-c1 = rgba(#FFF,.5)
-c2 = rgba(#FFF,.8)
+c1 = rgba(lighten(c,60%),.5)
+c2 = rgba(lighten(c,100%),.8)
 
 @keyframes loadingText-pulsate20
   0%
@@ -18,12 +18,12 @@ c2 = rgba(#FFF,.8)
 
 .LoadingIndicator
   color c1
-  gradient rgba(c,.4), rgba(c,.1)
   border-radius 5px
   box-shadow 0px 1px 3px rgba(#000,.15)
   display none
   font-weight bold
   font-size 16px
+  gradient rgba(c,.4), rgba(c,.1)
   height 36px
   line-height 36px
   letter-spacing 1px
@@ -37,7 +37,7 @@ c2 = rgba(#FFF,.8)
 
   &.enableLoading
     animation-name loadingText-pulsate20
-    animation-duration 500ms
+    animation-duration 750ms
     animation-iteration-count infinite
     animation-timing-function ease-in-out
     display block

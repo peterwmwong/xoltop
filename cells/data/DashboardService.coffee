@@ -53,8 +53,8 @@ define ['data/JSONP'],({JSONPService,getXPToolBaseUrl})->
               [devs,testers] = match[5] and match[5]?.split(' - ') or []
               story.storynum = s.num
               story.name = match[3]
-              story.testers = testers?.split '/'
-              story.devs = devs?.split '/'
+              story.testers = if testers then (tester.toUpperCase() for tester in testers.split '/')
+              story.devs = if devs then (dev.toUpperCase() for dev in devs.split('/'))
               story.tags = match[1]?.split(' - ')?.slice 0, -1
             story
           

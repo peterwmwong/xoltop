@@ -1,18 +1,25 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-define(['Services', 'Bus'], function(S, Bus) {
+define(['Services', 'Bus', 'cell!shared/InitialsList'], function(S, Bus, InitialsList) {
+  var updateUser;
+  updateUser = function() {
+    var u;
+    u = S.auth.getUser();
+    this.$('.InitialsList').remove();
+    return this.$('#username').html(u.loginName.toUpperCase()).after(new InitialsList({
+      initials: u && [u.initials] || []
+    }).el);
+  };
   return {
     init: function() {
-      return Bus.bind('auth.userLoggedIn', __bind(function(_arg) {
-        var user;
-        user = _arg.user;
-        return this.$('#username').html(user.loginName);
+      return Bus.bind('auth.userLoggedIn', __bind(function() {
+        return updateUser.call(this);
       }, this));
     },
     'render <span>': function(R) {
-      var _ref, _ref2;
-      return "<a id='username' href='#'><span class='initialBadge'>" + (R((_ref = this.options.user) != null ? _ref.initials : void 0)) + "</span>" + (R((_ref2 = this.options.user) != null ? _ref2.loginName : void 0)) + "</a>\n<div id='options-group'>\n  <button id='signout-button'>Sign Out</button>\n</div>";
+      return "<a id='username' href='#'></a>\n<div id='options-group'>\n  <button id='signout-button'>Sign Out</button>\n</div>";
     },
     bind: {
+      afterRender: updateUser,
       'click #signout-button': function() {
         S.auth.logout();
         return this.$el.toggleClass('expanded', false);

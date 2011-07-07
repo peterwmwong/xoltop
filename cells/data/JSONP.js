@@ -29,7 +29,7 @@ define(function() {
     mock = _arg.mock;
     return setTimeout((function() {
       return require([mock], done);
-    }), 500);
+    }), 100);
   } : function(_arg, done) {
     var real;
     real = _arg.real;
@@ -80,7 +80,7 @@ define(function() {
             if (done == null) {
               done = idFunc;
             }
-            if (cacheValue = cacheFunc()) {
+            if ((cacheValue = cacheFunc()) !== void 0) {
               done(cacheValue);
             } else {
               get({

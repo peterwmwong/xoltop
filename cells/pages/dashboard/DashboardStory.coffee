@@ -4,7 +4,8 @@ define [
   'cell!./tests/TestsSection'
   'cell!./tasks/TasksSection'
   'cell!./code/CodeSection'
-], (S, LoadingIndicator,TestsSection,TasksSection,CodeSection)->
+  'cell!shared/InitialsList'
+], (S, LoadingIndicator,TestsSection,TasksSection,CodeSection,InitialsList)->
 
   getCodeCompleteColor = (pct,incomplete)->
     if typeof pct != 'number' then 'gray'
@@ -75,7 +76,7 @@ define [
           </div>
         </div>
         <div class='chumps'>
-          #{R @model.devs?.concat(@model.testers).join "<span class='divider'>&nbsp;</span>"}
+          #{R.cell InitialsList, initials:@model.devs?.concat(@model.testers)}
         </div>
       </div>
     </div>
@@ -91,7 +92,6 @@ define [
         if not (alreadySelected = @$el.hasClass 'selected')
           @$el.trigger 'selected'
           @$el.toggleClass 'selected', true
-
 
         # Collapse if already expanded
         if detail::name == @options.expandedSection

@@ -13,32 +13,36 @@
   letter-spacing 1px
   font-size 10px
   font-weight bold
-  line-height 22px
+  line-height 17px
   text-shadow 0 -1px 0 rgba(#000,.3)
-  padding 1px 0 0 105px
+  padding 0 0 0 105px
 
   > #xoltop
-    abspos 0px false false 20px
+    abspos 2px false false 20px
     color rgba(#FFF,.8)
     font-size 14px
 
   > .navItemContainer
     text-align center
+    display inline-block
     
     > .navItem
+      display inline-block
       border-radius 3px
-      color rgba(#FFF,.6)
-      padding 3px 6px 3px 7px
+      color rgba(text-color,.6)
+      margin-top 3px
+      padding 0px 6px 0px 7px
       text-decoration none
       transition color 250ms ease
 
-      &.selected
-      &.selected:hover
-      &.hover
-        color #FFF
+      &:hover
+        color text-color
+
+      &.selected, &.selected:hover
+        color text-color
         box-shadow inset 0px 1px 2px rgba(#000,.5)
         background-color rgba(#000,.3)
 
   > .SignIn
     float right
-    margin-right 5px
+    margin 0 5px 0 0

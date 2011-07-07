@@ -5,20 +5,21 @@ define [
   'cell!./DashboardStory'
   'cell!./statusshelf/IterationChooser'
   'cell!./statusshelf/testresultsgraph/TestResultsGraph'
-], (S,Bus,LoadingIndicator,DashboardStory,IterationChooser,TestResultsGraph)->
+  'cell!shared/InitialsList'
+], (S,Bus,LoadingIndicator,DashboardStory,IterationChooser,TestResultsGraph,InitialsList)->
 
   init: ->
     @iterationNo = null
 
-    Bus.bind 'auth.userLoggedIn', rerender = =>
-      S.dashboard.getStorySummaries @iterationNo, ({iterationNo,stories})=>
-        @renderStories stories
-
-    Bus.bind 'auth.userLoggedOut', rerender
+    Bus.bind
+      'auth.userLoggedIn': rerender = =>
+        S.dashboard.getStorySummaries @iterationNo, ({iterationNo,stories})=>
+          @renderStories stories
+      'auth.userLoggedOut': rerender
       
   renderStories: (stories)->
     user = S.auth.getUser()
-    @$('.DashboardStory,.myStoryDivider').remove()
+    @$('.DashboardStory').remove()
 
     mystories =
       if user?
@@ -28,7 +29,12 @@ define [
       else []
 
     if mystories.length > 0
-      @$el.append $("<div class='myStoryDivider'><span class='leftTri'></span>MY STORIES</div>")
+      @$('.myStoryDivider .InitialsList').remove()
+      @$('.myStoryDivider > .leftTri').after(new InitialsList(initials:user and [user.initials] or []).el)
+      @$('.myStoryDivider').toggle true
+      @$el.append @$('.myStoryDivider')
+    else
+      @$('.myStoryDivider').toggle false
 
     for s in stories when s.storynum not in mystories
       @$el.append (new DashboardStory model: s).$el
@@ -39,6 +45,10 @@ define [
       S.dashboard.getStorySummaries null, ({iterationNo,stories})=>
         setTimeout (=> @renderStories stories), 0
         A """
+          <div class='myStoryDivider'>
+            <span class='leftTri'></span>
+            STORIES
+          </div>
           <div class='stats'>
             #{R.cell IterationChooser, iterationNo:iterationNo}
             #{R.cell TestResultsGraph,
@@ -62,7 +72,7 @@ define [
     # When a new Interation is chosen
     'iterationNoChanged .IterationChooser': ({newIterationNo})->
       @iterationNo = newIterationNo
-      @$('.DashboardStory,.myStoryDivider').remove()
+      @$('.DashboardStory').remove()
       @$('.LoadingIndicator').trigger 'enable'
 
       # Fetch Stories for newly selected iteration

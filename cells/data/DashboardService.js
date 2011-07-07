@@ -50,7 +50,7 @@ define(['data/JSONP'], function(_arg) {
             return "iteration/" + ((iterNo != null) && ("" + iterNo + "/") || "") + "stories/";
           },
           process: function(_arg2) {
-            var devs, iterationNo, match, s, stories, story, testers, _ref;
+            var dev, devs, iterationNo, match, s, stories, story, tester, testers, _ref;
             _ref = _arg2.iterationStories, iterationNo = _ref.iterationNo, stories = _ref.stories;
             stories = (function() {
               var _i, _len, _ref2, _ref3, _ref4, _ref5, _ref6, _results;
@@ -83,8 +83,26 @@ define(['data/JSONP'], function(_arg) {
                   _ref4 = match[5] && ((_ref3 = match[5]) != null ? _ref3.split(' - ') : void 0) || [], devs = _ref4[0], testers = _ref4[1];
                   story.storynum = s.num;
                   story.name = match[3];
-                  story.testers = testers != null ? testers.split('/') : void 0;
-                  story.devs = devs != null ? devs.split('/') : void 0;
+                  story.testers = testers ? (function() {
+                    var _j, _len2, _ref5, _results2;
+                    _ref5 = testers.split('/');
+                    _results2 = [];
+                    for (_j = 0, _len2 = _ref5.length; _j < _len2; _j++) {
+                      tester = _ref5[_j];
+                      _results2.push(tester.toUpperCase());
+                    }
+                    return _results2;
+                  })() : void 0;
+                  story.devs = devs ? (function() {
+                    var _j, _len2, _ref5, _results2;
+                    _ref5 = devs.split('/');
+                    _results2 = [];
+                    for (_j = 0, _len2 = _ref5.length; _j < _len2; _j++) {
+                      dev = _ref5[_j];
+                      _results2.push(dev.toUpperCase());
+                    }
+                    return _results2;
+                  })() : void 0;
                   story.tags = (_ref5 = match[1]) != null ? (_ref6 = _ref5.split(' - ')) != null ? _ref6.slice(0, -1) : void 0 : void 0;
                 }
                 _results.push(story);

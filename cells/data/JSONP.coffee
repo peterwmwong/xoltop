@@ -17,7 +17,7 @@ define ->
 
   get =
     if window.xoltop?.services?.useMockData
-      ({mock},done)-> setTimeout (-> require [mock], done), 500
+      ({mock},done)-> setTimeout (-> require [mock], done), 100
     else
       ({real},done)->
         jsonp
@@ -46,7 +46,7 @@ define ->
           pathFunc = -> p
 
         @[name] = (args...,done = idFunc)=>
-          if (cacheValue = cacheFunc()) !== undefined
+          if (cacheValue = cacheFunc()) != undefined
             done cacheValue
           else
             get
