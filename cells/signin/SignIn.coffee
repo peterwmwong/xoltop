@@ -17,6 +17,7 @@ define ['Services','cell!./SignedIn','Bus'], (S, SignedIn, Bus)->
             <div>
               Pass <input type='password' id='auth-pass'></input>
             </div>
+            <span id='loginFailed'>Login Failed</span>
             <button id='signin-button'>Sign in</button>
           </div>
         </div>
@@ -32,6 +33,7 @@ define ['Services','cell!./SignedIn','Bus'], (S, SignedIn, Bus)->
       @$('#auth-pass').toggleClass 'invalid', pass.length == 0
       @$('#signin-button').attr 'disabled', 'true'
       @$el.toggleClass 'loading', true
+      @$('#loginFailed').toggle false
 
       if user.length + pass.length > 0
         S.auth.login user, pass, (user)=>
@@ -40,6 +42,11 @@ define ['Services','cell!./SignedIn','Bus'], (S, SignedIn, Bus)->
           if user?
             @$el.toggleClass 'selected', false
             @$el.toggleClass 'loggedin', true
+
+          failed = !user
+          @$('#loginFailed').toggle failed
+          @$('#auth-user').toggleClass 'invalid', failed
+          @$('#auth-pass').toggleClass 'invalid', failed
 
     'keypress #auth-pass, #auth-user': ({charCode})->
       if charCode == 13 then doSubmit.call this

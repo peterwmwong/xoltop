@@ -76,7 +76,7 @@ define [
           </div>
         </div>
         <div class='chumps'>
-          #{R.cell InitialsList, initials:@model.devs?.concat(@model.testers)}
+          #{R.cell InitialsList, initials:[@model.devs..., @model.testers...]}
         </div>
       </div>
     </div>

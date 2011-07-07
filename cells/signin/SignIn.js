@@ -12,7 +12,7 @@ define(['Services', 'cell!./SignedIn', 'Bus'], function(S, SignedIn, Bus) {
         if (user != null) {
           this.$el.toggleClass('loggedin');
         }
-        return A("<div id='signin-group'>\n  <a id='signin-toggle' href='#'>Sign in</a>\n  <div id='input-group'>\n    <div>\n      User <input type='text' id='auth-user'></input>\n    </div>\n    <div>\n      Pass <input type='password' id='auth-pass'></input>\n    </div>\n    <button id='signin-button'>Sign in</button>\n  </div>\n</div>\n" + (R.cell(SignedIn, {
+        return A("<div id='signin-group'>\n  <a id='signin-toggle' href='#'>Sign in</a>\n  <div id='input-group'>\n    <div>\n      User <input type='text' id='auth-user'></input>\n    </div>\n    <div>\n      Pass <input type='password' id='auth-pass'></input>\n    </div>\n    <span id='loginFailed'>Login Failed</span>\n    <button id='signin-button'>Sign in</button>\n  </div>\n</div>\n" + (R.cell(SignedIn, {
           user: user
         })));
       }, this));
@@ -26,14 +26,20 @@ define(['Services', 'cell!./SignedIn', 'Bus'], function(S, SignedIn, Bus) {
         this.$('#auth-pass').toggleClass('invalid', pass.length === 0);
         this.$('#signin-button').attr('disabled', 'true');
         this.$el.toggleClass('loading', true);
+        this.$('#loginFailed').toggle(false);
         if (user.length + pass.length > 0) {
           return S.auth.login(user, pass, __bind(function(user) {
+            var failed;
             this.$('#signin-button').removeAttr('disabled');
             this.$el.toggleClass('loading', false);
             if (user != null) {
               this.$el.toggleClass('selected', false);
-              return this.$el.toggleClass('loggedin', true);
+              this.$el.toggleClass('loggedin', true);
             }
+            failed = !user;
+            this.$('#loginFailed').toggle(failed);
+            this.$('#auth-user').toggleClass('invalid', failed);
+            return this.$('#auth-pass').toggleClass('invalid', failed);
           }, this));
         }
       },

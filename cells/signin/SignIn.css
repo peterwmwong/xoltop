@@ -9,6 +9,8 @@
 .SignIn > #signin-group > #signin-toggle{color:rgba(255,255,255,0.8);text-decoration:none;display:inline-block;padding:0 10px 0 10px;width:150px;}
 .SignIn > #signin-group > #signin-toggle:hover{color:#fff}
 .SignIn > #signin-group > #input-group{display:none;padding:0 20px 5px 20px;color:#fff;text-align:right;}
-.SignIn > #signin-group > #input-group input{color:#333;background-color:rgba(255,255,255,0.8);margin:0 2px 0 7px;padding:2px 5px 2px 5px;width:100px;outline:none;-moz-border-radius-topleft:2px;-moz-border-radius-topright:2px;-moz-border-radius-bottomright:2px;-moz-border-radius-bottomleft:2px;border-top-left-radius:2px;border-top-right-radius:2px;border-bottom-right-radius:2px;border-bottom-left-radius:2px;border:none;box-shadow:inset 0 1px 1px rgba(0,0,0,0.8);}
+.SignIn > #signin-group > #input-group input{color:#333;background-color:rgba(255,255,255,0.8);margin:5px 2px 0 7px;padding:2px 5px 2px 5px;width:100px;outline:none;-moz-border-radius-topleft:2px;-moz-border-radius-topright:2px;-moz-border-radius-bottomright:2px;-moz-border-radius-bottomleft:2px;border-top-left-radius:2px;border-top-right-radius:2px;border-bottom-right-radius:2px;border-bottom-left-radius:2px;border:none;box-shadow:inset 0 1px 1px rgba(0,0,0,0.8);}
 .SignIn > #signin-group > #input-group input:focus{background-color:#fff}
-.SignIn > #signin-group > #input-group input.invalid{border:2px solid rgba(255,0,0,0.7);margin:0 0 0 5px}
+.SignIn > #signin-group > #input-group input.invalid{border:2px solid #f88;margin:3px 2px 0 7px}
+.SignIn > #signin-group > #input-group > #loginFailed{display:none;color:#f88;font-family:Helvetica,Arial,sans-serif;font-weight:bold;font-size:12px;letter-spacing:1px;padding:0 7px 0 0;text-shadow:0 0 1px rgba(0,0,0,0.8)}
+.SignIn > #signin-group > #input-group > #signin-button{margin:5px 0 0 0}

@@ -4,10 +4,12 @@ define(['Services', 'Bus', 'cell!shared/InitialsList'], function(S, Bus, Initial
   updateUser = function() {
     var u;
     u = S.auth.getUser();
-    this.$('.InitialsList').remove();
-    return this.$('#username').html(u.loginName.toUpperCase()).after(new InitialsList({
-      initials: u && [u.initials] || []
-    }).el);
+    if (u != null) {
+      this.$('.InitialsList').remove();
+      return this.$('#username').html(u.loginName.toUpperCase()).after(new InitialsList({
+        initials: u && [u.initials] || []
+      }).el);
+    }
   };
   return {
     init: function() {

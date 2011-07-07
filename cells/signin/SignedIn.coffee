@@ -2,10 +2,11 @@ define ['Services','Bus','cell!shared/InitialsList'], (S,Bus,InitialsList)->
 
   updateUser = ->
     u = S.auth.getUser()
-    @$('.InitialsList').remove()
-    @$('#username')
-      .html( u.loginName.toUpperCase() )
-      .after( new InitialsList(initials: (u and [u.initials] or [])).el )
+    if u?
+      @$('.InitialsList').remove()
+      @$('#username')
+        .html( u.loginName.toUpperCase() )
+        .after( new InitialsList(initials: (u and [u.initials] or [])).el )
 
 
   init: ->

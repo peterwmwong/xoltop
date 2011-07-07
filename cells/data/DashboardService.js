@@ -92,7 +92,7 @@ define(['data/JSONP'], function(_arg) {
                       _results2.push(tester.toUpperCase());
                     }
                     return _results2;
-                  })() : void 0;
+                  })() : [];
                   story.devs = devs ? (function() {
                     var _j, _len2, _ref5, _results2;
                     _ref5 = devs.split('/');
@@ -102,7 +102,7 @@ define(['data/JSONP'], function(_arg) {
                       _results2.push(dev.toUpperCase());
                     }
                     return _results2;
-                  })() : void 0;
+                  })() : [];
                   story.tags = (_ref5 = match[1]) != null ? (_ref6 = _ref5.split(' - ')) != null ? _ref6.slice(0, -1) : void 0 : void 0;
                 }
                 _results.push(story);
