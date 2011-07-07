@@ -5,4 +5,4 @@ define ['data/JSONP'],({JSONPService,getXPToolBaseUrl})->
     methods:
       getReleases: 'releases'
       getReleaseIterations: (rid)-> "releases/#{rid}/iterations"
-      getReleaseIterationStories: (iterNo)-> "iteration/#{iterNo}/stories"
+      getReleaseIterationStories: ({iteration})-> "iterations/#{iteration}/stories"

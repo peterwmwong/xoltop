@@ -17,8 +17,10 @@ define(['data/JSONP'], function(_arg) {
       getReleaseIterations: function(rid) {
         return "releases/" + rid + "/iterations";
       },
-      getReleaseIterationStories: function(iterNo) {
-        return "iteration/" + iterNo + "/stories";
+      getReleaseIterationStories: function(_arg2) {
+        var iteration;
+        iteration = _arg2.iteration;
+        return "iterations/" + iteration + "/stories";
       }
     }
   });
