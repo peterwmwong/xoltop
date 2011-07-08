@@ -29,6 +29,8 @@ Dashboard
     * X Incomplete Tasks
     * X Failing Tests
     * X Needs Attention Tasks
+* Indicate when you are "working" on a story
+    * Not a chump, but worked tasks, tests, or code
 * News Flash
   * Message, Severity (Red, Yellow)
   * Arbritrary Messages (Backend Integration, JSONP submission and get)
