@@ -4,40 +4,43 @@ Getting Started
 In 6 steps, you'll have Xoltop up and running in your browser from scratch.
 
 Linux / Mac OS X
-----------------
+================
 
-### [1] Install git
+## [1] Install git
 
 [Installing Git](http://book.git-scm.com/2_installing_git.html)
 
-### [2] Install node.js and NPM
+## [2] Install node.js and NPM
 
 [Installing node.js and NPM](https://github.com/joyent/node/wiki/Installation)
 
-### [3] Get the code
+## [3] Get the code
 
     > git clone git://github.com/peterwmwong/xoltop.git
     > cd xoltop
 
-### [4] Run Stylus/CoffeeScript compilers
+## [4] Run Stylus/CoffeeScript compilers
 
     > make dev-stylus
     > make dev-coffee
 
 This will compile `*.styl` *to* `*.css` and `*.coffee` *to* `*.js`.
-`*.coffee` and `*.styl` file changes will automatically be recompiled.
 
-### [5] Run development server
+`*.coffee` and `*.styl` file changes will **automatically** be recompiled.
+
+## [5] Run development server
 
     > make dev-server
 
 In a browser, visit `http://localhost:3000/index-dev`.
+
 You should see the Xoltop dashboard with mock data.
 
 *This is JUST for live.js, which uses XHR to automatically reload JavaScript and CSS.*
+
 Xoltop does not rely on a server for mock data, *see [Mock Data loaded by JavaScript](https://github.com/peterwmwong/xoltop/tree/master/cells/data/mock)*
 
-### [6] Pimp your editor for Stylus and CoffeeScript
+## [6] Pimp your editor for Stylus and CoffeeScript
 
 * [Vim](http://www.vim.org/) or [MacVim](http://code.google.com/p/macvim/)
   * [vim-stylus](https://github.com/wavded/vim-stylus)
@@ -49,12 +52,15 @@ Xoltop does not rely on a server for mock data, *see [Mock Data loaded by JavaSc
 * [Sublime Text 2](http://www.sublimetext.com/2)
   * Use the TextMate bundles above.
 
-When you change and save a `*.styl` or `*.coffee` file, the browser will **automatically** refresh or restyle.  No need to `Alt-Tab` and `F5`.
-Cool, yah?  Thank you [live.js](http://livejs.com/)!
+When you change and save a `*.styl` or `*.coffee` file, the browser will **automatically** refresh or restyle.
+
+No need to `Alt-Tab` and `F5`. Cool, yah?
+
+Thank you [live.js](http://livejs.com/)!
 
 
 Windows
--------
+======
 
 **Go directly to jail. Do not pass go, do not collect $200.**
 
