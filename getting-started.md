@@ -6,13 +6,9 @@ In 6 steps, you'll have Xoltop up and running in your browser from scratch.
 Linux / Mac OS X
 ================
 
-## 1 - Install git
+## 1 - [Installing Git](http://book.git-scm.com/2_installing_git.html)
 
-[Installing Git](http://book.git-scm.com/2_installing_git.html)
-
-## 2 - Install node.js and NPM
-
-[Installing node.js and NPM](https://github.com/joyent/node/wiki/Installation)
+## 2 - [Installing node.js and NPM](https://github.com/joyent/node/wiki/Installation)
 
 ## 3 - Get the code
 
@@ -24,7 +20,7 @@ Linux / Mac OS X
     > make dev-stylus
     > make dev-coffee
 
-This will compile `*.styl` *to* `*.css` and `*.coffee` *to* `*.js`.  
+This will compile `.styl` *to* `.css` and `.coffee` *to* `.js`.  
 File changes will **automatically** be recompiled.
 
 ## 5 - Run development server
@@ -49,7 +45,7 @@ Xoltop does not rely on a server for mock data, *see [Mock Data loaded by JavaSc
 * [Sublime Text 2](http://www.sublimetext.com/2)
   * Use the TextMate bundles above.
 
-When you change and save a `*.styl` or `*.coffee` file, the browser will **automatically** refresh or restyle.  
+Changing a `.styl` or `.coffee` file, the browser will **automatically** refresh or restyle.  
 No need to `Alt-Tab` and `F5`. Cool, yah?
 
 Thank you [live.js](http://livejs.com/)!
