@@ -19,16 +19,7 @@ A project tool to answer questions like:
 
 Getting involved (suggestions, ideas, contributing)
 ---------------------------------------------------
-Come talk to me, I don't bite.
-
-### Developing
-* [make](http://www.gnu.org/software/make) - Ant and Maven would be overkill
-* [node.js](https://github.com/joyent/node) - Running CoffeeScript and Stylus compilers
-
-### Useful tools
-* [vim](http://www.vim.org/)
-* [vim-stylus](https://github.com/wavded/vim-stylus)
-* [vim-coffee-script](https://github.com/kchmck/vim-coffee-script)
+See [Getting Started](https://github.com/peterwmwong/xoltop/blob/master/getting-started.md)
 
 Todos
 -----
