@@ -27,7 +27,7 @@ File changes will **automatically** be recompiled.
 
     > make dev-server
 
-In a browser, visit `http://localhost:3000/index-dev`.  
+In a browser, visit `http://localhost:3000/index-dev.html`.  
 You should see the Xoltop dashboard with mock data.
 
 *The server is JUST for live.js, which uses XHR to automatically reload JavaScript and CSS.*  
