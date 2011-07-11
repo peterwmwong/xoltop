@@ -51,7 +51,7 @@ cells/bootstrap.js: $(uglifyjs) cells/cell.js cells/cell-pluginBuilder.js
 			vendor/raphael.js \
 			vendor/g.raphael.js \
 			vendor/g.line.js \
-			cells/bootstrap-tmp.js | $(uglifyjs)> cells/bootstrap.js
+			cells/bootstrap-tmp.js | $(uglifyjs) -nc > cells/bootstrap.js
 	cat vendor/reset.css \
 			cells/bootstrap-tmp.css > cells/bootstrap.css
 	rm cells/bootstrap-tmp.*

@@ -1,6 +1,6 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 define(['Services', 'cell!signin/SignIn'], function(S, SignIn) {
-  $('<link  href="http://fonts.googleapis.com/css?family=Maven+Pro:400,500,700,900&v1" rel="stylesheet" type="text/css" >').appendTo('head');
+  $('<link  href="http://fonts.googleapis.com/css?family=Maven+Pro:700&v1" rel="stylesheet" type="text/css" >').appendTo('head');
   return {
     render: function(R) {
       return "<div id='xoltop'>XOLTOP</div>\n" + (R(this.options.items, __bind(function(item, i) {

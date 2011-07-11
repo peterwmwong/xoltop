@@ -69,7 +69,7 @@ a:active, a:focus {
 .DashboardPage > .myStoryDivider .InitialsList .currentUser{-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;padding:0 4px 0 4px;opacity:.7}
 .DashboardPage > .myStoryDivider .leftTri:before{position:absolute;top:3px;right:0;bottom:0;left:20px;content:"";display:block;border-color:rgba(0,0,0,0) rgba(0,0,0,0) rgba(0,0,0,0.3) rgba(0,0,0,0);border-style:solid;border-width:4px;height:0;width:0;z-index:2}
 .DashboardPage > .myStoryDivider .leftTri:after{position:absolute;top:4px;right:0;bottom:0;left:20px;content:"";display:block;border-color:rgba(0,0,0,0) rgba(0,0,0,0) #555 rgba(0,0,0,0);border-style:solid;border-width:4px;height:0;width:0;z-index:2}
-.Bar{background-color:#36729f;-webkit-box-shadow:0 1px 3px #111;-moz-box-shadow:0 1px 3px #111;box-shadow:0 1px 3px #111;font-family:"Maven Pro",Helvetica,Arial,sans-serif;letter-spacing:1px;font-size:10px;font-weight:bold;line-height:17px;text-shadow:0 -1px 0 rgba(0,0,0,0.3);padding:0 0 0 105px;}
+.Bar{background-color:#36729f;-webkit-box-shadow:0 1px 3px #111;-moz-box-shadow:0 1px 3px #111;box-shadow:0 1px 3px #111;font-family:"Maven Pro",Helvetica,Arial,sans-serif;letter-spacing:1px;font-size:10px;font-weight:900;line-height:17px;text-shadow:0 -1px 0 rgba(0,0,0,0.3);padding:0 0 0 105px;}
 .Bar > #xoltop{position:absolute;top:2px;left:20px;color:rgba(255,255,255,0.8);font-size:14px}
 .Bar > .navItemContainer{text-align:center;display:inline-block;}
 .Bar > .navItemContainer > .navItem{display:inline-block;-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;color:rgba(255,255,255,0.6);margin-top:3px;padding:0 6px 0 7px;text-decoration:none;-webkit-transition:color 250ms ease;-moz-transition:color 250ms ease;-o-transition:color 250ms ease;transition:color 250ms ease;}
@@ -215,6 +215,9 @@ a:active, a:focus {
 .TasksSection > .CatTable > table > tbody > tr > .column.note.expanded .linebreak{display:block}
 .TasksSection > .CatTable > table > tbody > tr > .column.note .linebreak{display:inline-block;width:9999px}
 .TasksSection > .CatTable > table > tbody > tr > .column.owner{text-align:center;width:80px;min-width:80px}
+.CodeSection > .newCodeTaskContainer{width:100%;height:35px;margin:10px 0 10px 0;position:relative;}
+.CodeSection > .newCodeTaskContainer > input.newCodeTask{position:absolute;top:0;right:0;bottom:0;left:0;color:#fff;background-color:rgba(255,255,255,0.05);-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;border:none;font-size:14px;outline:none;padding:0 5px 0 5px;}
+.CodeSection > .newCodeTaskContainer > input.newCodeTask::-webkit-input-placeholder,.CodeSection > .newCodeTaskContainer > input.newCodeTask::-moz-placeholder{color:rgba(255,255,255,0.3)}
 .CodeSection > .nocodetasks{width:100%;text-align:center;font-weight:bold;padding:15px 0 0 0;color:#4d4d4d}
 .CodeSection > .CatTable > table{table-layout:fixed}
 .CodeSection > .CatTable > table > tbody > tr > .category{text-align:left;}
@@ -239,7 +242,7 @@ a:active, a:focus {
 .SignIn{position:relative;text-align:right;}
 .SignIn.loggedin > #signin-group{display:none}
 .SignIn.loggedin > .SignedIn{display:inline-block}
-.SignIn.selected > #signin-group{background-color:#5496c4;-moz-border-radius-topleft:0;-moz-border-radius-topright:0;-moz-border-radius-bottomright:5px;-moz-border-radius-bottomleft:5px;border-top-left-radius:0;border-top-right-radius:0;border-bottom-right-radius:5px;border-bottom-left-radius:5px;box-shadow:0 2px 5px rgba(0,0,0,0.5);color:#fff;}
+.SignIn.selected > #signin-group{background-color:#5496c4;-moz-border-radius-topleft:0;-moz-border-radius-topright:0;-moz-border-radius-bottomright:5px;-moz-border-radius-bottomleft:5px;border-top-left-radius:0;border-top-right-radius:0;border-bottom-right-radius:5px;border-bottom-left-radius:5px;-webkit-box-shadow:0 2px 5px rgba(0,0,0,0.5);-moz-box-shadow:0 2px 5px rgba(0,0,0,0.5);box-shadow:0 2px 5px rgba(0,0,0,0.5);color:#fff;}
 .SignIn.selected > #signin-group > #signin-toggle{color:#fff}
 .SignIn.selected > #signin-group > #input-group{display:block}
 .SignIn > .SignedIn{display:none}
@@ -247,7 +250,7 @@ a:active, a:focus {
 .SignIn > #signin-group > #signin-toggle{color:rgba(255,255,255,0.8);text-decoration:none;display:inline-block;padding:0 10px 0 10px;width:150px;}
 .SignIn > #signin-group > #signin-toggle:hover{color:#fff}
 .SignIn > #signin-group > #input-group{display:none;padding:0 20px 5px 20px;color:#fff;text-align:right;}
-.SignIn > #signin-group > #input-group input{color:#333;background-color:rgba(255,255,255,0.8);margin:5px 2px 0 7px;padding:2px 5px 2px 5px;width:100px;outline:none;-moz-border-radius-topleft:2px;-moz-border-radius-topright:2px;-moz-border-radius-bottomright:2px;-moz-border-radius-bottomleft:2px;border-top-left-radius:2px;border-top-right-radius:2px;border-bottom-right-radius:2px;border-bottom-left-radius:2px;border:none;box-shadow:inset 0 1px 1px rgba(0,0,0,0.8);}
+.SignIn > #signin-group > #input-group input{color:#333;background-color:rgba(255,255,255,0.8);margin:5px 2px 0 7px;padding:2px 5px 2px 5px;width:100px;outline:none;-moz-border-radius-topleft:2px;-moz-border-radius-topright:2px;-moz-border-radius-bottomright:2px;-moz-border-radius-bottomleft:2px;border-top-left-radius:2px;border-top-right-radius:2px;border-bottom-right-radius:2px;border-bottom-left-radius:2px;border:none;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.8);-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,0.8);box-shadow:inset 0 1px 1px rgba(0,0,0,0.8);}
 .SignIn > #signin-group > #input-group input:focus{background-color:#fff}
 .SignIn > #signin-group > #input-group input.invalid{border:2px solid #f88;margin:3px 2px 0 7px}
 .SignIn > #signin-group > #input-group > #loginFailed{display:none;color:#f88;font-family:Helvetica,Arial,sans-serif;font-weight:bold;font-size:12px;letter-spacing:1px;padding:0 7px 0 0;text-shadow:0 0 1px rgba(0,0,0,0.8)}
