@@ -30,8 +30,14 @@ File changes will **automatically** be recompiled.
 In a browser, visit `http://localhost:3000/index-dev.html`.  
 You should see the Xoltop dashboard with mock data.
 
-*The server is JUST for live.js, which uses XHR to automatically reload JavaScript and CSS.*  
-Xoltop does not rely on a server for mock data, *see [Mock Data loaded by JavaScript](https://github.com/peterwmwong/xoltop/tree/master/cells/data/mock)*
+### Why a server?
+
+**The development server is JUST for live.js and Chrome**. live.js uses XHR to automatically reload JavaScript and CSS, Chrome does not allow XHR over the `file://` protocol ([issue 41024](http://code.google.com/p/chromium/issues/detail?id=41024)).
+
+### Where's the mock data coming from?
+Xoltop is completely client side (JavaScript/HTML/CSS) and only communicates with a server for data (via JSONP).  
+For **fast prototyping, testing and development**, data can easily be [mocked](https://github.com/peterwmwong/xoltop/tree/master/cells/data/mock) and [loaded](https://github.com/peterwmwong/xoltop/blob/d3428218c225b03b3fa1b72a3b90424879de1486/cells/data/JSONP.coffee#L53) so *NO* server is necessary.
+
 
 ## 6 - Pimp your editor for Stylus and CoffeeScript
 
