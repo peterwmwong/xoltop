@@ -43,10 +43,10 @@ define(['Services', 'cell!./SignedIn', 'Bus'], function(S, SignedIn, Bus) {
           }, this));
         }
       },
-      'keypress #auth-pass, #auth-user': function(_arg) {
-        var charCode;
-        charCode = _arg.charCode;
-        if (charCode === 13) {
+      'keyup #auth-pass, #auth-user': function(_arg) {
+        var which;
+        which = _arg.which;
+        if (which === 13) {
           return doSubmit.call(this);
         }
       },

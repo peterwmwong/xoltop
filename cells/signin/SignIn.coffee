@@ -48,8 +48,8 @@ define ['Services','cell!./SignedIn','Bus'], (S, SignedIn, Bus)->
           @$('#auth-user').toggleClass 'invalid', failed
           @$('#auth-pass').toggleClass 'invalid', failed
 
-    'keypress #auth-pass, #auth-user': ({charCode})->
-      if charCode == 13 then doSubmit.call this
+    'keyup #auth-pass, #auth-user': ({which})->
+      if which == 13 then doSubmit.call this
 
 
     'click #signin-toggle': ->

@@ -63,7 +63,7 @@ dev-server: $(serve)
 	$(serve) -D -L -I
 
 dev-stylus: $(stylus)
-	find . -name '*.styl' -type f | xargs $(stylus) --watch --compress
+	find ./cells ./mixins -name '*.styl' -type f | xargs $(stylus) --watch --compress
 
 dev-coffee: $(coffee)
 	find . -name '*.coffee' -type f | xargs $(coffee) -c -b --watch

@@ -3,7 +3,7 @@ define(['Services', 'cell!shared/cattable/CatTable'], function(S, CatTable) {
   return {
     render: function(R, A) {
       return S.dashboard.getStoryCodeTasksDetails(this.options.storynum, __bind(function(codeTasks) {
-        return A("<div class='newCodeTaskContainer'>\n  <input class='newCodeTask' type='text' placeholder='Add new code task'></input>\n</div>\n" + (R((codeTasks != null ? codeTasks.length : void 0) === 0 && "<div class='nocodetasks'>No Code Tasks</div>" || __bind(function() {
+        return A("<div class='newCodeTaskContainer'>\n  <input class='newCodeTask' type='text' placeholder='+  Add a code task'></input>\n</div>\n" + (R((codeTasks != null ? codeTasks.length : void 0) === 0 && "<div class='nocodetasks'>No Code Tasks</div>" || __bind(function() {
           var storynum;
           storynum = this.options.storynum;
           return R.cell(CatTable, {
@@ -33,6 +33,18 @@ define(['Services', 'cell!shared/cattable/CatTable'], function(S, CatTable) {
           });
         }, this)())));
       }, this));
+    },
+    bind: {
+      'keyup .newCodeTask': function(_arg) {
+        var codeTaskText, target, which;
+        which = _arg.which, target = _arg.target;
+        if (which === 13) {
+          target = $(target);
+          codeTaskText = target.attr('value');
+          target.attr('value', '');
+          return target.blur();
+        }
+      }
     }
   };
 });

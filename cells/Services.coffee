@@ -1,10 +1,12 @@
 define [
+	'Bus'
   'data/JSONP'
   'data/DashboardService'
   'data/Auth'
-], ({getXPToolBaseUrl},DashboardService,Auth)->
+], (Bus,{getXPToolBaseUrl},DashboardService,Auth)->
   
   isIOS: (ua = navigator.userAgent).match(/iPhone/i) or ua.match(/iPod/i) or ua.match(/iPad/i)
+  Bus:Bus
   getXPToolBaseUrl: getXPToolBaseUrl
   dashboard: DashboardService
   auth: Auth

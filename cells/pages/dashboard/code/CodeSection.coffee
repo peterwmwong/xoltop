@@ -4,7 +4,7 @@ define ['Services','cell!shared/cattable/CatTable'], (S,CatTable)->
     S.dashboard.getStoryCodeTasksDetails @options.storynum, (codeTasks)=>
       A """
         <div class='newCodeTaskContainer'>
-          <input class='newCodeTask' type='text' placeholder='Add new code task'></input>
+          <input class='newCodeTask' type='text' placeholder='+  Add a code task'></input>
         </div>
         #{R codeTasks?.length == 0 and "<div class='nocodetasks'>No Code Tasks</div>" or do=>
             storynum = @options.storynum
@@ -25,3 +25,13 @@ define ['Services','cell!shared/cattable/CatTable'], (S,CatTable)->
             members:codeTasks
         }
         """
+
+  bind:
+    'keyup .newCodeTask': ({which,target})->
+      if which == 13
+        target = $(target)
+        codeTaskText = target.attr 'value'
+        target.attr 'value', ''
+        target.blur()
+
+
