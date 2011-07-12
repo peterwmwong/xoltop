@@ -4,12 +4,12 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   }
   return -1;
 };
-define(['Services', 'Bus', 'cell!shared/loadingindicator/LoadingIndicator', 'cell!./DashboardStory', 'cell!./statusshelf/IterationChooser', 'cell!./statusshelf/testresultsgraph/TestResultsGraph', 'cell!shared/InitialsList'], function(S, Bus, LoadingIndicator, DashboardStory, IterationChooser, TestResultsGraph, InitialsList) {
+define(['Services', 'cell!shared/loadingindicator/LoadingIndicator', 'cell!./DashboardStory', 'cell!./statusshelf/IterationChooser', 'cell!./statusshelf/testresultsgraph/TestResultsGraph', 'cell!shared/InitialsList'], function(S, LoadingIndicator, DashboardStory, IterationChooser, TestResultsGraph, InitialsList) {
   return {
     init: function() {
       var rerender;
       this.iterationNo = null;
-      return Bus.bind({
+      return S.bus.bind({
         'auth.userLoggedIn': rerender = __bind(function() {
           return S.dashboard.getStorySummaries(this.iterationNo, __bind(function(_arg) {
             var iterationNo, stories;

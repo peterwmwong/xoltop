@@ -1,5 +1,5 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-define(['Services', 'Bus', 'cell!shared/InitialsList'], function(S, Bus, InitialsList) {
+define(['Services', 'cell!shared/InitialsList'], function(S, InitialsList) {
   var updateUser;
   updateUser = function() {
     var u;
@@ -13,7 +13,7 @@ define(['Services', 'Bus', 'cell!shared/InitialsList'], function(S, Bus, Initial
   };
   return {
     init: function() {
-      return Bus.bind('auth.userLoggedIn', __bind(function() {
+      return S.bus.bind('auth.userLoggedIn', __bind(function() {
         return updateUser.call(this);
       }, this));
     },

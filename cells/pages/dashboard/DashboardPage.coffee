@@ -1,17 +1,16 @@
 define [
   'Services'
-  'Bus'
   'cell!shared/loadingindicator/LoadingIndicator'
   'cell!./DashboardStory'
   'cell!./statusshelf/IterationChooser'
   'cell!./statusshelf/testresultsgraph/TestResultsGraph'
   'cell!shared/InitialsList'
-], (S,Bus,LoadingIndicator,DashboardStory,IterationChooser,TestResultsGraph,InitialsList)->
+], (S,LoadingIndicator,DashboardStory,IterationChooser,TestResultsGraph,InitialsList)->
 
   init: ->
     @iterationNo = null
 
-    Bus.bind
+    S.bus.bind
       'auth.userLoggedIn': rerender = =>
         S.dashboard.getStorySummaries @iterationNo, ({iterationNo,stories})=>
           @renderStories stories

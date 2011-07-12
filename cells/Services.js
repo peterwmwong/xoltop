@@ -3,7 +3,7 @@ define(['Bus', 'data/JSONP', 'data/DashboardService', 'data/Auth'], function(Bus
   getXPToolBaseUrl = _arg.getXPToolBaseUrl;
   return {
     isIOS: (ua = navigator.userAgent).match(/iPhone/i) || ua.match(/iPod/i) || ua.match(/iPad/i),
-    Bus: Bus,
+    bus: Bus,
     getXPToolBaseUrl: getXPToolBaseUrl,
     dashboard: DashboardService,
     auth: Auth

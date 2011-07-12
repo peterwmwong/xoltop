@@ -6,7 +6,7 @@ define [
 ], (Bus,{getXPToolBaseUrl},DashboardService,Auth)->
   
   isIOS: (ua = navigator.userAgent).match(/iPhone/i) or ua.match(/iPod/i) or ua.match(/iPad/i)
-  Bus:Bus
+  bus:Bus
   getXPToolBaseUrl: getXPToolBaseUrl
   dashboard: DashboardService
   auth: Auth

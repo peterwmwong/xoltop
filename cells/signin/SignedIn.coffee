@@ -1,4 +1,4 @@
-define ['Services','Bus','cell!shared/InitialsList'], (S,Bus,InitialsList)->
+define ['Services','cell!shared/InitialsList'], (S,InitialsList)->
 
   updateUser = ->
     u = S.auth.getUser()
@@ -10,7 +10,7 @@ define ['Services','Bus','cell!shared/InitialsList'], (S,Bus,InitialsList)->
 
 
   init: ->
-    Bus.bind 'auth.userLoggedIn', => updateUser.call this
+    S.bus.bind 'auth.userLoggedIn', => updateUser.call this
 
   'render <span>': (R)->
     """

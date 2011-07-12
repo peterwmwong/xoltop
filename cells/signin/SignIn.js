@@ -1,9 +1,9 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-define(['Services', 'cell!./SignedIn', 'Bus'], function(S, SignedIn, Bus) {
+define(['Services', 'cell!./SignedIn'], function(S, SignedIn) {
   var doSubmit;
   return {
     init: function() {
-      return Bus.bind('auth.userLoggedOut', __bind(function() {
+      return S.bus.bind('auth.userLoggedOut', __bind(function() {
         return this.$el.toggleClass('loggedin', false);
       }, this));
     },

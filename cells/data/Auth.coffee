@@ -1,4 +1,8 @@
-define ['data/JSONP','Bus'],({JSONPService,getXPToolBaseUrl},Bus)->
+define [
+  'data/JSONP'
+  'Bus'
+],({JSONPService,getXPToolBaseUrl},Bus)->
+  
   user = undefined
   service = new JSONPService 'Auth'
     baseURL: getXPToolBaseUrl 'rest/xoltop/auth/'

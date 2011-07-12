@@ -1,7 +1,7 @@
-define ['Services','cell!./SignedIn','Bus'], (S, SignedIn, Bus)->
+define ['Services','cell!./SignedIn'], (S, SignedIn)->
 
   init: ->
-    Bus.bind 'auth.userLoggedOut', =>
+    S.bus.bind 'auth.userLoggedOut', =>
       @$el.toggleClass 'loggedin', false
 
   'render <span>': (R,A)->
