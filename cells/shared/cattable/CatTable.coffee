@@ -12,12 +12,15 @@ define [], do->
       for member in @options.members
         @_catToMembers[@options.mapMember member].push member
 
+      @_numCols = 0
       for col,funcOrProp of cmap = @options.columnMap
+        @_numCols++
         if (type = typeof funcOrProp) == 'string'
           cmap[col] = getPropFunc funcOrProp
         else if type == 'function'
           cmap[col] = funcOrProp
         else
+          @_numCols--
           delete cmap[col]
 
       return
@@ -33,20 +36,25 @@ define [], do->
         #{R @_categoryNames, (cat,gi)=>
             R (members = @_catToMembers[cat]).length != 0 and "
               #{R numVisibleGroups++ != 0 and "
-                <tr class='categorySpacer'><td colspan='6'> </td></tr>
+                <tr class='categorySpacer'><td colspan='#{@_numCols}'> </td></tr>
               "}
-              <tr class='#{oddEven()} #{cat}'>
-                <td rowspan='#{members.length}' class='category #{cat}'>
+              <tr class='#{oddEven()} #{cat} firstHolder'>
+                <td rowspan='#{members.length+1}' class='category #{cat}'>
                   #{@options.categories[cat]}
                 </td>
-                #{R members, (m,i)=> "
-                  #{R i!=0 and "<tr class='#{oddEven()} #{cat}'>"}
-                  <td class='categoryColumnSpacer'>&nbsp;</td>
-                  #{R ({c,f} for c,f of @options.columnMap), ({c,f})->"
-                    <td class='column #{c}'>#{f(m)}</td>
-                  "}
-              </tr>
+                <td class='categoryColumnSpacer'></td>
+                #{R (c for c of @options.columnMap), -> "
+                  <td class='column'></td>
                 "}
+              </tr>
+              #{R members, (m,i)=> "
+                <tr class='#{oddEven()} #{cat}'>
+                    <td class='categoryColumnSpacer'>&nbsp;</td>
+                    #{R ({c,f} for c,f of @options.columnMap), ({c,f})->"
+                      <td class='column #{c}'>#{f(m)}</td>
+                    "}
+                </tr>
+              "}
         "}
       </tbody></table>
       """

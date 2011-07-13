@@ -27,14 +27,17 @@ define([], (function() {
           member = _ref[_i];
           this._catToMembers[this.options.mapMember(member)].push(member);
         }
+        this._numCols = 0;
         _ref2 = cmap = this.options.columnMap;
         for (col in _ref2) {
           funcOrProp = _ref2[col];
+          this._numCols++;
           if ((type = typeof funcOrProp) === 'string') {
             cmap[col] = getPropFunc(funcOrProp);
           } else if (type === 'function') {
             cmap[col] = funcOrProp;
           } else {
+            this._numCols--;
             delete cmap[col];
           }
         }
@@ -50,10 +53,19 @@ define([], (function() {
           };
         })();
         return "<table><tbody>\n  " + (R(this._categoryNames, __bind(function(cat, gi) {
-          var members;
-          return R((members = this._catToMembers[cat]).length !== 0 && ("        " + (R(numVisibleGroups++ !== 0 && "          <tr class='categorySpacer'><td colspan='6'> </td></tr>        ")) + "        <tr class='" + (oddEven()) + " " + cat + "'>          <td rowspan='" + members.length + "' class='category " + cat + "'>            " + this.options.categories[cat] + "          </td>          " + (R(members, __bind(function(m, i) {
+          var c, members;
+          return R((members = this._catToMembers[cat]).length !== 0 && ("        " + (R(numVisibleGroups++ !== 0 && ("          <tr class='categorySpacer'><td colspan='" + this._numCols + "'> </td></tr>        "))) + "        <tr class='" + (oddEven()) + " " + cat + " firstHolder'>          <td rowspan='" + (members.length + 1) + "' class='category " + cat + "'>            " + this.options.categories[cat] + "          </td>          <td class='categoryColumnSpacer'></td>          " + (R((function() {
+            var _results;
+            _results = [];
+            for (c in this.options.columnMap) {
+              _results.push(c);
+            }
+            return _results;
+          }).call(this), function() {
+            return "            <td class='column'></td>          ";
+          })) + "        </tr>        " + (R(members, __bind(function(m, i) {
             var c, f;
-            return "            " + (R(i !== 0 && ("<tr class='" + (oddEven()) + " " + cat + "'>"))) + "            <td class='categoryColumnSpacer'>&nbsp;</td>            " + (R((function() {
+            return "          <tr class='" + (oddEven()) + " " + cat + "'>              <td class='categoryColumnSpacer'>&nbsp;</td>              " + (R((function() {
               var _ref, _results;
               _ref = this.options.columnMap;
               _results = [];
@@ -68,8 +80,8 @@ define([], (function() {
             }).call(this), function(_arg) {
               var c, f;
               c = _arg.c, f = _arg.f;
-              return "              <td class='column " + c + "'>" + (f(m)) + "</td>            ";
-            })) + "        </tr>          ";
+              return "                <td class='column " + c + "'>" + (f(m)) + "</td>              ";
+            })) + "          </tr>        ";
           }, this))) + "  "));
         }, this))) + "\n</tbody></table>";
       }

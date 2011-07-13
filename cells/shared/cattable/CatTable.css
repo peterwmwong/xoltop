@@ -1,5 +1,7 @@
 .CatTable > table{width:100%;border-spacing:50px;}
 .CatTable > table > tbody > tr{height:50px;}
+.CatTable > table > tbody > tr.firstHolder{height:0;}
+.CatTable > table > tbody > tr.firstHolder > td{height:0}
 .CatTable > table > tbody > tr.odd > td{background-color:#272727;}
 .CatTable > table > tbody > tr.odd > td:last-child{-moz-border-radius-topleft:0;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:0;border-top-left-radius:0;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:0}
 .CatTable > table > tbody > tr.odd > td.categoryColumnSpacer{background-color:transparent}
