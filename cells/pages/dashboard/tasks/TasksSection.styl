@@ -16,76 +16,38 @@
   > .CatTable > table
     table-layout fixed
 
-  > .CatTable > table > tbody > tr
+  > .CatTable
     > .category
       amt = .25
       lamt = 90%
-      &.needsAttn
-        background-color rgba(badge-red,amt)
-        color lighten(badge-red,lamt)
+      &.needsAttn > .header
+          background-color rgba(badge-red,amt)
+          color lighten(badge-red,lamt)
 
-      &.retest
-        background-color rgba(badge-yellow,amt)
-        color lighten(badge-yellow,lamt - 10%)
+      &.retest > .header
+          background-color rgba(badge-yellow,amt)
+          color lighten(badge-yellow,lamt - 10%)
 
-      &.complete
-        background-color rgba(badge-green,amt)
-        color lighten(badge-green,lamt - 10%)
+      &.complete > .header
+          background-color rgba(badge-green,amt)
+          color lighten(badge-green,lamt - 10%)
 
-    > .category
-      text-align left
+      > .members .column
 
-    > .column
-      vertical-align middle
+        &.note
+          box-flex 1
+          text-overflow ellipsis
+          position relative
 
-      &.expandCollapse
-        width 15px
-        text-align right
-        vertical-align top
-        padding 16px 0 0 10px
-
-        &.showLess
-          padding 18px 0 0 7px
           > a
-            border-color text-color transparent transparent transparent
-        > a 
-          border-color transparent transparent transparent text-disabled-color
-          border-style solid
-          border-width 5px
-          height 0
-          width 0
-          line-height 0px
-          font-size 0px
-
-      &.note
-        width 100%
-        padding 20px 0px 20px 10px
-        white-space nowrap
-        text-overflow ellipsis
-        overflow hidden
-        vertical-align middle
-        line-height 15px
-        color text-color-dark
-
-        > a
-          color text-color-dark
-          text-decoration none
-
-          &:hover
-            text-decoration underline
-
-        &.expanded
-          white-space normal
-          color text-color
-          .linebreak
+            color text-color-dark
+            text-decoration none
             display block
+            width 100%
 
-        .linebreak
-          display inline-block
-          width 9999px
+            &:hover
+              text-decoration underline
 
-
-      &.owner
-        text-align center
-        width 80px
-        min-width 80px
+        &.owner
+          width 80px
+          text-align right

@@ -35,11 +35,6 @@ define(['Services', 'cell!shared/cattable/CatTable'], function(S, CatTable) {
           }
         }, this)());
       }, this));
-    },
-    bind: {
-      afterRender: function() {
-        return this.$('.column.note br').replaceWith("<div class='linebreak'></div>");
-      }
     }
   };
 });

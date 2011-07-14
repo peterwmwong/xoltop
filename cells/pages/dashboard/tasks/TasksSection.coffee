@@ -21,8 +21,3 @@ define ['Services','cell!shared/cattable/CatTable'], (S,CatTable)->
                 """
               owner: ({task})->task.owner
             members:tasks
-
-  bind:
-    afterRender: ->
-      @$('.column.note br').replaceWith "<div class='linebreak'></div>"
-      

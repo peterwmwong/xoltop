@@ -49,11 +49,10 @@ define([], (function() {
             return (isEven = !isEven) && 'even' || 'odd';
           };
         })();
-        return "<table><tbody>\n  " + (R(this._categoryNames, __bind(function(cat, gi) {
-          var members;
-          return R((members = this._catToMembers[cat]).length !== 0 && ("        " + (R(numVisibleGroups++ !== 0 && "          <tr class='categorySpacer'><td colspan='6'> </td></tr>        ")) + "        <tr class='" + (oddEven()) + " " + cat + "'>          <td rowspan='" + members.length + "' class='category " + cat + "'>            " + this.options.categories[cat] + "          </td>          " + (R(members, __bind(function(m, i) {
+        return "" + (R(this._categoryNames, __bind(function(cat, gi) {
+          return "  <div class='category " + cat + "'>    <div class='header'>" + this.options.categories[cat] + "</div>    <div class='members'>    " + (R(this._catToMembers[cat], __bind(function(member) {
             var c, f;
-            return "            " + (R(i !== 0 && ("<tr class='" + (oddEven()) + " " + cat + "'>"))) + "            <td class='categoryColumnSpacer'>&nbsp;</td>            " + (R((function() {
+            return "        <div class='member " + (oddEven()) + "'>        " + (R((function() {
               var _ref, _results;
               _ref = this.options.columnMap;
               _results = [];
@@ -68,10 +67,10 @@ define([], (function() {
             }).call(this), function(_arg) {
               var c, f;
               c = _arg.c, f = _arg.f;
-              return "              <td class='column " + c + "'>" + (f(m)) + "</td>            ";
-            })) + "        </tr>          ";
-          }, this))) + "  "));
-        }, this))) + "\n</tbody></table>";
+              return "          <div class='column " + c + "'>" + (f(member)) + "</div>        ";
+            })) + "        </div>    ";
+          }, this))) + "    </div>  </div>";
+        }, this)));
       }
     };
   };

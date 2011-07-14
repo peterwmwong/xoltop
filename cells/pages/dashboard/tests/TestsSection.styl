@@ -13,71 +13,75 @@
     padding 15px 0 0 0
     color bg-color-light
 
-  > .CatTable > table > tbody > tr
-    &.fail > .id > a
-      color lighten(badge-red,80%)
-
-    &.towrite > .id > a
-      color lighten(badge-yellow,80%)
-
-    &.pass > .id > a
-      color lighten(badge-green,80%)
+  > .CatTable
 
     > .category
       amt = .25
       lamt = 90%
+
       &.fail
-        background-color rgba(badge-red,amt)
-        color lighten(badge-red,lamt)
+        > .header
+          background-color rgba(badge-red,amt)
+          color lighten(badge-red,lamt)
+
+        > .members .column.id > a
+          color lighten(badge-red,80%)
 
       &.towrite
-        background-color rgba(badge-yellow,amt)
-        color lighten(badge-yellow,lamt - 10%)
+        > .header
+          background-color rgba(badge-yellow,amt)
+          color lighten(badge-yellow,lamt - 10%)
+
+        > .members .column.id > a
+          color lighten(badge-yellow,80%)
 
       &.pass
-        background-color rgba(badge-green,amt)
-        color lighten(badge-green,lamt - 10%)
+        > .header
+          background-color rgba(badge-green,amt)
+          color lighten(badge-green,lamt - 10%)
+          
+        > .members .column.id > a
+          color lighten(badge-green,80%)
 
-    > .category
-      text-align left
+      > .members .column
+        vertical-align middle
 
-    > .column
-      vertical-align middle
-      line-height 16px
-
-      &.status, &.date, &.owner
-        padding 0 5px 0 5px
-
-      &.name
-        padding 15px 0 15px 0
-        > .needsAttn
-          background-color badge-red
-          border-radius 7px
-          padding 2px 3px 2px 3px
-          font-size 11px
-          color text-color
+        &.id
+          width 50px
+          font-size 16px
           font-weight bold
-          margin-right 3px
-        > a
-          color text-color-dark
-          text-decoration none
+          text-align center
 
-          &:hover
-            text-decoration underline
+          > a
+            text-decoration none
 
-      &.id
-        width 60px
-        min-width 60px
-        font-size 16px
-        font-weight bold
-        text-align center
-        padding 0 5px 0 2px
+            &:hover
+              text-decoration underline
 
-        > a
-          text-decoration none
+        &.name
+          padding-left 3px
+          box-flex 1
+          > .needsAttn
+            background-color badge-red
+            border-radius 7px
+            font-size 11px
+            color text-color
+            font-weight bold
+            margin-right 3px
 
-          &:hover
-            text-decoration underline
+          > a
+            color text-color-dark
+            text-decoration none
+
+            &:hover
+              text-decoration underline
+
+        &.date
+          width 50px
+
+        &.owner
+          width 60px
+          text-align right
 
 
 

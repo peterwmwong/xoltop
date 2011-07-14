@@ -24,29 +24,24 @@ define [], do->
 
 
     render: (R)->
-      numVisibleGroups=0
+      numVisibleGroups = 0
       oddEven = do->
         isEven = false
         -> (isEven = !isEven) and 'even' or 'odd'
+
       """
-      <table><tbody>
-        #{R @_categoryNames, (cat,gi)=>
-            R (members = @_catToMembers[cat]).length != 0 and "
-              #{R numVisibleGroups++ != 0 and "
-                <tr class='categorySpacer'><td colspan='6'> </td></tr>
+      #{R @_categoryNames, (cat,gi)=>"
+        <div class='category #{cat}'>
+          <div class='header'>#{@options.categories[cat]}</div>
+          <div class='members'>
+          #{R @_catToMembers[cat], (member)=>"
+              <div class='member #{oddEven()}'>
+              #{R ({c,f} for c,f of @options.columnMap), ({c,f})->"
+                <div class='column #{c}'>#{f(member)}</div>
               "}
-              <tr class='#{oddEven()} #{cat}'>
-                <td rowspan='#{members.length}' class='category #{cat}'>
-                  #{@options.categories[cat]}
-                </td>
-                #{R members, (m,i)=> "
-                  #{R i!=0 and "<tr class='#{oddEven()} #{cat}'>"}
-                  <td class='categoryColumnSpacer'>&nbsp;</td>
-                  #{R ({c,f} for c,f of @options.columnMap), ({c,f})->"
-                    <td class='column #{c}'>#{f(m)}</td>
-                  "}
-              </tr>
-                "}
-        "}
-      </tbody></table>
+              </div>
+          "}
+          </div>
+        </div>
+      "}
       """

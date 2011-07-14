@@ -1,17 +1,17 @@
 .TestsSection > .notests{width:100%;text-align:center;font-weight:bold;padding:15px 0 0 0;color:#4d4d4d}
-.TestsSection > .CatTable > table > tbody > tr.fail > .id > a{color:#d97f7f}
-.TestsSection > .CatTable > table > tbody > tr.towrite > .id > a{color:#d0b065}
-.TestsSection > .CatTable > table > tbody > tr.pass > .id > a{color:#8ec63a}
-.TestsSection > .CatTable > table > tbody > tr > .category.fail{background-color:rgba(147,44,44,0.25);color:#dd8e8e}
-.TestsSection > .CatTable > table > tbody > tr > .category.towrite{background-color:rgba(132,104,40,0.25);color:#d1b067}
-.TestsSection > .CatTable > table > tbody > tr > .category.pass{background-color:rgba(79,110,32,0.25);color:#8fc63b}
-.TestsSection > .CatTable > table > tbody > tr > .category{text-align:left}
-.TestsSection > .CatTable > table > tbody > tr > .column{vertical-align:middle;line-height:16px;}
-.TestsSection > .CatTable > table > tbody > tr > .column.status,.TestsSection > .CatTable > table > tbody > tr > .column.date,.TestsSection > .CatTable > table > tbody > tr > .column.owner{padding:0 5px 0 5px}
-.TestsSection > .CatTable > table > tbody > tr > .column.name{padding:15px 0 15px 0;}
-.TestsSection > .CatTable > table > tbody > tr > .column.name > .needsAttn{background-color:#932c2c;-moz-border-radius-topleft:7px;-moz-border-radius-topright:7px;-moz-border-radius-bottomright:7px;-moz-border-radius-bottomleft:7px;border-top-left-radius:7px;border-top-right-radius:7px;border-bottom-right-radius:7px;border-bottom-left-radius:7px;padding:2px 3px 2px 3px;font-size:11px;color:#fff;font-weight:bold;margin-right:3px}
-.TestsSection > .CatTable > table > tbody > tr > .column.name > a{color:#ddd;text-decoration:none;}
-.TestsSection > .CatTable > table > tbody > tr > .column.name > a:hover{text-decoration:underline}
-.TestsSection > .CatTable > table > tbody > tr > .column.id{width:60px;min-width:60px;font-size:16px;font-weight:bold;text-align:center;padding:0 5px 0 2px;}
-.TestsSection > .CatTable > table > tbody > tr > .column.id > a{text-decoration:none;}
-.TestsSection > .CatTable > table > tbody > tr > .column.id > a:hover{text-decoration:underline}
+.TestsSection > .CatTable > .category.fail > .header{background-color:rgba(147,44,44,0.25);color:#dd8e8e}
+.TestsSection > .CatTable > .category.fail > .members .column.id > a{color:#d97f7f}
+.TestsSection > .CatTable > .category.towrite > .header{background-color:rgba(132,104,40,0.25);color:#d1b067}
+.TestsSection > .CatTable > .category.towrite > .members .column.id > a{color:#d0b065}
+.TestsSection > .CatTable > .category.pass > .header{background-color:rgba(79,110,32,0.25);color:#8fc63b}
+.TestsSection > .CatTable > .category.pass > .members .column.id > a{color:#8ec63a}
+.TestsSection > .CatTable > .category > .members .column{vertical-align:middle;}
+.TestsSection > .CatTable > .category > .members .column.id{width:50px;font-size:16px;font-weight:bold;text-align:center;}
+.TestsSection > .CatTable > .category > .members .column.id > a{text-decoration:none;}
+.TestsSection > .CatTable > .category > .members .column.id > a:hover{text-decoration:underline}
+.TestsSection > .CatTable > .category > .members .column.name{padding-left:3px;box-flex:1;-webkit-box-flex:1;-moz-box-flex:1;}
+.TestsSection > .CatTable > .category > .members .column.name > .needsAttn{background-color:#932c2c;-moz-border-radius-topleft:7px;-moz-border-radius-topright:7px;-moz-border-radius-bottomright:7px;-moz-border-radius-bottomleft:7px;border-top-left-radius:7px;border-top-right-radius:7px;border-bottom-right-radius:7px;border-bottom-left-radius:7px;font-size:11px;color:#fff;font-weight:bold;margin-right:3px}
+.TestsSection > .CatTable > .category > .members .column.name > a{color:#ddd;text-decoration:none;}
+.TestsSection > .CatTable > .category > .members .column.name > a:hover{text-decoration:underline}
+.TestsSection > .CatTable > .category > .members .column.date{width:50px}
+.TestsSection > .CatTable > .category > .members .column.owner{width:60px;text-align:right}

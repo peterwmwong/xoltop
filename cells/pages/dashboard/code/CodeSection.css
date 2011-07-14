@@ -2,13 +2,12 @@
 .CodeSection > .newCodeTaskContainer > input.newCodeTask{position:absolute;top:0;right:0;bottom:0;left:0;color:#fff;background-color:rgba(255,255,255,0.05);-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;border:none;font-size:14px;outline:none;padding:0 10px 0 10px;}
 .CodeSection > .newCodeTaskContainer > input.newCodeTask::-webkit-input-placeholder,.CodeSection > .newCodeTaskContainer > input.newCodeTask::-moz-placeholder{color:rgba(255,255,255,0.3);font-style:italic}
 .CodeSection > .nocodetasks{width:100%;text-align:center;font-weight:bold;padding:15px 0 0 0;color:#4d4d4d}
-.CodeSection > .CatTable > table{table-layout:fixed}
-.CodeSection > .CatTable > table > tbody > tr > .category{text-align:left;}
-.CodeSection > .CatTable > table > tbody > tr > .category.notStarted{background-color:rgba(147,44,44,0.25);color:#dd8e8e}
-.CodeSection > .CatTable > table > tbody > tr > .category.inProgress{background-color:rgba(132,104,40,0.25);color:#d1b067}
-.CodeSection > .CatTable > table > tbody > tr > .category.complete{background-color:rgba(79,110,32,0.25);color:#8fc63b}
-.CodeSection > .CatTable > table > tbody > tr > .column{vertical-align:middle;}
-.CodeSection > .CatTable > table > tbody > tr > .column.description{width:100%;padding:0 0 0 10px;}
-.CodeSection > .CatTable > table > tbody > tr > .column.description > a{color:#ddd;text-decoration:none;}
-.CodeSection > .CatTable > table > tbody > tr > .column.description > a:hover{text-decoration:underline}
-.CodeSection > .CatTable > table > tbody > tr > .column.owner{text-align:center;width:80px;min-width:80px}
+.CodeSection > .CatTable > .category.notStarted > .header{background-color:rgba(147,44,44,0.25);color:#dd8e8e}
+.CodeSection > .CatTable > .category.inProgress > .header{background-color:rgba(132,104,40,0.25);color:#d1b067}
+.CodeSection > .CatTable > .category.complete > .header{background-color:rgba(79,110,32,0.25);color:#8fc63b}
+.CodeSection > .CatTable > .category > .header{text-align:left}
+.CodeSection > .CatTable > .category > .members > .member > .column{vertical-align:middle;}
+.CodeSection > .CatTable > .category > .members > .member > .column.description{box-flex:1;-webkit-box-flex:1;-moz-box-flex:1;}
+.CodeSection > .CatTable > .category > .members > .member > .column.description > a{color:#ddd;text-decoration:none;}
+.CodeSection > .CatTable > .category > .members > .member > .column.description > a:hover{text-decoration:underline}
+.CodeSection > .CatTable > .category > .members > .member > .column.owner{text-align:right;width:80px}
