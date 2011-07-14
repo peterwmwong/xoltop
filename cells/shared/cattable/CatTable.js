@@ -50,7 +50,7 @@ define([], (function() {
           };
         })();
         return "" + (R(this._categoryNames, __bind(function(cat, gi) {
-          return "  <div class='category " + cat + "'>    <div class='header'>" + this.options.categories[cat] + "</div>    <div class='members'>    " + (R(this._catToMembers[cat], __bind(function(member) {
+          return this._catToMembers[cat].length > 0 && ("  <div class='category " + cat + "'>    <div class='header'>" + this.options.categories[cat] + "</div>    <div class='members'>    " + (R(this._catToMembers[cat], __bind(function(member) {
             var c, f;
             return "        <div class='member " + (oddEven()) + "'>        " + (R((function() {
               var _ref, _results;
@@ -69,7 +69,7 @@ define([], (function() {
               c = _arg.c, f = _arg.f;
               return "          <div class='column " + c + "'>" + (f(member)) + "</div>        ";
             })) + "        </div>    ";
-          }, this))) + "    </div>  </div>";
+          }, this))) + "    </div>  </div>");
         }, this)));
       }
     };

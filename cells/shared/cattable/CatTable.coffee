@@ -30,7 +30,7 @@ define [], do->
         -> (isEven = !isEven) and 'even' or 'odd'
 
       """
-      #{R @_categoryNames, (cat,gi)=>"
+      #{R @_categoryNames, (cat,gi)=> @_catToMembers[cat].length > 0 and "
         <div class='category #{cat}'>
           <div class='header'>#{@options.categories[cat]}</div>
           <div class='members'>
