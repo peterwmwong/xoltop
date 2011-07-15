@@ -15,7 +15,7 @@ define
   bind: do->
     changeIter = (addAmt)->
       ->
-        if 0 < (newIter = @options.iterationNo + addAmt) < 238
+        if 0 < (newIter = @options.iterationNo + addAmt) < 239
           @options.iterationNo = newIter
           @$('.num').html @options.iterationNo
           @$el.trigger type: 'iterationNoChanged', newIterationNo: @options.iterationNo
