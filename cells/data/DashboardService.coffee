@@ -17,48 +17,50 @@ define ['data/JSONP'],({JSONPService,getXPToolBaseUrl})->
       getStoryCodeTasksDetails: (storynum)->
         "iteration/stories/#{storynum}/codeTasks"
 
-
       getStoryTasksDetails: (storynum)->
         "iteration/stories/#{storynum}/tasks"
 
       getStorySummaries: do->
-        storyRegex = /^((\w*[ ]+- )+)?(.*?)( \(([^\)]+)\))?$/
-        getStatus = ({codeCompletePct,ats,tasks})->
-          if codeCompletePct < 100 or ats.total == 0
-            0
-          else if ats.failing + tasks.needsAttn
-            0
-          else if ats.unwritten + tasks.retest
-            1
-          else
-            2
+        chumpRegex = /^\((.*)\)$/
+        storyRegex = /^((\w|\/)+[ ]+- )*(.*)$/
         path: (iterNo)-> "iteration/#{iterNo? and "#{iterNo}/" or ""}stories/"
         process:({iterationStories:{iterationNo,stories}})->
-          stories = for s in stories.sort( ({num:a},{num:b})->a-b )
-            story =
-              codeCompletePct: s.codeCompletePct
-              codeTasksIncomplete: s.codeTasksIncomplete
-              type: 'story'
-              ats:
-                failing: s.failingATs
-                unwritten: s.unwrittenATs
-                needsAttn: s.needsAttentionATs
-                total: s.failingATs + s.passingATs + s.unwrittenATs
-              tasks:
-                retest: s.chumpTaskRetest
-                needsAttn: s.chumpTaskNA
-                total: s.chumpTaskComplete
+          stories = for s in stories
+            [devs,testers] =
+              for names in chumpRegex.exec(s.chumps)?[1]?.split(' - ') or []
+                for n in names.split '/'
+                  n.toUpperCase()
 
-            if match = storyRegex.exec s.description+' '+s.chumps
-              [devs,testers] = match[5] and match[5]?.split(' - ') or []
-              story.storynum = s.num
-              story.name = match[3]
-              story.testers = if testers then (tester.toUpperCase() for tester in testers.split '/') else []
-              story.devs = if devs then (dev.toUpperCase() for dev in devs.split '/') else []
-              story.tags = match[1]?.split(' - ')?.slice 0, -1
-            story
-          
-          stories.sort (a,b)-> getStatus(a) - getStatus(b)
+            storynum: s.num
+            name: storyRegex.exec(s.description)?[3]
+            codeCompletePct: s.codeCompletePct
+            codeTasksIncomplete: s.codeTasksIncomplete
+            codeTasks: codeTasks =
+              completePct: s.codeCompletePct
+              notStarted: s.notStartedCodeTasks or 0
+              inProgress: s.inProgressCodeTasks or 0
+              completed: s.completedCodeTasks or 0
+            ats: ats =
+              failing: s.failingATs
+              needsAttn: s.needsAttentionATs
+              unwritten: s.unwrittenATs
+              total: atTotal = s.failingATs + s.passingATs + s.unwrittenATs
+            tasks: tasks =
+              needsAttn: s.chumpTaskNA
+              retest: s.chumpTaskRetest
+              completed: s.chumpTaskComplete
+            testers: testers or []
+            devs: devs or []
+            status: do->
+              if atTotal == 0 or (codeTasks.notStarted + ats.failing + ats.needsAttn + tasks.needsAttn)
+                0
+              else if codeTasks.inProgress + ats.unwritten + tasks.retest
+                1
+              else
+                2
+
+          # Order by status then story num
+          stories.sort (a,b)-> (a.status - b.status) or (a.storynum - b.storynum)
           {stories,iterationNo}
 
 

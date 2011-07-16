@@ -1,83 +1,66 @@
 define [
   'Services'
+  'cell!./LabeledCounts'
   'cell!shared/loadingindicator/LoadingIndicator'
   'cell!./tests/TestsSection'
   'cell!./tasks/TasksSection'
   'cell!./code/CodeSection'
   'cell!shared/InitialsList'
-], (S, LoadingIndicator,TestsSection,TasksSection,CodeSection,InitialsList)->
+], (S, LabeledCounts, LoadingIndicator,TestsSection,TasksSection,CodeSection,InitialsList)->
 
-  getCodeCompleteColor = (pct,incomplete)->
-    if typeof pct != 'number' then 'gray'
-    else if pct < 50 then 'red'
-    else if 50 < pct < 100 then 'yellow'
-    else if incomplete > 0
-      'yellow'
-    else
-      'green'
+  statusToColor = ['red','yellow','green']
 
   render: (R)->
-    {ats,tasks,codeCompletePct,codeTasksIncomplete} = @model
-    
-    # Determine status color of the story, based on the state of the story's ATs and tasks
-    statusColor =
-      if codeCompletePct < 100 or ats.total == 0
-        'red'
-      else if ats.failing + tasks.needsAttn
-        'red'
-      else if ats.unwritten + tasks.retest
-        'yellow'
-      else
-        'green'
-
     """
     <div class='header'>
-      <div>
-        <div class='collapseStory'>
-          <div class='triangle'></div>
-          <div class='rect'></div>
-        </div>
-        <div class='storyID'>
-          <div class='id badge #{statusColor}'>
-            <span>#{@model.storynum}</span>
-          </div>
-        </div>
-        <div class='countCol code'>
-          <div>
-            <a href='#'>CODE</a>
-            <span class='countBadge'>
-            #{R typeof codeCompletePct == 'number' and "
-              <span class='#{getCodeCompleteColor codeCompletePct, codeTasksIncomplete}'>
-                #{Math.floor codeCompletePct}<span class='pct'>%</span>
-              </span>
-            "}
-            </span>
-          </div>
-        </div>
-        #{R [['tests',[ats.failing,ats.unwritten, ats.total,ats.needsAttn]],['tasks',[tasks.needsAttn, tasks.retest, tasks.total]]], ([label,[red,yellow,total,needsAttn]])->"
-          <div class='countCol #{label}'>
-            <div>
-              <a href='#'>#{label.toUpperCase()}</a>
-              <span class='countBadge'>
-              #{
-              if red or yellow or needsAttn
-                R [['needsAttn',needsAttn],['red',red],['yellow',yellow]], ([color,count])=>
-                  R count? and count > 0 and "<span class='#{color}'>#{count}</span>"
-              else
-                R "<span class='#{if label == 'tests' and total == 0 then 'red' else 'green'}'>#{total}</span>"
-              }
-              </span>
-            </div>
-          </div>
-        "}
-        <div class='name'>
-          <div>
-            <a target='_blank' href='http://destinyxptool/xptool/projecttool/projecttool.storyedit.do?storyID=#{@model.storynum}'>#{@model.name}</a>
-          </div>
-        </div>
-        <div class='chumps'>
-          #{R.cell InitialsList, initials:[@model.devs..., @model.testers...]}
-        </div>
+      <div class='collapseStory'>
+        <div class='triangle'></div>
+        <div class='rect'></div>
+      </div>
+      <div class='storyID #{statusToColor[@model.status]}'>
+        #{@model.storynum}
+      </div>
+      #{R.cell LabeledCounts,
+          class: 'code'
+          label: "CODE"
+          showIfZero: ['green']
+          counts: do=>
+            {completePct, notStarted, inProgress, completed} = @model.codeTasks
+            if notStarted
+              red: completePct
+            else if inProgress
+              yellow: completePct
+            else
+              green: completePct
+      }
+      #{R.cell LabeledCounts,
+          class: 'tests'
+          label: "TESTS"
+          showIfZero: ['green']
+          counts: do=>
+            {failing,needsAttn,unwritten,total} = @model.ats
+            if failing + needsAttn + unwritten
+              red: failing
+              needsAttn: needsAttn
+              yellow: unwritten
+            else
+              green: total
+      }
+      #{R.cell LabeledCounts,
+          class: 'tasks'
+          label: "TASKS"
+          showIfZero: ['green']
+          counts: do=>
+            {needsAttn,retest,completed} = @model.tasks
+            if needsAttn + retest
+              red: needsAttn
+              yellow: retest
+            else
+              green: completed
+      }
+      <a class='name' target='_blank' href='http://destinyxptool/xptool/projecttool/projecttool.storyedit.do?storyID=#{@model.storynum}'>#{@model.name}</a>
+      <div class='chumps'>
+        #{R.cell InitialsList, initials:[@model.devs..., @model.testers...]}
       </div>
     </div>
     <div class='details'>
@@ -126,9 +109,9 @@ define [
               .toggleClass('selected', true)
               .fadeIn()
 
-    'click .tests.countCol': selectSection TestsSection
-    'click .tasks.countCol': selectSection TasksSection
-    'click .code.countCol': selectSection CodeSection
+    'click .header > .tests': selectSection TestsSection
+    'click .header > .tasks': selectSection TasksSection
+    'click .header > .code': selectSection CodeSection
     'click .collapseStory': collapseStory = ->
       @$('.detail.selected').animate height:'hide', 'slow', =>
         @$el.toggleClass 'selected', false

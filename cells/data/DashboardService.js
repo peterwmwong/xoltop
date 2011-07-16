@@ -30,87 +30,79 @@ define(['data/JSONP'], function(_arg) {
         return "iteration/stories/" + storynum + "/tasks";
       },
       getStorySummaries: (function() {
-        var getStatus, storyRegex;
-        storyRegex = /^((\w*[ ]+- )+)?(.*?)( \(([^\)]+)\))?$/;
-        getStatus = function(_arg2) {
-          var ats, codeCompletePct, tasks;
-          codeCompletePct = _arg2.codeCompletePct, ats = _arg2.ats, tasks = _arg2.tasks;
-          if (codeCompletePct < 100 || ats.total === 0) {
-            return 0;
-          } else if (ats.failing + tasks.needsAttn) {
-            return 0;
-          } else if (ats.unwritten + tasks.retest) {
-            return 1;
-          } else {
-            return 2;
-          }
-        };
+        var chumpRegex, storyRegex;
+        chumpRegex = /^\((.*)\)$/;
+        storyRegex = /^((\w|\/)+[ ]+- )*(.*)$/;
         return {
           path: function(iterNo) {
             return "iteration/" + ((iterNo != null) && ("" + iterNo + "/") || "") + "stories/";
           },
           process: function(_arg2) {
-            var dev, devs, iterationNo, match, s, stories, story, tester, testers, _ref;
+            var atTotal, ats, codeTasks, devs, iterationNo, n, names, s, stories, tasks, testers, _ref;
             _ref = _arg2.iterationStories, iterationNo = _ref.iterationNo, stories = _ref.stories;
             stories = (function() {
-              var _i, _len, _ref2, _ref3, _ref4, _ref5, _ref6, _results;
-              _ref2 = stories.sort(function(_arg3, _arg4) {
-                var a, b;
-                a = _arg3.num;
-                b = _arg4.num;
-                return a - b;
-              });
+              var _i, _len, _ref2, _ref3, _results;
               _results = [];
-              for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
-                s = _ref2[_i];
-                story = {
+              for (_i = 0, _len = stories.length; _i < _len; _i++) {
+                s = stories[_i];
+                _ref2 = (function() {
+                  var _j, _len2, _ref2, _ref3, _ref4, _results2;
+                  _ref4 = ((_ref2 = chumpRegex.exec(s.chumps)) != null ? (_ref3 = _ref2[1]) != null ? _ref3.split(' - ') : void 0 : void 0) || [];
+                  _results2 = [];
+                  for (_j = 0, _len2 = _ref4.length; _j < _len2; _j++) {
+                    names = _ref4[_j];
+                    _results2.push((function() {
+                      var _k, _len3, _ref5, _results3;
+                      _ref5 = names.split('/');
+                      _results3 = [];
+                      for (_k = 0, _len3 = _ref5.length; _k < _len3; _k++) {
+                        n = _ref5[_k];
+                        _results3.push(n.toUpperCase());
+                      }
+                      return _results3;
+                    })());
+                  }
+                  return _results2;
+                })(), devs = _ref2[0], testers = _ref2[1];
+                _results.push({
+                  storynum: s.num,
+                  name: (_ref3 = storyRegex.exec(s.description)) != null ? _ref3[3] : void 0,
                   codeCompletePct: s.codeCompletePct,
                   codeTasksIncomplete: s.codeTasksIncomplete,
-                  type: 'story',
-                  ats: {
-                    failing: s.failingATs,
-                    unwritten: s.unwrittenATs,
-                    needsAttn: s.needsAttentionATs,
-                    total: s.failingATs + s.passingATs + s.unwrittenATs
+                  codeTasks: codeTasks = {
+                    completePct: s.codeCompletePct,
+                    notStarted: s.notStartedCodeTasks || 0,
+                    inProgress: s.inProgressCodeTasks || 0,
+                    completed: s.completedCodeTasks || 0
                   },
-                  tasks: {
-                    retest: s.chumpTaskRetest,
+                  ats: ats = {
+                    failing: s.failingATs,
+                    needsAttn: s.needsAttentionATs,
+                    unwritten: s.unwrittenATs,
+                    total: atTotal = s.failingATs + s.passingATs + s.unwrittenATs
+                  },
+                  tasks: tasks = {
                     needsAttn: s.chumpTaskNA,
-                    total: s.chumpTaskComplete
-                  }
-                };
-                if (match = storyRegex.exec(s.description + ' ' + s.chumps)) {
-                  _ref4 = match[5] && ((_ref3 = match[5]) != null ? _ref3.split(' - ') : void 0) || [], devs = _ref4[0], testers = _ref4[1];
-                  story.storynum = s.num;
-                  story.name = match[3];
-                  story.testers = testers ? (function() {
-                    var _j, _len2, _ref5, _results2;
-                    _ref5 = testers.split('/');
-                    _results2 = [];
-                    for (_j = 0, _len2 = _ref5.length; _j < _len2; _j++) {
-                      tester = _ref5[_j];
-                      _results2.push(tester.toUpperCase());
+                    retest: s.chumpTaskRetest,
+                    completed: s.chumpTaskComplete
+                  },
+                  testers: testers || [],
+                  devs: devs || [],
+                  status: (function() {
+                    if (atTotal === 0 || (codeTasks.notStarted + ats.failing + ats.needsAttn + tasks.needsAttn)) {
+                      return 0;
+                    } else if (codeTasks.inProgress + ats.unwritten + tasks.retest) {
+                      return 1;
+                    } else {
+                      return 2;
                     }
-                    return _results2;
-                  })() : [];
-                  story.devs = devs ? (function() {
-                    var _j, _len2, _ref5, _results2;
-                    _ref5 = devs.split('/');
-                    _results2 = [];
-                    for (_j = 0, _len2 = _ref5.length; _j < _len2; _j++) {
-                      dev = _ref5[_j];
-                      _results2.push(dev.toUpperCase());
-                    }
-                    return _results2;
-                  })() : [];
-                  story.tags = (_ref5 = match[1]) != null ? (_ref6 = _ref5.split(' - ')) != null ? _ref6.slice(0, -1) : void 0 : void 0;
-                }
-                _results.push(story);
+                  })()
+                });
               }
               return _results;
             })();
             stories.sort(function(a, b) {
-              return getStatus(a) - getStatus(b);
+              return (a.status - b.status) || (a.storynum - b.storynum);
             });
             return {
               stories: stories,

@@ -61,22 +61,6 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
       display block
       min-height 50px
 
-  .badge
-    bgout(color)
-      background-color desaturate(darken(color,10%),10%)
-      text-shadow 0px -1px 0px rgba(0,0,0,.3)
-
-    &.gray
-      bgout badge-gray
-
-    &.red
-      bgout lighten(saturate(badge-red,10%),10%)
-
-    &.green
-      bgout desaturate(badge-green,30%)
-
-    &.yellow
-      bgout lighten(badge-yellow,0%)
 
   > .details
     background-color shadow-color
@@ -100,201 +84,96 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
       display none
       z-index -1
 
-  > .header
-    border-radius 3px
-    width 100%
-    position relative
-    display table
-    table-layout fixed
 
-    a
-      color #FFF
+  > .header
+    box horizontal
+    box-align center
+    height 45px
+    position relative
+    width 100%
+
+    > .storyID
+      border-radius 3px
+      box-shadow 0px 1px 1px rgba(0,0,0,.3)
+      font-size 20px
+      font-weight bold
+      margin 0 8px 0 8px
+      padding 3px 5px 2px 5px
+      text-align center
+
+      bgout(color)
+        background-color desaturate(darken(color,10%),10%)
+        text-shadow 0px -1px 0px rgba(0,0,0,.3)
+
+      &.gray
+        bgout badge-gray
+
+      &.red
+        bgout lighten(saturate(badge-red,10%),10%)
+
+      &.green
+        bgout desaturate(badge-green,30%)
+
+      &.yellow
+        bgout lighten(badge-yellow,0%)
+
+    > .LabeledCounts
+      margin 0 5px 0 0
+      min-width 100px
+
+    > a.name
+      box-flex 1
+      color text-disabled-color
+      display block
+      font-size 15px
+      font-weight bold
+      padding 0 5px 0 3px
+      text-shadow 0px -1px 0px rgba(0,0,0,.5)
       text-decoration none
-      position relative
+      overflow hidden
+      white-space nowrap
+      text-overflow ellipsis
 
       &:hover
         text-decoration underline
-        position relative
 
-    > div
-      display table-row
-      position relative
+    > .chumps
+      text-shadow 0px -1px 0px rgba(0,0,0,.5)
+      color text-disabled-color
+      font-size 10px
+      padding-right 10px
+      text-align right
 
-      > *
-        display table-cell
-        vertical-align middle
+      .currentUser
+        text-shadow none
+        color text-color
+        padding 2px 5px 1px 5px
 
-      > .storyID
-        width 75px
-        position relative
-        text-align right
+    > .collapseStory
+      transition width 150ms ease-in
+      width 2px
 
-        > .id
-          box-shadow 0px 1px 1px rgba(0,0,0,.3)
-          display inline-block
-          font-weight bold
-          border-radius 3px
-          border none
-          padding 2px 5px 0px 5px
-          margin-right 5px
-          color darken(text-color,5%)
-
-          span
-            font-size 20px
-            line-height 23px
-
-      > .countCol
-        width 115px
-
-        &.code
-          width 93px
-
-          .countBadge
-            width 37px
-            padding 0 7px 0 0
-
-            .pct
-              font-size 8px
-              padding-left 1px
-              line-height 10px
-              opacity .75
-              vertical-align middle
-
-        > div
-          margin-left 5px
-          position relative
-          background-color lighten(#222,30%)
-          border-radius 2px
-          box-shadow inset 0px 1px 1px rgba(0,0,0,.3)
-          padding 4px 0 3px 0
-
-          &:hover
-            background-color lighten(#222,10%)
-            > a
-              color text-color
-              text-decoration underline
-              font-weight bold
-
-          &.selected
-            background-color #222
-
-            > a
-              color text-color
-              font-weight bold
-              border-radius 4px
-              position relative
-              triColor = shadow-color - rgb(5,5,5)
-              triUp 8px (triColor + rgb(2,2,2)) triColor 3px 18px 0px 0px 16px
-
-          > a 
-            display inline-block
-            text-shadow 0px -1px 0px rgba(0,0,0,.5)
-            font-size 10px
-            line-height 19px
-            color rgba(text-disabled-color,.75)
-            padding 0px 0 0 8px
-
-          > .countBadge
-            float right
-            border-radius 2px
-            color color
-            display inline-block
-            font-size 14px
-            line-height 19px
-            padding 0px 4px 0px 4px
-            text-align center
-            text-shadow 0px -1px 0px rgba(0,0,0,.3)
-            width 55px
-
-            > span
-              &:first-child
-                padding 0 0 0 0
-
-              padding 0 0 0 6px
-
-            .gray
-              color badge-gray
-
-            .red
-              font-weight bold
-              color lighten(saturate(badge-red,40%),50%)
-
-            .green
-              color lighten(desaturate(badge-green,70%),10%)
-
-            .yellow
-              font-weight bold
-              color lighten(badge-yellow,30%)
-
-            .needsAttn:first-child
-              text-shadow 0px -1px 0px rgba(0,0,0,.2)
-              background-color badge-red
-              border-radius 7px
-              padding 1px 3px 1px 3px
-              font-size 12px
-              color text-color
-              font-weight bold
-              vertical-align baseline
-
-      > .name
-        position relative
-        > div
-          width 100%
-          display inline-block
-          padding 0px 10px 0px 10px 
-          overflow hidden
-          white-space nowrap
-          text-overflow ellipsis
-          vertical-align middle
-
-          > a
-            color text-disabled-color
-            font-size 15px
-            font-weight bold
-            line-height 45px
-            text-shadow 0px -1px 0px rgba(0,0,0,.5)
-
-            &:hover
-              text-decoration none
-
-      > .chumps
-        width 70px
-        text-shadow 0px -1px 0px rgba(0,0,0,.5)
-        color text-disabled-color
-        font-size 10px
-        padding-right 10px
-        text-align right
-
-        .currentUser
-          text-shadow none
-          color text-color
-          padding 2px 5px 1px 5px
-
-      > .collapseStory
-        transition width 150ms ease-in
-        width 2px
-
-        iconColor = darken(text-disabled-color,30%)
-        iconColor-light = text-color-dark
-        myleft = 10px
-        mytop = 12px
-        &:hover
-          > .rect
-            background-color iconColor-light
-          > .triangle
-            triUpShape 7px iconColor-light #333
-        
-        > .rect, > .triangle
-          opacity 0.0
-          transition opacity 150ms ease-in
-
+      iconColor = darken(text-disabled-color,30%)
+      iconColor-light = text-color-dark
+      myleft = 10px
+      mytop = 12px
+      &:hover
         > .rect
-          abspos (mytop + 14px) false false myleft
-          background-color iconColor
-          width 14px
-          height 3px
-
+          background-color iconColor-light
         > .triangle
-          abspos (mytop - 3px) 0px 0px myleft
-          triUpShape 7px iconColor #333
+          triUpShape 7px iconColor-light #333
+      
+      > .rect, > .triangle
+        opacity 0.0
+        transition opacity 150ms ease-in
+
+      > .rect
+        abspos (mytop + 14px) false false myleft
+        background-color iconColor
+        width 14px
+        height 3px
+
+      > .triangle
+        abspos (mytop - 3px) 0px 0px myleft
+        triUpShape 7px iconColor #333
 
