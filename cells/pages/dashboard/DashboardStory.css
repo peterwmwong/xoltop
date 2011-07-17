@@ -16,9 +16,11 @@
 .DashboardStory > .header > .storyID.red{background-color:#902d2d;text-shadow:0 -1px 0 rgba(0,0,0,0.3)}
 .DashboardStory > .header > .storyID.green{background-color:#44562a;text-shadow:0 -1px 0 rgba(0,0,0,0.3)}
 .DashboardStory > .header > .storyID.yellow{background-color:#735c28;text-shadow:0 -1px 0 rgba(0,0,0,0.3)}
-.DashboardStory > .header > .LabeledCounts{margin:0 5px 0 0;min-width:100px}
-.DashboardStory > .header > a.name{box-flex:1;-webkit-box-flex:1;-moz-box-flex:1;color:#999;display:block;font-size:15px;font-weight:bold;padding:0 5px 0 3px;text-shadow:0 -1px 0 rgba(0,0,0,0.5);text-decoration:none;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
-.DashboardStory > .header > a.name:hover{text-decoration:underline}
+.DashboardStory > .header > .LabeledCounts{margin:0 5px 0 0;min-width:100px;}
+.DashboardStory > .header > .LabeledCounts .codeCompletePct{font-size:9px;margin-left:2px}
+.DashboardStory > .header > .nameContainer{box-flex:1;-webkit-box-flex:1;-moz-box-flex:1;position:relative;overflow:hidden;height:25px;margin-right:10px;}
+.DashboardStory > .header > .nameContainer > a.name{position:absolute;top:6px;right:0;bottom:0;left:0;color:#999;display:block;font-size:15px;font-weight:bold;padding:0 5px 0 3px;text-shadow:0 -1px 0 rgba(0,0,0,0.5);text-decoration:none;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.DashboardStory > .header > .nameContainer > a.name:hover{text-decoration:underline}
 .DashboardStory > .header > .chumps{text-shadow:0 -1px 0 rgba(0,0,0,0.5);color:#999;font-size:10px;padding-right:10px;text-align:right;}
 .DashboardStory > .header > .chumps .currentUser{text-shadow:none;color:#fff;padding:2px 5px 1px 5px}
 .DashboardStory > .header > .collapseStory{-webkit-transition:width 150ms ease-in;-moz-transition:width 150ms ease-in;-o-transition:width 150ms ease-in;transition:width 150ms ease-in;width:2px;}

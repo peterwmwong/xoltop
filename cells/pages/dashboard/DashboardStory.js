@@ -11,6 +11,7 @@ define(['Services', 'cell!./LabeledCounts', 'cell!shared/loadingindicator/Loadin
         counts: __bind(function() {
           var completePct, completed, inProgress, notStarted, _ref;
           _ref = this.model.codeTasks, completePct = _ref.completePct, notStarted = _ref.notStarted, inProgress = _ref.inProgress, completed = _ref.completed;
+          completePct = completePct + "<span class='codeCompletePct'>%</span>";
           if (notStarted) {
             return {
               red: completePct
@@ -62,7 +63,7 @@ define(['Services', 'cell!./LabeledCounts', 'cell!shared/loadingindicator/Loadin
             };
           }
         }, this)()
-      })) + "\n  <a class='name' target='_blank' href='http://destinyxptool/xptool/projecttool/projecttool.storyedit.do?storyID=" + this.model.storynum + "'>" + this.model.name + "</a>\n  <div class='chumps'>\n    " + (R.cell(InitialsList, {
+      })) + "\n  <div class='nameContainer'>\n    <a class='name' target='_blank' href='http://destinyxptool/xptool/projecttool/projecttool.storyedit.do?storyID=" + this.model.storynum + "'>" + this.model.name + "</a>\n  </div>\n  <div class='chumps'>\n    " + (R.cell(InitialsList, {
         initials: __slice.call(this.model.devs).concat(__slice.call(this.model.testers))
       })) + "\n  </div>\n</div>\n<div class='details'>\n  " + (R.cell(LoadingIndicator)) + "\n  <div class='contents'></div>\n</div>";
     },

@@ -121,21 +121,34 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
       margin 0 5px 0 0
       min-width 100px
 
-    > a.name
-      box-flex 1
-      color text-disabled-color
-      display block
-      font-size 15px
-      font-weight bold
-      padding 0 5px 0 3px
-      text-shadow 0px -1px 0px rgba(0,0,0,.5)
-      text-decoration none
-      overflow hidden
-      white-space nowrap
-      text-overflow ellipsis
+      .codeCompletePct
+        font-size 9px
+        margin-left 2px
 
-      &:hover
-        text-decoration underline
+    // Remove this container when Firefox gets fixes...
+    // http://oli.jp/bugs/mozilla/flexbox-overflow.html
+    > .nameContainer
+      box-flex 1
+      position relative
+      overflow hidden
+      height 25px
+      margin-right 10px
+
+      > a.name
+        abspos 6px 0px 0px 0px
+        color text-disabled-color
+        display block
+        font-size 15px
+        font-weight bold
+        padding 0 5px 0 3px
+        text-shadow 0px -1px 0px rgba(0,0,0,.5)
+        text-decoration none
+        overflow hidden
+        white-space nowrap
+        text-overflow ellipsis
+
+        &:hover
+          text-decoration underline
 
     > .chumps
       text-shadow 0px -1px 0px rgba(0,0,0,.5)

@@ -26,6 +26,7 @@ define [
           showIfZero: ['green']
           counts: do=>
             {completePct, notStarted, inProgress, completed} = @model.codeTasks
+            completePct = completePct+"<span class='codeCompletePct'>%</span>"
             if notStarted
               red: completePct
             else if inProgress
@@ -58,7 +59,9 @@ define [
             else
               green: completed
       }
-      <a class='name' target='_blank' href='http://destinyxptool/xptool/projecttool/projecttool.storyedit.do?storyID=#{@model.storynum}'>#{@model.name}</a>
+      <div class='nameContainer'>
+        <a class='name' target='_blank' href='http://destinyxptool/xptool/projecttool/projecttool.storyedit.do?storyID=#{@model.storynum}'>#{@model.name}</a>
+      </div>
       <div class='chumps'>
         #{R.cell InitialsList, initials:[@model.devs..., @model.testers...]}
       </div>
