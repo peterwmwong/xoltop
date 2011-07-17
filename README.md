@@ -1,7 +1,7 @@
 XOLTOP
 ======
 
-<img width="900" src="https://github.com/peterwmwong/xoltop/raw/gh-pages/dashboard-screenshot.png" border = "0"/>
+<img width="879" src="https://github.com/peterwmwong/xoltop/raw/gh-pages/dashboard-screenshot.png" border = "0"/>
 
 A project tool to answer questions like:
 
