@@ -1,6 +1,8 @@
 XOLTOP
 ======
 
+<img width="900" src="https://github.com/peterwmwong/xoltop/raw/gh-pages/dashboard-screenshot.png" border = "0"/>
+
 A project tool to answer questions like:
 
 * What's the status of each story?
