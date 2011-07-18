@@ -71,8 +71,9 @@ define(['Services', 'cell!./LabeledCounts', 'cell!shared/loadingindicator/Loadin
       var collapseStory, selectSection;
       selectSection = function(detail) {
         return function(ev) {
-          var $detail, alreadySelected, detailCell;
-          if (!(alreadySelected = this.$el.hasClass('selected'))) {
+          var $detail, detailCell;
+          this.$('.LabeledCounts.selected').toggleClass('selected', false);
+          if (!(this.$el.hasClass('selected'))) {
             this.$el.trigger('selected');
             this.$el.toggleClass('selected', true);
           }
@@ -81,8 +82,8 @@ define(['Services', 'cell!./LabeledCounts', 'cell!shared/loadingindicator/Loadin
           } else {
             this.options.expandedSection = detail.prototype.name;
             this.$('.countCol > .selected').toggleClass('selected', false);
-            $(ev.target).closest('div').toggleClass('selected', true);
-            this.$('.detail.selected').toggleClass('selected', false).fadeOut();
+            $(ev.target).closest('.LabeledCounts').toggleClass('selected', true);
+            this.$('.detail.selected').fadeOut().toggleClass('selected', false);
             if (!($detail = this.$("." + detail.prototype.name))[0]) {
               detailCell = new detail({
                 "class": 'detail selected',
@@ -90,12 +91,14 @@ define(['Services', 'cell!./LabeledCounts', 'cell!shared/loadingindicator/Loadin
               });
               this.$('.details > .contents').prepend(detailCell.el);
               this.$('.LoadingIndicator').trigger('enable');
-              return detailCell.ready(function() {
+              return detailCell.ready(__bind(function() {
                 this.$('.LoadingIndicator').trigger('disable');
-                return detailCell.$el.fadeIn();
-              });
+                detailCell.$el.fadeIn();
+                return this.$('.details').height("" + (detailCell.$el.outerHeight()) + "px");
+              }, this));
             } else {
-              return $detail.prependTo($detail.parent()).toggleClass('selected', true).fadeIn();
+              $detail.prependTo($detail.parent()).fadeIn().toggleClass('selected', true);
+              return this.$('.details').height("" + ($detail.outerHeight()) + "px");
             }
           }
         };
@@ -105,16 +108,79 @@ define(['Services', 'cell!./LabeledCounts', 'cell!shared/loadingindicator/Loadin
         'click .header > .tasks': selectSection(TasksSection),
         'click .header > .code': selectSection(CodeSection),
         'click .collapseStory': collapseStory = function() {
-          this.$('.detail.selected').animate({
-            height: 'hide'
-          }, 'slow', __bind(function() {
-            this.$el.toggleClass('selected', false);
-            return this.$('.countCol > .selected').toggleClass('selected', false);
-          }, this));
+          this.$('.LabeledCounts.selected, .detail.selected').toggleClass('selected', false);
+          this.$el.toggleClass('selected', false);
+          this.$('.details').height('0px');
           return this.options.expandedSection = void 0;
         },
         'deselected': collapseStory
       };
     })()
+    /*
+      # --------------------------------
+      # USING next gen cell-R templating
+      # --------------------------------
+      render: (R)->
+        R '.header',
+    
+          R '.collapseStory',
+            R '.triangle'
+            R '.rect'
+    
+          do->
+            debugger
+            R '.storyID', class: statusToColor[@model.status],
+              @model.storynum
+    
+          R.cell LabeledCounts,
+            class: 'code'
+            label: "CODE"
+            showIfZero: ['green']
+            counts: do=>
+              {completePct, notStarted, inProgress, completed} = @model.codeTasks
+              completePct = completePct+"<span class='codeCompletePct'>%</span>"
+              if notStarted
+                red: completePct
+              else if inProgress
+                yellow: completePct
+              else
+                green: completePct
+            
+          R LabeledCounts,
+            class: 'tests'
+            label: "TESTS"
+            showIfZero: ['green']
+            counts: do=>
+              {failing,needsAttn,unwritten,total} = @model.ats
+              if failing + needsAttn + unwritten
+                red: failing
+                needsAttn: needsAttn
+                yellow: unwritten
+              else
+                green: total
+    
+          R LabeledCounts,
+            class: 'tasks'
+            label: "TASKS"
+            showIfZero: ['green']
+            counts: do=>
+              {needsAttn,retest,completed} = @model.tasks
+              if needsAttn + retest
+                red: needsAttn
+                yellow: retest
+              else
+                green: completed
+          
+          R '.nameContainer',
+            R 'a.name', target:'_blank', href:"http://destinyxptool/xptool/projecttool/projecttool.storyedit.do?storyID=#{@model.storynum}",
+              @model.name
+    
+          R '.chumps',
+            R InitialsList, initials: [@model.devs..., @model.testers...]
+          
+        R '.details'
+          R LoadingIndicator
+          R '.contents'
+      */
   };
 });

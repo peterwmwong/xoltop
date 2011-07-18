@@ -7,26 +7,6 @@
 @import 'mixins/text';
 @import 'mixins/triangle';
 
-triUpShape(borderSize = 10px, borderColor, tranColor)
-  tranColor2 = rgba(tranColor,0)
-  content ""
-  display block
-  border-color tranColor2 tranColor2 borderColor tranColor2
-  border-style solid
-  border-width borderSize
-  height 0
-  width 0
-  z-index 2 
-
-triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
-  &:before
-    abspos t r b l
-    triUpShape size bordercolor bordercolor
-
-  &:after
-    abspos (t + offset) r b l
-    triUpShape size fgcolor bordercolor
-
 .DashboardStory
   color text-color
   font-family Helvetica, Arial, sans-serif
@@ -41,48 +21,30 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
     border-bottom 1px solid rgba(#000,.7)
 
     > .header
-      .chumps, .name a 
-        color lighten(text-disabled-color,50%)
+      .chumps, > .nameContainer > .name
+        font-weight bold
+        color lighten(text-disabled-color,40%)
 
   &.selected
     gradient lighten(#333,40%), lighten(#333,40%)
     border-top 2px solid #579
-    > .header .name a
-      color text-color
-      font-weight bold
-      text-shadow 0px -1px 0px #222
+    > .header
+      > .collapseStory
+        width 35px
 
-    > .header .collapseStory
-      width 30px
-      .triangle, .rect
-        opacity 1.0
+      > .chumps
+        font-weight bold
+        color lighten(text-disabled-color,60%)
+
+      > .nameContainer > .name
+        color lighten(text-disabled-color,60%)
+        font-weight bold
+        text-shadow 0px -1px 0px #222
+
 
     > .details
       display block
       min-height 50px
-
-
-  > .details
-    background-color shadow-color
-    display none
-    padding 10px
-    position relative
-    overflow hidden
-    z-index 1
-
-    &:before
-      content ""
-      abspos 0px -5px -2px -5px
-      box-shadow inset 0px 0px 7px #111
-      background-color shadow-color
-      z-index -1
-
-    > .LoadingIndicator
-      abspos 15px 0px 0px 0px
-      
-    > .contents > .detail
-      display none
-      z-index -1
 
 
   > .header
@@ -97,7 +59,7 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
       box-shadow 0px 1px 1px rgba(0,0,0,.3)
       font-size 20px
       font-weight bold
-      margin 0 8px 0 8px
+      margin 0 8px 0 0px
       padding 3px 5px 2px 5px
       text-align center
 
@@ -148,6 +110,7 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
         text-overflow ellipsis
 
         &:hover
+          color text-color
           text-decoration underline
 
     > .chumps
@@ -163,30 +126,53 @@ triUp(size=8px,fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
         padding 2px 5px 1px 5px
 
     > .collapseStory
-      transition width 150ms ease-in
-      width 2px
+      position relative
+      transition width 250ms ease-in-out
+      overflow hidden
 
       iconColor = darken(text-disabled-color,30%)
       iconColor-light = text-color-dark
-      myleft = 10px
-      mytop = 12px
+      iconLeft = 12px
+      width 8px
+      height 35px
+    
       &:hover
         > .rect
           background-color iconColor-light
         > .triangle
-          triUpShape 7px iconColor-light #333
+          triangle up 7px iconColor-light #333
       
-      > .rect, > .triangle
-        opacity 0.0
-        transition opacity 150ms ease-in
-
       > .rect
-        abspos (mytop + 14px) false false myleft
+        abspos 21px false false iconLeft
+
         background-color iconColor
         width 14px
         height 3px
 
       > .triangle
-        abspos (mytop - 3px) 0px 0px myleft
-        triUpShape 7px iconColor #333
+        abspos 4px 0px false iconLeft
 
+        height 20px
+        triangle up 7px iconColor #444
+
+
+  > .details
+    background-color shadow-color
+    height 0px
+    position relative
+    overflow hidden
+    transition height 500ms ease-in-out
+    z-index 1
+
+    &:before
+      content ""
+      abspos 0px -5px -2px -5px
+      box-shadow inset 0px 0px 7px #111
+      background-color shadow-color
+      z-index -1
+
+    > .LoadingIndicator
+      abspos 15px 0px 0px 0px
+      
+    > .contents > .detail
+      z-index -1

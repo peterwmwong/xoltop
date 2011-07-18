@@ -11,7 +11,7 @@ define({
   },
   render: function(R) {
     var count, type;
-    return "<a href='#' class='label'>" + this.options.label + "</a>\n<div class='counts'>\n" + (R((function() {
+    return "<div class='triangle'></div>\n<a href='#' class='label'>" + this.options.label + "</a>\n<div class='counts'>\n" + (R((function() {
       var _ref, _results;
       _ref = this.options.counts;
       _results = [];

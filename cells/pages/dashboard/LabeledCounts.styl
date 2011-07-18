@@ -3,7 +3,6 @@
 @import 'mixins/colors';
 @import 'mixins/gradient';
 @import 'mixins/pos';
-@import 'mixins/transition';
 @import 'mixins/text';
 @import 'mixins/triangle';
 
@@ -16,6 +15,28 @@
   box-shadow inset 0px 1px 1px rgba(0,0,0,.3)
   padding 0 2px 0 2px
   height 25px
+
+  &.selected
+    background-color #222
+
+    > .triangle
+      display block
+      triangle up 6px lighten(#111,50%) #333 1px 10px 0px 0px 13px
+
+    > .label
+      color text-color
+      font-weight bold
+
+  &:hover
+    background-color #222
+    > .label
+      color text-color
+      font-weight bold
+      text-decoration underline
+
+  > .triangle
+    display none
+    position relative
 
   > .label
     display block

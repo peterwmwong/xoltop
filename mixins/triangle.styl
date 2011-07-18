@@ -1,21 +1,36 @@
 @import './pos';
 @import './colors';
 
-border-tri(borderSize = 10px, borderColor = #555)
+triangleShape(dir, borderSize, borderColor, tranColor)
+  tranColor2 = rgba(tranColor,0)
   content ""
   display block
-  border-color borderColor transparent transparent transparent
+  if dir == up
+    border-color tranColor2 tranColor2 borderColor tranColor2
+  else if dir == down
+    border-color borderColor tranColor2 tranColor2 tranColor2
+  else if dir == left
+    border-color tranColor2 borderColor tranColor2 tranColor2
+  else if dir == right
+    border-color tranColor2 tranColor2 tranColor2 borderColor
   border-style solid
   border-width borderSize
   height 0
   width 0
   z-index 2 
 
-triangle(size=8px,fgcolor,bordercolor,t=0px,r=0px,b=0px,l=0px)
+triangle(dir, size, fgcolor,bordercolor,offset=1px,t=0px,r=0px,b=0px,l=0px)
   &:before
     abspos t r b l
-    border-tri size bordercolor
+    triangleShape dir size bordercolor bordercolor
 
   &:after
-    abspos (t - 1px) r b (l + 1px)
-    border-tri (size - 1px) fgcolor
+    if dir == up
+      abspos (t + offset) r b l
+    else if dir == down
+      abspos (t - offset) r b l
+    else if dir == left
+      abspos t r b (l - offset)
+    else if dir == right
+      abspos t r b (l + offset)
+    triangleShape dir size fgcolor bordercolor
