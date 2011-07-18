@@ -94,28 +94,27 @@ define [
 
           # hide current details
           @$('.detail.selected')
-            .fadeOut()
             .toggleClass('selected', false)
          
           # Load new details for the first time
           if not ($detail = @$(".#{detail::name)}")[0]
             detailCell = new detail
-              class:'detail selected'
+              class:'detail'
               storynum: @model.storynum
             @$('.details > .contents').prepend detailCell.el
             @$('.LoadingIndicator').trigger 'enable'
             detailCell.ready =>
               @$('.LoadingIndicator').trigger 'disable'
-              detailCell.$el.fadeIn()
+              detailCell.$el.toggleClass 'selected', true
               @$('.details').height("#{detailCell.$el.outerHeight()}px")
 
           # Show already loaded details
           else
-            $detail
-              .prependTo($detail.parent())
-              .fadeIn()
-              .toggleClass('selected', true)
-            @$('.details').height("#{$detail.outerHeight()}px")
+            $detail.prependTo($detail.parent())
+            setTimeout (=> 
+              $detail.toggleClass('selected', true)
+              @$('.details').height("#{$detail.outerHeight()}px")
+            ), 0
 
     'click .header > .tests': selectSection TestsSection
     'click .header > .tasks': selectSection TasksSection

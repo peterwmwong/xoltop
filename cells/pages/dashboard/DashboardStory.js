@@ -83,22 +83,25 @@ define(['Services', 'cell!./LabeledCounts', 'cell!shared/loadingindicator/Loadin
             this.options.expandedSection = detail.prototype.name;
             this.$('.countCol > .selected').toggleClass('selected', false);
             $(ev.target).closest('.LabeledCounts').toggleClass('selected', true);
-            this.$('.detail.selected').fadeOut().toggleClass('selected', false);
+            this.$('.detail.selected').toggleClass('selected', false);
             if (!($detail = this.$("." + detail.prototype.name))[0]) {
               detailCell = new detail({
-                "class": 'detail selected',
+                "class": 'detail',
                 storynum: this.model.storynum
               });
               this.$('.details > .contents').prepend(detailCell.el);
               this.$('.LoadingIndicator').trigger('enable');
               return detailCell.ready(__bind(function() {
                 this.$('.LoadingIndicator').trigger('disable');
-                detailCell.$el.fadeIn();
+                detailCell.$el.toggleClass('selected', true);
                 return this.$('.details').height("" + (detailCell.$el.outerHeight()) + "px");
               }, this));
             } else {
-              $detail.prependTo($detail.parent()).fadeIn().toggleClass('selected', true);
-              return this.$('.details').height("" + ($detail.outerHeight()) + "px");
+              $detail.prependTo($detail.parent());
+              return setTimeout((__bind(function() {
+                $detail.toggleClass('selected', true);
+                return this.$('.details').height("" + ($detail.outerHeight()) + "px");
+              }, this)), 0);
             }
           }
         };
