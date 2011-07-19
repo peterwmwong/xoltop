@@ -42,7 +42,13 @@ endif
 # BUILD
 #------------------------------------------------------------------- 
 cells/bootstrap.js: $(uglifyjs) cells/cell.js cells/cell-pluginBuilder.js
-	node $(requirejsBuild) -o paths.requireLib=../vendor/requirejs/require include=requireLib name=cell!App out=cells/bootstrap-tmp.js baseUrl=cells includeRequire=true
+	node $(requirejsBuild) \
+		-o \
+		paths.requireLib=../vendor/requirejs/require \
+		include=requireLib \
+		name=cell!App \
+		out=cells/bootstrap-tmp.js \
+		baseUrl=cells includeRequire=true
 	cat vendor/jquery.min.js \
 			vendor/raphael.js \
 			vendor/g.raphael.js \
