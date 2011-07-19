@@ -53,18 +53,16 @@ define ['Services'], (S)->
 
       lc.symbols.attr r: 3
       r.canvas.class = 'graph'
-      A """
-        <table><tr>
-          <td>
-            #{R $("<div class='graphContainer'></div>").append(r.canvas)[0]}
-          </td>
-          <td class='labelRow #{R @lastCol.values[0] and "fail"}'>
-            <div class='label'>#{@options.label}</div>
-            <div class='count'>#{@lastCol.values[0]}</div>
-            <div class='when'></div>
-          </td>
-        </tr></table>
-        """
+      A [
+        R 'table',
+          R 'tr',
+            R 'td',
+              R '.graphContainer', r.canvas
+            R "td.labelRow#{@lastCol.values[0] and '.fail' or ''}",
+              R '.label', @options.label
+              R '.count', @lastCol.values[0]
+              R '.when'
+      ]
   
   bind:
     'mouseout': -> highlightCol @lastCol

@@ -16,14 +16,12 @@ define ['cell!shared/page/Page','cell!shared/ComingSoonPage','cell!pages/dashboa
   init: ->
     @options.selectedPage ?= 'Dashboard'
 
-  render: (R)->
-    if $.browser.msie then R.cell 'IEGTFO'
-    else
-      setTimeout (=> @loadPage @options.selectedPage), 0
-      """
-      #{R.cell Bar, selectedItem:@options.selectedPage, items:(p for p of pages)}
-      <div id='content'></div>
-      """
+  render: (R)-> [
+    R Bar,
+      selectedItem:@options.selectedPage, items:(p for p of pages)
+    R '#content',
+      R (p = pages[@options.selectedPage]).cell, p.options
+  ]
 
   bind:
     'selectedItemChanged :parent > .Bar': (e,{item})->

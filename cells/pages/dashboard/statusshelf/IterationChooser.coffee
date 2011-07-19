@@ -2,15 +2,14 @@ $?('head')
   .append "<link href='http://fonts.googleapis.com/css?family=Nunito&v1' rel='stylesheet' type='text/css'>"
 
 define
-  render: ->
-    """
-    <div class='iterNum'>
-      <a href='#' class='prevIter'>&lt;</a>
-      <span class='num'>#{@options.iterationNo}</span>
-      <a href='#' class='nextIter'>&gt;</a>
-    </div>
-    <div class='iterLabel'>ITERATION</div>
-    """
+  render: (R)-> [
+    R '.iterNum',
+      R 'a.prevIter', href:'#', '<'
+      R 'span.num', @options.iterationNo
+      R 'a.nextIter', href:'#', '>'
+
+    R '.iterLabel', 'ITERATION'
+  ]
 
   bind: do->
     changeIter = (addAmt)->

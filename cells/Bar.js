@@ -1,11 +1,20 @@
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 define(['Services', 'cell!signin/SignIn'], function(S, SignIn) {
   $('<link  href="http://fonts.googleapis.com/css?family=Maven+Pro:700&v1" rel="stylesheet" type="text/css" >').appendTo('head');
   return {
     render: function(R) {
-      return "<div id='xoltop'>XOLTOP</div>\n" + (R(this.options.items, __bind(function(item, i) {
-        return "  <span class='navItemContainer'>    <a href='#'       class='navItem " + (R(i === 0 && 'selected')) + "'       data-item='" + item + "'>" + (item.toUpperCase()) + "</a>  </span>";
-      }, this))) + "\n" + (R.cell(SignIn)) + " ";
+      var i, item;
+      return [
+        R('#xoltop', 'XOLTOP'), (function() {
+          var _len, _ref, _results;
+          _ref = this.options.items;
+          _results = [];
+          for (i = 0, _len = _ref.length; i < _len; i++) {
+            item = _ref[i];
+            _results.push(R('span.navItemContainer', R("a.navItem" + (i === 0 && '.selected' || ''), item.toUpperCase())));
+          }
+          return _results;
+        }).call(this), R(SignIn)
+      ];
     },
     bind: {
       'click .navItem': function(ev) {

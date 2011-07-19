@@ -7,22 +7,24 @@ define ['Services','cell!./SignedIn'], (S, SignedIn)->
   'render <span>': (R,A)->
     S.auth.user (user)=>
       if user? then @$el.toggleClass 'loggedin'
-      A """
-        <div id='signin-group'>
-          <a id='signin-toggle' href='#'>Sign in</a>
-          <div id='input-group'>
-            <div>
-              User <input type='text' id='auth-user'></input>
-            </div>
-            <div>
-              Pass <input type='password' id='auth-pass'></input>
-            </div>
-            <span id='loginFailed'>Login Failed</span>
-            <button id='signin-button'>Sign in</button>
-          </div>
-        </div>
-        #{R.cell SignedIn, user: user}
-        """
+      A [
+        R '#signin-group',
+          R 'a#signin-toggle', href:'#', 'Sign In'
+
+          R '#input-group',
+            R '.user',
+              'User '
+              R 'input#auth-user', type:'text'
+
+            R '.password',
+              'Pass '
+              R 'input#auth-pass', type:'password'
+            
+            R 'span#loginFailed', 'Login Failed'
+            R 'button#signin-button', 'Sign in'
+              
+        R SignedIn, user: user
+      ]
 
   bind:
     'click #signin-button': doSubmit = ->

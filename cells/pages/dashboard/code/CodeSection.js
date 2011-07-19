@@ -3,10 +3,12 @@ define(['Services', 'cell!shared/cattable/CatTable'], function(S, CatTable) {
   return {
     render: function(R, A) {
       return S.dashboard.getStoryCodeTasksDetails(this.options.storynum, __bind(function(codeTasks) {
-        return A("<div class='newCodeTaskContainer'>\n  <input class='newCodeTask' type='text' placeholder='+  Add a code task'></input>\n</div>\n" + (R((codeTasks != null ? codeTasks.length : void 0) === 0 && "<div class='nocodetasks'>No Code Tasks</div>" || __bind(function() {
-          var storynum;
-          storynum = this.options.storynum;
-          return R.cell(CatTable, {
+        var storynum;
+        return A([
+          R('.newCodeTaskContainer', R('input.newCodeTask', {
+            type: 'text',
+            placeholder: '+  Add a code task'
+          })), (codeTasks != null ? codeTasks.length : void 0) === 0 ? R('div.nocodetasks', 'No Code Tasks') : (storynum = this.options.storynum, R(CatTable, {
             categories: {
               notStarted: 'Not Started',
               inProgress: 'In Progress',
@@ -21,7 +23,10 @@ define(['Services', 'cell!shared/cattable/CatTable'], function(S, CatTable) {
               description: function(_arg) {
                 var description, id, _ref;
                 _ref = _arg.task, id = _ref.id, description = _ref.description;
-                return "        <a target='_blank' href='" + (S.getXPToolBaseUrl("xptool/projecttool/projecttool.tasklogtime.do?taskID=" + id + "&chumpStoryID=" + storynum)) + "'>          " + description + "        </a>        ";
+                return R('a', {
+                  target: '_blank',
+                  href: S.getXPToolBaseUrl("xptool/projecttool/projecttool.tasklogtime.do?taskID=" + id + "&chumpStoryID=" + storynum)
+                }, description);
               },
               owner: function(_arg) {
                 var owner;
@@ -30,8 +35,8 @@ define(['Services', 'cell!shared/cattable/CatTable'], function(S, CatTable) {
               }
             },
             members: codeTasks
-          });
-        }, this)())));
+          }))
+        ]);
       }, this));
     },
     bind: {

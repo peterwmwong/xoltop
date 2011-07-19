@@ -1,4 +1,3 @@
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 define([], (function() {
   var getPropFunc;
   getPropFunc = function(prop) {
@@ -40,7 +39,7 @@ define([], (function() {
         }
       },
       render: function(R) {
-        var numVisibleGroups, oddEven;
+        var c, cat, f, gi, member, numVisibleGroups, oddEven, _len, _ref, _results;
         numVisibleGroups = 0;
         oddEven = (function() {
           var isEven;
@@ -49,28 +48,33 @@ define([], (function() {
             return (isEven = !isEven) && 'even' || 'odd';
           };
         })();
-        return "" + (R(this._categoryNames, __bind(function(cat, gi) {
-          return this._catToMembers[cat].length > 0 && ("  <div class='category " + cat + "'>    <div class='header'>" + this.options.categories[cat] + "</div>    <div class='members'>    " + (R(this._catToMembers[cat], __bind(function(member) {
-            var c, f;
-            return "        <div class='member " + (oddEven()) + "'>        " + (R((function() {
-              var _ref, _results;
-              _ref = this.options.columnMap;
-              _results = [];
-              for (c in _ref) {
-                f = _ref[c];
-                _results.push({
-                  c: c,
-                  f: f
-                });
+        _ref = this._categoryNames;
+        _results = [];
+        for (gi = 0, _len = _ref.length; gi < _len; gi++) {
+          cat = _ref[gi];
+          if (this._catToMembers[cat].length > 0) {
+            _results.push(R(".category." + cat, R('.header', this.options.categories[cat]), R('.members', (function() {
+              var _i, _len2, _ref2, _results2;
+              _ref2 = this._catToMembers[cat];
+              _results2 = [];
+              for (_i = 0, _len2 = _ref2.length; _i < _len2; _i++) {
+                member = _ref2[_i];
+                _results2.push(R(".member." + (oddEven()), (function() {
+                  var _ref3, _results3;
+                  _ref3 = this.options.columnMap;
+                  _results3 = [];
+                  for (c in _ref3) {
+                    f = _ref3[c];
+                    _results3.push(R(".column." + c, f(member)));
+                  }
+                  return _results3;
+                }).call(this)));
               }
-              return _results;
-            }).call(this), function(_arg) {
-              var c, f;
-              c = _arg.c, f = _arg.f;
-              return "          <div class='column " + c + "'>" + (f(member)) + "</div>        ";
-            })) + "        </div>    ";
-          }, this))) + "    </div>  </div>");
-        }, this)));
+              return _results2;
+            }).call(this))));
+          }
+        }
+        return _results;
       }
     };
   };

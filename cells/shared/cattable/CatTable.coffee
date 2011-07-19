@@ -29,19 +29,11 @@ define [], do->
         isEven = false
         -> (isEven = !isEven) and 'even' or 'odd'
 
-      """
-      #{R @_categoryNames, (cat,gi)=> @_catToMembers[cat].length > 0 and "
-        <div class='category #{cat}'>
-          <div class='header'>#{@options.categories[cat]}</div>
-          <div class='members'>
-          #{R @_catToMembers[cat], (member)=>"
-              <div class='member #{oddEven()}'>
-              #{R ({c,f} for c,f of @options.columnMap), ({c,f})->"
-                <div class='column #{c}'>#{f(member)}</div>
-              "}
-              </div>
-          "}
-          </div>
-        </div>
-      "}
-      """
+      for cat, gi in @_categoryNames when @_catToMembers[cat].length > 0
+        R ".category.#{cat}",
+          R '.header', @options.categories[cat]
+          R '.members',
+            for member in @_catToMembers[cat]
+              R ".member.#{oddEven()}",
+                for c,f of @options.columnMap
+                  R ".column.#{c}", f(member)

@@ -71,17 +71,19 @@ define(['Services', 'cell!shared/loadingindicator/LoadingIndicator', 'cell!./Das
           setTimeout((__bind(function() {
             return this.renderStories(stories);
           }, this)), 0);
-          return A("<div class='myStoryDivider'>\n  <span class='leftTri'></span>\n  STORIES\n</div>\n<div class='stats'>\n  " + (R.cell(IterationChooser, {
-            iterationNo: iterationNo
-          })) + "\n  " + (R.cell(TestResultsGraph, {
-            type: 'ats',
-            label: 'AT',
-            urlPrefix: S.getXPToolBaseUrl('xp.failingtestsbypackage.do?runID=')
-          })) + "\n  " + (R.cell(TestResultsGraph, {
-            type: 'units',
-            label: 'UNIT',
-            urlPrefix: S.getXPToolBaseUrl('unittool.failingtestsbysuite.do?testRunID=')
-          })) + "\n</div>\n" + (R.cell(LoadingIndicator)));
+          return A([
+            R('.myStoryDivider', R('span.leftTri'), 'STORIES'), R('.stats', R(IterationChooser, {
+              iterationNo: iterationNo
+            }), R(TestResultsGraph, {
+              type: 'ats',
+              label: 'AT',
+              urlPrefix: S.getXPToolBaseUrl('xp.failingtestsbypackage.do?runID=')
+            }), R(TestResultsGraph, {
+              type: 'units',
+              label: 'UNIT',
+              urlPrefix: S.getXPToolBaseUrl('unittool.failingtestsbysuite.do?testRunID=')
+            })), R(LoadingIndicator)
+          ]);
         }, this));
       }, this));
     },

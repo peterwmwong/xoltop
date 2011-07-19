@@ -103,7 +103,7 @@ define(['Services'], function(S) {
           r: 3
         });
         r.canvas["class"] = 'graph';
-        return A("<table><tr>\n  <td>\n    " + (R($("<div class='graphContainer'></div>").append(r.canvas)[0])) + "\n  </td>\n  <td class='labelRow " + (R(this.lastCol.values[0] && "fail")) + "'>\n    <div class='label'>" + this.options.label + "</div>\n    <div class='count'>" + this.lastCol.values[0] + "</div>\n    <div class='when'></div>\n  </td>\n</tr></table>");
+        return A([R('table', R('tr', R('td', R('.graphContainer', r.canvas)), R("td.labelRow" + (this.lastCol.values[0] && '.fail' || ''), R('.label', this.options.label), R('.count', this.lastCol.values[0]), R('.when'))))]);
       }, this));
     },
     bind: {

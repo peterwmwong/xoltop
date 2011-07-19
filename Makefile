@@ -10,11 +10,7 @@ express = node_modules/express/package.json
 #-------------------------------------------------------------------
 # BUILD
 #------------------------------------------------------------------- 
-ifneq (,$(findstring CYGWIN,$(shell uname -s)))
-	requirejsBuild = ./vendor/requirejs/build/build.bat
-else
-	requirejsBuild = ./vendor/requirejs/build/build.sh
-endif
+requirejsBuild = ./vendor/requirejs/r.js
 
 #-------------------------------------------------------------------
 # TEST
@@ -46,7 +42,7 @@ endif
 # BUILD
 #------------------------------------------------------------------- 
 cells/bootstrap.js: $(uglifyjs) cells/cell.js cells/cell-pluginBuilder.js
-	$(requirejsBuild) name=cell!App out=cells/bootstrap-tmp.js baseUrl=cells includeRequire=true
+	node $(requirejsBuild) -o paths.requireLib=../vendor/requirejs/require include=requireLib name=cell!App out=cells/bootstrap-tmp.js baseUrl=cells includeRequire=true
 	cat vendor/jquery.min.js \
 			vendor/raphael.js \
 			vendor/g.raphael.js \

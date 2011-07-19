@@ -12,9 +12,17 @@ define(['Services', 'cell!./SignedIn'], function(S, SignedIn) {
         if (user != null) {
           this.$el.toggleClass('loggedin');
         }
-        return A("<div id='signin-group'>\n  <a id='signin-toggle' href='#'>Sign in</a>\n  <div id='input-group'>\n    <div>\n      User <input type='text' id='auth-user'></input>\n    </div>\n    <div>\n      Pass <input type='password' id='auth-pass'></input>\n    </div>\n    <span id='loginFailed'>Login Failed</span>\n    <button id='signin-button'>Sign in</button>\n  </div>\n</div>\n" + (R.cell(SignedIn, {
-          user: user
-        })));
+        return A([
+          R('#signin-group', R('a#signin-toggle', {
+            href: '#'
+          }, 'Sign In'), R('#input-group', R('.user', 'User ', R('input#auth-user', {
+            type: 'text'
+          })), R('.password', 'Pass ', R('input#auth-pass', {
+            type: 'password'
+          })), R('span#loginFailed', 'Login Failed'), R('button#signin-button', 'Sign in'))), R(SignedIn, {
+            user: user
+          })
+        ]);
       }, this));
     },
     bind: {

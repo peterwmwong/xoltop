@@ -18,7 +18,11 @@ define(['Services', 'cell!shared/InitialsList'], function(S, InitialsList) {
       }, this));
     },
     'render <span>': function(R) {
-      return "<a id='username' href='#'></a>\n<div id='options-group'>\n  <button id='signout-button'>Sign Out</button>\n</div>";
+      return [
+        R('a#username', {
+          href: '#'
+        }), R('#options-group', R('button#signout-button', 'Sign Out'))
+      ];
     },
     bind: {
       afterRender: updateUser,

@@ -2,8 +2,14 @@ if (typeof $ === "function") {
   $('head').append("<link href='http://fonts.googleapis.com/css?family=Nunito&v1' rel='stylesheet' type='text/css'>");
 }
 define({
-  render: function() {
-    return "<div class='iterNum'>\n  <a href='#' class='prevIter'>&lt;</a>\n  <span class='num'>" + this.options.iterationNo + "</span>\n  <a href='#' class='nextIter'>&gt;</a>\n</div>\n<div class='iterLabel'>ITERATION</div>";
+  render: function(R) {
+    return [
+      R('.iterNum', R('a.prevIter', {
+        href: '#'
+      }, '<'), R('span.num', this.options.iterationNo), R('a.nextIter', {
+        href: '#'
+      }, '>')), R('.iterLabel', 'ITERATION')
+    ];
   },
   bind: (function() {
     var changeIter;

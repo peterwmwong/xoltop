@@ -43,24 +43,24 @@ define [
     S.auth.user (user)=>
       S.dashboard.getStorySummaries null, ({iterationNo,stories})=>
         setTimeout (=> @renderStories stories), 0
-        A """
-          <div class='myStoryDivider'>
-            <span class='leftTri'></span>
-            STORIES
-          </div>
-          <div class='stats'>
-            #{R.cell IterationChooser, iterationNo:iterationNo}
-            #{R.cell TestResultsGraph,
+        A [
+          R '.myStoryDivider',
+            R 'span.leftTri'
+            'STORIES'
+
+          R '.stats',
+            R IterationChooser, iterationNo:iterationNo
+            R TestResultsGraph,
                 type: 'ats'
                 label: 'AT'
-                urlPrefix: S.getXPToolBaseUrl 'xp.failingtestsbypackage.do?runID='}
-            #{R.cell TestResultsGraph,
+                urlPrefix: S.getXPToolBaseUrl 'xp.failingtestsbypackage.do?runID='
+            R TestResultsGraph,
                 type: 'units'
                 label: 'UNIT'
-                urlPrefix: S.getXPToolBaseUrl 'unittool.failingtestsbysuite.do?testRunID='}
-          </div>
-          #{R.cell LoadingIndicator}
-          """
+                urlPrefix: S.getXPToolBaseUrl 'unittool.failingtestsbysuite.do?testRunID='
+
+          R LoadingIndicator
+        ]
 
   bind:
     # When a Dashboard Story is selected

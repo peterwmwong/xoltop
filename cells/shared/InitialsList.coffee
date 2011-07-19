@@ -1,7 +1,8 @@
 define ['Services'], (S)->
-  'render <ul>': (R,A)->
+  'render <ul>': (R)->
     curUserInitials = S.auth.getUser()?.initials
-    R @options.initials, (initials,i)->
-      """
-      <li #{R curUserInitials == initials and "class='currentUser'"}>#{initials}</li>
-      """
+    [
+      for initials in @options.initials
+        R 'li', className: (curUserInitials is initials and 'currentUser' or ''),
+          initials
+    ]

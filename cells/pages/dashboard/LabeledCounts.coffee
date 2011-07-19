@@ -2,13 +2,12 @@ define
   init: ->
     @options.showIfZero ?= []
 
-  render: (R)->
-    """
-    <div class='triangle'></div>
-    <a href='#' class='label'>#{@options.label}</a>
-    <div class='counts'>
-    #{R (for type,count of @options.counts when count > 0 or type in @options.showIfZero
-        "<div class='#{type} count'>#{count}</div>"
-    )}
-    </div>
-    """
+  render: (R)-> [
+    R '.triangle'
+
+    R '.label', href: '#', do=> @options.label
+
+    R '.counts',
+      for type, count of @options.counts when count > 0 or type in @options.showIfZero
+        R ".#{type}.count", count
+  ]

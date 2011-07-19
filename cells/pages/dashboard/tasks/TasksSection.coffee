@@ -2,11 +2,11 @@ define ['Services','cell!shared/cattable/CatTable'], (S,CatTable)->
 
   render: (R,A)->
     S.dashboard.getStoryTasksDetails @options.storynum, (tasks)=>
-      A do=>
+      A [
         if tasks?.length == 0
-          "<div class='notests'>No Tasks</div>"
+          R '.notests', 'No Tasks'
         else
-          R.cell CatTable,
+          R CatTable,
             categories:
               needsAttn:'Needs Attention'
               retest:'Retest'
@@ -14,10 +14,9 @@ define ['Services','cell!shared/cattable/CatTable'], (S,CatTable)->
             mapMember: ({task})->task.category
             columnMap:
               note: ({task:{note,chumpTaskID}})->
-                """
-                <a target='_blank' href='#{S.getXPToolBaseUrl "projecttool/projecttool.taskview.do?taskID=#{chumpTaskID}"}'>
-                  #{note}
-                </a>
-                """
+                $("<a target='_blank' href='#{S.getXPToolBaseUrl "projecttool/projecttool.taskview.do?taskID=#{chumpTaskID}"}'>
+                    #{note}
+                   </a>")[0]
               owner: ({task})->task.owner
             members:tasks
+      ]

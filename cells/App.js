@@ -1,4 +1,3 @@
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 define(['cell!shared/page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/dashboard/DashboardPage', 'cell!Bar'], function(Page, ComingSoonPage, DashboardPage, Bar) {
   var pages;
   pages = {
@@ -24,13 +23,8 @@ define(['cell!shared/page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/dashb
     },
     render: function(R) {
       var p;
-      if ($.browser.msie) {
-        return R.cell('IEGTFO');
-      } else {
-        setTimeout((__bind(function() {
-          return this.loadPage(this.options.selectedPage);
-        }, this)), 0);
-        return "" + (R.cell(Bar, {
+      return [
+        R(Bar, {
           selectedItem: this.options.selectedPage,
           items: (function() {
             var _results;
@@ -40,8 +34,8 @@ define(['cell!shared/page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/dashb
             }
             return _results;
           })()
-        })) + "\n<div id='content'></div>";
-      }
+        }), R('#content', R((p = pages[this.options.selectedPage]).cell, p.options))
+      ];
     },
     bind: {
       'selectedItemChanged :parent > .Bar': function(e, _arg) {
