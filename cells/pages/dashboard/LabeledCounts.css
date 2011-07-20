@@ -11,6 +11,7 @@
 .LabeledCounts > .label:hover{text-decoration:underline;position:relative}
 .LabeledCounts > .counts{display:box;display:-webkit-box;display:-moz-box;-webkit-box-orient:horizontal;-moz-box-orient:horizontal;box-align:center;-webkit-box-align:center;-moz-box-align:center;box-flex:1;-webkit-box-flex:1;-moz-box-flex:1;box-pack:center;-webkit-box-pack:center;-moz-box-pack:center;font-size:15px;text-align:center;vertical-align:middle;padding:0 5px 0 0;}
 .LabeledCounts > .counts > .count{-moz-border-radius-topleft:2px;-moz-border-radius-topright:2px;-moz-border-radius-bottomright:2px;-moz-border-radius-bottomleft:2px;border-top-left-radius:2px;border-top-right-radius:2px;border-bottom-right-radius:2px;border-bottom-left-radius:2px;font-weight:bold;margin:0 4px 0 4px;text-align:center;text-shadow:0 -1px 0 rgba(0,0,0,0.3);}
-.LabeledCounts > .counts > .count.red{color:#dd4141}
+.LabeledCounts > .counts > .count.red,.LabeledCounts > .counts > .count.notests{color:#dd4141}
 .LabeledCounts > .counts > .count.green{font-weight:normal;color:#505b41}
 .LabeledCounts > .counts > .count.yellow{color:#ac8734}
+.LabeledCounts > .counts > .count.needsAttn{text-shadow:0 -1px 0 rgba(0,0,0,0.2);background-color:#932c2c;-moz-border-radius-topleft:4px;-moz-border-radius-topright:4px;-moz-border-radius-bottomright:4px;-moz-border-radius-bottomleft:4px;border-top-left-radius:4px;border-top-right-radius:4px;border-bottom-right-radius:4px;border-bottom-left-radius:4px;color:#fff;padding:0 3px 2px 3px}

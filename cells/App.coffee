@@ -1,4 +1,9 @@
-define ['cell!shared/page/Page','cell!shared/ComingSoonPage','cell!pages/dashboard/DashboardPage','cell!Bar'], (Page, ComingSoonPage,DashboardPage,Bar)->
+define [
+  'cell!shared/page/Page'
+  'cell!shared/ComingSoonPage'
+  'cell!pages/dashboard/DashboardPage'
+  'cell!Bar'
+], (Page,ComingSoonPage,DashboardPage,Bar)->
   pages =
     Dashboard:
       cell: DashboardPage
@@ -16,12 +21,16 @@ define ['cell!shared/page/Page','cell!shared/ComingSoonPage','cell!pages/dashboa
   init: ->
     @options.selectedPage ?= 'Dashboard'
 
-  render: (R)-> [
-    R Bar,
-      selectedItem:@options.selectedPage, items:(p for p of pages)
-    R '#content',
-      R (p = pages[@options.selectedPage]).cell, p.options
-  ]
+  render: (R,A)->
+    if $.browser.msie
+      @require './IEGTFO', (IEGTFO)->
+        A [R IEGTFO]
+    else [
+      R Bar,
+        selectedItem:@options.selectedPage, items:(p for p of pages)
+      R '#content',
+        R (p = pages[@options.selectedPage]).cell, p.options
+    ]
 
   bind:
     'selectedItemChanged :parent > .Bar': (e,{item})->

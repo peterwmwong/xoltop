@@ -311,7 +311,7 @@
               E("Couldn't load " + name + " cell. cell definitions should be objects, but instead was " + (typeof CDef));
             } else {
               _ref2 = moduleNameRegex.exec(name).slice(1), baseUrl = _ref2[0], cellName = _ref2[1];
-              CDef._require = function(dep, cb) {
+              CDef.require = function(dep, cb) {
                 return req([("cell!" + (relUrlRegex.test(dep) && baseUrl || '') + dep).replace(midRelUrlRegex, '/')], cb);
               };
               if (typeof ((_ref3 = exports.__preinstalledCells__) != null ? _ref3[name] : void 0) === 'undefined') {

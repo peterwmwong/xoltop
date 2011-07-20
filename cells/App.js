@@ -21,21 +21,27 @@ define(['cell!shared/page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/dashb
       var _base, _ref;
       return (_ref = (_base = this.options).selectedPage) != null ? _ref : _base.selectedPage = 'Dashboard';
     },
-    render: function(R) {
+    render: function(R, A) {
       var p;
-      return [
-        R(Bar, {
-          selectedItem: this.options.selectedPage,
-          items: (function() {
-            var _results;
-            _results = [];
-            for (p in pages) {
-              _results.push(p);
-            }
-            return _results;
-          })()
-        }), R('#content', R((p = pages[this.options.selectedPage]).cell, p.options))
-      ];
+      if ($.browser.msie) {
+        return this.require('./IEGTFO', function(IEGTFO) {
+          return A([R(IEGTFO)]);
+        });
+      } else {
+        return [
+          R(Bar, {
+            selectedItem: this.options.selectedPage,
+            items: (function() {
+              var _results;
+              _results = [];
+              for (p in pages) {
+                _results.push(p);
+              }
+              return _results;
+            })()
+          }), R('#content', R((p = pages[this.options.selectedPage]).cell, p.options))
+        ];
+      }
     },
     bind: {
       'selectedItemChanged :parent > .Bar': function(e, _arg) {

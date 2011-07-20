@@ -37,13 +37,15 @@ define [
       R LabeledCounts,
         class: 'tests'
         label: "TESTS"
-        showIfZero: ['green']
+        showIfZero: ['notests']
         counts: do=>
           {failing,needsAttn,unwritten,total} = @model.ats
           if failing + needsAttn + unwritten
             red: failing
             needsAttn: needsAttn
             yellow: unwritten
+          else if total is 0
+            notests: 0
           else
             green: total
 
@@ -108,9 +110,10 @@ define [
 
           # Show already loaded details
           else
-            $detail.prependTo($detail.parent())
+            $detail.prependTo $detail.parent()
             setTimeout (=> 
               $detail.toggleClass('selected', true)
+              console.log 'outerHeight2', $detail.outerHeight()
               @$('.details').height("#{$detail.outerHeight()}px")
             ), 0
 

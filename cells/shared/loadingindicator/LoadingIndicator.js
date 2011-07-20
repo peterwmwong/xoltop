@@ -1,6 +1,6 @@
 define({
   render: function() {
-    return "Loading";
+    return ["Loading"];
   },
   bind: {
     'enable': function() {

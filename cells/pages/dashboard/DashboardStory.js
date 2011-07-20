@@ -30,7 +30,7 @@ define(['Services', 'cell!./LabeledCounts', 'cell!shared/loadingindicator/Loadin
         }), R(LabeledCounts, {
           "class": 'tests',
           label: "TESTS",
-          showIfZero: ['green'],
+          showIfZero: ['notests'],
           counts: __bind(function() {
             var failing, needsAttn, total, unwritten, _ref;
             _ref = this.model.ats, failing = _ref.failing, needsAttn = _ref.needsAttn, unwritten = _ref.unwritten, total = _ref.total;
@@ -39,6 +39,10 @@ define(['Services', 'cell!./LabeledCounts', 'cell!shared/loadingindicator/Loadin
                 red: failing,
                 needsAttn: needsAttn,
                 yellow: unwritten
+              };
+            } else if (total === 0) {
+              return {
+                notests: 0
               };
             } else {
               return {
@@ -105,6 +109,7 @@ define(['Services', 'cell!./LabeledCounts', 'cell!shared/loadingindicator/Loadin
               $detail.prependTo($detail.parent());
               return setTimeout((__bind(function() {
                 $detail.toggleClass('selected', true);
+                console.log('outerHeight2', $detail.outerHeight());
                 return this.$('.details').height("" + ($detail.outerHeight()) + "px");
               }, this)), 0);
             }
