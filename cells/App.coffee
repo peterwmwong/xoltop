@@ -22,23 +22,19 @@ define [
     @options.selectedPage ?= 'Dashboard'
 
   render: (R,A)->
-    if $.browser.msie
-      @require './IEGTFO', (IEGTFO)->
-        A [R IEGTFO]
+    if $.browser.msie then @require './IEGTFO', (I)-> A [R I]
     else [
       R Bar,
         selectedItem:@options.selectedPage, items:(p for p of pages)
       R '#content',
-        R (p = pages[@options.selectedPage]).cell, p.options
+        R @getPage @options.selectedPage
     ]
 
   bind:
     'selectedItemChanged :parent > .Bar': (e,{item})->
-      @loadPage item
+      @$('> #content')
+        .html('')
+        .append @getPage item
 
-  loadPage: (page)->
-    content = @$ '> #content'
-    content.html ''
-    if p = pages[page]
-      content.append (new p.cell (p.options or {})).el
+  getPage: (page)-> (p = pages[page]) and (new p.cell p.options).el
 

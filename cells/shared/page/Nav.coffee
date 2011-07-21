@@ -2,17 +2,14 @@ define
   init: ->
     @options.selectedTab ?= @options.tabs[0]
 
-  render: (R)->
-    #{R.cell 'SearchInput'}
-    """
-    <ul>
-      #{R @options.tabs, (tab,i)=>"
-        <li #{R @options.selectedTab==tab and "class='selected'"}>
-          <a href='#' id='#{tab}'>#{tab}</a><div class='triangle'></div>
-        </li>
-      "}
-    </ul>
-    """
+  render: (R)-> [
+    R 'ul',
+      for tab,i in @options.tabs
+        R "li#{@options.selectedTab==tab and '.selected' or ''}",
+          R 'a', href:'#', id:tab,
+            tab
+          R '.triangle'
+  ]
 
   bind:
     'click a': (ev)->

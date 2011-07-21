@@ -1,8 +1,5 @@
 define
-  render: ->
-    """
-    <span id='title'>#{@options.title}</span>
-    <span id='description'>
-      #{@options.description}
-    </span>
-    """
+  render: (R)-> [
+    R 'span#title', @options.title
+    R 'span#description', @options.description
+  ]

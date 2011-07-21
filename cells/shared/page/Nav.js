@@ -1,13 +1,25 @@
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 define({
   init: function() {
     var _base, _ref;
     return (_ref = (_base = this.options).selectedTab) != null ? _ref : _base.selectedTab = this.options.tabs[0];
   },
   render: function(R) {
-    return "<ul>\n  " + (R(this.options.tabs, __bind(function(tab, i) {
-      return "    <li " + (R(this.options.selectedTab === tab && "class='selected'")) + ">      <a href='#' id='" + tab + "'>" + tab + "</a><div class='triangle'></div>    </li>  ";
-    }, this))) + "\n</ul>";
+    var i, tab;
+    return [
+      R('ul', (function() {
+        var _len, _ref, _results;
+        _ref = this.options.tabs;
+        _results = [];
+        for (i = 0, _len = _ref.length; i < _len; i++) {
+          tab = _ref[i];
+          _results.push(R("li" + (this.options.selectedTab === tab && '.selected' || ''), R('a', {
+            href: '#',
+            id: tab
+          }, tab), R('.triangle')));
+        }
+        return _results;
+      }).call(this))
+    ];
   },
   bind: {
     'click a': function(ev) {

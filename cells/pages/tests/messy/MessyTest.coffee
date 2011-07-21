@@ -1,19 +1,15 @@
 define ->
   Count = cell.extend
-    'render <span>': (R)->
-      """
-      <span class='countGroup'>
-        #{R @options.red? and "
-          <span class='badge-red count'>#{@options.red}</span>
-        "}
-        #{R @options.yellow? and "
-          <span class='badge-yellow count'>#{@options.yellow}</span>
-        "}
-        #{R not (@options.red? or @options.yellow?) and "
-          <span class='badge-#{@options.gray and 'green' or 'gray'} count'>#{@options.gray}</span>
-        "}
-      </span>
-      """
+    'render <span>': (R)-> [
+      R 'span.countGroup',
+        if @options.red?
+          R 'span.badge-red.count', @options.red
+        if @options.yellow?
+          R 'span.badge-yellow.count', @options.yellow
+        if not (@options.red? or @options.yellow?)
+          R "span.badge-#{@options.gray and 'green' or 'gray'} count", @options.gray
+    ]
+
     bind: do->
       trigger = ->
         $(@el).trigger 'selected'
@@ -24,21 +20,12 @@ define ->
   init: ->
     @model = @model.data
 
-  render: (R)->
-    """
-    <div id='bar'>
-      <span id='nav'>
-        #{R.cell Count,
-            id: 'issues'
-            label: 'Issues'
-            red: @model.issuecount} 
-      </span>
-      <div id='expando'></div>
-      <span id='testID' class='gray'>
-        <a class='name' href="#">
-          #{@model.testname}
-        </a>
-      </span>
-    </div>
-    """
-
+  render: (R)-> [
+    R '#bar',
+      R '#nav',
+        R Count, id: 'issues', label: 'Issues', red: @model.issuecount
+      R '#expando'
+      R 'span#testID.gray',
+        R 'a.name', href:'#',
+          @model.testname
+  ]

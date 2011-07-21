@@ -5,8 +5,7 @@ define ['Services','cell!signin/SignIn'], (S, SignIn)->
     R '#xoltop', 'XOLTOP'
     for item, i in @options.items
       R 'span.navItemContainer',
-        R "a.navItem#{i is 0 and '.selected' or ''}",
-          item.toUpperCase()
+        $("<a class='navItem #{i is 0 and 'selected' or ''}' data-item='#{item}'>#{item.toUpperCase()}</a>")[0]
     R SignIn
   ]
 
@@ -14,4 +13,4 @@ define ['Services','cell!signin/SignIn'], (S, SignIn)->
     'click .navItem': (ev)->
       @$('.navItem.selected').removeClass 'selected'
       (target = $(ev.target)).addClass 'selected'
-      $(@el).trigger 'selectedItemChanged', item: $(target).attr 'data-item'
+      $(@el).trigger 'selectedItemChanged', item: target.attr 'data-item'

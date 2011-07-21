@@ -1,19 +1,14 @@
 define ->
   Count = cell.extend
-    'render <span>': (R)->
-      """
-      <span class='countGroup'>
-        #{R @options.red? and "
-          <span class='badge-red count'>#{@options.red}</span>
-        "}
-        #{R @options.yellow? and "
-          <span class='badge-yellow count'>#{@options.yellow}</span>
-        "}
-        #{R not (@options.red? or @options.yellow?) and "
-          <span class='badge-#{@options.gray and 'green' or 'gray'} count'>#{@options.gray}</span>
-        "}
-      </span>
-      """
+    'render <span>': (R)-> [
+      R 'span.countGroup'
+        if @options.red?
+          R 'span.badge-red.count', @options.red
+        if @options.yellow?
+          R 'span.badge-yellow.count', @options.yellow
+        if @options.red? or @options.yellow?
+          R "span.count.badge-#{@options.gray and 'green' or 'gray'}", @options.gray
+    ]
     bind: do->
       trigger = ->
         $(@el).trigger 'selected'
@@ -33,14 +28,11 @@ define ->
 
   render: (R)->
     pkgName = getPkgName @model.suitename
-    """
-    <div id='bar'>
-      <div id='expando'></div>
-      <span id='suiteName' class='gray'>
-        <span id='package'>#{pkgName.pkg}</span>
-        <a class='name' href="#">
-          #{pkgName.name}
-        </a>
-      </span>
-    </div>
-    """
+    [
+      R '#bar',
+        R '#expando'
+        R 'span#suiteName.gray',
+          R 'span#package', pkgName.pkg
+          R 'a.name', href:'#',
+            ' '+pkgName.name
+    ]

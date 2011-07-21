@@ -2,7 +2,7 @@ define(function() {
   var Count;
   Count = cell.extend({
     'render <span>': function(R) {
-      return "<span class='countGroup'>\n  " + (R((this.options.red != null) && ("    <span class='badge-red count'>" + this.options.red + "</span>  "))) + "\n  " + (R((this.options.yellow != null) && ("    <span class='badge-yellow count'>" + this.options.yellow + "</span>  "))) + "\n  " + (R(!((this.options.red != null) || (this.options.yellow != null)) && ("    <span class='badge-" + (this.options.gray && 'green' || 'gray') + " count'>" + this.options.gray + "</span>  "))) + "\n</span>";
+      return [R('span.countGroup', this.options.red != null ? R('span.badge-red.count', this.options.red) : void 0, this.options.yellow != null ? R('span.badge-yellow.count', this.options.yellow) : void 0, !((this.options.red != null) || (this.options.yellow != null)) ? R("span.badge-" + (this.options.gray && 'green' || 'gray') + " count", this.options.gray) : void 0)];
     },
     bind: (function() {
       var trigger;
@@ -21,11 +21,15 @@ define(function() {
       return this.model = this.model.data;
     },
     render: function(R) {
-      return "<div id='bar'>\n  <span id='nav'>\n    " + (R.cell(Count, {
-        id: 'issues',
-        label: 'Issues',
-        red: this.model.issuecount
-      })) + " \n  </span>\n  <div id='expando'></div>\n  <span id='testID' class='gray'>\n    <a class='name' href=\"#\">\n      " + this.model.testname + "\n    </a>\n  </span>\n</div>";
+      return [
+        R('#bar', R('#nav', R(Count, {
+          id: 'issues',
+          label: 'Issues',
+          red: this.model.issuecount
+        })), R('#expando'), R('span#testID.gray', R('a.name', {
+          href: '#'
+        }, this.model.testname)))
+      ];
     }
   };
 });

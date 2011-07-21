@@ -16,8 +16,10 @@ define ['require','cell!./Nav'], (require,Nav)->
 
   render: (R)->
     defer => @loadSection @options.selectedSection
-    "#{R.cell Nav, tabs: @options.sections, selectedTab: @options.selectedSection}
-     <div id='content'></div>"
+    [
+      R Nav, tabs: @options.sections, selectedTab: @options.selectedSection
+      R '#content'
+    ]
 
   bind:
     'changed :parent > .Nav': (e,{selectedTab})-> @loadSection selectedTab

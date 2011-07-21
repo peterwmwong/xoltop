@@ -1,5 +1,10 @@
-define ['data/MessyTestService','cell!./MessySuite','cell!./MessyTest'],
-  (MessyTestService,MessySuite,MessyTest)->
+define [
+  'data/MessyTestService'
+  'cell!shared/page/SectionTitle'
+  'cell!shared/tabletree/TableTree'
+  'cell!./MessySuite'
+  'cell!./MessyTest'
+], (MessyTestService,SectionTitle,TableTree,MessySuite,MessyTest)->
 
     IssueGroupProvider=
       nodeCell: cell.extend
@@ -10,11 +15,13 @@ define ['data/MessyTestService','cell!./MessySuite','cell!./MessyTest'],
         'render <div class="issueGroup">': (R)->
           $(@el).toggleClass 'expanded', @model.expanded
           isEmpty = !!@model.data?.length
-          """
-          <div id='expando'></div>
-          <span class='count#{R isEmpty and ' red'}'>#{@model.data?.length or 0}</span>
-          <a class='label#{R not isEmpty and ' isempty'}' href='#'>#{@model.type}</a>
-          """
+          [
+            R '#expando'
+            R "span.count#{isEmpty and '.red' or ''}",
+              @model.data?.length or 0
+            R "a.label#{not isEmpty and '.isempty' or ''}", href:'#',
+              @model.type
+          ]
 
       getChildren: ->
         if @data instanceof Array
@@ -32,13 +39,12 @@ define ['data/MessyTestService','cell!./MessySuite','cell!./MessyTest'],
           else
             o
       nodeCell: cell.extend
-        render: ->
-          """
-          <span class='name'>#{@model.fieldName}</span>
-          <span class='diff'>#{format @model.before}</span>
-          <span class='diffArrow'>&gt</span>
-          <span class='diff after'>#{format @model.after}</span>
-          """
+        render: (R)->[
+          R 'span.name', @model.fieldName
+          R 'span.diff', format @model.before
+          R 'span.diffArrow', '>'
+          R 'span.diff.after', format @model.after
+        ]
 
     dataProviders = do->
       issueGroups = ['DbTable','SysProps','UserProps','ConfigDistrict','ConfigSite','ConfigSiteDefaults']
@@ -73,14 +79,13 @@ define ['data/MessyTestService','cell!./MessySuite','cell!./MessyTest'],
         ConfigSiteDefaults: IssueGroupProvider
         issue: IssueProvider
 
-    render: (R)->
-      """
-      #{R.cell 'shared/page/SectionTitle',
+    render: (R)-> [
+      R SectionTitle,
           title: 'Messy Tests',
-          description: "Tests that don't pick up after themselves"}
-      #{R.cell 'shared/tabletree/TableTree',
+          description: "Tests that don't pick up after themselves"
+      R TableTree,
           id:'Messy'
           cols: ['Chump Tasks']
-          dataProviders: dataProviders()}
-      """
+          dataProviders: dataProviders()
+    ]
    

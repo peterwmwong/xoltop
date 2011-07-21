@@ -1,14 +1,26 @@
-define({
-  render: function(R) {
-    return "" + (R(this.options.title && ("<div id='titlebar'>" + this.options.title + "</div>"))) + "\n<div id='rows' " + (this.options.title && ' ' || 'style="top: 0;"') + ">\n  <div id='headerrow'>\n    " + (R(this.options.cols, function(text) {
-      return "<span class='headercol'>" + text + "</span>";
-    })) + "\n  </div>\n  " + (R.cell('./NodeRow', {
-      "class": 'ROOT',
-      model: {
-        type: '_',
-        expanded: true
-      },
-      dataProviders: this.options.dataProviders
-    })) + "\n</div>";
-  }
+define(['cell!./NodeRow'], function(NodeRow) {
+  return {
+    render: function(R) {
+      var text;
+      return [
+        this.options.title ? R('#titlebar', this.options.title) : void 0, R('#rows', R('#headerrow', (function() {
+          var _i, _len, _ref, _results;
+          _ref = this.options.cols;
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            text = _ref[_i];
+            _results.push(R('.headercol', text));
+          }
+          return _results;
+        }).call(this)), R(NodeRow, {
+          "class": 'ROOT',
+          model: {
+            type: '_',
+            expanded: true
+          },
+          dataProviders: this.options.dataProviders
+        }))
+      ];
+    }
+  };
 });

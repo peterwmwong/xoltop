@@ -1,9 +1,7 @@
 define
-  render: -> "
-    <span id='count'>#{@model.count or ''}</span>
-    #{if @hideBar then "" else "
-      <span id='barContainer'>
-        <div id='bar' style='width:#{Math.min 100, @model.pct*100}%;'>&nbsp;</div>
-      </span>
-    "}
-  "
+  render: (R)-> [
+    R 'span#count', @model.count
+    if not @hideBar
+      R 'span#barContainer',
+        $("<div id=bar style='width:#{Math.min 100, @model.pct*100}%;'></div>")[0]
+  ]

@@ -24,8 +24,8 @@ define(['cell!shared/page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/dashb
     render: function(R, A) {
       var p;
       if ($.browser.msie) {
-        return this.require('./IEGTFO', function(IEGTFO) {
-          return A([R(IEGTFO)]);
+        return this.require('./IEGTFO', function(I) {
+          return A([R(I)]);
         });
       } else {
         return [
@@ -39,7 +39,7 @@ define(['cell!shared/page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/dashb
               }
               return _results;
             })()
-          }), R('#content', R((p = pages[this.options.selectedPage]).cell, p.options))
+          }), R('#content', R(this.getPage(this.options.selectedPage)))
         ];
       }
     },
@@ -47,16 +47,12 @@ define(['cell!shared/page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/dashb
       'selectedItemChanged :parent > .Bar': function(e, _arg) {
         var item;
         item = _arg.item;
-        return this.loadPage(item);
+        return this.$('> #content').html('').append(this.getPage(item));
       }
     },
-    loadPage: function(page) {
-      var content, p;
-      content = this.$('> #content');
-      content.html('');
-      if (p = pages[page]) {
-        return content.append((new p.cell(p.options || {})).el);
-      }
+    getPage: function(page) {
+      var p;
+      return (p = pages[page]) && (new p.cell(p.options)).el;
     }
   };
 });

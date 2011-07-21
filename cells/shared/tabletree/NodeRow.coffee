@@ -20,7 +20,10 @@ define ->
       @options.getChildren = dp.getChildren
       @options.noChildrenCell = dp.noChildrenCell
 
-    @options.rowClass = "Node#{' '+@model.type or ''}"
+    @options.rowClasses = ['Node']
+    if t = @model.type
+      @options.rowClasses.push t
+
 
   render: (R)->
     if @model.children instanceof Array
@@ -38,13 +41,16 @@ define ->
 
       if @model.expanded and not (@model.children instanceof Array)
         setTimeout(@loadChildren,0)
+    [
+      if @options.nodeCell
+        R @options.nodeCell,
+          class: @options.rowClasses.join ' '
+          model: @model
+      else
+        R '.'+@options.rowClasses.join('.'), @model.id
 
-    "#{if @options.nodeCell
-         R.cell @options.nodeCell,
-           class: @options.rowClass
-           model: @model
-       else "<div class='#{@options.rowClass}'>#{@model.id or ''}</div>"}
-     <div id='children'></div>"
+      R '#children'
+    ]
 
   bind:
     'click .Node': ({target})->

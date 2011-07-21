@@ -1,4 +1,4 @@
-define(['data/MessyTestService', 'cell!./MessySuite', 'cell!./MessyTest'], function(MessyTestService, MessySuite, MessyTest) {
+define(['data/MessyTestService', 'cell!shared/page/SectionTitle', 'cell!shared/tabletree/TableTree', 'cell!./MessySuite', 'cell!./MessyTest'], function(MessyTestService, SectionTitle, TableTree, MessySuite, MessyTest) {
   var IssueGroupProvider, IssueProvider, dataProviders;
   IssueGroupProvider = {
     nodeCell: cell.extend({
@@ -10,7 +10,11 @@ define(['data/MessyTestService', 'cell!./MessySuite', 'cell!./MessyTest'], funct
         var isEmpty, _ref, _ref2;
         $(this.el).toggleClass('expanded', this.model.expanded);
         isEmpty = !!((_ref = this.model.data) != null ? _ref.length : void 0);
-        return "<div id='expando'></div>\n<span class='count" + (R(isEmpty && ' red')) + "'>" + (((_ref2 = this.model.data) != null ? _ref2.length : void 0) || 0) + "</span>\n<a class='label" + (R(!isEmpty && ' isempty')) + "' href='#'>" + this.model.type + "</a>";
+        return [
+          R('#expando'), R("span.count" + (isEmpty && '.red' || ''), ((_ref2 = this.model.data) != null ? _ref2.length : void 0) || 0), R("a.label" + (!isEmpty && '.isempty' || ''), {
+            href: '#'
+          }, this.model.type)
+        ];
       }
     }),
     getChildren: function() {
@@ -38,8 +42,8 @@ define(['data/MessyTestService', 'cell!./MessySuite', 'cell!./MessyTest'], funct
     };
     return {
       nodeCell: cell.extend({
-        render: function() {
-          return "<span class='name'>" + this.model.fieldName + "</span>\n<span class='diff'>" + (format(this.model.before)) + "</span>\n<span class='diffArrow'>&gt</span>\n<span class='diff after'>" + (format(this.model.after)) + "</span>";
+        render: function(R) {
+          return [R('span.name', this.model.fieldName), R('span.diff', format(this.model.before)), R('span.diffArrow', '>'), R('span.diff.after', format(this.model.after))];
         }
       })
     };
@@ -122,14 +126,16 @@ define(['data/MessyTestService', 'cell!./MessySuite', 'cell!./MessyTest'], funct
   })();
   return {
     render: function(R) {
-      return "" + (R.cell('shared/page/SectionTitle', {
-        title: 'Messy Tests',
-        description: "Tests that don't pick up after themselves"
-      })) + "\n" + (R.cell('shared/tabletree/TableTree', {
-        id: 'Messy',
-        cols: ['Chump Tasks'],
-        dataProviders: dataProviders()
-      }));
+      return [
+        R(SectionTitle, {
+          title: 'Messy Tests',
+          description: "Tests that don't pick up after themselves"
+        }), R(TableTree, {
+          id: 'Messy',
+          cols: ['Chump Tasks'],
+          dataProviders: dataProviders()
+        })
+      ];
     }
   };
 });

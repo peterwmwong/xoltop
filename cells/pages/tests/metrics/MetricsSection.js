@@ -1,9 +1,9 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-define(['data/MetricsService', 'cell!./MetricsNode'], function(MetricsService, MetricsNode) {
+define(['data/MetricsService', 'cell!./MetricsNode', 'cell!shared/page/SectionTitle', 'cell!shared/tabletree/TableTree'], function(MetricsService, MetricsNode, SectionTitle, TableTree) {
   var ReleaseCol, dataProviders, extend;
   ReleaseCol = cell.extend({
-    'render <span>': function() {
-      return "<span class='ats'>\n  <span class='count'>" + this.model.ats + "</span>Tests\n</span> \n<span class='chumpTasks'> \n  <span class='count'>" + this.model.chumpTasks + "</span>Tasks\n</span> ";
+    'render <span>': function(R) {
+      return [R('span.ats', R('span.count', this.model.ats), 'Tests'), R('span.chumpTasks', R('span.count', this.model.chumpTasks), 'Tasks')];
     }
   });
   extend = function(destObj, srcObj) {
@@ -85,11 +85,11 @@ define(['data/MetricsService', 'cell!./MetricsNode'], function(MetricsService, M
     },
     iteration: {
       nodeCell: MetricsNode.extend({
-        nameLabel: 'Iteration'
+        nameLabel: 'Iteration '
       }),
       noChildrenCell: cell.extend({
         'render <div class="nochildren">': function() {
-          return 'No stories';
+          return ['No stories'];
         }
       }),
       getChildren: function(done) {
@@ -145,10 +145,16 @@ define(['data/MetricsService', 'cell!./MetricsNode'], function(MetricsService, M
     story: {
       nodeCell: MetricsNode.extend({
         nameColCell: cell.extend({
-          'render <span class="nameContainer">': function() {
+          'render <span class="nameContainer">': function(R) {
             var url;
             url = "http://destinyxptool/xptool/projecttool/projecttool.storyview.do?storyNumber=" + this.model.data.id;
-            return "<a target='_blank' href='#' onclick='window.open(\"" + url + "\")'>" + this.model.data.id + "</a>\n<span class='name'>" + (this.model.data.name || '') + "</span>";
+            return [
+              R('a', {
+                target: '_blank',
+                href: '#',
+                onclick: 'window.open(\"#{url}\")'
+              }, this.model.data.id), R('span.name', this.model.data.name || '')
+            ];
           }
         })
       })
@@ -156,14 +162,16 @@ define(['data/MetricsService', 'cell!./MetricsNode'], function(MetricsService, M
   };
   return {
     render: function(R) {
-      return "" + (R.cell('shared/page/SectionTitle', {
-        title: 'Metrics',
-        description: 'Iteration and Story complexity based on number of tasks and tests'
-      })) + "\n" + (R.cell('shared/tabletree/TableTree', {
-        id: 'Metrics',
-        cols: ['ATs', 'Chump Tasks'],
-        dataProviders: dataProviders
-      }));
+      return [
+        R(SectionTitle, {
+          title: 'Metrics',
+          description: 'Iteration and Story complexity based on number of tasks and tests'
+        }), R(TableTree, {
+          id: 'Metrics',
+          cols: ['ATs', 'Chump Tasks'],
+          dataProviders: dataProviders
+        })
+      ];
     }
   };
 });

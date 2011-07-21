@@ -30,10 +30,12 @@ define(['require', 'cell!./Nav'], function(require, Nav) {
       defer(__bind(function() {
         return this.loadSection(this.options.selectedSection);
       }, this));
-      return "" + (R.cell(Nav, {
-        tabs: this.options.sections,
-        selectedTab: this.options.selectedSection
-      })) + "     <div id='content'></div>";
+      return [
+        R(Nav, {
+          tabs: this.options.sections,
+          selectedTab: this.options.selectedSection
+        }), R('#content')
+      ];
     },
     bind: {
       'changed :parent > .Nav': function(e, _arg) {

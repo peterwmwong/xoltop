@@ -2,7 +2,7 @@ define(function() {
   var Count, getPkgName;
   Count = cell.extend({
     'render <span>': function(R) {
-      return "<span class='countGroup'>\n  " + (R((this.options.red != null) && ("    <span class='badge-red count'>" + this.options.red + "</span>  "))) + "\n  " + (R((this.options.yellow != null) && ("    <span class='badge-yellow count'>" + this.options.yellow + "</span>  "))) + "\n  " + (R(!((this.options.red != null) || (this.options.yellow != null)) && ("    <span class='badge-" + (this.options.gray && 'green' || 'gray') + " count'>" + this.options.gray + "</span>  "))) + "\n</span>";
+      return [R('span.countGroup'), this.options.red != null ? R('span.badge-red.count', this.options.red) : void 0, this.options.yellow != null ? R('span.badge-yellow.count', this.options.yellow) : void 0, (this.options.red != null) || (this.options.yellow != null) ? R("span.count.badge-" + (this.options.gray && 'green' || 'gray'), this.options.gray) : void 0];
     },
     bind: (function() {
       var trigger;
@@ -35,7 +35,11 @@ define(function() {
     render: function(R) {
       var pkgName;
       pkgName = getPkgName(this.model.suitename);
-      return "<div id='bar'>\n  <div id='expando'></div>\n  <span id='suiteName' class='gray'>\n    <span id='package'>" + pkgName.pkg + "</span>\n    <a class='name' href=\"#\">\n      " + pkgName.name + "\n    </a>\n  </span>\n</div>";
+      return [
+        R('#bar', R('#expando'), R('span#suiteName.gray', R('span#package', pkgName.pkg), R('a.name', {
+          href: '#'
+        }, ' ' + pkgName.name)))
+      ];
     }
   };
 });

@@ -24,13 +24,16 @@ define(function() {
   };
   return {
     init: function() {
-      var dp;
+      var dp, t;
       if (dp = this.options.dataProviders[this.model.type]) {
         this.options.nodeCell = dp.nodeCell;
         this.options.getChildren = dp.getChildren;
         this.options.noChildrenCell = dp.noChildrenCell;
       }
-      return this.options.rowClass = "Node" + (' ' + this.model.type || '');
+      this.options.rowClasses = ['Node'];
+      if (t = this.model.type) {
+        return this.options.rowClasses.push(t);
+      }
     },
     render: function(R) {
       var _ref;
@@ -61,10 +64,12 @@ define(function() {
           setTimeout(this.loadChildren, 0);
         }
       }
-      return "" + (this.options.nodeCell ? R.cell(this.options.nodeCell, {
-        "class": this.options.rowClass,
-        model: this.model
-      }) : "<div class='" + this.options.rowClass + "'>" + (this.model.id || '') + "</div>") + "     <div id='children'></div>";
+      return [
+        this.options.nodeCell ? R(this.options.nodeCell, {
+          "class": this.options.rowClasses.join(' '),
+          model: this.model
+        }) : R('.' + this.options.rowClasses.join('.'), this.model.id), R('#children')
+      ];
     },
     bind: {
       'click .Node': function(_arg) {

@@ -10,7 +10,7 @@ define(['Services', 'cell!signin/SignIn'], function(S, SignIn) {
           _results = [];
           for (i = 0, _len = _ref.length; i < _len; i++) {
             item = _ref[i];
-            _results.push(R('span.navItemContainer', R("a.navItem" + (i === 0 && '.selected' || ''), item.toUpperCase())));
+            _results.push(R('span.navItemContainer', $("<a class='navItem " + (i === 0 && 'selected' || '') + "' data-item='" + item + "'>" + (item.toUpperCase()) + "</a>")[0]));
           }
           return _results;
         }).call(this), R(SignIn)
@@ -22,7 +22,7 @@ define(['Services', 'cell!signin/SignIn'], function(S, SignIn) {
         this.$('.navItem.selected').removeClass('selected');
         (target = $(ev.target)).addClass('selected');
         return $(this.el).trigger('selectedItemChanged', {
-          item: $(target).attr('data-item')
+          item: target.attr('data-item')
         });
       }
     }

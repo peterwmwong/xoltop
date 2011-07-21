@@ -1,5 +1,5 @@
 define({
   render: function() {
-    return "Coming Soon";
+    return ['Coming Soon'];
   }
 });

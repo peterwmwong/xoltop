@@ -1,15 +1,19 @@
-define ['data/MetricsService','cell!./MetricsNode'], (MetricsService,MetricsNode)->
+define [
+  'data/MetricsService'
+  'cell!./MetricsNode'
+  'cell!shared/page/SectionTitle'
+  'cell!shared/tabletree/TableTree'
+], (MetricsService,MetricsNode,SectionTitle,TableTree)->
 
   ReleaseCol = cell.extend
-    'render <span>': ->
-      """
-      <span class='ats'>
-        <span class='count'>#{@model.ats}</span>Tests
-      </span> 
-      <span class='chumpTasks'> 
-        <span class='count'>#{@model.chumpTasks}</span>Tasks
-      </span> 
-      """
+    'render <span>': (R)-> [
+      R 'span.ats',
+        R 'span.count', @model.ats
+        'Tests'
+      R 'span.chumpTasks' ,
+        R 'span.count', @model.chumpTasks
+        'Tasks'
+    ]
 
   extend = (destObj, srcObj)->
     destObj[p] = srcObj[p] for p of srcObj
@@ -38,9 +42,9 @@ define ['data/MetricsService','cell!./MetricsNode'], (MetricsService,MetricsNode
           done ({type:'iteration',id:_.id,data:extend(_,release:@id,parent:@data)} for _ in iters.sort((a,b)->b.id-a.id))
 
     iteration:
-      nodeCell: MetricsNode.extend(nameLabel:'Iteration')
+      nodeCell: MetricsNode.extend(nameLabel:'Iteration ')
       noChildrenCell: cell.extend
-        'render <div class="nochildren">': -> 'No stories'
+        'render <div class="nochildren">': -> ['No stories']
       getChildren: (done)->
         MetricsService.getReleaseIterationStories
           release:@release
@@ -60,22 +64,20 @@ define ['data/MetricsService','cell!./MetricsNode'], (MetricsService,MetricsNode
     story:
       nodeCell: MetricsNode.extend
         nameColCell: cell.extend
-          'render <span class="nameContainer">': ->
+          'render <span class="nameContainer">': (R)->
             url = "http://destinyxptool/xptool/projecttool/projecttool.storyview.do?storyNumber=#{@model.data.id}"
-  
-            """
-            <a target='_blank' href='#' onclick='window.open(\"#{url}\")'>#{@model.data.id}</a>
-            <span class='name'>#{@model.data.name or ''}</span>
-            """
+            [
+              R 'a', target:'_blank', href:'#', onclick:'window.open(\"#{url}\")',
+                @model.data.id
+              R 'span.name', @model.data.name or ''
+            ]
 
-  render: (R)->
-    """
-    #{R.cell 'shared/page/SectionTitle',
+  render: (R)-> [
+    R SectionTitle,
         title: 'Metrics'
-        description: 'Iteration and Story complexity based on number of tasks and tests'}
-    #{R.cell 'shared/tabletree/TableTree',
+        description: 'Iteration and Story complexity based on number of tasks and tests'
+    R TableTree,
         id:'Metrics'
         cols: ['ATs','Chump Tasks']
-        dataProviders:dataProviders}
-    """
-
+        dataProviders:dataProviders
+  ]
