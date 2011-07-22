@@ -5,7 +5,7 @@
 .LabeledCounts.selected > .triangle:after{position:absolute;top:11px;right:0;bottom:0;left:13px;content:"";display:block;border-color:rgba(51,51,51,0) rgba(51,51,51,0) #1a1a1a rgba(51,51,51,0);border-style:solid;border-width:6px;height:0;width:0;z-index:2}
 .LabeledCounts.selected > .label{color:#fff;font-weight:bold}
 .LabeledCounts:hover{background-color:#222;}
-.LabeledCounts:hover > .label{color:#fff;font-weight:bold;text-decoration:underline}
+.LabeledCounts:hover > .label{color:#fff;text-decoration:underline}
 .LabeledCounts > .triangle{display:none;position:relative}
 .LabeledCounts > .label{display:block;color:rgba(153,153,153,0.75);font-size:10px;padding:0 5px 0 5px;text-shadow:0 -1px 0 rgba(0,0,0,0.5);text-decoration:none;position:relative;}
 .LabeledCounts > .label:hover{text-decoration:underline;position:relative}
@@ -14,4 +14,4 @@
 .LabeledCounts > .counts > .count.red,.LabeledCounts > .counts > .count.notests{color:#dd4141}
 .LabeledCounts > .counts > .count.green{font-weight:normal;color:#505b41}
 .LabeledCounts > .counts > .count.yellow{color:#ac8734}
-.LabeledCounts > .counts > .count.needsAttn{text-shadow:0 -1px 0 rgba(0,0,0,0.2);background-color:#932c2c;-moz-border-radius-topleft:4px;-moz-border-radius-topright:4px;-moz-border-radius-bottomright:4px;-moz-border-radius-bottomleft:4px;border-top-left-radius:4px;border-top-right-radius:4px;border-bottom-right-radius:4px;border-bottom-left-radius:4px;color:#fff;padding:0 3px 2px 3px}
+.LabeledCounts > .counts > .count.needsAttn{text-shadow:0 -1px 0 rgba(0,0,0,0.2);background-color:#932c2c;-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;color:#fff;line-height:15px;padding:0 3px 2px 3px}

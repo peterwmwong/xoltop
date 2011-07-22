@@ -5,6 +5,9 @@ define ['Services','cell!shared/cattable/CatTable'], (S,CatTable)->
       A [
         R '.newCodeTaskContainer',
           R 'input.newCodeTask', type:'text', placeholder:'+  Add a code task'
+          R '.addButton',
+            R 'span.plus', '+'
+            'Add'
         if codeTasks?.length is 0
           R 'div.nocodetasks', 'No Code Tasks'
         else

@@ -8,7 +8,7 @@ define(['Services', 'cell!shared/cattable/CatTable'], function(S, CatTable) {
           R('.newCodeTaskContainer', R('input.newCodeTask', {
             type: 'text',
             placeholder: '+  Add a code task'
-          })), (codeTasks != null ? codeTasks.length : void 0) === 0 ? R('div.nocodetasks', 'No Code Tasks') : (storynum = this.options.storynum, R(CatTable, {
+          }), R('.addButton', R('span.plus', '+'), 'Add')), (codeTasks != null ? codeTasks.length : void 0) === 0 ? R('div.nocodetasks', 'No Code Tasks') : (storynum = this.options.storynum, R(CatTable, {
             categories: {
               notStarted: 'Not Started',
               inProgress: 'In Progress',
