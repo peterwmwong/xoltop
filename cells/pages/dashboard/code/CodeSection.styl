@@ -11,12 +11,47 @@
   > .newCodeTaskContainer
     width 100%
     height 30px
-    margin 0px 0 10px 0
+    margin 10px 0 15px 0
     position relative
     box horizontal
 
+    > .addButton
+      color text-disabled-color
+      cursor pointer
+      border-radius 3px
+      box-shadow 0px 1px 3px rgba(#000,.15)
+      font-weight bold
+      font-size 13px
+      line-height 30px
+      gradient rgba(#888,.3), rgba(#888,.15)
+      letter-spacing 1px
+      margin 0 5px 0 112px
+      overflow hidden
+      text-align center
+      text-shadow 0px -1px 0px #222
+      width 75px
+
+      &:hover
+        color darken(text-color-dark,10%)
+        gradient rgba(#888,.4), rgba(#888,.2)
+        > .plus
+          color darken(text-color-dark,10%)
+
+      &:active
+        color text-color
+        gradient rgba(#888,.2), rgba(#888,.4)
+        > .plus
+          color text-color
+
+      > .plus
+        color darken(text-disabled-color,30%)
+        font-weight bold
+        font-size 18px
+        margin-right 3px
+
     > input.newCodeTask
       box-flex 1
+      box-shadow inset 0px 1px 2px rgba(#000,.45)
       display block
       color #FFF
       background-color rgba(#FFF,.05)
@@ -26,33 +61,13 @@
       font-size 14px
       outline none
       line-height 30px
-      margin 0
+      margin 0 40px 0 0
       padding 0px 10px 0px 10px
 
       &::-webkit-input-placeholder
       &::-moz-placeholder
         color rgba(#FFF,.3)
         font-style italic
-
-    > .addButton
-      color text-color-dark
-      border-radius 5px
-      box-shadow 0px 1px 3px rgba(#000,.15)
-      font-weight bold
-      font-size 12px
-      line-height 30px
-      gradient rgba(#888,.4), rgba(#888,.15)
-      letter-spacing 1px
-      margin-left 5px
-      overflow hidden
-      text-align center
-      text-shadow 0px -1px 0px #222
-      width 75px
-
-      > .plus
-        color text-disabled-color
-        font-weight bold
-        margin-right 3px
     
   > .nocodetasks
     width 100%

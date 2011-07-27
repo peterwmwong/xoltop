@@ -4,10 +4,10 @@ define ['Services','cell!shared/cattable/CatTable'], (S,CatTable)->
     S.dashboard.getStoryCodeTasksDetails @options.storynum, (codeTasks)=>
       A [
         R '.newCodeTaskContainer',
-          R 'input.newCodeTask', type:'text', placeholder:'+  Add a code task'
           R '.addButton',
             R 'span.plus', '+'
             'Add'
+          R 'input.newCodeTask', type:'text', placeholder:'... a new code task'
         if codeTasks?.length is 0
           R 'div.nocodetasks', 'No Code Tasks'
         else
@@ -30,10 +30,17 @@ define ['Services','cell!shared/cattable/CatTable'], (S,CatTable)->
 
   bind:
     'keyup .newCodeTask': ({which,target})->
-      if which == 13
-        target = $(target)
-        codeTaskText = target.attr 'value'
+      blankOutInput = ->
         target.attr 'value', ''
         target.blur()
+        
+      switch which
+        when 27 # <ESC>
+          blankOutInput()
+
+        when 13 # <ENTER>
+          target = $(target)
+          codeTaskText = target.attr 'value'
+          blankOutInput()
 
 

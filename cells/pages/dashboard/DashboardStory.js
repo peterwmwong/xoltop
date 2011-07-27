@@ -70,7 +70,7 @@ define(['Services', 'cell!./LabeledCounts', 'cell!shared/loadingindicator/Loadin
           }, this)()
         }), R('.nameContainer', R('a.name', {
           target: '_blank',
-          href: "http://destinyxptool/xptool/projecttool/projecttool.storyedit.do?storyID=" + this.model.storynum
+          href: "http://destinyxptool/xptool/projecttool/projecttool.storyview.do?storyNumber=" + this.model.storynum
         }, this.model.name)), R('.chumps', R(InitialsList, {
           initials: __slice.call(this.model.devs).concat(__slice.call(this.model.testers))
         }))), R('.details', R(LoadingIndicator), R('.contents'))

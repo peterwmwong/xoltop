@@ -5,10 +5,10 @@ define(['Services', 'cell!shared/cattable/CatTable'], function(S, CatTable) {
       return S.dashboard.getStoryCodeTasksDetails(this.options.storynum, __bind(function(codeTasks) {
         var storynum;
         return A([
-          R('.newCodeTaskContainer', R('input.newCodeTask', {
+          R('.newCodeTaskContainer', R('.addButton', R('span.plus', '+'), 'Add'), R('input.newCodeTask', {
             type: 'text',
-            placeholder: '+  Add a code task'
-          }), R('.addButton', R('span.plus', '+'), 'Add')), (codeTasks != null ? codeTasks.length : void 0) === 0 ? R('div.nocodetasks', 'No Code Tasks') : (storynum = this.options.storynum, R(CatTable, {
+            placeholder: '... a new code task'
+          })), (codeTasks != null ? codeTasks.length : void 0) === 0 ? R('div.nocodetasks', 'No Code Tasks') : (storynum = this.options.storynum, R(CatTable, {
             categories: {
               notStarted: 'Not Started',
               inProgress: 'In Progress',
@@ -41,13 +41,19 @@ define(['Services', 'cell!shared/cattable/CatTable'], function(S, CatTable) {
     },
     bind: {
       'keyup .newCodeTask': function(_arg) {
-        var codeTaskText, target, which;
+        var blankOutInput, codeTaskText, target, which;
         which = _arg.which, target = _arg.target;
-        if (which === 13) {
-          target = $(target);
-          codeTaskText = target.attr('value');
+        blankOutInput = function() {
           target.attr('value', '');
           return target.blur();
+        };
+        switch (which) {
+          case 27:
+            return blankOutInput();
+          case 13:
+            target = $(target);
+            codeTaskText = target.attr('value');
+            return blankOutInput();
         }
       }
     }

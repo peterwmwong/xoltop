@@ -62,7 +62,7 @@ define [
             green: completed
       
       R '.nameContainer',
-        R 'a.name', target:'_blank', href:"http://destinyxptool/xptool/projecttool/projecttool.storyedit.do?storyID=#{@model.storynum}",
+        R 'a.name', target:'_blank', href:"http://destinyxptool/xptool/projecttool/projecttool.storyview.do?storyNumber=#{@model.storynum}",
           @model.name
 
       R '.chumps',
