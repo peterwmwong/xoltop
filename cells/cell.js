@@ -1,6 +1,6 @@
 (function() {
   var E, bind, cell, document, exports, extendObj, inherits, isElement, isNode, renderChildren, renderHelper, renderParent, selRegex, uniqueId, window, _ref;
-  var __slice = Array.prototype.slice, __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; }, __slice = Array.prototype.slice;
   E = (typeof (typeof console !== "undefined" && console !== null ? console.error : void 0) === 'function') && (function(msg) {
     return console.error(msg);
   }) || function() {};
@@ -76,7 +76,24 @@
       return function(options) {
         var className, n, p, val, _i, _j, _len, _len2, _ref2;
         this.options = options != null ? options : {};
-        this._renderNodes = bind(cell.prototype.__renderNodes, this);
+        this._renderNodes = __bind(function(nodes) {
+          var r, _i, _len, _ref2;
+          renderChildren(this.el, nodes);
+          this._isRendering = false;
+          this.__delegateEvents();
+          this.$el.trigger('afterRender');
+          this._isReady = true;
+          if (this._readys) {
+            _ref2 = this._readys;
+            for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
+              r = _ref2[_i];
+              try {
+                r(this);
+              } catch (_e) {}
+            }
+            delete this._readys;
+          }
+        }, this);
         for (_i = 0, _len = optsToProps.length; _i < _len; _i++) {
           p = optsToProps[_i];
           if ((val = this.options[p])) {
@@ -275,25 +292,6 @@
           }
         }
       }
-    },
-    __renderNodes: function(nodes) {
-      var r, _i, _len, _ref2;
-      renderChildren(this.el, nodes);
-      this.$el.trigger('beforeDelegateEvents', this);
-      this._isRendering = false;
-      this.__delegateEvents();
-      this.$el.trigger('afterRender');
-      this._isReady = true;
-      if (this._readys) {
-        _ref2 = this._readys;
-        for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
-          r = _ref2[_i];
-          try {
-            r(this);
-          } catch (_e) {}
-        }
-        delete this._readys;
-      }
     }
   };
   if (typeof define === 'function' && typeof require === 'function') {
@@ -311,7 +309,7 @@
               E("Couldn't load " + name + " cell. cell definitions should be objects, but instead was " + (typeof CDef));
             } else {
               _ref2 = moduleNameRegex.exec(name).slice(1), baseUrl = _ref2[0], cellName = _ref2[1];
-              CDef.require = function(dep, cb) {
+              CDef._require = function(dep, cb) {
                 return req([("cell!" + (relUrlRegex.test(dep) && baseUrl || '') + dep).replace(midRelUrlRegex, '/')], cb);
               };
               if (typeof ((_ref3 = exports.__preinstalledCells__) != null ? _ref3[name] : void 0) === 'undefined') {
@@ -336,26 +334,28 @@
         };
       })()
     });
-    require(['cell'], function(cell) {
-      require.ready(function() {
-        $('[data-cell]').each(function() {
-          var baseurl, cachebust, cachebustAttr, cellname, node, opts;
-          node = this;
-          if (cellname = node.getAttribute('data-cell')) {
-            opts = {};
-            cachebust = /(^\?cachebust)|(&cachebust)/.test(window.location.search);
-            if (((cachebustAttr = node.getAttribute('data-cell-cachebust')) !== null || cachebust) && cachebustAttr !== 'false') {
-              opts.urlArgs = "bust=" + (new Date().getTime());
-            }
-            if (baseurl = node.getAttribute('data-cell-baseurl')) {
-              opts.baseUrl = baseurl;
-            }
-            require(opts, ["cell!" + cellname], function(CType) {
-              $(node).append(new CType().el);
-            });
+    require.onError = function(e) {
+      return E(e.originalError.stack);
+    };
+    require.ready(function() {
+      $('[data-cell]').each(function() {
+        var baseurl, cachebust, cachebustAttr, cellname, node, opts;
+        node = this;
+        if (cellname = node.getAttribute('data-cell')) {
+          opts = {};
+          cachebust = /(^\?cachebust)|(&cachebust)/.test(window.location.search);
+          if (((cachebustAttr = node.getAttribute('data-cell-cachebust')) !== null || cachebust) && cachebustAttr !== 'false') {
+            opts.urlArgs = "bust=" + (new Date().getTime());
           }
-        });
+          if (baseurl = node.getAttribute('data-cell-baseurl')) {
+            opts.baseUrl = baseurl;
+          }
+          require(opts, ["cell!" + cellname], function(CType) {
+            $(node).append(new CType().el);
+          });
+        }
       });
     });
+    return;
   }
 }).call(this);

@@ -107,11 +107,10 @@ define(['Services', 'cell!./LabeledCounts', 'cell!shared/loadingindicator/Loadin
               }, this));
             } else {
               $detail.prependTo($detail.parent());
-              return setTimeout((__bind(function() {
+              return setTimeout(__bind(function() {
                 $detail.toggleClass('selected', true);
-                console.log('outerHeight2', $detail.outerHeight());
                 return this.$('.details').height("" + ($detail.outerHeight()) + "px");
-              }, this)), 0);
+              }, this), 0);
             }
           }
         };

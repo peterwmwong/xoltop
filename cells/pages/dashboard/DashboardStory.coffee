@@ -111,11 +111,10 @@ define [
           # Show already loaded details
           else
             $detail.prependTo $detail.parent()
-            setTimeout (=> 
-              $detail.toggleClass('selected', true)
-              console.log 'outerHeight2', $detail.outerHeight()
-              @$('.details').height("#{$detail.outerHeight()}px")
-            ), 0
+            setTimeout =>
+              $detail.toggleClass 'selected', true
+              @$('.details').height "#{$detail.outerHeight()}px"
+            , 0
 
     'click .header > .tests': selectSection TestsSection
     'click .header > .tasks': selectSection TasksSection
