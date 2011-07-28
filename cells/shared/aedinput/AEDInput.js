@@ -2,10 +2,10 @@ define(function() {
   return {
     render: function(o) {
       return [
-        o('.addButton', o('span.plus', '+'), 'Add'), o('input.newCodeTask', {
+        o('.label', this.options.label || ''), o('input.newCodeTask', {
           type: 'text',
-          placeholder: '... a new code task'
-        })
+          placeholder: this.options.placeholder || ''
+        }), o('.addButton', o('span.plus', '+'), 'Add')
       ];
     }
   };

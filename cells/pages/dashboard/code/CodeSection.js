@@ -5,7 +5,10 @@ define(['Services', 'cell!shared/cattable/CatTable', 'cell!shared/aedinput/AEDIn
       return S.dashboard.getStoryCodeTasksDetails(this.options.storynum, __bind(function(codeTasks) {
         var storynum;
         return A([
-          (codeTasks != null ? codeTasks.length : void 0) === 0 ? o('div.nocodetasks', 'No Code Tasks') : (storynum = this.options.storynum, o(CatTable, {
+          o(AEDInput, {
+            "class": 'codeTaskInput',
+            placeholder: '... add a new code task'
+          }), (codeTasks != null ? codeTasks.length : void 0) === 0 ? o('div.nocodetasks', 'No Code Tasks') : (storynum = this.options.storynum, o(CatTable, {
             categories: {
               notStarted: "Not Started<span class='plus'>+</span>",
               inProgress: 'In Progress',

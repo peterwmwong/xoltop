@@ -7,6 +7,7 @@ define [
   render: (o,A)->
     S.dashboard.getStoryCodeTasksDetails @options.storynum, (codeTasks)=>
       A [
+        o AEDInput, class: 'codeTaskInput', placeholder: '... add a new code task'
         if codeTasks?.length is 0
           o 'div.nocodetasks', 'No Code Tasks'
         else
