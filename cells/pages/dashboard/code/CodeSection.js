@@ -1,16 +1,13 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-define(['Services', 'cell!shared/cattable/CatTable'], function(S, CatTable) {
+define(['Services', 'cell!shared/cattable/CatTable', 'cell!shared/aedinput/AEDInput'], function(S, CatTable, AEDInput) {
   return {
-    render: function(R, A) {
+    render: function(o, A) {
       return S.dashboard.getStoryCodeTasksDetails(this.options.storynum, __bind(function(codeTasks) {
         var storynum;
         return A([
-          R('.newCodeTaskContainer', R('.addButton', R('span.plus', '+'), 'Add'), R('input.newCodeTask', {
-            type: 'text',
-            placeholder: '... a new code task'
-          })), (codeTasks != null ? codeTasks.length : void 0) === 0 ? R('div.nocodetasks', 'No Code Tasks') : (storynum = this.options.storynum, R(CatTable, {
+          (codeTasks != null ? codeTasks.length : void 0) === 0 ? o('div.nocodetasks', 'No Code Tasks') : (storynum = this.options.storynum, o(CatTable, {
             categories: {
-              notStarted: 'Not Started',
+              notStarted: "Not Started<span class='plus'>+</span>",
               inProgress: 'In Progress',
               complete: 'Complete'
             },
@@ -23,7 +20,7 @@ define(['Services', 'cell!shared/cattable/CatTable'], function(S, CatTable) {
               description: function(_arg) {
                 var description, id, _ref;
                 _ref = _arg.task, id = _ref.id, description = _ref.description;
-                return R('a', {
+                return o('a', {
                   target: '_blank',
                   href: S.getXPToolBaseUrl("xptool/projecttool/projecttool.tasklogtime.do?taskID=" + id + "&chumpStoryID=" + storynum)
                 }, description);
@@ -40,6 +37,9 @@ define(['Services', 'cell!shared/cattable/CatTable'], function(S, CatTable) {
       }, this));
     },
     bind: {
+      'click .CatTable .header > .plus': function() {
+        return this.$('.CatTable > .category.notStarted > .members').prepend(new AEDInput().el);
+      },
       'keyup .newCodeTask': function(_arg) {
         var blankOutInput, codeTaskText, target, which;
         which = _arg.which, target = _arg.target;

@@ -7,67 +7,6 @@
 .CodeSection
   padding 10px
   position relative
-
-  > .newCodeTaskContainer
-    width 100%
-    height 30px
-    margin 10px 0 15px 0
-    position relative
-    box horizontal
-
-    > .addButton
-      color text-disabled-color
-      cursor pointer
-      border-radius 3px
-      box-shadow 0px 1px 3px rgba(#000,.15)
-      font-weight bold
-      font-size 13px
-      line-height 30px
-      gradient rgba(#888,.3), rgba(#888,.15)
-      letter-spacing 1px
-      margin 0 5px 0 112px
-      overflow hidden
-      text-align center
-      text-shadow 0px -1px 0px #222
-      width 75px
-
-      &:hover
-        color darken(text-color-dark,10%)
-        gradient rgba(#888,.4), rgba(#888,.2)
-        > .plus
-          color darken(text-color-dark,10%)
-
-      &:active
-        color text-color
-        gradient rgba(#888,.2), rgba(#888,.4)
-        > .plus
-          color text-color
-
-      > .plus
-        color darken(text-disabled-color,30%)
-        font-weight bold
-        font-size 18px
-        margin-right 3px
-
-    > input.newCodeTask
-      box-flex 1
-      box-shadow inset 0px 1px 2px rgba(#000,.45)
-      display block
-      color #FFF
-      background-color rgba(#FFF,.05)
-      border-radius 3px
-      border none
-      box-sizing border-box
-      font-size 14px
-      outline none
-      line-height 30px
-      margin 0 40px 0 0
-      padding 0px 10px 0px 10px
-
-      &::-webkit-input-placeholder
-      &::-moz-placeholder
-        color rgba(#FFF,.3)
-        font-style italic
     
   > .nocodetasks
     width 100%
@@ -82,8 +21,26 @@
       lamt = 90%
       &.notStarted
         > .header
+          redcolor = lighten(badge-red,lamt)
           background-color rgba(badge-red,amt)
-          color lighten(badge-red,lamt)
+          color redcolor
+          position relative
+
+          > .plus
+            abspos 0px 0px false false
+            color rgba(redcolor,.6)
+            cursor pointer
+            border-radius 0 3px 0 6px
+            font-weight bold
+            font-size 18px
+            margin 0
+            line-height 19px
+            padding 0px 4px 1px 5px
+            background-color rgba(redcolor,.08)
+
+            &:hover
+              background-color rgba(redcolor,.25)
+              color redcolor
 
       &.inProgress
         > .header

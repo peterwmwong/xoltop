@@ -38,7 +38,7 @@ define([], (function() {
           }
         }
       },
-      render: function(R) {
+      render: function(o) {
         var c, cat, f, gi, member, numVisibleGroups, oddEven, _len, _ref, _results;
         numVisibleGroups = 0;
         oddEven = (function() {
@@ -53,19 +53,21 @@ define([], (function() {
         for (gi = 0, _len = _ref.length; gi < _len; gi++) {
           cat = _ref[gi];
           if (this._catToMembers[cat].length > 0) {
-            _results.push(R(".category." + cat, R('.header', this.options.categories[cat]), R('.members', (function() {
+            _results.push(o(".category." + cat, o('.header', {
+              innerHTML: this.options.categories[cat]
+            }), o('.members', (function() {
               var _i, _len2, _ref2, _results2;
               _ref2 = this._catToMembers[cat];
               _results2 = [];
               for (_i = 0, _len2 = _ref2.length; _i < _len2; _i++) {
                 member = _ref2[_i];
-                _results2.push(R(".member." + (oddEven()), (function() {
+                _results2.push(o(".member." + (oddEven()), (function() {
                   var _ref3, _results3;
                   _ref3 = this.options.columnMap;
                   _results3 = [];
                   for (c in _ref3) {
                     f = _ref3[c];
-                    _results3.push(R(".column." + c, f(member)));
+                    _results3.push(o(".column." + c, f(member)));
                   }
                   return _results3;
                 }).call(this)));

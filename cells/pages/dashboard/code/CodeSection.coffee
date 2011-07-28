@@ -1,26 +1,25 @@
-define ['Services','cell!shared/cattable/CatTable'], (S,CatTable)->
+define [
+  'Services'
+  'cell!shared/cattable/CatTable'
+  'cell!shared/aedinput/AEDInput'
+], (S,CatTable,AEDInput)->
 
-  render: (R,A)->
+  render: (o,A)->
     S.dashboard.getStoryCodeTasksDetails @options.storynum, (codeTasks)=>
       A [
-        R '.newCodeTaskContainer',
-          R '.addButton',
-            R 'span.plus', '+'
-            'Add'
-          R 'input.newCodeTask', type:'text', placeholder:'... a new code task'
         if codeTasks?.length is 0
-          R 'div.nocodetasks', 'No Code Tasks'
+          o 'div.nocodetasks', 'No Code Tasks'
         else
           storynum = @options.storynum
-          R CatTable,
+          o CatTable,
             categories:
-              notStarted:'Not Started'
+              notStarted:"Not Started<span class='plus'>+</span>"
               inProgress:'In Progress'
               complete:'Complete'
             mapMember: ({task:{status}})-> status
             columnMap:
               description: ({task:{id,description}})->
-                R 'a',
+                o 'a',
                   target: '_blank'
                   href: S.getXPToolBaseUrl "xptool/projecttool/projecttool.tasklogtime.do?taskID=#{id}&chumpStoryID=#{storynum}"
                   description
@@ -29,6 +28,9 @@ define ['Services','cell!shared/cattable/CatTable'], (S,CatTable)->
       ]
 
   bind:
+    'click .CatTable .header > .plus': ->
+      @$('.CatTable > .category.notStarted > .members').prepend new AEDInput().el
+
     'keyup .newCodeTask': ({which,target})->
       blankOutInput = ->
         target.attr 'value', ''
