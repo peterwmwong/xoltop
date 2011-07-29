@@ -89,8 +89,11 @@ define [
         # Expand another section
         else
           @options.expandedSection = detail::name
-          @$('.countCol > .selected').toggleClass 'selected', false
-          $(ev.target).closest('.LabeledCounts').toggleClass 'selected', true
+          @$('.countCol > .selected')
+            .toggleClass 'selected', false
+          $(ev.target)
+            .closest('.LabeledCounts')
+            .toggleClass 'selected', true
 
           # hide current details
           @$('.detail.selected')
@@ -101,8 +104,13 @@ define [
             detailCell = new detail
               class:'detail'
               storynum: @model.storynum
-            @$('.details > .contents').prepend detailCell.el
-            @$('.LoadingIndicator').trigger 'enable'
+
+            @$('.details > .contents')
+              .prepend detailCell.el
+
+            @$('.LoadingIndicator')
+              .trigger 'enable'
+              
             detailCell.ready =>
               @$('.LoadingIndicator').trigger 'disable'
               detailCell.$el.toggleClass 'selected', true

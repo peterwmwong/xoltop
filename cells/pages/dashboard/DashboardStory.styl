@@ -174,11 +174,16 @@
       abspos 15px 0px 0px 0px
       
     > .contents > .detail
-      opacity 0.0
+      -webkit-transition -webkit-transform 500ms ease-in-out
+      -webkit-transform translate3d(100%,0,0)
+      overflow hidden
+
       z-index -1
-      transition opacity 500ms ease-in-out
+      //transition opacity 500ms ease-in-out
       abspos 0px 0px 0px 0px
+      visibility hidden
 
       &.selected
+        -webkit-transform translate3d(0,0,0)
         position static
-        opacity 1.0
+        visibility visible
