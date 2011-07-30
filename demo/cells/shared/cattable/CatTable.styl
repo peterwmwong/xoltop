@@ -1,0 +1,42 @@
+@import 'mixins/pos';
+@import 'mixins/badge';
+@import 'mixins/box';
+@import 'mixins/border';
+@import 'mixins/colors';
+
+.CatTable
+
+  font-size 12px
+  
+  > .category
+    box horizontal
+    margin 0px 0px 10px 0px
+    position relative
+    width 100%
+
+    &:last-child
+      margin 0px
+
+    > .header
+      border-radius 3px
+      font-weight bold
+      margin 0 5px 0 2px
+      padding 13px 7px 10px 7px
+      width 90px
+
+    > .members
+      box-flex 1
+
+      > .member
+        box horizontal
+        line-height 20px
+        width 100%
+
+        &.odd
+          background-color shadow-color + rgb(5,5,5)
+          border-radius 3px
+
+        > .column
+          color text-color-dark
+          padding 10px
+

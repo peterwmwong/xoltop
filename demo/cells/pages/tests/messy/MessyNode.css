@@ -1,0 +1,9 @@
+.MetricsNode{overflow:hidden;height:20px;line-height:20px;position:relative;}
+.MetricsNode > #expando{display:block;position:absolute;left:5px;top:8px;border-color:transparent transparent transparent #666;border-style:solid;border-width:4px;height:0;width:0;}
+.MetricsNode > #expando.expanded{left:3px;top:10px;border-color:#222 transparent transparent transparent}
+.MetricsNode > .nameContainer{position:absolute;left:0;right:200px;z-index:1;}
+.MetricsNode > .nameContainer > .name{font-style:normal;font-weight:bold}
+.MetricsNode > .counts{display:inline-block;padding-right:5px;width:200px;position:absolute;right:0;z-index:5;}
+.MetricsNode > .counts > *{display:inline-block;position:absolute;}
+.MetricsNode > .counts > *.ats{width:100px;right:0}
+.MetricsNode > .counts > *.chumpTasks{right:103px;width:100px}

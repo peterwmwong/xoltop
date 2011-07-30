@@ -1,0 +1,39 @@
+@import 'mixins/border';
+@import 'mixins/colors';
+@import 'mixins/pos';
+@import 'mixins/transition';
+
+.TestResultsGraph
+  background-color rgba(0,0,0,.4)
+  border-radius 3px
+  position relative
+  padding-left 5px
+
+  .graphContainer
+    width 125px
+    height 63px
+    padding 2px 0 2px 0
+    position relative
+    margin-bottom 3px
+
+  .labelRow
+    text-align center
+    font-size 18px
+    font-weight bold
+    vertical-align middle
+    padding 0 12px 0 8px
+    color desaturate(lighten(#62872C,70%),20%)
+    > *
+      opacity .5
+      padding-top 2px
+    >.label
+      padding-top 0
+    >.count
+      padding-top 5px
+      opacity 1
+    >.when
+      font-size 10px
+      min-width 50px
+    &.fail
+      color desaturate(lighten(badge-red,70%),30%)
+

@@ -1,0 +1,36 @@
+.MetricsSection{position:absolute;top:0;right:0;bottom:0;left:0;color:#fff;background-color:#404040;overflow:auto;}
+.MetricsSection > #Metrics{color:#fff;position:relative;padding:1px 5px 1px 7px;}
+.MetricsSection > #Metrics > #rows > #headerrow > .headercol{border-left:1px solid #4a4a4a;color:#eee;float:right;font-size:11px;height:100%;line-height:16px;text-align:center;width:100px}
+.MetricsSection > #Metrics .NodeRow.release{box-shadow:0 0 5px #222;margin-bottom:5px}
+.MetricsSection > #Metrics .NodeRow.iteration{border-bottom:1px solid #333;}
+.MetricsSection > #Metrics .NodeRow.iteration:last-child{border-bottom:0}
+.MetricsSection > #Metrics .NodeRow.iteration > #children > .nochildren{padding:10px 10px 10px 20px;background-color:#333;font-weight:bold}
+.MetricsSection > #Metrics .NodeRow.story{background-color:#333;}
+.MetricsSection > #Metrics .NodeRow.story:nth-child(2n){background-color:#2d2d2d}
+.MetricsSection > #Metrics .MetricsNode > .counts .CountBar > #count{vertical-align:top}
+.MetricsSection > #Metrics .MetricsNode > .counts .CountBar > #barContainer{height:20px;margin-top:8px}
+.MetricsSection > #Metrics .MetricsNode.release{color:#fff;background-color:#4d4d4d;height:28px;line-height:28px;margin-top:5px;-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;z-index:1;}
+.MetricsSection > #Metrics .MetricsNode.release.expanded{background:#6f6f6f;background:-moz-linear-gradient(top,#666 0%,#777 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(50%,#666),color-stop(100%,#777));filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#666', endColorstr='#777',GradientType=0 );-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:0;-moz-border-radius-bottomleft:0;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:0;border-bottom-left-radius:0;box-shadow:0 1px 2px #222;text-shadow:1px 1px 0 #444;}
+.MetricsSection > #Metrics .MetricsNode.release.expanded > .nameContainer{color:#ddd;}
+.MetricsSection > #Metrics .MetricsNode.release.expanded > .nameContainer > .name{font-weight:bold;color:#fff}
+.MetricsSection > #Metrics .MetricsNode.release > #expando{border-color:transparent transparent transparent #888;top:10px;left:6px;}
+.MetricsSection > #Metrics .MetricsNode.release > #expando.expanded{top:12px;border-color:#fff transparent transparent transparent;left:4px}
+.MetricsSection > #Metrics .MetricsNode.release > .nameContainer{padding-left:17px;color:#999;font-size:14px;font-style:italic;}
+.MetricsSection > #Metrics .MetricsNode.release > .nameContainer > .name{color:#ddd;padding-left:2px}
+.MetricsSection > #Metrics .MetricsNode.release > .counts{width:103px;}
+.MetricsSection > #Metrics .MetricsNode.release > .counts > .ats,.MetricsSection > #Metrics .MetricsNode.release > .counts > .chumpTasks{border-left:1px solid #333;color:#fff;font-size:11px;text-align:center;vertical-align:baseline;text-shadow:1px 1px 2px #444;width:102px;}
+.MetricsSection > #Metrics .MetricsNode.release > .counts > .ats > .count,.MetricsSection > #Metrics .MetricsNode.release > .counts > .chumpTasks > .count{font-weight:bold;font-size:14px;padding-right:5px;vertical-align:bottom}
+.MetricsSection > #Metrics .MetricsNode.iteration{background-color:#404040;padding:2px 0 2px 0;}
+.MetricsSection > #Metrics .MetricsNode.iteration.expanded{text-shadow:1px 1px 0 #444;}
+.MetricsSection > #Metrics .MetricsNode.iteration.expanded .nameContainer{color:#bbb;}
+.MetricsSection > #Metrics .MetricsNode.iteration.expanded .nameContainer > .name{font-weight:bold;color:#fff}
+.MetricsSection > #Metrics .MetricsNode.iteration > #expando{border-color:transparent transparent transparent #888;top:8px;left:15px;}
+.MetricsSection > #Metrics .MetricsNode.iteration > #expando.expanded{border-color:#ddd transparent transparent transparent;top:10px;left:13px}
+.MetricsSection > #Metrics .MetricsNode.iteration > .nameContainer{color:#888;font-style:italic;letter-spacing:1px;padding-left:25px;top:3px;}
+.MetricsSection > #Metrics .MetricsNode.iteration > .nameContainer > .name{color:#bbb;font-style:normal;letter-spacing:0}
+.MetricsSection > #Metrics .MetricsNode.story{border-bottom:1px solid #333;padding-left:20px;}
+.MetricsSection > #Metrics .MetricsNode.story > #expando{display:none}
+.MetricsSection > #Metrics .MetricsNode.story > .nameContainer{font-weight:normal;}
+.MetricsSection > #Metrics .MetricsNode.story > .nameContainer > a{position:absolute;top:0;bottom:0;left:20px;text-decoration:none;font-weight:bold;color:#fff;}
+.MetricsSection > #Metrics .MetricsNode.story > .nameContainer > a:hover{text-decoration:underline}
+.MetricsSection > #Metrics .MetricsNode.story > .nameContainer > .name{position:absolute;top:0;right:15px;left:60px;display:inline-block;color:#ccc;font-weight:normal;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}

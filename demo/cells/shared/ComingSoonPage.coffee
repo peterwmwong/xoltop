@@ -1,0 +1,2 @@
+define
+  render: -> ['Coming Soon']

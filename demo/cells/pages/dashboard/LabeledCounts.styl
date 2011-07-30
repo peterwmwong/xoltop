@@ -1,0 +1,87 @@
+@import 'mixins/border';
+@import 'mixins/box';
+@import 'mixins/colors';
+@import 'mixins/gradient';
+@import 'mixins/pos';
+@import 'mixins/text';
+@import 'mixins/triangle';
+
+.LabeledCounts
+  box horizontal
+  box-align center
+  position relative
+  background-color lighten(#222,30%)
+  border-radius 2px
+  box-shadow inset 0px 1px 1px rgba(0,0,0,.3)
+  padding 0 2px 0 2px
+  height 25px
+  cursor pointer
+
+  &.selected
+    background-color #222
+
+    > .triangle
+      display block
+      triangle up 6px lighten(#111,50%) #333 1px 10px 0px 0px 13px
+
+    > .label
+      color text-color
+      font-weight bold
+
+  &:hover
+    background-color #222
+    > .label
+      color text-color
+      text-decoration underline
+
+  > .triangle
+    display none
+    position relative
+
+  > .label
+    display block
+    color rgba(text-disabled-color,.75)
+    font-size 10px
+    padding 0px 5px 0 5px
+    text-shadow 0px -1px 0px rgba(0,0,0,.5)
+    text-decoration none
+    position relative
+
+    &:hover
+      text-decoration underline
+      position relative
+  
+  > .counts
+    box horizontal
+    box-align center
+    box-flex 1
+    box-pack center
+    font-size 15px
+    text-align center
+    vertical-align middle
+    padding 0 5px 0 0
+
+    > .count
+      border-radius 2px
+      font-weight bold
+      margin 0 4px 0 4px
+      text-align center
+      text-shadow 0px -1px 0px rgba(0,0,0,.3)
+      
+      &.red, &.notests
+        color lighten(saturate(badge-red,30%),50%)
+
+      &.green
+        font-weight normal
+        color lighten(desaturate(badge-green,70%),10%)
+
+      &.yellow
+        color lighten(badge-yellow,30%)
+
+      &.needsAttn
+        text-shadow 0px -1px 0px rgba(0,0,0,.2)
+        background-color badge-red
+        border-radius 3px
+        color text-color
+        line-height 15px
+        padding 0px 3px 2px 3px

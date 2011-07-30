@@ -1,0 +1,4 @@
+.CountBar > span{display:inline-block;}
+.CountBar > span#count{width:20px}
+.CountBar > span#barContainer{width:70px;}
+.CountBar > span#barContainer > #bar{background-color:#e05a5a;height:5px}

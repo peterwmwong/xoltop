@@ -1,0 +1,54 @@
+@import 'mixins/pos';
+@import 'mixins/badge';
+@import 'mixins/box';
+@import 'mixins/border';
+@import 'mixins/colors';
+
+.TasksSection
+  padding 10px
+    
+  > .notests
+    width 100%
+    text-align center
+    font-weight bold
+    padding 15px 0 0 0
+    color bg-color-light
+
+  > .CatTable > table
+    table-layout fixed
+
+  > .CatTable
+    > .category
+      amt = .25
+      lamt = 90%
+      &.needsAttn > .header
+          background-color rgba(badge-red,amt)
+          color lighten(badge-red,lamt)
+
+      &.retest > .header
+          background-color rgba(badge-yellow,amt)
+          color lighten(badge-yellow,lamt - 10%)
+
+      &.complete > .header
+          background-color rgba(badge-green,amt)
+          color lighten(badge-green,lamt - 10%)
+
+      > .members .column
+
+        &.note
+          box-flex 1
+          text-overflow ellipsis
+          position relative
+
+          > a
+            color text-color-dark
+            text-decoration none
+            display block
+            width 100%
+
+            &:hover
+              text-decoration underline
+
+        &.owner
+          width 80px
+          text-align right

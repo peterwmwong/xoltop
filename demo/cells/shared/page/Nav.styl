@@ -1,0 +1,114 @@
+@import 'mixins/gradient'
+@import 'mixins/box'
+@import 'mixins/colors'
+@import 'mixins/pos'
+
+.Nav
+  border-right 1px solid shadow-color
+  font-family Helvetica, Arial, sans-serif
+  z-index 1
+  position relative
+
+  &::after
+    content ""
+    abspos 0px 0px 0px 0px
+    gradient bg-color-dark bg-color 0% 100%
+    z-index -1
+  
+  &::before
+    content ""
+    abspos 0px -1px 0px 0px
+    gradient shadow-color bg-color 20% 100%
+    z-index -1
+
+  > .SearchInput
+    abspos 15px 5px false 5px
+
+    > #searchInputContainer
+
+      > #searchinput
+        color bg-selected-color-dark
+        background-color #1D1D1D
+        box-shadow inset 0px 1px 1px #000
+
+        &::-webkit-input-placeholder, &::-moz-placeholder
+          color bg-selected-color-dark
+
+        &:focus
+          color #AAA
+          background-color #111
+          font-style normal
+
+    > #searchIcon  
+      #circle
+        border-color bg-selected-color-dark
+      #rect
+        background-color bg-selected-color-dark
+  > ul
+    abspos 35px 0px false 0px
+    list-style-type none
+    padding-top 2px
+    padding-left 0
+
+    > li
+      margin 8px 0 8px 0
+      padding 4px 0 2px 10px
+      position relative
+      display block
+      maincolor = rgba(#2C5477,.75)
+      maincolor-hi = maincolor
+
+      > a
+        height 14px
+        color text-disabled-color
+        display block
+        font-size 12px
+        font-weight bold
+        letter-spacing 1px
+        text-decoration none
+        text-shadow 1px 1px 0px shadow-color
+        vertical-align 6px
+        width 100%
+
+      &.selected
+      &.selected:hover
+        gradient rgba(#36729F,.7) maincolor 
+        border-top 1px solid #2A2A2A
+
+        > a
+          color text-color
+          text-shadow 1px 1px 0px shadow-color
+
+        > .triangle
+          display block
+          position absolute
+          right -1px
+          top 2px
+          border-color transparent shadow-color transparent transparent
+          border-style solid
+          border-width 8px
+          height 0
+          width 0
+          z-index 1
+          
+          &:before
+            content ""
+            display block
+            position absolute
+            right -9px
+            top -8px
+            border-color transparent bg-color transparent transparent
+            border-style solid
+            border-width 8px
+            height 0
+            width 0
+            z-index -1
+
+
+
+      &:hover
+        background-color rgba(maincolor,.4)
+
+        > a
+          color #EEE
+

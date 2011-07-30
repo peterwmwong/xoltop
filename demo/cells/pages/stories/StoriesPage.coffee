@@ -1,0 +1,4 @@
+define
+  render: ->"
+    Coming Soon
+  "

@@ -1,0 +1,10 @@
+.TasksSection{padding:10px;}
+.TasksSection > .notests{width:100%;text-align:center;font-weight:bold;padding:15px 0 0 0;color:#4d4d4d}
+.TasksSection > .CatTable > table{table-layout:fixed}
+.TasksSection > .CatTable > .category.needsAttn > .header{background-color:rgba(147,44,44,0.25);color:#dd8e8e}
+.TasksSection > .CatTable > .category.retest > .header{background-color:rgba(132,104,40,0.25);color:#d1b067}
+.TasksSection > .CatTable > .category.complete > .header{background-color:rgba(79,110,32,0.25);color:#8fc63b}
+.TasksSection > .CatTable > .category > .members .column.note{box-flex:1;-webkit-box-flex:1;-moz-box-flex:1;text-overflow:ellipsis;position:relative;}
+.TasksSection > .CatTable > .category > .members .column.note > a{color:#ddd;text-decoration:none;display:block;width:100%;}
+.TasksSection > .CatTable > .category > .members .column.note > a:hover{text-decoration:underline}
+.TasksSection > .CatTable > .category > .members .column.owner{width:80px;text-align:right}

@@ -1,0 +1,8 @@
+.CatTable{font-size:12px;}
+.CatTable > .category{display:box;display:-webkit-box;display:-moz-box;-webkit-box-orient:horizontal;-moz-box-orient:horizontal;margin:0 0 10px 0;position:relative;width:100%;}
+.CatTable > .category:last-child{margin:0}
+.CatTable > .category > .header{-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;font-weight:bold;margin:0 5px 0 2px;padding:13px 7px 10px 7px;width:90px}
+.CatTable > .category > .members{box-flex:1;-webkit-box-flex:1;-moz-box-flex:1;}
+.CatTable > .category > .members > .member{display:box;display:-webkit-box;display:-moz-box;-webkit-box-orient:horizontal;-moz-box-orient:horizontal;line-height:20px;width:100%;}
+.CatTable > .category > .members > .member.odd{background-color:#272727;-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px}
+.CatTable > .category > .members > .member > .column{color:#ddd;padding:10px}

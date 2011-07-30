@@ -1,0 +1,76 @@
+@import 'mixins/pos';
+@import 'mixins/badge';
+@import 'mixins/box';
+@import 'mixins/border';
+@import 'mixins/colors';
+
+.CodeSection
+  padding 10px
+  position relative
+
+  > .codeTaskInput
+    margin 0 0 10px 0  
+    
+  > .nocodetasks
+    width 100%
+    text-align center
+    font-weight bold
+    padding 15px 0 0 0
+    color bg-color-light
+
+  > .CatTable
+    > .category
+      amt = .25
+      lamt = 90%
+      &.notStarted
+        > .header
+          redcolor = lighten(badge-red,lamt)
+          background-color rgba(badge-red,amt)
+          color redcolor
+          position relative
+
+          > .plus
+            abspos 0px 0px false false
+            color rgba(redcolor,.6)
+            cursor pointer
+            border-radius 0 3px 0 6px
+            font-weight bold
+            font-size 18px
+            margin 0
+            line-height 19px
+            padding 0px 4px 1px 5px
+            background-color rgba(redcolor,.08)
+
+            &:hover
+              background-color rgba(redcolor,.25)
+              color redcolor
+
+      &.inProgress
+        > .header
+          background-color rgba(badge-yellow,amt)
+          color lighten(badge-yellow,lamt - 10%)
+
+      &.complete
+        > .header
+          background-color rgba(badge-green,amt)
+          color lighten(badge-green,lamt - 10%)
+      
+      > .header
+        text-align left
+
+      > .members > .member > .column
+        vertical-align middle
+
+        &.description
+          box-flex 1
+
+          > a
+            color text-color-dark
+            text-decoration none
+
+            &:hover
+              text-decoration underline
+
+        &.owner
+          text-align right
+          width 80px

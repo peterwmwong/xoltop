@@ -1,0 +1,119 @@
+@import 'mixins/badge';
+@import 'mixins/border';
+@import 'mixins/box';
+@import 'mixins/colors';
+
+.MessySuiteDetails
+  color #FFF
+
+  > #Messy
+    background none
+    position relative
+    .NodeRow
+
+      &.Suite
+        margin-top 5px
+
+        &:nth-child(1)
+          margin-top 0px
+
+        &:nth-child(2n)
+          background-color bg-color
+
+        > #children
+          padding-left 5px
+          background-color bg-color
+
+      &.DbTable, &.SysProps, &.UserProps, &.ConfigDistrict, &.ConfigSite, &.ConfigSiteDefaults
+        margin-top 0px
+        position relative
+
+        > .Node
+          position relative
+          color text-color-dark
+          font-size 12px
+          font-weight bold
+          height 28px
+          line-height 28px
+          z-index 2
+
+          &.expanded
+            color text-color
+            > #expando
+              left 57px
+              top 13px
+              border-color #FFF transparent transparent transparent
+
+            > .label
+              color text-color
+
+          > .label
+            text-decoration none
+            color text-color
+
+            &.isempty
+              color text-disabled-color
+              font-style italic
+
+            &:hover
+              text-decoration underline
+
+          > #expando
+            display block
+            position absolute
+            left 59px
+            top 11px
+            border-color transparent transparent transparent text-disabled-color
+            border-style solid
+            border-width 4px
+            height 0
+            width 0
+
+          > .count
+            min-width 25px
+            margin-left 25px
+            margin-right 18px
+            margin-top 1px
+            badge badge-gray
+
+            &.red
+              badge badge-red
+
+        > #children
+          z-index 1
+          margin 0 0 0 20px
+          background-color bg-color-light
+      
+      &.issue
+        background-color bg-color-dark
+        &:nth-child(2n)
+          background-color #2D2D2D
+        position relative
+        z-index 1
+        padding 5px 5px 5px 25px
+        font-size 12px
+        font-weight bold
+
+        .diffArrow
+          font-size 14px
+          color #888
+
+        .diff
+          font-family Courier New, monospace
+          display inline-block
+          min-width 75px
+          text-align right
+          padding 0px 5px 0px 5px
+          font-size 14px
+          color #a9db80
+
+          &.after
+            color #f18e99
+            text-align left
+          
+
+        .name
+          display inline-block
+          min-width 400px
+
+         

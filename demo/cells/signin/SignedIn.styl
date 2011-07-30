@@ -1,0 +1,42 @@
+@import 'mixins/border'
+@import 'mixins/box'
+@import 'mixins/colors'
+@import 'mixins/gradient'
+@import 'mixins/pos'
+@import 'mixins/transition'
+
+.SignedIn
+  position relative
+  panelcolor = hsl(205deg,49%,55%)
+  text-align right
+  width 150px
+  padding 3px 0 0 0
+
+  &.expanded
+    background-color panelcolor
+    border-radius 0 0 5px 5px
+    box-shadow 0 2px 5px rgba(#000,.5)
+
+    > #username
+      color text-color
+
+    > #options-group
+      display block
+   
+  > #username
+    color rgba(text-color,.8)
+    text-decoration none
+    display inline-block
+
+    &:hover
+      color text-color
+  
+  > .InitialsList
+    margin 0 10px 0 5px
+
+  > #options-group
+    display none
+    color text-color
+    padding 5px 20px 7px 20px
+    text-align center
+

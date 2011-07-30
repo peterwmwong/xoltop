@@ -1,0 +1,90 @@
+@import 'mixins/pos';
+@import 'mixins/badge';
+@import 'mixins/box';
+@import 'mixins/border';
+@import 'mixins/colors';
+
+.TestsSection
+  padding 10px
+    
+  > .notests
+    width 100%
+    text-align center
+    font-weight bold
+    padding 15px 0 0 0
+    color bg-color-light
+
+  > .CatTable
+
+    > .category
+      amt = .25
+      lamt = 90%
+
+      &.fail
+        > .header
+          background-color rgba(badge-red,amt)
+          color lighten(badge-red,lamt)
+
+        > .members .column.id > a
+          color lighten(badge-red,80%)
+
+      &.towrite
+        > .header
+          background-color rgba(badge-yellow,amt)
+          color lighten(badge-yellow,lamt - 10%)
+
+        > .members .column.id > a
+          color lighten(badge-yellow,80%)
+
+      &.pass
+        > .header
+          background-color rgba(badge-green,amt)
+          color lighten(badge-green,lamt - 10%)
+          
+        > .members .column.id > a
+          color lighten(badge-green,80%)
+
+      > .members .column
+        vertical-align middle
+
+        &.id
+          width 50px
+          font-size 16px
+          font-weight bold
+          text-align center
+
+          > a
+            text-decoration none
+
+            &:hover
+              text-decoration underline
+
+        &.name
+          padding-left 3px
+          box-flex 1
+          > .needsAttn
+            background-color badge-red
+            padding 1px 1px 2px 1px
+            border-radius 3px
+            font-size 11px
+            color text-color
+            font-weight bold
+            margin-right 5px
+
+          > a
+            color text-color-dark
+            text-decoration none
+
+            &:hover
+              text-decoration underline
+
+        &.date
+          width 50px
+
+        &.owner
+          width 60px
+          text-align right
+
+
+
+

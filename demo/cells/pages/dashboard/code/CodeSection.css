@@ -1,0 +1,14 @@
+.CodeSection{padding:10px;position:relative;}
+.CodeSection > .codeTaskInput{margin:0 0 10px 0}
+.CodeSection > .nocodetasks{width:100%;text-align:center;font-weight:bold;padding:15px 0 0 0;color:#4d4d4d}
+.CodeSection > .CatTable > .category.notStarted > .header{background-color:rgba(147,44,44,0.25);color:#dd8e8e;position:relative;}
+.CodeSection > .CatTable > .category.notStarted > .header > .plus{position:absolute;top:0;right:0;color:rgba(221,142,142,0.6);cursor:pointer;-moz-border-radius-topleft:0;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:0;-moz-border-radius-bottomleft:6px;border-top-left-radius:0;border-top-right-radius:3px;border-bottom-right-radius:0;border-bottom-left-radius:6px;font-weight:bold;font-size:18px;margin:0;line-height:19px;padding:0 4px 1px 5px;background-color:rgba(221,142,142,0.08);}
+.CodeSection > .CatTable > .category.notStarted > .header > .plus:hover{background-color:rgba(221,142,142,0.25);color:#dd8e8e}
+.CodeSection > .CatTable > .category.inProgress > .header{background-color:rgba(132,104,40,0.25);color:#d1b067}
+.CodeSection > .CatTable > .category.complete > .header{background-color:rgba(79,110,32,0.25);color:#8fc63b}
+.CodeSection > .CatTable > .category > .header{text-align:left}
+.CodeSection > .CatTable > .category > .members > .member > .column{vertical-align:middle;}
+.CodeSection > .CatTable > .category > .members > .member > .column.description{box-flex:1;-webkit-box-flex:1;-moz-box-flex:1;}
+.CodeSection > .CatTable > .category > .members > .member > .column.description > a{color:#ddd;text-decoration:none;}
+.CodeSection > .CatTable > .category > .members > .member > .column.description > a:hover{text-decoration:underline}
+.CodeSection > .CatTable > .category > .members > .member > .column.owner{text-align:right;width:80px}
