@@ -2,10 +2,11 @@ define(function() {
   return {
     render: function(o) {
       return [
-        o('.addButton', o('span.plus', '+'), 'Add Task'), o('input', {
+        this.options.disableDelete !== true ? o('.deleteButton', o('span.trash', o('a')), o('span.label', 'Are you sure?')) : void 0, o('input', {
           type: 'text',
-          placeholder: this.options.placeholder || ''
-        }), o('.deleteButton', o('span.trash', o('a')), o('span.label', 'Are you sure?'))
+          placeholder: this.options.placeholder || '',
+          value: this.options.value || ''
+        })
       ];
     },
     bind: {

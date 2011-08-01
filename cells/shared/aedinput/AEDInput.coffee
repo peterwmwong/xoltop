@@ -1,13 +1,11 @@
 define ->
   render: (o)-> [
-    o '.addButton',
-      o 'span.plus', '+'
-      'Add Task'
-    o 'input', type:'text', placeholder: @options.placeholder or ''
-    o '.deleteButton',
-      o 'span.trash',
-        o 'a'
-      o 'span.label', 'Are you sure?'
+    if @options.disableDelete isnt true
+      o '.deleteButton',
+        o 'span.trash',
+          o 'a'
+        o 'span.label', 'Are you sure?'
+    o 'input', type:'text', placeholder: @options.placeholder or '', value: @options.value or ''
   ]
 
   bind:
