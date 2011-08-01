@@ -1,22 +1,16 @@
-@import 'mixins/pos';
-@import 'mixins/badge';
-@import 'mixins/box';
-@import 'mixins/border';
-@import 'mixins/colors';
+@import 'mixins/pos'
+@import 'mixins/badge'
+@import 'mixins/box'
+@import 'mixins/border'
+@import 'mixins/colors'
+@import 'mixins/transition'
 
 .AEDInput
   box horizontal
   box-align center
 
-  > .label
-    color darken(text-disabled-color,50%)
-    font-size 13px
-    width 100px
-    padding 0 10px 0 2px
-    margin-top 2px
-    text-align right
 
-  > input.newCodeTask
+  > input
     box-flex 1
     box-shadow inset 0px 1px 2px rgba(#000,.45)
     display block
@@ -35,7 +29,7 @@
       color rgba(#FFF,.3)
       font-style italic
 
-  > .addButton
+  button()
     color text-disabled-color
     cursor pointer
     border-radius 3px
@@ -43,20 +37,25 @@
     font-weight bold
     font-size 13px
     height 28px
-    line-height 25px
+    line-height 30px
     gradient rgba(#888,.3), rgba(#888,.15)
     letter-spacing 1px
     margin 2px 5px 0 2px
     overflow hidden
     text-align center
     text-shadow 0px -1px 0px #222
-    width 105px
+    vertical-align top
 
     &:hover
       color darken(text-color-dark,10%)
       gradient rgba(#888,.4), rgba(#888,.2)
       > .plus
         color darken(text-color-dark,10%)
+    
+
+  > .addButton
+    button()
+    width 105px
 
     &:active
       color text-color
@@ -69,3 +68,82 @@
       font-weight bold
       font-size 18px
       margin-right 3px
+
+  > .deleteButton
+    width 20px
+    height 28px
+    line-height 30px
+    overflow hidden
+    transition width 250ms ease-in-out
+    cursor pointer
+    position relative
+
+    &.confirm
+      button()
+      width 140px
+
+      &:active:hover
+        gradient rgba(#F88,.1), rgba(#F55,.35)
+
+      &:hover
+        color #FFF
+        gradient rgba(#F55,.35), rgba(#F88,.1)
+
+        > .trash
+          &:after, > a:before, > a:after
+            border-color #DDD
+
+    &:hover > .trash
+      &:after, > a:before, > a:after
+        border-color #F88
+
+    > .trash
+      display inline-block
+      icon-color = darken(text-disabled-color,30%)
+      height 10px
+      margin 0 0 0 2px
+      width 20px
+      position relative
+      z-index 1
+
+      &:after, &:before, > a:before, > a:after
+        top 50%
+
+      &:after
+        content ''
+        left 6px
+        width 1px
+        height 6px
+        border-right 3px double icon-color
+        border-left 1px solid icon-color
+        margin-top -2px
+        position absolute
+
+      > a
+        display block
+        &:before
+          content ''
+          left 2px
+          width 9px
+          height 10px
+          margin-top -6px
+          border 2px solid icon-color
+          background transparent
+          position absolute
+
+        &:after
+          content ''
+          left 5px
+          width 3px
+          height 2px
+          margin-top -9px
+          border 2px solid icon-color
+          border-bottom 0
+          background transparent
+          position absolute
+
+          /* css3 */
+          -webkit-border-top-left-radius 2px
+          -webkit-border-top-right-radius 2px
+          -moz-border-radius 2px 2px 0 0
+          border-radius 2px 2px 0 0

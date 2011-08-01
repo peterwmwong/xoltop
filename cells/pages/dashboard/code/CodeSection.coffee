@@ -14,9 +14,9 @@ define [
           storynum = @options.storynum
           o CatTable,
             categories:
-              notStarted:"Not Started<span class='plus'>+</span>"
-              inProgress:'In Progress'
-              complete:'Complete'
+              notStarted: 'Not Started'
+              inProgress: 'In Progress'
+              complete:   'Complete'
             mapMember: ({task:{status}})-> status
             columnMap:
               description: ({task:{id,description}})->
@@ -29,21 +29,4 @@ define [
       ]
 
   bind:
-    'click .CatTable .header > .plus': ->
-      @$('.CatTable > .category.notStarted > .members').prepend new AEDInput().el
-
-    'keyup .newCodeTask': ({which,target})->
-      blankOutInput = ->
-        target.attr 'value', ''
-        target.blur()
-        
-      switch which
-        when 27 # <ESC>
-          blankOutInput()
-
-        when 13 # <ENTER>
-          target = $(target)
-          codeTaskText = target.attr 'value'
-          blankOutInput()
-
-
+    'delete .AEDInput': -> #TODO: do delete
