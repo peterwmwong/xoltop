@@ -15,8 +15,8 @@ define({
     var changeIter;
     changeIter = function(addAmt) {
       return function() {
-        var newIter, _ref;
-        if ((0 < (_ref = (newIter = this.options.iterationNo + addAmt)) && _ref < 239)) {
+        var newIter;
+        if (0 < (newIter = this.options.iterationNo + addAmt)) {
           this.options.iterationNo = newIter;
           this.$('.num').html(this.options.iterationNo);
           return this.$el.trigger({

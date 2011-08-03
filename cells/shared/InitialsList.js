@@ -11,7 +11,7 @@ define(['Services'], function(S) {
           for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
             initials = _ref2[_i];
             _results.push(R('li', {
-              className: curUserInitials === initials && 'currentUser' || ''
+              "class": curUserInitials === initials && 'currentUser' || ''
             }, initials));
           }
           return _results;

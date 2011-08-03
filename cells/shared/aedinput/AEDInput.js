@@ -1,15 +1,16 @@
 define(function() {
   return {
-    render: function(o) {
+    render: function(_) {
       return [
-        this.options.disableDelete !== true ? o('.deleteButton', o('span.trash', o('a')), o('span.label', 'Are you sure?')) : void 0, o('input', {
+        _('input', {
           type: 'text',
           placeholder: this.options.placeholder || '',
           value: this.options.value || ''
-        })
+        }), this.options.disableDelete !== true ? _('.deleteButton', _('span.trash', _('a')), _('span.label', 'Are you sure?')) : void 0
       ];
     },
     bind: {
+      'focus input': function() {},
       'click .deleteButton': function() {
         var $deleteButton, confirmed;
         $deleteButton = this.$('.deleteButton');

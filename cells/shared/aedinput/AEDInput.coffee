@@ -1,14 +1,17 @@
 define ->
-  render: (o)-> [
+  render: (_)-> [
+    _ 'input', type:'text', placeholder: @options.placeholder or '', value: @options.value or ''
     if @options.disableDelete isnt true
-      o '.deleteButton',
-        o 'span.trash',
-          o 'a'
-        o 'span.label', 'Are you sure?'
-    o 'input', type:'text', placeholder: @options.placeholder or '', value: @options.value or ''
+      _ '.deleteButton',
+        _ 'span.trash',
+          _ 'a'
+        _ 'span.label', 'Are you sure?'
   ]
 
   bind:
+    'focus input': ->
+      #@$('input').toggleClass ''
+
     'click .deleteButton': ->
       $deleteButton = @$ '.deleteButton'
       confirmed = $deleteButton.hasClass 'confirm'

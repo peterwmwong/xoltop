@@ -23,17 +23,17 @@ define [], do->
       return
 
 
-    render: (o)->
+    render: (_)->
       numVisibleGroups = 0
       oddEven = do->
         isEven = false
         -> (isEven = !isEven) and 'even' or 'odd'
 
       for cat, gi in @_categoryNames when @_catToMembers[cat].length > 0
-        o ".category.#{cat}",
-          o '.header', innerHTML: @options.categories[cat]
-          o '.members',
+        _ ".category.#{cat}",
+          _ '.header', @options.categories[cat]
+          _ '.members',
             for member in @_catToMembers[cat]
-              o ".member.#{oddEven()}",
+              _ ".member.#{oddEven()}",
                 for c,f of @options.columnMap
-                  o ".column.#{c}", f(member)
+                  _ ".column.#{c}", f(member)

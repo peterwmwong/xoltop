@@ -31,7 +31,7 @@ define(['cell!./CountBar'], function(CountBar) {
       this.$el.toggleClass('expanded', !!this.model.expanded);
       return [
         R('#expando', this.model.expanded ? {
-          className: 'expanded'
+          "class": 'expanded'
         } : void 0), R(this.nameColCell, {
           "class": 'nameContainer',
           nameLabel: this.nameLabel,

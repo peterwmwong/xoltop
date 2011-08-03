@@ -34,7 +34,7 @@ define ['cell!./CountBar'], (CountBar)->
   render: (R)->
     @$el.toggleClass 'expanded', !!@model.expanded
     [
-      R '#expando', if @model.expanded then className: 'expanded'
+      R '#expando', if @model.expanded then class: 'expanded'
       R @nameColCell, class: 'nameContainer', nameLabel: @nameLabel, model: @model
       R @countColCell, class: 'counts', model: @model.data
     ]

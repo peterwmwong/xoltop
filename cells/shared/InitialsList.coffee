@@ -3,6 +3,6 @@ define ['Services'], (S)->
     curUserInitials = S.auth.getUser()?.initials
     [
       for initials in @options.initials
-        R 'li', className: (curUserInitials is initials and 'currentUser' or ''),
+        R 'li', class: (curUserInitials is initials and 'currentUser' or ''),
           initials
     ]

@@ -9,9 +9,11 @@
 .AEDInput
   box horizontal
   box-align center
+  height 30px
 
   > input
     background none
+    border-radius 3px
     box-flex 1
     display block
     color text-color
@@ -19,8 +21,15 @@
     box-sizing border-box
     font-size 14px
     outline none
-    line-height 30px
-    padding 1px 10px 0px 10px
+    padding 1px 10px 0px 7px
+    margin-right 10px
+    height 29px
+
+    &:focus
+      background-color rgba(#FFF,.1)
+
+    &:hover
+      background-color rgba(#FFF,.05)
 
     &::-webkit-input-placeholder
     &::-moz-placeholder
@@ -29,19 +38,23 @@
 
   > .deleteButton
     width 20px
-    height 30px
+    height 22px
     line-height 30px
     overflow hidden
-    transition width 100ms ease-in-out
+    transition width 50ms ease-in-out
     cursor pointer
     position relative
 
     &.confirm
       button()
-      height 30px
       width 140px
-      //border 2px solid rgba(#FAA,.5)
+      height 27px
       box-shadow 0px 1px 4px rgba(#000,.4)
+
+      > .trash
+        &:after, &:before, > a:before, > a:after
+          top 5px
+          border-color #DDD
 
       &:active:hover
         gradient rgba(#F88,.1), rgba(#F55,.35)
@@ -50,16 +63,13 @@
         color #FFF
         gradient rgba(#F55,.35), rgba(#F88,.1)
 
-        > .trash
-          &:after, > a:before, > a:after
-            border-color #DDD
-
     &:hover > .trash
       &:after, > a:before, > a:after
-        border-color #F88
+        border-color #CCC
     
     > .label
       margin 0 0 0 2px
+      line-height 28px
 
     > .trash
       display inline-block
@@ -71,7 +81,7 @@
       z-index 1
 
       &:after, &:before, > a:before, > a:after
-        top 50%
+        top 2px
 
       &:after
         content ''
