@@ -2,15 +2,16 @@ define(function() {
   return {
     render: function(_) {
       return [
-        _('input', {
+        _('.inputGroup', _('input', {
           type: 'text',
           placeholder: this.options.placeholder || '',
           value: this.options.value || ''
-        }), this.options.disableDelete !== true ? _('.deleteButton', _('span.trash', _('a')), _('span.label', 'Are you sure?')) : void 0
+        }), _('.saveButtonMask', {
+          "class": 'save'
+        }, _('.saveButton', _('span.savingIcon'), _('span.label-saving', 'Saving'), _('span.label-save', 'Save')))), this.options.disableDelete !== true ? _('.deleteButton', _('a.trash', _('a')), _('span.label', 'Are you sure?')) : void 0
       ];
     },
     bind: {
-      'focus input': function() {},
       'click .deleteButton': function() {
         var $deleteButton, confirmed;
         $deleteButton = this.$('.deleteButton');

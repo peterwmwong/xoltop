@@ -1,17 +1,20 @@
 define ->
   render: (_)-> [
-    _ 'input', type:'text', placeholder: @options.placeholder or '', value: @options.value or ''
+    _ '.inputGroup',
+      _ 'input', type:'text', placeholder: @options.placeholder or '', value: @options.value or ''
+      _ '.saveButtonMask', class:'save',
+        _ '.saveButton',
+          _ 'span.savingIcon'
+          _ 'span.label-saving', 'Saving'
+          _ 'span.label-save', 'Save'
     if @options.disableDelete isnt true
       _ '.deleteButton',
-        _ 'span.trash',
+        _ 'a.trash',
           _ 'a'
         _ 'span.label', 'Are you sure?'
   ]
 
   bind:
-    'focus input': ->
-      #@$('input').toggleClass ''
-
     'click .deleteButton': ->
       $deleteButton = @$ '.deleteButton'
       confirmed = $deleteButton.hasClass 'confirm'
@@ -36,3 +39,6 @@ define ->
           target = $(target)
           codeTaskText = target.attr 'value'
           blankOutInput()
+
+        else
+          
