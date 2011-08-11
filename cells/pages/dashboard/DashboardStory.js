@@ -1,5 +1,5 @@
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; }, __slice = Array.prototype.slice;
-define(['Services', 'cell!./LabeledCounts', 'cell!shared/loadingindicator/LoadingIndicator', 'cell!./tests/TestsSection', 'cell!./tasks/TasksSection', 'cell!./code/CodeSection', 'cell!shared/InitialsList'], function(S, LabeledCounts, LoadingIndicator, TestsSection, TasksSection, CodeSection, InitialsList) {
+define(['require', 'Services', 'cell!./LabeledCounts', 'cell!shared/loadingindicator/LoadingIndicator', 'cell!shared/InitialsList'], function(require, S, LabeledCounts, LoadingIndicator, InitialsList) {
   var statusToColor;
   statusToColor = ['red', 'yellow', 'green'];
   return {
@@ -78,47 +78,52 @@ define(['Services', 'cell!./LabeledCounts', 'cell!shared/loadingindicator/Loadin
     },
     bind: (function() {
       var collapseStory, selectSection;
-      selectSection = function(detail) {
+      selectSection = function(detailCellPath) {
+        var detailName;
+        detailName = detailCellPath.split('/').slice(-1);
         return function(ev) {
-          var $detail, detailCell;
           this.$('.LabeledCounts.selected').toggleClass('selected', false);
           if (!(this.$el.hasClass('selected'))) {
             this.$el.trigger('selected');
             this.$el.toggleClass('selected', true);
           }
-          if (detail.prototype.name === this.options.expandedSection) {
+          if (detailName === this.options.expandedSection) {
             return collapseStory.call(this);
           } else {
-            this.options.expandedSection = detail.prototype.name;
+            this.options.expandedSection = detailName;
             this.$('.countCol > .selected').toggleClass('selected', false);
             $(ev.target).closest('.LabeledCounts').toggleClass('selected', true);
             this.$('.detail.selected').toggleClass('selected', false);
-            if (!($detail = this.$("." + detail.prototype.name))[0]) {
-              detailCell = new detail({
-                "class": 'detail',
-                storynum: this.model.storynum
-              });
-              this.$('.details > .contents').prepend(detailCell.el);
-              this.$('.LoadingIndicator').trigger('enable');
-              return detailCell.ready(__bind(function() {
-                this.$('.LoadingIndicator').trigger('disable');
-                detailCell.$el.toggleClass('selected', true);
-                return this.$('.details').height("" + (detailCell.$el.outerHeight()) + "px");
-              }, this));
-            } else {
-              $detail.prependTo($detail.parent());
-              return setTimeout(__bind(function() {
-                $detail.toggleClass('selected', true);
-                return this.$('.details').height("" + ($detail.outerHeight()) + "px");
-              }, this), 0);
-            }
+            this.$('.LoadingIndicator').trigger('enable');
+            return require(["cell!" + detailCellPath], __bind(function(detail) {
+              var $detail, detailCell;
+              if (!($detail = this.$("." + detail.prototype.name))[0]) {
+                detailCell = new detail({
+                  "class": 'detail',
+                  storynum: this.model.storynum
+                });
+                this.$('.details > .contents').prepend(detailCell.el);
+                return detailCell.ready(__bind(function() {
+                  this.$('.LoadingIndicator').trigger('disable');
+                  detailCell.$el.toggleClass('selected', true);
+                  return this.$('.details').height("" + (detailCell.$el.outerHeight()) + "px");
+                }, this));
+              } else {
+                $detail.prependTo($detail.parent());
+                return setTimeout(__bind(function() {
+                  this.$('.LoadingIndicator').trigger('disable');
+                  $detail.toggleClass('selected', true);
+                  return this.$('.details').height("" + ($detail.outerHeight()) + "px");
+                }, this), 0);
+              }
+            }, this));
           }
         };
       };
       return {
-        'click .header > .tests': selectSection(TestsSection),
-        'click .header > .tasks': selectSection(TasksSection),
-        'click .header > .code': selectSection(CodeSection),
+        'click .header > .tests': selectSection('./tests/TestsSection'),
+        'click .header > .tasks': selectSection('./tasks/TasksSection'),
+        'click .header > .code': selectSection('./code/CodeSection'),
         'click .collapseStory': collapseStory = function() {
           this.$('.LabeledCounts.selected, .detail.selected').toggleClass('selected', false);
           this.$el.toggleClass('selected', false);

@@ -31,14 +31,13 @@ define(['Services', 'cell!shared/cattable/CatTable', 'cell!shared/aedinput/AEDIn
                 _ref = _arg.task, id = _ref.id, description = _ref.description;
                 return _(AEDInput, {
                   value: description
-                }, (function() {
                   /*
                                   _ 'a',
                                     target: '_blank'
                                     href: S.getXPToolBaseUrl "xptool/projecttool/projecttool.tasklogtime.do?taskID=#{id}&chumpStoryID=#{storynum}"
                                     description
                                   */
-                })());
+                });
               }
             },
             members: codeTasks

@@ -7,11 +7,9 @@ define(['require', 'cell!./Nav'], function(require, Nav) {
   return {
     init: function() {
       var _base, _base2, _ref, _ref2;
-            if ((_ref = (_base = this.options).baseurl) != null) {
-        _ref;
-      } else {
+      if ((_ref = (_base = this.options).baseurl) == null) {
         _base.baseurl = '';
-      };
+      }
       return (_ref2 = (_base2 = this.options).selectedSection) != null ? _ref2 : _base2.selectedSection = this.options.sections[0];
     },
     loadSection: function(section) {

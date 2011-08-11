@@ -18,7 +18,7 @@
 
     > .category
       amt = .25
-      lamt = 90%
+      lamt = 55%
 
       &.fail
         > .header
@@ -26,7 +26,7 @@
           color lighten(badge-red,lamt)
 
         > .members .column.id > a
-          color lighten(badge-red,80%)
+          color lighten(badge-red,50%)
 
       &.towrite
         > .header
@@ -34,7 +34,7 @@
           color lighten(badge-yellow,lamt - 10%)
 
         > .members .column.id > a
-          color lighten(badge-yellow,80%)
+          color lighten(badge-yellow,50%)
 
       &.pass
         > .header
@@ -42,7 +42,7 @@
           color lighten(badge-green,lamt - 10%)
           
         > .members .column.id > a
-          color lighten(badge-green,80%)
+          color lighten(badge-green,50%)
 
       > .members .column
         vertical-align middle

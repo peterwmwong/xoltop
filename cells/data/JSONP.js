@@ -13,11 +13,9 @@ define(function() {
       window[jsonpString] = void 0;
       return $('#' + jsonpString).remove();
     };
-        if ((_ref = options.callback) != null) {
-      _ref;
-    } else {
+    if ((_ref = options.callback) == null) {
       options.callback = 'callback';
-    };
+    }
     s = document.createElement('script');
     s.id = jsonpString;
     s.setAttribute('type', 'text/javascript');
@@ -47,11 +45,9 @@ define(function() {
       function _Class(serviceName, _arg) {
         var baseURL, methods, name, pathFunc, process, _fn;
         baseURL = _arg.baseURL, process = _arg.process, methods = _arg.methods;
-                if (process != null) {
-          process;
-        } else {
+        if (process == null) {
           process = idFunc;
-        };
+        }
         _fn = __bind(function(name, pathFunc) {
           var cacheFunc, methodProcess, t;
           methodProcess = process;

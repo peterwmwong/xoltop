@@ -13,21 +13,23 @@
   position relative
   border-bottom 1px solid rgba(#000,.3)
   border-top 1px solid rgba(#888,.25)
-  gradient lighten(#333,20%), #333
-  -webkit-transform translateZ(0)
+  gradient lighten(#333,5%), #333
 
   &:hover
-    gradient lighten(#333,35%), lighten(#333,20%)
+    gradient lighten(#333,9%), lighten(#333,5%)
     border-top 1px solid rgba(#FFF,.15)
     border-bottom 1px solid rgba(#000,.7)
 
     > .header
-      .chumps, > .nameContainer > .name
+      .chumps
+        color lighten(text-disabled-color,90%)
+
+      > .nameContainer > .name
+        color lighten(text-disabled-color,50%)
         font-weight bold
-        color lighten(text-disabled-color,40%)
 
   &.selected
-    gradient lighten(#333,40%), lighten(#333,40%)
+    gradient lighten(#333,10%), lighten(#333,10%)
     border-top 2px solid #579
     border-bottom 1px solid rgba(#000,.55)
     > .header
@@ -36,10 +38,10 @@
 
       > .chumps
         font-weight bold
-        color lighten(text-disabled-color,60%)
+        color lighten(text-disabled-color,90%)
 
       > .nameContainer > .name
-        color lighten(text-disabled-color,60%)
+        color lighten(text-disabled-color,90%)
         font-weight bold
         text-shadow 0px -1px 0px #222
 

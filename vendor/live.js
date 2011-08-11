@@ -36,8 +36,8 @@
     // performs a cycle per interval
     heartbeat: function () {      
       if (document.body) {        
-        // make sure all resources are loaded on first activation
-        if (!loaded) Live.loadresources();
+        // Look for resources to track
+        Live.loadresources();
         Live.checkForChanges();
       }
       setTimeout(Live.heartbeat, interval);
@@ -61,7 +61,7 @@
       // track local js urls
       for (var i = 0; i < scripts.length; i++) {
         var script = scripts[i], src = script.getAttribute("src");
-        if (src && isLocal(src))
+        if (src && isLocal(src) && resources[src] == null)
           uris.push(src);
         if (src && src.match(/\blive.js#/)) {
           for (var type in active)
@@ -76,7 +76,7 @@
       // track local css urls
       for (var i = 0; i < links.length && active.css; i++) {
         var link = links[i], rel = link.getAttribute("rel"), href = link.getAttribute("href", 2);
-        if (href && rel && rel.match(new RegExp("stylesheet", "i")) && isLocal(href)) {
+        if (href && rel && rel.match(new RegExp("stylesheet", "i")) && isLocal(href) && resources[src] == null) {
           uris.push(href);
           currentLinkElements[href] = link;
         }
@@ -91,13 +91,15 @@
       }
 
       // add rule for morphing between old and new css files
-      var head = document.getElementsByTagName("head")[0],
-          style = document.createElement("style"),
-          rule = "transition: all .3s ease-out;"
-      css = [".livejs-loading * { ", rule, " -webkit-", rule, "-moz-", rule, "-o-", rule, "}"].join('');
-      style.setAttribute("type", "text/css");
-      head.appendChild(style);
-      style.styleSheet ? style.styleSheet.cssText = css : style.appendChild(document.createTextNode(css));
+      if(!loaded){
+        var head = document.getElementsByTagName("head")[0],
+            style = document.createElement("style"),
+            rule = "transition: all .3s ease-out;"
+        css = [".livejs-loading * { ", rule, " -webkit-", rule, "-moz-", rule, "-o-", rule, "}"].join('');
+        style.setAttribute("type", "text/css");
+        head.appendChild(style);
+        style.styleSheet ? style.styleSheet.cssText = css : style.appendChild(document.createTextNode(css));
+      }
 
       // yep
       loaded = true;

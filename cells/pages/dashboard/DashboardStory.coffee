@@ -1,12 +1,10 @@
 define [
+  'require'
   'Services'
   'cell!./LabeledCounts'
   'cell!shared/loadingindicator/LoadingIndicator'
-  'cell!./tests/TestsSection'
-  'cell!./tasks/TasksSection'
-  'cell!./code/CodeSection'
   'cell!shared/InitialsList'
-], (S,LabeledCounts,LoadingIndicator,TestsSection,TasksSection,CodeSection,InitialsList)->
+], (require,S,LabeledCounts,LoadingIndicator,InitialsList)->
 
   statusToColor = ['red','yellow','green']
 
@@ -74,7 +72,8 @@ define [
   ]
 
   bind: do->
-    selectSection = (detail)->
+    selectSection = (detailCellPath)->
+      detailName = detailCellPath.split('/').slice -1
       (ev)->
         @$('.LabeledCounts.selected').toggleClass 'selected', false
 
@@ -83,12 +82,12 @@ define [
           @$el.toggleClass 'selected', true
 
         # Collapse if already expanded
-        if detail::name == @options.expandedSection
+        if detailName == @options.expandedSection
           collapseStory.call this
 
         # Expand another section
         else
-          @options.expandedSection = detail::name
+          @options.expandedSection = detailName
           @$('.countCol > .selected')
             .toggleClass 'selected', false
           $(ev.target)
@@ -98,35 +97,36 @@ define [
           # hide current details
           @$('.detail.selected')
             .toggleClass('selected', false)
-         
-          # Load new details for the first time
-          if not ($detail = @$(".#{detail::name)}")[0]
-            detailCell = new detail
-              class:'detail'
-              storynum: @model.storynum
+          
+          @$('.LoadingIndicator').trigger 'enable'
+          
+          require ["cell!#{detailCellPath}"], (detail)=>
+            # Load new details for the first time
+            if not ($detail = @$(".#{detail::name)}")[0]
+              detailCell = new detail
+                class:'detail'
+                storynum: @model.storynum
 
-            @$('.details > .contents')
-              .prepend detailCell.el
+              @$('.details > .contents')
+                .prepend detailCell.el
+                
+              detailCell.ready =>
+                @$('.LoadingIndicator').trigger 'disable'
+                detailCell.$el.toggleClass 'selected', true
+                @$('.details').height("#{detailCell.$el.outerHeight()}px")
 
-            @$('.LoadingIndicator')
-              .trigger 'enable'
-              
-            detailCell.ready =>
-              @$('.LoadingIndicator').trigger 'disable'
-              detailCell.$el.toggleClass 'selected', true
-              @$('.details').height("#{detailCell.$el.outerHeight()}px")
+            # Show already loaded details
+            else
+              $detail.prependTo $detail.parent()
+              setTimeout =>
+                @$('.LoadingIndicator').trigger 'disable'
+                $detail.toggleClass 'selected', true
+                @$('.details').height "#{$detail.outerHeight()}px"
+              , 0
 
-          # Show already loaded details
-          else
-            $detail.prependTo $detail.parent()
-            setTimeout =>
-              $detail.toggleClass 'selected', true
-              @$('.details').height "#{$detail.outerHeight()}px"
-            , 0
-
-    'click .header > .tests': selectSection TestsSection
-    'click .header > .tasks': selectSection TasksSection
-    'click .header > .code': selectSection CodeSection
+    'click .header > .tests': selectSection './tests/TestsSection'
+    'click .header > .tasks': selectSection './tasks/TasksSection'
+    'click .header > .code': selectSection './code/CodeSection'
     'click .collapseStory': collapseStory = ->
       @$('.LabeledCounts.selected, .detail.selected').toggleClass 'selected', false
       @$el.toggleClass 'selected', false

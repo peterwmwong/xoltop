@@ -43,9 +43,7 @@ define(function() {
         }, this));
       }
       if (this.options.getChildren) {
-                if ((_ref = this.loadChildren) != null) {
-          _ref;
-        } else {
+        if ((_ref = this.loadChildren) == null) {
           this.loadChildren = __bind(function(reload) {
             delete this.loadChildren;
             if (!this.model.children || reload) {
@@ -59,7 +57,7 @@ define(function() {
               }
             }
           }, this);
-        };
+        }
         if (this.model.expanded && !(this.model.children instanceof Array)) {
           setTimeout(this.loadChildren, 0);
         }

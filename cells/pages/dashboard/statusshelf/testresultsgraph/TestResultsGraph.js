@@ -56,7 +56,7 @@ define(['Services'], function(S) {
             _results = [];
             for (var _i = 0, _ref2 = results.length; 0 <= _ref2 ? _i < _ref2 : _i > _ref2; 0 <= _ref2 ? _i++ : _i--){ _results.push(_i); }
             return _results;
-          }).apply(this, arguments)
+          }).apply(this)
         ], [
           (function() {
             var _j, _len, _results2;
