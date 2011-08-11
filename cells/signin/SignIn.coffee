@@ -4,26 +4,26 @@ define ['Services','cell!./SignedIn'], (S, SignedIn)->
     S.bus.bind 'auth.userLoggedOut', =>
       @$el.toggleClass 'loggedin', false
 
-  'render <span>': (R,A)->
+  'render <span>': (_,A)->
     S.auth.user (user)=>
       if user? then @$el.toggleClass 'loggedin'
       A [
-        R '#signin-group',
-          R 'a#signin-toggle', href:'#', 'Sign In'
+        _ '#signin-group',
+          _ 'a#signin-toggle', href:'#', 'Sign In'
 
-          R '#input-group',
-            R '.user',
+          _ '#input-group',
+            _ '.user',
               'User '
-              R 'input#auth-user', type:'text'
+              _ 'input#auth-user', type:'text'
 
-            R '.password',
+            _ '.password',
               'Pass '
-              R 'input#auth-pass', type:'password'
+              _ 'input#auth-pass', type:'password'
             
-            R 'span#loginFailed', 'Login Failed'
-            R 'button#signin-button', 'Sign in'
+            _ 'span#loginFailed', 'Login Failed'
+            _ 'button#signin-button', 'Sign in'
               
-        R SignedIn, user: user
+        _ SignedIn, user: user
       ]
 
   bind:

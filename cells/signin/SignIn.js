@@ -7,19 +7,19 @@ define(['Services', 'cell!./SignedIn'], function(S, SignedIn) {
         return this.$el.toggleClass('loggedin', false);
       }, this));
     },
-    'render <span>': function(R, A) {
+    'render <span>': function(_, A) {
       return S.auth.user(__bind(function(user) {
         if (user != null) {
           this.$el.toggleClass('loggedin');
         }
         return A([
-          R('#signin-group', R('a#signin-toggle', {
+          _('#signin-group', _('a#signin-toggle', {
             href: '#'
-          }, 'Sign In'), R('#input-group', R('.user', 'User ', R('input#auth-user', {
+          }, 'Sign In'), _('#input-group', _('.user', 'User ', _('input#auth-user', {
             type: 'text'
-          })), R('.password', 'Pass ', R('input#auth-pass', {
+          })), _('.password', 'Pass ', _('input#auth-pass', {
             type: 'password'
-          })), R('span#loginFailed', 'Login Failed'), R('button#signin-button', 'Sign in'))), R(SignedIn, {
+          })), _('span#loginFailed', 'Login Failed'), _('button#signin-button', 'Sign in'))), _(SignedIn, {
             user: user
           })
         ]);
