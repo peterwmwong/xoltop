@@ -1,5 +1,5 @@
 (function() {
-  var E, bind, cell, document, exports, extendObj, fbind, inherits, isElement, isNode, renderChildren, renderHelper, renderParent, selRegex, window, _ctor, _evNameRx, _evSelRx, _midRelUrlRx, _modNameRx, _optsToProps, _ref, _relUrlRx, _renderFuncNameRx, _slice, _tmpNode;
+  var E, bind, cell, document, exports, extendObj, fbind, inherits, isNode, renderChildren, renderHelper, renderParent, selRx, tagnameRx, window, _ctor, _evNameRx, _evSelRx, _midRelUrlRx, _modNameRx, _optsToProps, _ref, _relUrlRx, _renderFuncNameRx, _slice, _tmpNode;
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; }, __slice = Array.prototype.slice;
   E = (typeof (typeof console !== "undefined" && console !== null ? console.error : void 0) === 'function') && (function(msg) {
     return console.error(msg);
@@ -12,11 +12,6 @@
     return o instanceof Node;
   } : function(o) {
     return typeof o === 'object' && typeof o.nodeType === 'number' && typeof o.nodeName === 'string';
-  };
-  isElement = typeof HTMLElement === "object" ? function(o) {
-    return o instanceof HTMLElement;
-  } : function(o) {
-    return typeof o === "object" && o.nodeType === 1 && typeof o.nodeName === "string";
   };
   _slice = Array.prototype.slice;
   bind = (fbind = Function.prototype.bind) ? function(func, obj) {
@@ -99,11 +94,11 @@
       this.update();
     };
   };
-  renderHelper = function() {
-    var a, b, children, l, parent;
+  window.cell.renderHelper = renderHelper = function() {
+    var a, b, children, parent;
     a = arguments[0], b = arguments[1], children = 3 <= arguments.length ? __slice.call(arguments, 2) : [];
-    if (a && (l = arguments.length) > 0) {
-      if (l > 1 && (b != null ? b.constructor : void 0) !== Object) {
+    if (a) {
+      if ((b != null ? b.constructor : void 0) !== Object) {
         children.unshift(b);
         b = void 0;
       }
@@ -113,48 +108,52 @@
       }
     }
   };
-  selRegex = /^([A-z]+)?(#([A-z0-9\-]+))?(\.[A-z0-9\.\-]+)?$/;
+  selRx = /^(\w+)?(#([\w\-]+))?(\.[\w\.\-]+)?$/;
+  tagnameRx = /^<(\w+)/;
   renderParent = function(a, b) {
-    var bclass, html, k, m, v, _ref2;
+    var bclass, el, k, m, v, _ref2;
     if (typeof a === 'string') {
-      if (a[0] === '<') {
-        return $(a)[0];
-      } else if ((m = selRegex.exec(a)) && m[0]) {
-        html = "<" + (m[1] || 'div');
-        for (k in b) {
-          v = b[k];
-          if (!(k === 'class' || k === 'id')) {
-            html += " " + k + "='" + v + "'";
+      if (m = selRx.exec(a)) {
+        el = document.createElement(m[1] || 'div');
+        if (v = m[3]) {
+          el.setAttribute('id', v);
+        }
+        bclass = '';
+        if (b) {
+          bclass = b['class'];
+          delete b['class'];
+          for (k in b) {
+            v = b[k];
+            el.setAttribute(k, v);
           }
         }
-        if (v = m[3] || (b != null ? b['id'] : void 0)) {
-          html += " id='" + v + "'";
+        if (v = m[4]) {
+          bclass += v.replace(/\./g, ' ');
         }
-        v = (v = m[4]) && (v.replace(/\./g, ' ') + ' ');
-        if (bclass = b != null ? b['class'] : void 0) {
-          v += " " + bclass;
+        if (bclass) {
+          el.setAttribute('class', bclass);
         }
-        if (v) {
-          html += " class='" + v + "'";
-        }
-        return $(html + ">")[0];
+        return el;
+      } else if (m = tagnameRx.exec(a)) {
+        _tmpNode.innerHTML = "" + a + "</" + m[1] + ">";
+        return _tmpNode.children[0];
       } else {
         return E("renderParent: unsupported parent string = '" + a + "'");
       }
     } else if (((_ref2 = a.prototype) != null ? _ref2.cell : void 0) === a) {
       return (new a(b)).el;
-    } else if (isElement(a)) {
+    } else if (isNode(a)) {
       return a;
     } else {
-      return E('renderParent: unsupported parent type = ' + a);
+      return E("renderParent: unsupported parent type = " + a);
     }
   };
-  renderChildren = function(parent, children) {
+  window.cell.renderChildren = renderChildren = function(parent, children) {
     var c, type, _ref2, _results;
     _results = [];
     while (children.length > 0) {
       if ((c = children.shift()) != null) {
-        _results.push(c instanceof Array ? Array.prototype.unshift.apply(children, c) : (_ref2 = (type = typeof c)) === 'string' || _ref2 === 'number' ? parent.appendChild(document.createTextNode(c)) : isNode(c) ? parent.appendChild(c) : !((c === void 0 || c === null) || type === 'boolean') ? E('renderChild: unsupported child type = ' + c) : void 0);
+        _results.push(isNode(c) ? parent.appendChild(c) : (_ref2 = (type = typeof c)) === 'string' || _ref2 === 'number' ? parent.appendChild(document.createTextNode(c)) : c instanceof Array ? Array.prototype.unshift.apply(children, c) : !((c === void 0 || c === null) || type === 'boolean') ? E('renderChild: unsupported child type = ' + c) : void 0);
       }
     }
     return _results;
@@ -163,12 +162,12 @@
   _evNameRx = /bind( (.+))?/;
   _evSelRx = /^(\w+)(\s(.*))?$/;
   cell.extend = function(protoProps, name) {
-    var bindProp, binds, child, css, cssref, desc, el, handler, match, p, prop, propName, selmatch, tag, _ref2, _ref3, _ref4;
+    var bindProp, binds, child, css, cssref, desc, el, handler, match, p, prop, propName, selmatch, tag, _ref2;
     protoProps.__eventBindings = ((_ref2 = this.prototype.__eventBindings) != null ? _ref2.slice(0) : void 0) || [];
     for (propName in protoProps) {
       prop = protoProps[propName];
       if ((match = _evNameRx.exec(propName)) && typeof prop === 'object') {
-        bindProp = (_ref3 = match[2]) != null ? _ref3 : 'el';
+        bindProp = match[2] || 'el';
         binds = [];
         for (desc in prop) {
           handler = prop[desc];
@@ -191,8 +190,8 @@
           E("cell.extend expects '" + propName + "' to be a function");
           return;
         }
-        tag = protoProps.__renderTagName = match[2] !== "" && match[2] || 'div';
-        protoProps.__renderOuterHTML = "<" + tag + ((_ref4 = match[3]) != null ? _ref4 : "") + "></" + tag + ">";
+        tag = protoProps.__renderTagName = match[2] || 'div';
+        protoProps.__renderOuterHTML = "<" + tag + (match[3] || "") + "></" + tag + ">";
       }
     }
     if (typeof name === 'string') {
@@ -260,7 +259,7 @@
       _ref3 = this.__eventBindings;
       for (_j = 0, _len2 = _ref3.length; _j < _len2; _j++) {
         _ref4 = _ref3[_j], prop = _ref4.prop, binds = _ref4.binds;
-        if (isElement(obj = this[prop])) {
+        if (isNode(obj = this[prop])) {
           obj = this.$(obj);
           _fn = __bind(function(obj, name, sel, handler) {
             if (typeof handler === 'string') {

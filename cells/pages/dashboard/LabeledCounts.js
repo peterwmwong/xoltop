@@ -1,4 +1,4 @@
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; }, __indexOf = Array.prototype.indexOf || function(item) {
+var __indexOf = Array.prototype.indexOf || function(item) {
   for (var i = 0, l = this.length; i < l; i++) {
     if (this[i] === item) return i;
   }
@@ -9,21 +9,19 @@ define({
     var _base, _ref;
     return (_ref = (_base = this.options).showIfZero) != null ? _ref : _base.showIfZero = [];
   },
-  render: function(R) {
+  render: function(_) {
     var count, type;
     return [
-      R('.triangle'), R('.label', {
+      _('.triangle'), _('.label', {
         href: '#'
-      }, __bind(function() {
-        return this.options.label;
-      }, this)()), R('.counts', (function() {
+      }, this.options.label), _('.counts', (function() {
         var _ref, _results;
         _ref = this.options.counts;
         _results = [];
         for (type in _ref) {
           count = _ref[type];
           if (count > 0 || __indexOf.call(this.options.showIfZero, type) >= 0) {
-            _results.push(R("." + type + ".count", count));
+            _results.push(_("." + type + ".count", count));
           }
         }
         return _results;
