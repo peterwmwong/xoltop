@@ -1,4 +1,4 @@
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
 define(['Services', 'cell!shared/InitialsList'], function(S, InitialsList) {
   var updateUser;
   updateUser = function() {
@@ -13,18 +13,19 @@ define(['Services', 'cell!shared/InitialsList'], function(S, InitialsList) {
   };
   return {
     init: function() {
-      return S.bus.bind('auth.userLoggedIn', __bind(function() {
-        return updateUser.call(this);
-      }, this));
+      var _this = this;
+      return S.bus.bind('auth.userLoggedIn', function() {
+        return updateUser.call(_this);
+      });
     },
-    'render <span>': function(R) {
+    'render <span>': function(_) {
       return [
-        R('a#username', {
+        _('a#username', {
           href: '#'
-        }), R('#options-group', R('button#signout-button', 'Sign Out'))
+        }), _('#options-group', _('button#signout-button', 'Sign Out'))
       ];
     },
-    bind: {
+    on: {
       afterRender: updateUser,
       'click #signout-button': function() {
         S.auth.logout();

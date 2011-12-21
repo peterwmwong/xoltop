@@ -1,27 +1,28 @@
+
 define({
   init: function() {
     var _base, _ref;
     return (_ref = (_base = this.options).selectedTab) != null ? _ref : _base.selectedTab = this.options.tabs[0];
   },
-  render: function(R) {
+  render: function(_) {
     var i, tab;
     return [
-      R('ul', (function() {
+      _('ul', (function() {
         var _len, _ref, _results;
         _ref = this.options.tabs;
         _results = [];
         for (i = 0, _len = _ref.length; i < _len; i++) {
           tab = _ref[i];
-          _results.push(R("li" + (this.options.selectedTab === tab && '.selected' || ''), R('a', {
+          _results.push(_("li" + (this.options.selectedTab === tab && '.selected' || ''), _('a', {
             href: '#',
             id: tab
-          }, tab), R('.triangle')));
+          }, tab), _('.triangle')));
         }
         return _results;
       }).call(this))
     ];
   },
-  bind: {
+  on: {
     'click a': function(ev) {
       var target;
       this.$('.selected').removeClass('selected');

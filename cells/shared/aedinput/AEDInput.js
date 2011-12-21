@@ -1,3 +1,4 @@
+
 define(function() {
   return {
     render: function(_) {
@@ -11,15 +12,13 @@ define(function() {
         }, _('.saveButton', _('span.savingIcon'), _('span.label-saving', 'Saving'), _('span.label-save', 'Save')))), this.options.disableDelete !== true ? _('.deleteButton', _('a.trash', _('a')), _('span.label', 'Are you sure?')) : void 0
       ];
     },
-    bind: {
+    on: {
       'click .deleteButton': function() {
         var $deleteButton, confirmed;
         $deleteButton = this.$('.deleteButton');
         confirmed = $deleteButton.hasClass('confirm');
         this.$('.deleteButton').toggleClass('confirm');
-        if (confirmed) {
-          return this.$el.trigger('delete');
-        }
+        if (confirmed) return this.$el.trigger('delete');
       },
       'mouseleave .deleteButton': function() {
         return this.$('.deleteButton').toggleClass('confirm', false);

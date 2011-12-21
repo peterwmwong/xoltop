@@ -1,3 +1,4 @@
+
 define(['data/JSONP'], function(_arg) {
   var JSONPService, getXPToolBaseUrl;
   JSONPService = _arg.JSONPService, getXPToolBaseUrl = _arg.getXPToolBaseUrl;
@@ -41,32 +42,33 @@ define(['data/JSONP'], function(_arg) {
             var atTotal, ats, codeTasks, devs, iterationNo, n, names, s, stories, tasks, testers, _ref;
             _ref = _arg2.iterationStories, iterationNo = _ref.iterationNo, stories = _ref.stories;
             stories = (function() {
-              var _i, _len, _ref2, _ref3, _results;
+              var _i, _len, _ref2, _ref3, _ref4, _results;
+              _ref2 = stories || [];
               _results = [];
-              for (_i = 0, _len = stories.length; _i < _len; _i++) {
-                s = stories[_i];
-                _ref2 = (function() {
-                  var _j, _len2, _ref2, _ref3, _ref4, _results2;
-                  _ref4 = ((_ref2 = chumpRegex.exec(s.chumps)) != null ? (_ref3 = _ref2[1]) != null ? _ref3.split(' - ') : void 0 : void 0) || [];
+              for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
+                s = _ref2[_i];
+                _ref3 = (function() {
+                  var _j, _len2, _ref3, _ref4, _ref5, _results2;
+                  _ref5 = ((_ref3 = chumpRegex.exec(s.chumps)) != null ? (_ref4 = _ref3[1]) != null ? _ref4.split(' - ') : void 0 : void 0) || [];
                   _results2 = [];
-                  for (_j = 0, _len2 = _ref4.length; _j < _len2; _j++) {
-                    names = _ref4[_j];
+                  for (_j = 0, _len2 = _ref5.length; _j < _len2; _j++) {
+                    names = _ref5[_j];
                     _results2.push((function() {
-                      var _k, _len3, _ref5, _results3;
-                      _ref5 = names.split('/');
+                      var _k, _len3, _ref6, _results3;
+                      _ref6 = names.split('/');
                       _results3 = [];
-                      for (_k = 0, _len3 = _ref5.length; _k < _len3; _k++) {
-                        n = _ref5[_k];
+                      for (_k = 0, _len3 = _ref6.length; _k < _len3; _k++) {
+                        n = _ref6[_k];
                         _results3.push(n.toUpperCase());
                       }
                       return _results3;
                     })());
                   }
                   return _results2;
-                })(), devs = _ref2[0], testers = _ref2[1];
+                })(), devs = _ref3[0], testers = _ref3[1];
                 _results.push({
                   storynum: s.num,
-                  name: (_ref3 = storyRegex.exec(s.description)) != null ? _ref3[3] : void 0,
+                  name: (_ref4 = storyRegex.exec(s.description)) != null ? _ref4[3] : void 0,
                   codeCompletePct: s.codeCompletePct,
                   codeTasksIncomplete: s.codeTasksIncomplete,
                   codeTasks: codeTasks = {

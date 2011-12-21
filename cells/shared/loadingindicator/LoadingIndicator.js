@@ -1,12 +1,13 @@
+
 define({
   render: function() {
     return ["Loading"];
   },
-  bind: {
-    'enable': function() {
+  on: {
+    enable: function() {
       return this.$el.toggleClass('enableLoading', true);
     },
-    'disable': function() {
+    disable: function() {
       return this.$el.toggleClass('enableLoading', false);
     }
   }

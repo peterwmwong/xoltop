@@ -13,9 +13,9 @@ define [], do->
         @_catToMembers[@options.mapMember member].push member
 
       for col,funcOrProp of cmap = @options.columnMap
-        if (type = typeof funcOrProp) == 'string'
+        if (type = typeof funcOrProp) is 'string'
           cmap[col] = getPropFunc funcOrProp
-        else if type == 'function'
+        else if type is 'function'
           cmap[col] = funcOrProp
         else
           delete cmap[col]
@@ -25,9 +25,8 @@ define [], do->
 
     render: (_)->
       numVisibleGroups = 0
-      oddEven = do->
-        isEven = false
-        -> (isEven = !isEven) and 'even' or 'odd'
+      isEven = false
+      oddEven = -> (isEven = !isEven) and 'even' or 'odd'
 
       for cat, gi in @_categoryNames when @_catToMembers[cat].length > 0
         _ ".category.#{cat}",

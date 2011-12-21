@@ -1,10 +1,11 @@
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
 define(['Services', 'cell!shared/cattable/CatTable'], function(S, CatTable) {
   return {
-    render: function(R, A) {
-      return S.dashboard.getStoryTestDetails(this.options.storynum, __bind(function(tests) {
-        return A([
-          (tests != null ? tests.length : void 0) === 0 ? R('.notests', 'No Tests') : R(CatTable, {
+    render: function(_) {
+      var _this = this;
+      return S.dashboard.getStoryTestDetails(this.options.storynum, function(tests) {
+        _this.$el.append([
+          (tests != null ? tests.length : void 0) === 0 ? _('.notests', 'No Tests') : _(CatTable, {
             categories: {
               fail: 'Failing',
               towrite: 'To Write',
@@ -19,7 +20,7 @@ define(['Services', 'cell!shared/cattable/CatTable'], function(S, CatTable) {
               id: function(_arg) {
                 var id;
                 id = _arg.id;
-                return R('a', {
+                return _('a', {
                   target: '_blank',
                   href: S.getXPToolBaseUrl("xp.testnoteview.do?testNumber=" + id)
                 }, id);
@@ -28,7 +29,7 @@ define(['Services', 'cell!shared/cattable/CatTable'], function(S, CatTable) {
                 var id, needsAttn, requirement, status;
                 id = _arg.id, status = _arg.status, needsAttn = _arg.needsAttn, requirement = _arg.requirement;
                 return [
-                  needsAttn ? R('span.needsAttn', 'NA') : void 0, R('a', {
+                  needsAttn ? _('span.needsAttn', 'NA') : void 0, _('a', {
                     target: '_blank',
                     href: S.getXPToolBaseUrl("xp.testnoteview.do?testNumber=" + id)
                   }, requirement)
@@ -59,7 +60,8 @@ define(['Services', 'cell!shared/cattable/CatTable'], function(S, CatTable) {
             members: tests
           })
         ]);
-      }, this));
+        return _this.$el.trigger('loaded');
+      });
     }
   };
 });

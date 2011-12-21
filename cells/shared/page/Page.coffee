@@ -14,12 +14,12 @@ define ['require','cell!./Nav'], (require,Nav)->
         content.html ''
         content.append new NewSection().el
 
-  render: (R)->
+  render: (_)->
     defer => @loadSection @options.selectedSection
     [
-      R Nav, tabs: @options.sections, selectedTab: @options.selectedSection
-      R '#content'
+      _ Nav, tabs: @options.sections, selectedTab: @options.selectedSection
+      _ '#content'
     ]
 
-  bind:
+  on:
     'changed :parent > .Nav': (e,{selectedTab})-> @loadSection selectedTab

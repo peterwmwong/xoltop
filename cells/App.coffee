@@ -27,10 +27,10 @@ define [
       R Bar,
         selectedItem:@options.selectedPage, items:(p for p of pages)
       R '#content',
-        R @getPage @options.selectedPage
+        @getPage @options.selectedPage
     ]
 
-  bind:
+  on:
     'selectedItemChanged :parent > .Bar': (e,{item})->
       @$('> #content')
         .html('')

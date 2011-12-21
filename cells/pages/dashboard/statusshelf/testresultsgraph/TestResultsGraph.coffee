@@ -1,4 +1,5 @@
 define ['Services'], (S)->
+  _ = cell::$R
   passColor = '#62872C'
   failColor = '#992626'
   highlightCol = (col)->
@@ -18,9 +19,10 @@ define ['Services'], (S)->
     col.attr opacity: 0
     col.symbols[0].attr fill:color,'stroke-opacity': 0
 
-  render: (R,A)->
-    $el = @$el
+  init: ->
     S.dashboard.getRecentTestResults @options.type, (results)=>
+      $el = @$el
+      $ = (a)=> @$ a
       @results = results
 
       [w,h] = [125,64]
@@ -39,13 +41,16 @@ define ['Services'], (S)->
       lc.hoverColumn.call lc,
         -> # Hover IN
           highlightCol this
-          if lastCol != this
-            unhighlightCol lastCol
-          $el.trigger type: 'resultHovered', column: this
+          unhighlightCol lastCol if lastCol != this
+          $('.labelRow').toggleClass 'fail', @values[0] > 0
+          $('.count').html @values[0]
+          $('.when').html getDate results[@axis].testResult.datetime
 
         -> # Hover OUT
           unhighlightCol this
-          $el.trigger type: 'resultUnhovered'
+          $('.labelRow').toggleClass 'fail', lastCol.values[0] > 0
+          $('.count').html lastCol.values[0]
+          $('.when').html ""
 
       for col,i in lc.columns
         col.symbols[0].attr fill: if col.values[0] == 0 then passColor else failColor
@@ -53,26 +58,16 @@ define ['Services'], (S)->
 
       lc.symbols.attr r: 3
       r.canvas.class = 'graph'
-      A [
-        R 'table',
-          R 'tr',
-            R 'td',
-              R '.graphContainer', r.canvas
-            R "td.labelRow#{@lastCol.values[0] and '.fail' or ''}",
-              R '.label', @options.label
-              R '.count', @lastCol.values[0]
-              R '.when'
+      @$el.append [
+        _ 'table',
+          _ 'tr',
+            _ 'td',
+              _ '.graphContainer', r.canvas
+            _ "td.labelRow#{@lastCol.values[0] and '.fail' or ''}",
+              _ '.label', @options.label
+              _ '.count', @lastCol.values[0]
+              _ '.when'
       ]
   
-  bind:
+  on:
     'mouseout': -> highlightCol @lastCol
-
-    'resultUnhovered': ->
-      @$('.labelRow').toggleClass 'fail', @lastCol.values[0] > 0
-      @$('.count').html @lastCol.values[0]
-      @$('.when').html ""
-
-    'resultHovered': (ev)->
-      @$('.labelRow').toggleClass 'fail', ev.column.values[0] > 0
-      @$('.count').html ev.column.values[0]
-      @$('.when').html getDate @results[ev.column.axis].testResult.datetime

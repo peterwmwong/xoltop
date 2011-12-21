@@ -1,28 +1,27 @@
-var __slice = Array.prototype.slice, __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-define(function() {
-  var get, getXPToolBaseUrl, idFunc, jsonp, jsonpID, _ref, _ref2;
+var __slice = Array.prototype.slice;
+
+define(['shared/LocationSearch'], function(LocationSearch) {
+  var get, getXPToolBaseUrl, idFunc, jsonp, jsonpID;
   idFunc = function(o) {
     return o;
   };
   jsonpID = 0;
   jsonp = function(options) {
-    var jsonpString, s, _ref;
+    var jsonpString, s;
     jsonpString = '__jsonp' + ++jsonpID;
     window[jsonpString] = function(j) {
       options.success(j);
       window[jsonpString] = void 0;
       return $('#' + jsonpString).remove();
     };
-    if ((_ref = options.callback) == null) {
-      options.callback = 'callback';
-    }
+    if (options.callback == null) options.callback = 'callback';
     s = document.createElement('script');
     s.id = jsonpString;
     s.setAttribute('type', 'text/javascript');
     s.setAttribute('src', "" + options.url + (options.url.indexOf('?') === -1 && '?' || '&') + options.callback + "=" + jsonpString);
     return $('head').append(s);
   };
-  get = ((_ref = window.xoltop) != null ? (_ref2 = _ref.services) != null ? _ref2.useMockData : void 0 : void 0) ? function(_arg, done) {
+  get = LocationSearch.usemockdata ? function(_arg, done) {
     var mock;
     mock = _arg.mock;
     return setTimeout((function() {
@@ -42,24 +41,20 @@ define(function() {
       return "http://172.16.19.63:69/xptool/" + relPath;
     },
     JSONPService: (function() {
+
       function _Class(serviceName, _arg) {
-        var baseURL, methods, name, pathFunc, process, _fn;
+        var baseURL, methods, name, pathFunc, process, _fn,
+          _this = this;
         baseURL = _arg.baseURL, process = _arg.process, methods = _arg.methods;
-        if (process == null) {
-          process = idFunc;
-        }
-        _fn = __bind(function(name, pathFunc) {
+        if (process == null) process = idFunc;
+        _fn = function(name, pathFunc) {
           var cacheFunc, methodProcess, t;
           methodProcess = process;
           cacheFunc = idFunc;
           if ((t = typeof pathFunc) === 'object' && t !== 'function') {
-            if (pathFunc.process != null) {
-              methodProcess = pathFunc.process;
-            }
+            if (pathFunc.process != null) methodProcess = pathFunc.process;
             pathFunc = pathFunc.path;
-            if (pathFunc.getCache != null) {
-              cacheFunc = pathFunc.getCache;
-            }
+            if (pathFunc.getCache != null) cacheFunc = pathFunc.getCache;
           }
           if (typeof pathFunc === 'string') {
             (function() {
@@ -70,12 +65,10 @@ define(function() {
               };
             })();
           }
-          return this[name] = __bind(function() {
+          return _this[name] = function() {
             var args, cacheValue, done, _i;
             args = 2 <= arguments.length ? __slice.call(arguments, 0, _i = arguments.length - 1) : (_i = 0, []), done = arguments[_i++];
-            if (done == null) {
-              done = idFunc;
-            }
+            if (done == null) done = idFunc;
             if ((cacheValue = cacheFunc()) !== void 0) {
               done(cacheValue);
             } else {
@@ -87,14 +80,16 @@ define(function() {
                 return done(rs);
               });
             }
-          }, this);
-        }, this);
+          };
+        };
         for (name in methods) {
           pathFunc = methods[name];
           _fn(name, pathFunc);
         }
       }
+
       return _Class;
+
     })()
   };
 });

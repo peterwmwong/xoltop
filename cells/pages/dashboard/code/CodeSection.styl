@@ -3,40 +3,10 @@
 @import 'mixins/box';
 @import 'mixins/border';
 @import 'mixins/colors';
-@import 'mixins/ui-button';
 
 .CodeSection
   padding 10px
   position relative
-
-  > .addTask
-    box horizontal
-
-    > .addButton
-      button()
-      width 105px
-      margin-top 4px
-
-      &:active
-        color text-color
-        gradient rgba(#888,.2), rgba(#888,.4)
-        > .plus
-          color text-color
-
-      > .plus
-        color darken(text-disabled-color,30%)
-        font-weight bold
-        font-size 18px
-        margin-right 3px
-
-    > .codeTaskInput
-      box-flex 1
-      margin 0 0 10px 0  
-
-      > input
-        background-color rgba(#FFF,.05)
-        box-shadow inset 0px 1px 2px rgba(#000,.45)
-        border-radius 3px
     
   > .nocodetasks
     width 100%
@@ -56,22 +26,6 @@
           color redcolor
           position relative
 
-          > .plus
-            abspos 0px 0px false false
-            color rgba(redcolor,.6)
-            cursor pointer
-            border-radius 0 3px 0 6px
-            font-weight bold
-            font-size 18px
-            margin 0
-            line-height 19px
-            padding 0px 4px 1px 5px
-            background-color rgba(redcolor,.08)
-
-            &:hover
-              background-color rgba(redcolor,.25)
-              color redcolor
-
       &.inProgress
         > .header
           background-color rgba(badge-yellow,amt)
@@ -86,6 +40,7 @@
         text-align left
 
       > .members > .member > .column
+        vertical-align middle
 
         &.description
           box-flex 1
@@ -98,6 +53,5 @@
               text-decoration underline
 
         &.owner
-          width 30px
-          line-height 30px
-          box-align center
+          text-align right
+          width 80px

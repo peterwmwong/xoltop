@@ -1,6 +1,7 @@
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
 define(['Services'], function(S) {
-  var failColor, getDate, highlightCol, i, mapDate, offsetDayMap, passColor, today, unhighlightCol;
+  var failColor, getDate, highlightCol, i, mapDate, offsetDayMap, passColor, today, unhighlightCol, _;
+  _ = cell.prototype.$R;
   passColor = '#62872C';
   failColor = '#992626';
   highlightCol = function(col) {
@@ -43,12 +44,15 @@ define(['Services'], function(S) {
     });
   };
   return {
-    render: function(R, A) {
-      var $el;
-      $el = this.$el;
-      return S.dashboard.getRecentTestResults(this.options.type, __bind(function(results) {
-        var col, failures, h, i, lastCol, lc, r, urlPrefix, w, _i, _len, _ref, _ref2, _ref3, _results;
-        this.results = results;
+    init: function() {
+      var _this = this;
+      return S.dashboard.getRecentTestResults(this.options.type, function(results) {
+        var $, $el, col, failures, h, i, lastCol, lc, r, urlPrefix, w, _i, _len, _ref, _ref2, _ref3, _results;
+        $el = _this.$el;
+        $ = function(a) {
+          return _this.$(a);
+        };
+        _this.results = results;
         _ref = [125, 64], w = _ref[0], h = _ref[1];
         r = Raphael(0, 3, w, h);
         lc = r.g.linechart(0, 0, w, h, [
@@ -72,24 +76,21 @@ define(['Services'], function(S) {
           symbol: "o",
           colors: ['#4A1A1A']
         });
-        urlPrefix = this.options.urlPrefix;
+        urlPrefix = _this.options.urlPrefix;
         lc.clickColumn(function() {
           return window.open(urlPrefix + results[this.axis].testResult.runid, "_blank");
         });
         lc.hoverColumn.call(lc, function() {
           highlightCol(this);
-          if (lastCol !== this) {
-            unhighlightCol(lastCol);
-          }
-          return $el.trigger({
-            type: 'resultHovered',
-            column: this
-          });
+          if (lastCol !== this) unhighlightCol(lastCol);
+          $('.labelRow').toggleClass('fail', this.values[0] > 0);
+          $('.count').html(this.values[0]);
+          return $('.when').html(getDate(results[this.axis].testResult.datetime));
         }, function() {
           unhighlightCol(this);
-          return $el.trigger({
-            type: 'resultUnhovered'
-          });
+          $('.labelRow').toggleClass('fail', lastCol.values[0] > 0);
+          $('.count').html(lastCol.values[0]);
+          return $('.when').html("");
         });
         _ref3 = lc.columns;
         for (i = 0, _len = _ref3.length; i < _len; i++) {
@@ -98,27 +99,17 @@ define(['Services'], function(S) {
             fill: col.values[0] === 0 ? passColor : failColor
           });
         }
-        highlightCol((lastCol = this.lastCol = lc.columns[lc.columns.length - 1]));
+        highlightCol((lastCol = _this.lastCol = lc.columns[lc.columns.length - 1]));
         lc.symbols.attr({
           r: 3
         });
         r.canvas["class"] = 'graph';
-        return A([R('table', R('tr', R('td', R('.graphContainer', r.canvas)), R("td.labelRow" + (this.lastCol.values[0] && '.fail' || ''), R('.label', this.options.label), R('.count', this.lastCol.values[0]), R('.when'))))]);
-      }, this));
+        return _this.$el.append([_('table', _('tr', _('td', _('.graphContainer', r.canvas)), _("td.labelRow" + (_this.lastCol.values[0] && '.fail' || ''), _('.label', _this.options.label), _('.count', _this.lastCol.values[0]), _('.when'))))]);
+      });
     },
-    bind: {
+    on: {
       'mouseout': function() {
         return highlightCol(this.lastCol);
-      },
-      'resultUnhovered': function() {
-        this.$('.labelRow').toggleClass('fail', this.lastCol.values[0] > 0);
-        this.$('.count').html(this.lastCol.values[0]);
-        return this.$('.when').html("");
-      },
-      'resultHovered': function(ev) {
-        this.$('.labelRow').toggleClass('fail', ev.column.values[0] > 0);
-        this.$('.count').html(ev.column.values[0]);
-        return this.$('.when').html(getDate(this.results[ev.column.axis].testResult.datetime));
       }
     }
   };

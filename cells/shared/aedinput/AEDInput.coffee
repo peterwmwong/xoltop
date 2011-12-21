@@ -14,7 +14,7 @@ define ->
         _ 'span.label', 'Are you sure?'
   ]
 
-  bind:
+  on:
     'click .deleteButton': ->
       $deleteButton = @$ '.deleteButton'
       confirmed = $deleteButton.hasClass 'confirm'

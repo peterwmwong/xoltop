@@ -1,6 +1,7 @@
 define ->
   Count = cell.extend
-    'render <span>': (R)-> [
+    tag: '<span>'
+    render: (R)-> [
       R 'span.countGroup'
         if @options.red?
           R 'span.badge-red.count', @options.red
@@ -9,7 +10,7 @@ define ->
         if @options.red? or @options.yellow?
           R "span.count.badge-#{@options.gray and 'green' or 'gray'}", @options.gray
     ]
-    bind: do->
+    on: do->
       trigger = ->
         $(@el).trigger 'selected'
         false
@@ -26,13 +27,11 @@ define ->
   init: ->
     @model = @model.data
 
-  render: (R)->
-    pkgName = getPkgName @model.suitename
-    [
-      R '#bar',
-        R '#expando'
-        R 'span#suiteName.gray',
-          R 'span#package', pkgName.pkg
-          R 'a.name', href:'#',
-            ' '+pkgName.name
-    ]
+  render: (_)-> [
+    _ '#bar',
+      _ '#expando'
+      _ 'span#suiteName.gray',
+        _ 'span#package', (pkgName = getPkgName @model.suitename).pkg
+        _ 'a.name', href:'#',
+          ' '+pkgName.name
+  ]

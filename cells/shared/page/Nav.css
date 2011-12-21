@@ -1,18 +1,133 @@
-.Nav{border-right:1px solid #222;font-family:Helvetica,Arial,sans-serif;z-index:1;position:relative;}
-.Nav::after{content:"";position:absolute;top:0;right:0;bottom:0;left:0;background:#3a3a3a;background:-moz-linear-gradient(top,#333 0%,#404040 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#333),color-stop(100%,#404040));filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#333', endColorstr='#404040',GradientType=0 );z-index:-1}
-.Nav::before{content:"";position:absolute;top:0;right:-1px;bottom:0;left:0;background:#313131;background:-moz-linear-gradient(top,#222 0%,#404040 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(20%,#222),color-stop(100%,#404040));filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#222', endColorstr='#404040',GradientType=0 );z-index:-1}
-.Nav > .SearchInput{position:absolute;top:15px;right:5px;left:5px;}
-.Nav > .SearchInput > #searchInputContainer > #searchinput{color:#666;background-color:#1d1d1d;-webkit-box-shadow:inset 0 1px 1px #000;-moz-box-shadow:inset 0 1px 1px #000;box-shadow:inset 0 1px 1px #000;}
-.Nav > .SearchInput > #searchInputContainer > #searchinput::-webkit-input-placeholder,.Nav > .SearchInput > #searchInputContainer > #searchinput::-moz-placeholder{color:#666}
-.Nav > .SearchInput > #searchInputContainer > #searchinput:focus{color:#aaa;background-color:#111;font-style:normal}
-.Nav > .SearchInput > #searchIcon #circle{border-color:#666}
-.Nav > .SearchInput > #searchIcon #rect{background-color:#666}
-.Nav > ul{position:absolute;top:35px;right:0;left:0;list-style-type:none;padding-top:2px;padding-left:0;}
-.Nav > ul > li{margin:8px 0 8px 0;padding:4px 0 2px 10px;position:relative;display:block;}
-.Nav > ul > li > a{height:14px;color:#999;display:block;font-size:12px;font-weight:bold;letter-spacing:1px;text-decoration:none;text-shadow:1px 1px 0 #222;vertical-align:6px;width:100%}
-.Nav > ul > li.selected,.Nav > ul > li.selected:hover{background:#31638c;background:-moz-linear-gradient(top,rgba(54,114,159,0.70) 0%,rgba(44,84,119,0.75) 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(54,114,159,0.70)),color-stop(100%,rgba(44,84,119,0.75)));filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='rgba(54,114,159,0.70)', endColorstr='rgba(44,84,119,0.75)',GradientType=0 );border-top:1px solid #2a2a2a;}
-.Nav > ul > li.selected > a,.Nav > ul > li.selected:hover > a{color:#fff;text-shadow:1px 1px 0 #222}
-.Nav > ul > li.selected > .triangle,.Nav > ul > li.selected:hover > .triangle{display:block;position:absolute;right:-1px;top:2px;border-color:transparent #222 transparent transparent;border-style:solid;border-width:8px;height:0;width:0;z-index:1;}
-.Nav > ul > li.selected > .triangle:before,.Nav > ul > li.selected:hover > .triangle:before{content:"";display:block;position:absolute;right:-9px;top:-8px;border-color:transparent #404040 transparent transparent;border-style:solid;border-width:8px;height:0;width:0;z-index:-1}
-.Nav > ul > li:hover{background-color:rgba(44,84,119,0.40);}
-.Nav > ul > li:hover > a{color:#eee}
+.Nav {
+  border-right: 1px solid #222;
+  font-family: Helvetica, Arial, sans-serif;
+  z-index: 1;
+  position: relative;
+}
+.Nav::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background: #3a3a3a;
+  background: -moz-linear-gradient(top, #333 0%, #404040 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #333), color-stop(100%, #404040));
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333', endColorstr='#404040',GradientType=0 );
+  z-index: -1;
+}
+.Nav::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: -1px;
+  bottom: 0px;
+  left: 0px;
+  background: #313131;
+  background: -moz-linear-gradient(top, #222 0%, #404040 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(20%, #222), color-stop(100%, #404040));
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#222', endColorstr='#404040',GradientType=0 );
+  z-index: -1;
+}
+.Nav > .SearchInput {
+  position: absolute;
+  top: 15px;
+  right: 5px;
+  left: 5px;
+}
+.Nav > .SearchInput > #searchInputContainer > #searchinput {
+  color: #666;
+  background-color: #1d1d1d;
+  -webkit-box-shadow: inset 0px 1px 1px #000;
+  -moz-box-shadow: inset 0px 1px 1px #000;
+  box-shadow: inset 0px 1px 1px #000;
+}
+.Nav > .SearchInput > #searchInputContainer > #searchinput::-webkit-input-placeholder,
+.Nav > .SearchInput > #searchInputContainer > #searchinput::-moz-placeholder {
+  color: #666;
+}
+.Nav > .SearchInput > #searchInputContainer > #searchinput:focus {
+  color: #aaa;
+  background-color: #111;
+  font-style: normal;
+}
+.Nav > .SearchInput > #searchIcon #circle {
+  border-color: #666;
+}
+.Nav > .SearchInput > #searchIcon #rect {
+  background-color: #666;
+}
+.Nav > ul {
+  position: absolute;
+  top: 35px;
+  right: 0px;
+  left: 0px;
+  list-style-type: none;
+  padding-top: 2px;
+  padding-left: 0;
+}
+.Nav > ul > li {
+  margin: 8px 0 8px 0;
+  padding: 4px 0 2px 10px;
+  position: relative;
+  display: block;
+}
+.Nav > ul > li > a {
+  height: 14px;
+  color: #999;
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-shadow: 1px 1px 0px #222;
+  vertical-align: 6px;
+  width: 100%;
+}
+.Nav > ul > li.selected,
+.Nav > ul > li.selected:hover {
+  background: #31638c;
+  background: -moz-linear-gradient(top, rgba(54,114,159,0.70) 0%, rgba(44,84,119,0.75) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(54,114,159,0.70)), color-stop(100%, rgba(44,84,119,0.75)));
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgba(54,114,159,0.70)', endColorstr='rgba(44,84,119,0.75)',GradientType=0 );
+  border-top: 1px solid #2a2a2a;
+}
+.Nav > ul > li.selected > a,
+.Nav > ul > li.selected:hover > a {
+  color: #fff;
+  text-shadow: 1px 1px 0px #222;
+}
+.Nav > ul > li.selected > .triangle,
+.Nav > ul > li.selected:hover > .triangle {
+  display: block;
+  position: absolute;
+  right: -1px;
+  top: 2px;
+  border-color: transparent #222 transparent transparent;
+  border-style: solid;
+  border-width: 8px;
+  height: 0;
+  width: 0;
+  z-index: 1;
+}
+.Nav > ul > li.selected > .triangle:before,
+.Nav > ul > li.selected:hover > .triangle:before {
+  content: "";
+  display: block;
+  position: absolute;
+  right: -9px;
+  top: -8px;
+  border-color: transparent #404040 transparent transparent;
+  border-style: solid;
+  border-width: 8px;
+  height: 0;
+  width: 0;
+  z-index: -1;
+}
+.Nav > ul > li:hover {
+  background-color: rgba(44,84,119,0.40);
+}
+.Nav > ul > li:hover > a {
+  color: #eee;
+}

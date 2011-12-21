@@ -1,0 +1,22 @@
+{
+  "author": "Peter Wong <peter.wm.wong@gmail.com>",
+  "contributors": [
+    "Don Lazov",
+    "Bob Moore"
+  ],
+  "name": "xoltop",
+  "version": "0.0.0",
+  "repository": {
+    "url": "https://github.com/peterwmwong/xoltop"
+  },
+  "engines": {
+    "node": ">=0.6.0"
+  },
+  "dependencies": {
+    "serve":"~1.0.2",
+    "express": "~2.5.2",
+    "uglify-js": "~1.2.2",
+    "stylus": "~0.21.0",
+    "coffee-script": "~1.2.0"
+  }
+}

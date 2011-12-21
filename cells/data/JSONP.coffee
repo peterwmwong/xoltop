@@ -1,4 +1,4 @@
-define ->
+define ['shared/LocationSearch'], (LocationSearch)->
   idFunc = (o)->o
   jsonpID = 0
   jsonp = (options)->
@@ -16,7 +16,7 @@ define ->
     $('head').append s
 
   get =
-    if window.xoltop?.services?.useMockData
+    if LocationSearch.usemockdata
       ({mock},done)-> setTimeout (-> require [mock], done), 100
     else
       ({real},done)->
@@ -26,7 +26,6 @@ define ->
           success: done or ->
    
   getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.19.63:69/xptool/#{relPath}"
-  #getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.0.230/xptool/#{relPath}"
 
   JSONPService: class
     constructor: (serviceName,{baseURL,process,methods})->
@@ -56,5 +55,3 @@ define ->
                 rs = methodProcess rs
                 done rs
           return
-        
-        

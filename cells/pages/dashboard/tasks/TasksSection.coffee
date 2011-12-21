@@ -1,12 +1,12 @@
 define ['Services','cell!shared/cattable/CatTable'], (S,CatTable)->
 
-  render: (R,A)->
+  render: (_)->
     S.dashboard.getStoryTasksDetails @options.storynum, (tasks)=>
-      A [
+      @$el.append [
         if tasks?.length == 0
-          R '.notests', 'No Tasks'
+          _ '.notests', 'No Tasks'
         else
-          R CatTable,
+          _ CatTable,
             categories:
               needsAttn:'Needs Attention'
               retest:'Retest'
@@ -20,3 +20,4 @@ define ['Services','cell!shared/cattable/CatTable'], (S,CatTable)->
               owner: ({task})->task.owner
             members:tasks
       ]
+      @$el.trigger 'loaded'

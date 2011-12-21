@@ -1,25 +1,25 @@
 define ['cell!./CountBar'], (CountBar)->
 
   DefaultNameCol = cell.extend
-    'render <span>': (R)-> [
+    'render <span>': (_)-> [
       @options.nameLabel
-      R 'span.name', @model.data.name
+      _ 'span.name', @model.data.name
     ]
 
   DefaultCountCol = cell.extend
-    'render <span>': (R)->
+    'render <span>': (_)->
       parent = @model.parent
       [
-        R 'span.ats',
-          R CountBar,
+        _ 'span.ats',
+          _ CountBar,
             model:
               count: ats = @model.ats or 0
               pct:
                 if typeof (parentAts = parent?.ats or parent?.parent?.ats) == 'number'
                   ats/parentAts
                 else 0
-        R 'span.chumpTasks',
-          R CountBar,
+        _ 'span.chumpTasks',
+          _ CountBar,
             model:
               count: cts = @model.chumpTasks or 0
               pct:
@@ -31,15 +31,15 @@ define ['cell!./CountBar'], (CountBar)->
   countColCell : DefaultCountCol
   nameColCell : DefaultNameCol
 
-  render: (R)->
+  render: (_)->
     @$el.toggleClass 'expanded', !!@model.expanded
     [
-      R '#expando', if @model.expanded then class: 'expanded'
-      R @nameColCell, class: 'nameContainer', nameLabel: @nameLabel, model: @model
-      R @countColCell, class: 'counts', model: @model.data
+      _ '#expando', if @model.expanded then class: 'expanded'
+      _ @nameColCell, class: 'nameContainer', nameLabel: @nameLabel, model: @model
+      _ @countColCell, class: 'counts', model: @model.data
     ]
 
-  bind:
+  on:
     expanded: ->
       @$el.toggleClass 'expanded', @model.expanded
       @$('#expando').toggleClass 'expanded'

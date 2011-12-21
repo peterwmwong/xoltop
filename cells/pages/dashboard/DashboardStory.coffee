@@ -8,23 +8,23 @@ define [
 
   statusToColor = ['red','yellow','green']
 
-  render: (R)-> [
-    R '.header',
+  render: (_)-> [
+    _ '.header',
 
-      R '.collapseStory',
-        R '.triangle'
-        R '.rect'
+      _ '.collapseStory',
+        _ '.triangle'
+        _ '.rect'
 
-      R ".storyID.#{statusToColor[@model.status]}",
+      _ ".storyID.#{statusToColor[@model.status]}",
         @model.storynum
 
-      R LabeledCounts,
+      _ LabeledCounts,
         class: 'code'
         label: "CODE"
         showIfZero: ['green']
         counts: do=>
           {completePct, notStarted, inProgress, completed} = @model.codeTasks
-          completePct = [completePct, R('span.codeCompletePct','%')]
+          completePct = [completePct, (_ 'span.codeCompletePct', '%')]
           if notStarted
             red: completePct
           else if inProgress
@@ -32,7 +32,7 @@ define [
           else
             green: completePct
         
-      R LabeledCounts,
+      _ LabeledCounts,
         class: 'tests'
         label: "TESTS"
         showIfZero: ['notests']
@@ -47,7 +47,7 @@ define [
           else
             green: total
 
-      R LabeledCounts,
+      _ LabeledCounts,
         class: 'tasks'
         label: "TASKS"
         showIfZero: ['green']
@@ -59,19 +59,19 @@ define [
           else
             green: completed
       
-      R '.nameContainer',
-        R 'a.name', target:'_blank', href:"http://destinyxptool/xptool/projecttool/projecttool.storyview.do?storyNumber=#{@model.storynum}",
+      _ '.nameContainer',
+        _ 'a.name', target:'_blank', href:"http://destinyxptool/xptool/projecttool/projecttool.storyview.do?storyNumber=#{@model.storynum}",
           @model.name
 
-      R '.chumps',
-        R InitialsList, initials: [@model.devs..., @model.testers...]
+      _ '.chumps',
+        _ InitialsList, initials: [@model.devs..., @model.testers...]
       
-    R '.details',
-      R LoadingIndicator
-      R '.contents'
+    _ '.details',
+      _ LoadingIndicator
+      _ '.contents'
   ]
 
-  bind: do->
+  on: do->
     selectSection = (detailCellPath)->
       detailName = detailCellPath.split('/').slice -1
       (ev)->
@@ -102,18 +102,15 @@ define [
           
           require ["cell!#{detailCellPath}"], (detail)=>
             # Load new details for the first time
-            if not ($detail = @$(".#{detail::name)}")[0]
+            if not ($detail = @$(".#{detail::name}"))[0]
               detailCell = new detail
                 class:'detail'
                 storynum: @model.storynum
 
               @$('.details > .contents')
                 .prepend detailCell.el
-                
-              detailCell.ready =>
-                @$('.LoadingIndicator').trigger 'disable'
-                detailCell.$el.toggleClass 'selected', true
-                @$('.details').height("#{detailCell.$el.outerHeight()}px")
+
+              detailCell.$el.toggleClass 'selected', true
 
             # Show already loaded details
             else
@@ -123,6 +120,10 @@ define [
                 $detail.toggleClass 'selected', true
                 @$('.details').height "#{$detail.outerHeight()}px"
               , 0
+
+    'loaded .details > .contents > .detail.selected': -> 
+      @$('.LoadingIndicator').trigger 'disable'
+      @$('.details').height "#{@$('.detail.selected').outerHeight()}px"
 
     'click .header > .tests': selectSection './tests/TestsSection'
     'click .header > .tasks': selectSection './tasks/TasksSection'

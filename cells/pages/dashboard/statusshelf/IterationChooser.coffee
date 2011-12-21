@@ -2,16 +2,16 @@ $?('head')
   .append "<link href='http://fonts.googleapis.com/css?family=Nunito&v1' rel='stylesheet' type='text/css'>"
 
 define
-  render: (R)-> [
-    R '.iterNum',
-      R 'a.prevIter', href:'#', '<'
-      R 'span.num', @options.iterationNo
-      R 'a.nextIter', href:'#', '>'
+  render: (_)-> [
+    _ '.iterNum',
+      _ 'a.prevIter', href:'#', '<'
+      _ 'span.num', @options.iterationNo
+      _ 'a.nextIter', href:'#', '>'
 
-    R '.iterLabel', 'ITERATION'
+    _ '.iterLabel', 'ITERATION'
   ]
 
-  bind: do->
+  on: do->
     changeIter = (addAmt)->
       ->
         if 0 < (newIter = @options.iterationNo + addAmt)

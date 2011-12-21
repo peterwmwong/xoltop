@@ -1,47 +1,27 @@
 #===================================================================
 #--------------------------- Variables -----------------------------
 #===================================================================
-coffee = node_modules/.bin/coffee
-serve= node_modules/.bin/serve
-stylus = node_modules/.bin/stylus
-uglifyjs = node_modules/.bin/uglifyjs
-express = node_modules/express/package.json
+npmbin = node_modules/.bin
+coffee = $(npmbin)/coffee
+serve= $(npmbin)/serve
+stylus = $(npmbin)/stylus
+uglifyjs = $(npmbin)/uglifyjs
 
 #-------------------------------------------------------------------
 # BUILD
 #------------------------------------------------------------------- 
 requirejsBuild = ./vendor/requirejs/r.js
 
-#-------------------------------------------------------------------
-# TEST
-#------------------------------------------------------------------- 
-ifndef TEST_BROWSER
-	TEST_BROWSER := google-chrome
-endif
-
-ifndef TESTS
-	TESTS := "**"
-endif
-
-ifdef TEST_DEBUG
-	TEST_DEBUG_ = -d
-endif
-
-
-#===================================================================
-#----------------------------- MACROS ------------------------------
-#===================================================================
-
 
 #===================================================================
 #­--------------------------- TARGETS ------------------------------
 #===================================================================
-.PHONY : clean
+.PHONY : clean deps
 
 #-------------------------------------------------------------------
 # BUILD
 #------------------------------------------------------------------- 
-cells/bootstrap.js: $(uglifyjs) cells/cell.js cells/cell-pluginBuilder.js
+cells/bootstrap.js: deps cells/cell.js cells/cell-pluginBuilder.js
 	node $(requirejsBuild) \
 		-o \
 		paths.requireLib=../vendor/requirejs/require \
@@ -49,8 +29,7 @@ cells/bootstrap.js: $(uglifyjs) cells/cell.js cells/cell-pluginBuilder.js
 		name=cell!App \
 		out=cells/bootstrap-tmp.js \
 		baseUrl=cells includeRequire=true
-	cat vendor/jquery.min.js \
-			vendor/raphael.js \
+	cat vendor/raphael.js \
 			vendor/g.raphael.js \
 			vendor/g.line.js \
 			cells/bootstrap-tmp.js | $(uglifyjs) -nc > cells/bootstrap.js
@@ -61,37 +40,23 @@ cells/bootstrap.js: $(uglifyjs) cells/cell.js cells/cell-pluginBuilder.js
 #-------------------------------------------------------------------
 # DEV 
 #------------------------------------------------------------------- 
-dev-server: $(serve)
+dev-server: deps
 	$(serve) -D -L -I
 
-dev-stylus: $(stylus)
+dev-stylus: deps
 	find ./cells ./mixins -name '*.styl' -type f | xargs $(stylus) --watch --compress
 
-dev-coffee: $(coffee)
+dev-coffee: deps
 	find . -name '*.coffee' -type f | xargs $(coffee) -c -b --watch
 
 #-------------------------------------------------------------------
 # Dependencies 
 #------------------------------------------------------------------- 
-$(stylus):
-	npm install stylus
-
-$(coffee):
-	npm install coffee-script
-
-$(express):
-	npm install express
-
-$(uglifyjs):
-	npm install uglify-js
-
-$(serve):
-	npm install serve
+deps:
+	npm install
 
 #-------------------------------------------------------------------
 # TEST
 #------------------------------------------------------------------- 
-
 clean: 
 	@@rm cells/bootstrap.*
-

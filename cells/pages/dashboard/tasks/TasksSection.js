@@ -1,10 +1,11 @@
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
 define(['Services', 'cell!shared/cattable/CatTable'], function(S, CatTable) {
   return {
-    render: function(R, A) {
-      return S.dashboard.getStoryTasksDetails(this.options.storynum, __bind(function(tasks) {
-        return A([
-          (tasks != null ? tasks.length : void 0) === 0 ? R('.notests', 'No Tasks') : R(CatTable, {
+    render: function(_) {
+      var _this = this;
+      return S.dashboard.getStoryTasksDetails(this.options.storynum, function(tasks) {
+        _this.$el.append([
+          (tasks != null ? tasks.length : void 0) === 0 ? _('.notests', 'No Tasks') : _(CatTable, {
             categories: {
               needsAttn: 'Needs Attention',
               retest: 'Retest',
@@ -30,7 +31,8 @@ define(['Services', 'cell!shared/cattable/CatTable'], function(S, CatTable) {
             members: tasks
           })
         ]);
-      }, this));
+        return _this.$el.trigger('loaded');
+      });
     }
   };
 });

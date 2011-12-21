@@ -25,7 +25,7 @@ define ['data/JSONP'],({JSONPService,getXPToolBaseUrl})->
         storyRegex = /^((\w|\/)+[ ]+- )*(.*)$/
         path: (iterNo)-> "iteration/#{iterNo? and "#{iterNo}/" or ""}stories/"
         process:({iterationStories:{iterationNo,stories}})->
-          stories = for s in stories
+          stories = for s in stories or []
             [devs,testers] =
               for names in chumpRegex.exec(s.chumps)?[1]?.split(' - ') or []
                 for n in names.split '/'

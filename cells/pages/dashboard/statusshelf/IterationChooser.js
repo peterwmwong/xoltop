@@ -1,17 +1,19 @@
+
 if (typeof $ === "function") {
   $('head').append("<link href='http://fonts.googleapis.com/css?family=Nunito&v1' rel='stylesheet' type='text/css'>");
 }
+
 define({
-  render: function(R) {
+  render: function(_) {
     return [
-      R('.iterNum', R('a.prevIter', {
+      _('.iterNum', _('a.prevIter', {
         href: '#'
-      }, '<'), R('span.num', this.options.iterationNo), R('a.nextIter', {
+      }, '<'), _('span.num', this.options.iterationNo), _('a.nextIter', {
         href: '#'
-      }, '>')), R('.iterLabel', 'ITERATION')
+      }, '>')), _('.iterLabel', 'ITERATION')
     ];
   },
-  bind: (function() {
+  on: (function() {
     var changeIter;
     changeIter = function(addAmt) {
       return function() {

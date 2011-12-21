@@ -1,3 +1,4 @@
+
 define(['data/JSONP', 'Bus'], function(_arg, Bus) {
   var JSONPService, getXPToolBaseUrl, service, user;
   JSONPService = _arg.JSONPService, getXPToolBaseUrl = _arg.getXPToolBaseUrl;

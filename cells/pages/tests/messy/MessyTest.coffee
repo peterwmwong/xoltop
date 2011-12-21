@@ -1,16 +1,17 @@
 define ->
   Count = cell.extend
-    'render <span>': (R)-> [
-      R 'span.countGroup',
+    tag: '<span>'
+    render: (_)-> [
+      _ 'span.countGroup',
         if @options.red?
-          R 'span.badge-red.count', @options.red
+          _ 'span.badge-red.count', @options.red
         if @options.yellow?
-          R 'span.badge-yellow.count', @options.yellow
+          _ 'span.badge-yellow.count', @options.yellow
         if not (@options.red? or @options.yellow?)
-          R "span.badge-#{@options.gray and 'green' or 'gray'} count", @options.gray
+          _ "span.badge-#{@options.gray and 'green' or 'gray'} count", @options.gray
     ]
 
-    bind: do->
+    on: do->
       trigger = ->
         $(@el).trigger 'selected'
         false
@@ -20,12 +21,12 @@ define ->
   init: ->
     @model = @model.data
 
-  render: (R)-> [
-    R '#bar',
-      R '#nav',
-        R Count, id: 'issues', label: 'Issues', red: @model.issuecount
-      R '#expando'
-      R 'span#testID.gray',
-        R 'a.name', href:'#',
+  render: (_)-> [
+    _ '#bar',
+      _ '#nav',
+        _ Count, id: 'issues', label: 'Issues', red: @model.issuecount
+      _ '#expando'
+      _ 'span#testID.gray',
+        _ 'a.name', href:'#',
           @model.testname
   ]

@@ -12,7 +12,7 @@ define ['data/MessyTestService','cell!shared/TableTree/TableTree','cell!./MessyS
           <span class='count#{R isEmpty and ' red'}'>#{@model.data?.length or 0}</span>
           <a class='label#{R not isEmpty and ' isempty'}' href='#'>#{@model.type}</a>
           """
-        bind:
+        on:
           expanded: ->
             if !!@model.data?.length
               $(@el).toggleClass 'expanded', @model.expanded

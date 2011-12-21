@@ -1,4 +1,4 @@
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
 define(['require', 'cell!./Nav'], function(require, Nav) {
   var defer;
   defer = function(f) {
@@ -6,36 +6,36 @@ define(['require', 'cell!./Nav'], function(require, Nav) {
   };
   return {
     init: function() {
-      var _base, _base2, _ref, _ref2;
-      if ((_ref = (_base = this.options).baseurl) == null) {
-        _base.baseurl = '';
-      }
-      return (_ref2 = (_base2 = this.options).selectedSection) != null ? _ref2 : _base2.selectedSection = this.options.sections[0];
+      var _base, _base2, _ref;
+      if ((_base = this.options).baseurl == null) _base.baseurl = '';
+      return (_ref = (_base2 = this.options).selectedSection) != null ? _ref : _base2.selectedSection = this.options.sections[0];
     },
     loadSection: function(section) {
-      var content;
+      var content,
+        _this = this;
       this.options.selectedSection = section.replace(' ', '-');
       content = this.$('> #content');
       content.html('');
-      return require(["cell!" + this.options.baseurl + "/" + (section.toLowerCase()) + "/" + section + "Section"], __bind(function(NewSection) {
-        if (this.options.selectedSection === section) {
+      return require(["cell!" + this.options.baseurl + "/" + (section.toLowerCase()) + "/" + section + "Section"], function(NewSection) {
+        if (_this.options.selectedSection === section) {
           content.html('');
           return content.append(new NewSection().el);
         }
-      }, this));
+      });
     },
-    render: function(R) {
-      defer(__bind(function() {
-        return this.loadSection(this.options.selectedSection);
-      }, this));
+    render: function(_) {
+      var _this = this;
+      defer(function() {
+        return _this.loadSection(_this.options.selectedSection);
+      });
       return [
-        R(Nav, {
+        _(Nav, {
           tabs: this.options.sections,
           selectedTab: this.options.selectedSection
-        }), R('#content')
+        }), _('#content')
       ];
     },
-    bind: {
+    on: {
       'changed :parent > .Nav': function(e, _arg) {
         var selectedTab;
         selectedTab = _arg.selectedTab;

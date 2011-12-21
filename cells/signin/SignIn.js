@@ -1,18 +1,18 @@
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
 define(['Services', 'cell!./SignedIn'], function(S, SignedIn) {
   var doSubmit;
   return {
+    tag: '<span>',
     init: function() {
-      return S.bus.bind('auth.userLoggedOut', __bind(function() {
-        return this.$el.toggleClass('loggedin', false);
-      }, this));
-    },
-    'render <span>': function(_, A) {
-      return S.auth.user(__bind(function(user) {
-        if (user != null) {
-          this.$el.toggleClass('loggedin');
-        }
-        return A([
+      var _this = this;
+      S.bus.bind('auth.userLoggedOut', function() {
+        return _this.$el.toggleClass('loggedin', false);
+      });
+      return S.auth.user(function(user) {
+        var _;
+        _ = cell.prototype.$R;
+        if (user != null) _this.$el.toggleClass('loggedin');
+        return _this.$el.append([
           _('#signin-group', _('a#signin-toggle', {
             href: '#'
           }, 'Sign In'), _('#input-group', _('.user', 'User ', _('input#auth-user', {
@@ -23,11 +23,12 @@ define(['Services', 'cell!./SignedIn'], function(S, SignedIn) {
             user: user
           })
         ]);
-      }, this));
+      });
     },
-    bind: {
+    on: {
       'click #signin-button': doSubmit = function() {
-        var pass, user;
+        var pass, user,
+          _this = this;
         user = this.$('#auth-user').val();
         pass = this.$('#auth-pass').val();
         this.$('#auth-user').toggleClass('invalid', user.length === 0);
@@ -36,27 +37,25 @@ define(['Services', 'cell!./SignedIn'], function(S, SignedIn) {
         this.$el.toggleClass('loading', true);
         this.$('#loginFailed').toggle(false);
         if (user.length + pass.length > 0) {
-          return S.auth.login(user, pass, __bind(function(user) {
+          return S.auth.login(user, pass, function(user) {
             var failed;
-            this.$('#signin-button').removeAttr('disabled');
-            this.$el.toggleClass('loading', false);
+            _this.$('#signin-button').removeAttr('disabled');
+            _this.$el.toggleClass('loading', false);
             if (user != null) {
-              this.$el.toggleClass('selected', false);
-              this.$el.toggleClass('loggedin', true);
+              _this.$el.toggleClass('selected', false);
+              _this.$el.toggleClass('loggedin', true);
             }
             failed = !user;
-            this.$('#loginFailed').toggle(failed);
-            this.$('#auth-user').toggleClass('invalid', failed);
-            return this.$('#auth-pass').toggleClass('invalid', failed);
-          }, this));
+            _this.$('#loginFailed').toggle(failed);
+            _this.$('#auth-user').toggleClass('invalid', failed);
+            return _this.$('#auth-pass').toggleClass('invalid', failed);
+          });
         }
       },
       'keyup #auth-pass, #auth-user': function(_arg) {
         var which;
         which = _arg.which;
-        if (which === 13) {
-          return doSubmit.call(this);
-        }
+        if (which === 13) return doSubmit.call(this);
       },
       'click #signin-toggle': function() {
         this.$el.toggleClass('selected');

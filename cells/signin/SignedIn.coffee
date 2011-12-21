@@ -12,13 +12,13 @@ define ['Services','cell!shared/InitialsList'], (S,InitialsList)->
   init: ->
     S.bus.bind 'auth.userLoggedIn', => updateUser.call this
 
-  'render <span>': (R)-> [
-    R 'a#username', href:'#'
-    R '#options-group',
-      R 'button#signout-button', 'Sign Out'
+  'render <span>': (_)-> [
+    _ 'a#username', href:'#'
+    _ '#options-group',
+      _ 'button#signout-button', 'Sign Out'
   ]
 
-  bind:
+  on:
     afterRender: updateUser
 
     'click #signout-button': ->

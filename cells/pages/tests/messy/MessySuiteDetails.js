@@ -1,3 +1,4 @@
+
 define(['data/MessyTestService', 'cell!shared/TableTree/TableTree', 'cell!./MessySuite', 'cell!./MessyTest'], function(MessyTestService, TableTree, MessySuite, MessyTest) {
   var IssueGroupProvider, IssueProvider, dataProviders;
   IssueGroupProvider = {
@@ -9,7 +10,7 @@ define(['data/MessyTestService', 'cell!shared/TableTree/TableTree', 'cell!./Mess
         isEmpty = !!((_ref2 = this.model.data) != null ? _ref2.length : void 0);
         return "<div id='expando'></div>\n<span class='count" + (R(isEmpty && ' red')) + "'>" + (((_ref3 = this.model.data) != null ? _ref3.length : void 0) || 0) + "</span>\n<a class='label" + (R(!isEmpty && ' isempty')) + "' href='#'>" + this.model.type + "</a>";
       },
-      bind: {
+      on: {
         expanded: function() {
           var _ref;
           if (!!((_ref = this.model.data) != null ? _ref.length : void 0)) {

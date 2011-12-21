@@ -1,4 +1,4 @@
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
 define(['data/MetricsService', 'cell!./MetricsNode', 'cell!shared/page/SectionTitle', 'cell!shared/tabletree/TableTree'], function(MetricsService, MetricsNode, SectionTitle, TableTree) {
   var ReleaseCol, dataProviders, extend;
   ReleaseCol = cell.extend({
@@ -59,7 +59,8 @@ define(['data/MetricsService', 'cell!./MetricsNode', 'cell!shared/page/SectionTi
         countColCell: ReleaseCol
       }),
       getChildren: function(done) {
-        return MetricsService.getReleaseIterations(this.id, __bind(function(iters) {
+        var _this = this;
+        return MetricsService.getReleaseIterations(this.id, function(iters) {
           var _;
           return done((function() {
             var _i, _len, _ref, _results;
@@ -79,8 +80,8 @@ define(['data/MetricsService', 'cell!./MetricsNode', 'cell!shared/page/SectionTi
               });
             }
             return _results;
-          }).call(this));
-        }, this));
+          }).call(_this));
+        });
       }
     },
     iteration: {
@@ -93,10 +94,11 @@ define(['data/MetricsService', 'cell!./MetricsNode', 'cell!shared/page/SectionTi
         }
       }),
       getChildren: function(done) {
+        var _this = this;
         return MetricsService.getReleaseIterationStories({
           release: this.release,
           iteration: this.id
-        }, __bind(function(stories) {
+        }, function(stories) {
           var _;
           return done((function() {
             var _i, _len, _results;
@@ -112,17 +114,18 @@ define(['data/MetricsService', 'cell!./MetricsNode', 'cell!shared/page/SectionTi
               });
             }
             return _results;
-          }).call(this));
-        }, this));
+          }).call(_this));
+        });
       }
     },
     chump: {
       nodeCell: MetricsNode,
       getChildren: function(done) {
+        var _this = this;
         return MetricsService.getReleaseChumpStories({
           release: this.data.release,
           chump: this.id
-        }, __bind(function(stories) {
+        }, function(stories) {
           var _;
           return done((function() {
             var _i, _len, _results;
@@ -138,8 +141,8 @@ define(['data/MetricsService', 'cell!./MetricsNode', 'cell!shared/page/SectionTi
               });
             }
             return _results;
-          }).call(this));
-        }, this));
+          }).call(_this));
+        });
       }
     },
     story: {

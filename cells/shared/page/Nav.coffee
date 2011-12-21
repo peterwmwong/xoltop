@@ -2,16 +2,16 @@ define
   init: ->
     @options.selectedTab ?= @options.tabs[0]
 
-  render: (R)-> [
-    R 'ul',
+  render: (_)-> [
+    _ 'ul',
       for tab,i in @options.tabs
-        R "li#{@options.selectedTab==tab and '.selected' or ''}",
-          R 'a', href:'#', id:tab,
+        _ "li#{@options.selectedTab==tab and '.selected' or ''}",
+          _ 'a', href:'#', id:tab,
             tab
-          R '.triangle'
+          _ '.triangle'
   ]
 
-  bind:
+  on:
     'click a': (ev)->
       @$('.selected').removeClass 'selected'
       $(target = ev.target).parent().addClass 'selected'

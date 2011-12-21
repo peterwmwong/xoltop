@@ -9,7 +9,7 @@ define ['Services','cell!signin/SignIn'], (S, SignIn)->
     R SignIn
   ]
 
-  bind:
+  on:
     'click .navItem': (ev)->
       @$('.navItem.selected').removeClass 'selected'
       (target = $(ev.target)).addClass 'selected'

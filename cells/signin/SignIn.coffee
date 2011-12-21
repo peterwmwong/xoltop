@@ -1,13 +1,15 @@
 define ['Services','cell!./SignedIn'], (S, SignedIn)->
 
+  tag: '<span>'
+
   init: ->
     S.bus.bind 'auth.userLoggedOut', =>
       @$el.toggleClass 'loggedin', false
 
-  'render <span>': (_,A)->
     S.auth.user (user)=>
+      _ = cell::$R
       if user? then @$el.toggleClass 'loggedin'
-      A [
+      @$el.append [
         _ '#signin-group',
           _ 'a#signin-toggle', href:'#', 'Sign In'
 
@@ -26,7 +28,7 @@ define ['Services','cell!./SignedIn'], (S, SignedIn)->
         _ SignedIn, user: user
       ]
 
-  bind:
+  on:
     'click #signin-button': doSubmit = ->
       user = @$('#auth-user').val()
       pass = @$('#auth-pass').val()
@@ -52,7 +54,6 @@ define ['Services','cell!./SignedIn'], (S, SignedIn)->
 
     'keyup #auth-pass, #auth-user': ({which})->
       if which == 13 then doSubmit.call this
-
 
     'click #signin-toggle': ->
       @$el.toggleClass 'selected'

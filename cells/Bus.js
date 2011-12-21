@@ -1,4 +1,5 @@
 var __slice = Array.prototype.slice;
+
 define(function() {
   var bus;
   bus = $(document.createElement('div'));
@@ -15,9 +16,7 @@ define(function() {
       return bus.bind.apply(bus, args);
     },
     unbind: function(type, cb) {
-      if (typeof cb === 'function') {
-        return bus.unbind(type, cb);
-      }
+      if (typeof cb === 'function') return bus.unbind(type, cb);
     }
   };
 });

@@ -1,3 +1,4 @@
+
 define(['cell!./NodeRow'], function(NodeRow) {
   return {
     render: function(R) {

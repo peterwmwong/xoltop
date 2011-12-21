@@ -1,3 +1,4 @@
+
 define(['Services', 'cell!signin/SignIn'], function(S, SignIn) {
   $('<link  href="http://fonts.googleapis.com/css?family=Maven+Pro:700&v1" rel="stylesheet" type="text/css" >').appendTo('head');
   return {
@@ -16,7 +17,7 @@ define(['Services', 'cell!signin/SignIn'], function(S, SignIn) {
         }).call(this), R(SignIn)
       ];
     },
-    bind: {
+    on: {
       'click .navItem': function(ev) {
         var target;
         this.$('.navItem.selected').removeClass('selected');

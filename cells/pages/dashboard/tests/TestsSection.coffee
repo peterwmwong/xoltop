@@ -1,12 +1,13 @@
 define ['Services','cell!shared/cattable/CatTable'], (S,CatTable)->
-  render: (R,A)->
+  
+  render: (_)->
     S.dashboard.getStoryTestDetails @options.storynum, (tests)=>
-      A [
+      @$el.append [
         if tests?.length == 0
-          R '.notests', 'No Tests'
+          _ '.notests', 'No Tests'
 
         else
-          R CatTable,
+          _ CatTable,
             categories:
               fail: 'Failing'
               towrite: 'To Write'
@@ -14,14 +15,14 @@ define ['Services','cell!shared/cattable/CatTable'], (S,CatTable)->
             mapMember: ({status})-> status == 'na' and 'fail' or status
             columnMap:
               id:({id})->
-                R 'a',
+                _ 'a',
                   target: '_blank'
                   href: S.getXPToolBaseUrl "xp.testnoteview.do?testNumber=#{id}"
                   id
                   
               name:({id,status,needsAttn,requirement})-> [
-                if needsAttn then R 'span.needsAttn', 'NA'
-                R 'a',
+                if needsAttn then _ 'span.needsAttn', 'NA'
+                _ 'a',
                   target: '_blank'
                   href: S.getXPToolBaseUrl "xp.testnoteview.do?testNumber=#{id}"
                   requirement
@@ -37,3 +38,4 @@ define ['Services','cell!shared/cattable/CatTable'], (S,CatTable)->
               owner:  ({update:{owner}})-> owner
             members: tests
       ]
+      @$el.trigger 'loaded'

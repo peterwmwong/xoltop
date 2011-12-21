@@ -25,7 +25,7 @@ define ->
       @options.rowClasses.push t
 
 
-  render: (R)->
+  render: (_)->
     if @model.children instanceof Array
       defer => renderChildren.call this, @model.children
     if @options.getChildren
@@ -43,16 +43,16 @@ define ->
         setTimeout(@loadChildren,0)
     [
       if @options.nodeCell
-        R @options.nodeCell,
+        _ @options.nodeCell,
           class: @options.rowClasses.join ' '
           model: @model
       else
-        R '.'+@options.rowClasses.join('.'), @model.id
+        _ '.'+@options.rowClasses.join('.'), @model.id
 
-      R '#children'
+      _ '#children'
     ]
 
-  bind:
+  on:
     'click .Node': ({target})->
       if not @model.expanded
         @loadChildren?()

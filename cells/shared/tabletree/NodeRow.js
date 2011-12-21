@@ -1,4 +1,4 @@
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
 define(function() {
   var defer, renderChildren;
   defer = function(f) {
@@ -31,52 +31,48 @@ define(function() {
         this.options.noChildrenCell = dp.noChildrenCell;
       }
       this.options.rowClasses = ['Node'];
-      if (t = this.model.type) {
-        return this.options.rowClasses.push(t);
-      }
+      if (t = this.model.type) return this.options.rowClasses.push(t);
     },
-    render: function(R) {
-      var _ref;
+    render: function(_) {
+      var _this = this;
       if (this.model.children instanceof Array) {
-        defer(__bind(function() {
-          return renderChildren.call(this, this.model.children);
-        }, this));
+        defer(function() {
+          return renderChildren.call(_this, _this.model.children);
+        });
       }
       if (this.options.getChildren) {
-        if ((_ref = this.loadChildren) == null) {
-          this.loadChildren = __bind(function(reload) {
-            delete this.loadChildren;
-            if (!this.model.children || reload) {
-              this.model.children = this.options.getChildren.call(this.model, __bind(function(children) {
-                if (!this.model.children || reload) {
-                  return renderChildren.call(this, (this.model.children = children));
+        if (this.loadChildren == null) {
+          this.loadChildren = function(reload) {
+            delete _this.loadChildren;
+            if (!_this.model.children || reload) {
+              _this.model.children = _this.options.getChildren.call(_this.model, function(children) {
+                if (!_this.model.children || reload) {
+                  return renderChildren.call(_this, (_this.model.children = children));
                 }
-              }, this));
-              if (this.model.children) {
-                return renderChildren.call(this, this.model.children);
+              });
+              if (_this.model.children) {
+                return renderChildren.call(_this, _this.model.children);
               }
             }
-          }, this);
+          };
         }
         if (this.model.expanded && !(this.model.children instanceof Array)) {
           setTimeout(this.loadChildren, 0);
         }
       }
       return [
-        this.options.nodeCell ? R(this.options.nodeCell, {
+        this.options.nodeCell ? _(this.options.nodeCell, {
           "class": this.options.rowClasses.join(' '),
           model: this.model
-        }) : R('.' + this.options.rowClasses.join('.'), this.model.id), R('#children')
+        }) : _('.' + this.options.rowClasses.join('.'), this.model.id), _('#children')
       ];
     },
-    bind: {
+    on: {
       'click .Node': function(_arg) {
         var target;
         target = _arg.target;
         if (!this.model.expanded) {
-          if (typeof this.loadChildren === "function") {
-            this.loadChildren();
-          }
+          if (typeof this.loadChildren === "function") this.loadChildren();
         }
         this.$('> #children').toggle(this.model.expanded = !this.model.expanded);
         this.$('> .Node').toggleClass('expanded', this.model.expanded);

@@ -1,5 +1,107 @@
-@-webkit-keyframes loadingText-pulsate20{0%{color:rgba(175,199,229,0.50)}
-50%{color:rgba(255,255,255,0.80)}
-100%{color:rgba(175,199,229,0.50)}
-}.LoadingIndicator{color:rgba(175,199,229,0.50);border-radius:5px;box-shadow:0 1px 3px rgba(0,0,0,0.15);display:none;font-weight:bold;font-size:16px;background:rgba(62,116,184,0.50);background:-moz-linear-gradient(top,rgba(61,115,184,0.40) 0%,rgba(61,115,184,0.10) 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(61,115,184,0.40)),color-stop(100%,rgba(61,115,184,0.10)));filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='rgba(61,115,184,0.40)', endColorstr='rgba(61,115,184,0.10)',GradientType=0 );height:36px;line-height:36px;letter-spacing:1px;margin:0 auto;overflow:hidden;text-align:center;-webkit-transition-property:opacity;-moz-transition-property:opacity;-o-transition-property:opacity;transition-property:opacity;-webkit-transition-duration:350ms;-moz-transition-duration:350ms;-o-transition-duration:350ms;transition-duration:350ms;-webkit-transition-timing-function:ease-out;-moz-transition-timing-function:ease-out;-o-transition-timing-function:ease-out;transition-timing-function:ease-out;width:110px;}
-.LoadingIndicator.enableLoading{-webkit-animation-name:loadingText-pulsate20;-moz-animation-name:loadingText-pulsate20;-webkit-animation-duration:750ms;-moz-animation-duration:750ms;-webkit-animation-iteration-count:infinite;-moz-animation-iteration-count:infinite;-webkit-animation-timing-function:ease-in-out;-moz-animation-timing-function:ease-in-out;display:block}
+.LoadingIndicator {
+  color: rgba(175,199,229,0.50);
+  border-radius: 5px;
+  box-shadow: 0px 1px 3px rgba(0,0,0,0.15);
+  display: none;
+  font-weight: bold;
+  font-size: 16px;
+  background: rgba(62,116,184,0.50);
+  background: -moz-linear-gradient(top, rgba(61,115,184,0.40) 0%, rgba(61,115,184,0.10) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(61,115,184,0.40)), color-stop(100%, rgba(61,115,184,0.10)));
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgba(61,115,184,0.40)', endColorstr='rgba(61,115,184,0.10)',GradientType=0 );
+  height: 36px;
+  line-height: 36px;
+  letter-spacing: 1px;
+  margin: 0 auto;
+  overflow: hidden;
+  text-align: center;
+  -webkit-transition-property: opacity;
+  -moz-transition-property: opacity;
+  -o-transition-property: opacity;
+  transition-property: opacity;
+  -webkit-transition-duration: 350ms;
+  -moz-transition-duration: 350ms;
+  -o-transition-duration: 350ms;
+  transition-duration: 350ms;
+  -webkit-transition-timing-function: ease-out;
+  -moz-transition-timing-function: ease-out;
+  -o-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+  width: 110px;
+}
+.LoadingIndicator.enableLoading {
+  -webkit-animation-name: loadingText-pulsate20;
+  -moz-animation-name: loadingText-pulsate20;
+  -webkit-animation-duration: 750ms;
+  -moz-animation-duration: 750ms;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+  -moz-animation-timing-function: ease-in-out;
+  display: block;
+}
+@-moz-keyframes loadingText-pulsate20 {
+  0% {
+    color: rgba(175,199,229,0.50);
+  }
+
+  50% {
+    color: rgba(255,255,255,0.80);
+  }
+
+  100% {
+    color: rgba(175,199,229,0.50);
+  }
+}
+@-webkit-keyframes loadingText-pulsate20 {
+  0% {
+    color: rgba(175,199,229,0.50);
+  }
+
+  50% {
+    color: rgba(255,255,255,0.80);
+  }
+
+  100% {
+    color: rgba(175,199,229,0.50);
+  }
+}
+@-o-keyframes loadingText-pulsate20 {
+  0% {
+    color: rgba(175,199,229,0.50);
+  }
+
+  50% {
+    color: rgba(255,255,255,0.80);
+  }
+
+  100% {
+    color: rgba(175,199,229,0.50);
+  }
+}
+@-ms-keyframes loadingText-pulsate20 {
+  0% {
+    color: rgba(175,199,229,0.50);
+  }
+
+  50% {
+    color: rgba(255,255,255,0.80);
+  }
+
+  100% {
+    color: rgba(175,199,229,0.50);
+  }
+}
+@keyframes loadingText-pulsate20 {
+  0% {
+    color: rgba(175,199,229,0.50);
+  }
+
+  50% {
+    color: rgba(255,255,255,0.80);
+  }
+
+  100% {
+    color: rgba(175,199,229,0.50);
+  }
+}

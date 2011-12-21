@@ -1,3 +1,4 @@
+
 define(['data/JSONP'], function(_arg) {
   var JSONPService, getXPToolBaseUrl;
   JSONPService = _arg.JSONPService, getXPToolBaseUrl = _arg.getXPToolBaseUrl;

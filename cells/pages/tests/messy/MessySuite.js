@@ -1,10 +1,12 @@
+
 define(function() {
   var Count, getPkgName;
   Count = cell.extend({
-    'render <span>': function(R) {
+    tag: '<span>',
+    render: function(R) {
       return [R('span.countGroup'), this.options.red != null ? R('span.badge-red.count', this.options.red) : void 0, this.options.yellow != null ? R('span.badge-yellow.count', this.options.yellow) : void 0, (this.options.red != null) || (this.options.yellow != null) ? R("span.count.badge-" + (this.options.gray && 'green' || 'gray'), this.options.gray) : void 0];
     },
-    bind: (function() {
+    on: (function() {
       var trigger;
       trigger = function() {
         $(this.el).trigger('selected');
@@ -32,11 +34,10 @@ define(function() {
     init: function() {
       return this.model = this.model.data;
     },
-    render: function(R) {
+    render: function(_) {
       var pkgName;
-      pkgName = getPkgName(this.model.suitename);
       return [
-        R('#bar', R('#expando'), R('span#suiteName.gray', R('span#package', pkgName.pkg), R('a.name', {
+        _('#bar', _('#expando'), _('span#suiteName.gray', _('span#package', (pkgName = getPkgName(this.model.suitename)).pkg), _('a.name', {
           href: '#'
         }, ' ' + pkgName.name)))
       ];

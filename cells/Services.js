@@ -1,3 +1,4 @@
+
 define(['Bus', 'data/JSONP', 'data/DashboardService', 'data/Auth'], function(Bus, _arg, DashboardService, Auth) {
   var getXPToolBaseUrl, ua;
   getXPToolBaseUrl = _arg.getXPToolBaseUrl;

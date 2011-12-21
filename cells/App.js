@@ -1,3 +1,4 @@
+
 define(['cell!shared/page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/dashboard/DashboardPage', 'cell!Bar'], function(Page, ComingSoonPage, DashboardPage, Bar) {
   var pages;
   pages = {
@@ -39,11 +40,11 @@ define(['cell!shared/page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/dashb
               }
               return _results;
             })()
-          }), R('#content', R(this.getPage(this.options.selectedPage)))
+          }), R('#content', this.getPage(this.options.selectedPage))
         ];
       }
     },
-    bind: {
+    on: {
       'selectedItemChanged :parent > .Bar': function(e, _arg) {
         var item;
         item = _arg.item;

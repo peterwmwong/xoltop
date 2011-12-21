@@ -1,6 +1,20 @@
 TODO
 ====
 
+Before Handoff
+--------------
+* Upgrade require.js
+* rename xoltop/cells -> xoltop/src
+* On Dashboard, Show no Stories
+* Use Spinner GIF in Loading Indicator 
+
+Handoff
+-------
+* Project structure
+* Quick dev workflow demo
+* Cell structure
+
+
 Backend Integration
 -------------------
 * Allow for "special" stories that don't have any tests

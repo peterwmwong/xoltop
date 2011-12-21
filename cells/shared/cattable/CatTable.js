@@ -1,3 +1,4 @@
+
 define([], (function() {
   var getPropFunc;
   getPropFunc = function(prop) {
@@ -39,15 +40,12 @@ define([], (function() {
         }
       },
       render: function(_) {
-        var c, cat, f, gi, member, numVisibleGroups, oddEven, _len, _ref, _results;
+        var c, cat, f, gi, isEven, member, numVisibleGroups, oddEven, _len, _ref, _results;
         numVisibleGroups = 0;
-        oddEven = (function() {
-          var isEven;
-          isEven = false;
-          return function() {
-            return (isEven = !isEven) && 'even' || 'odd';
-          };
-        })();
+        isEven = false;
+        oddEven = function() {
+          return (isEven = !isEven) && 'even' || 'odd';
+        };
         _ref = this._categoryNames;
         _results = [];
         for (gi = 0, _len = _ref.length; gi < _len; gi++) {
