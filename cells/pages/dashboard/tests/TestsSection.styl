@@ -62,11 +62,8 @@
         &.name
           padding-left 3px
           box-flex 1
+          position relative
 
-          overflow hidden
-          text-overflow ellipsis
-          white-space nowrap
-          
           > .needsAttn
             background-color badge-red
             padding 1px 1px 2px 1px
@@ -77,8 +74,14 @@
             margin-right 5px
 
           > a
+            // Remove this container when Firefox gets fixes...
+            // http://oli.jp/bugs/mozilla/flexbox-overflow.html
+            abspos 10px 0px -8px 0px
             color text-color-dark
             text-decoration none
+            overflow hidden
+            text-overflow ellipsis
+            white-space nowrap
 
             &:hover
               text-decoration underline

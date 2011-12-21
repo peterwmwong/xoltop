@@ -10,9 +10,9 @@
 .TestsSection > .CatTable > .category > .members .column.id{width:50px;font-size:16px;font-weight:bold;text-align:center;}
 .TestsSection > .CatTable > .category > .members .column.id > a{text-decoration:none;}
 .TestsSection > .CatTable > .category > .members .column.id > a:hover{text-decoration:underline}
-.TestsSection > .CatTable > .category > .members .column.name{padding-left:3px;box-flex:1;-webkit-box-flex:1;-moz-box-flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.TestsSection > .CatTable > .category > .members .column.name{padding-left:3px;box-flex:1;-webkit-box-flex:1;-moz-box-flex:1;position:relative;}
 .TestsSection > .CatTable > .category > .members .column.name > .needsAttn{background-color:#932c2c;padding:1px 1px 2px 1px;-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;font-size:11px;color:#fff;font-weight:bold;margin-right:5px}
-.TestsSection > .CatTable > .category > .members .column.name > a{color:#ddd;text-decoration:none;}
+.TestsSection > .CatTable > .category > .members .column.name > a{position:absolute;top:10px;right:0;bottom:-8px;left:0;color:#ddd;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .TestsSection > .CatTable > .category > .members .column.name > a:hover{text-decoration:underline}
 .TestsSection > .CatTable > .category > .members .column.date{width:50px}
 .TestsSection > .CatTable > .category > .members .column.owner{width:60px;text-align:right}
