@@ -8,19 +8,20 @@ define ['Services','cell!shared/InitialsList'], (S,InitialsList)->
         .html( u.loginName.toUpperCase() )
         .after( new InitialsList(initials: (u and [u.initials] or [])).el )
 
+  tag: 'span'
 
   init: ->
     S.bus.bind 'auth.userLoggedIn', => updateUser.call this
 
-  'render <span>': (_)-> [
+  render: (_)-> [
     _ 'a#username', href:'#'
     _ '#options-group',
       _ 'button#signout-button', 'Sign Out'
   ]
 
-  on:
-    afterRender: updateUser
+  afterRender: updateUser
 
+  on:
     'click #signout-button': ->
       S.auth.logout()
       @$el.toggleClass 'expanded', false

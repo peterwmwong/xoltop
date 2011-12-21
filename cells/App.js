@@ -22,15 +22,16 @@ define(['cell!shared/page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/dashb
       var _base, _ref;
       return (_ref = (_base = this.options).selectedPage) != null ? _ref : _base.selectedPage = 'Dashboard';
     },
-    render: function(R, A) {
-      var p;
+    render: function(_) {
+      var p,
+        _this = this;
       if ($.browser.msie) {
-        return this.require('./IEGTFO', function(I) {
-          return A([R(I)]);
+        return this.require('./IEGTFO', function(IEGTFO) {
+          return _this.$el.html('').append(_(IEGTFO));
         });
       } else {
         return [
-          R(Bar, {
+          _(Bar, {
             selectedItem: this.options.selectedPage,
             items: (function() {
               var _results;
@@ -40,7 +41,7 @@ define(['cell!shared/page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/dashb
               }
               return _results;
             })()
-          }), R('#content', this.getPage(this.options.selectedPage))
+          }), _('#content', this.getPage(this.options.selectedPage))
         ];
       }
     },
@@ -53,7 +54,7 @@ define(['cell!shared/page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/dashb
     },
     getPage: function(page) {
       var p;
-      return (p = pages[page]) && (new p.cell(p.options)).el;
+      if (p = pages[page]) return (new p.cell(p.options)).el;
     }
   };
 });

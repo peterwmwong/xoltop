@@ -5,7 +5,7 @@
 .CodeSection > .CatTable > .category.complete > .header{background-color:rgba(79,110,32,0.25);color:#add56f}
 .CodeSection > .CatTable > .category > .header{text-align:left}
 .CodeSection > .CatTable > .category > .members > .member > .column{vertical-align:middle;}
-.CodeSection > .CatTable > .category > .members > .member > .column.description{box-flex:1;-webkit-box-flex:1;-moz-box-flex:1;}
+.CodeSection > .CatTable > .category > .members > .member > .column.description{box-flex:1;-webkit-box-flex:1;-moz-box-flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .CodeSection > .CatTable > .category > .members > .member > .column.description > a{color:#ddd;text-decoration:none;}
 .CodeSection > .CatTable > .category > .members > .member > .column.description > a:hover{text-decoration:underline}
 .CodeSection > .CatTable > .category > .members > .member > .column.owner{text-align:right;width:80px}

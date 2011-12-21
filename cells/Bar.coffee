@@ -1,12 +1,12 @@
 define ['Services','cell!signin/SignIn'], (S, SignIn)->
   $('<link  href="http://fonts.googleapis.com/css?family=Maven+Pro:700&v1" rel="stylesheet" type="text/css" >').appendTo 'head'
   
-  render: (R)-> [
-    R '#xoltop', 'XOLTOP'
+  render: (_)-> [
+    _ '#xoltop', 'XOLTOP'
     for item, i in @options.items
-      R 'span.navItemContainer',
+      _ 'span.navItemContainer',
         $("<a class='navItem #{i is 0 and 'selected' or ''}' data-item='#{item}'>#{item.toUpperCase()}</a>")[0]
-    R SignIn
+    _ SignIn
   ]
 
   on:

@@ -4,29 +4,31 @@ define [
   'cell!pages/dashboard/DashboardPage'
   'cell!Bar'
 ], (Page,ComingSoonPage,DashboardPage,Bar)->
+
   pages =
     Dashboard:
       cell: DashboardPage
-
     Tests:
       cell: Page
       options:
         baseurl: 'pages/tests'
         sections: ['Messy','Metrics']
         selectedSection: 'Metrics'
-
     Stories:
       cell: ComingSoonPage
 
   init: ->
     @options.selectedPage ?= 'Dashboard'
 
-  render: (R,A)->
-    if $.browser.msie then @require './IEGTFO', (I)-> A [R I]
+  render: (_)->
+    if $.browser.msie
+      @require './IEGTFO', (IEGTFO)=>
+        @$el
+          .html('')
+          .append(_ IEGTFO)
     else [
-      R Bar,
-        selectedItem:@options.selectedPage, items:(p for p of pages)
-      R '#content',
+      _ Bar, selectedItem:@options.selectedPage, items:(p for p of pages)
+      _ '#content',
         @getPage @options.selectedPage
     ]
 
@@ -36,5 +38,7 @@ define [
         .html('')
         .append @getPage item
 
-  getPage: (page)-> (p = pages[page]) and (new p.cell p.options).el
+  getPage: (page)->
+    if p = pages[page]
+      (new p.cell p.options).el
 

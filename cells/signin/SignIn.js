@@ -3,14 +3,12 @@ define(['Services', 'cell!./SignedIn'], function(S, SignedIn) {
   var doSubmit;
   return {
     tag: '<span>',
-    init: function() {
+    render: function(_) {
       var _this = this;
       S.bus.bind('auth.userLoggedOut', function() {
         return _this.$el.toggleClass('loggedin', false);
       });
       return S.auth.user(function(user) {
-        var _;
-        _ = cell.prototype.$R;
         if (user != null) _this.$el.toggleClass('loggedin');
         return _this.$el.append([
           _('#signin-group', _('a#signin-toggle', {

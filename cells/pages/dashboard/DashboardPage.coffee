@@ -10,11 +10,10 @@ define [
   render: (_)->
     @iterationNo = null
 
-    S.bus.bind do->
-      rerender = =>
+    S.bus.bind
+      'auth.userLoggedIn': rerender = =>
         S.dashboard.getStorySummaries @iterationNo,
           ({iterationNo,stories})=> @renderStories stories
-      'auth.userLoggedIn': rerender
       'auth.userLoggedOut': rerender
 
     S.auth.user (user)=>

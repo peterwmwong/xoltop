@@ -26,5 +26,5 @@ define [
           Bus.trigger type: 'auth.userLoggedOut'
           result
 
-  service.getUser = -> return user
+  service.getUser = -> user
   service

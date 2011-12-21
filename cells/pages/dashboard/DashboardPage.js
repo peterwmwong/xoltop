@@ -3,23 +3,19 @@ var __indexOf = Array.prototype.indexOf || function(item) { for (var i = 0, l = 
 define(['Services', 'cell!shared/loadingindicator/LoadingIndicator', 'cell!./DashboardStory', 'cell!./statusshelf/IterationChooser', 'cell!./statusshelf/testresultsgraph/TestResultsGraph', 'cell!shared/InitialsList'], function(S, LoadingIndicator, DashboardStory, IterationChooser, TestResultsGraph, InitialsList) {
   return {
     render: function(_) {
-      var _this = this;
+      var rerender,
+        _this = this;
       this.iterationNo = null;
-      S.bus.bind((function() {
-        var rerender,
-          _this = this;
-        rerender = function() {
+      S.bus.bind({
+        'auth.userLoggedIn': rerender = function() {
           return S.dashboard.getStorySummaries(_this.iterationNo, function(_arg) {
             var iterationNo, stories;
             iterationNo = _arg.iterationNo, stories = _arg.stories;
             return _this.renderStories(stories);
           });
-        };
-        return {
-          'auth.userLoggedIn': rerender,
-          'auth.userLoggedOut': rerender
-        };
-      })());
+        },
+        'auth.userLoggedOut': rerender
+      });
       return S.auth.user(function(user) {
         return S.dashboard.getStorySummaries(null, function(_arg) {
           var iterationNo, stories;

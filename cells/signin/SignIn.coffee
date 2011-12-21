@@ -2,13 +2,12 @@ define ['Services','cell!./SignedIn'], (S, SignedIn)->
 
   tag: '<span>'
 
-  init: ->
+  render: (_)->
     S.bus.bind 'auth.userLoggedOut', =>
       @$el.toggleClass 'loggedin', false
 
     S.auth.user (user)=>
-      _ = cell::$R
-      if user? then @$el.toggleClass 'loggedin'
+      @$el.toggleClass 'loggedin' if user?
       @$el.append [
         _ '#signin-group',
           _ 'a#signin-toggle', href:'#', 'Sign In'

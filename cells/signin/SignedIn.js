@@ -12,21 +12,22 @@ define(['Services', 'cell!shared/InitialsList'], function(S, InitialsList) {
     }
   };
   return {
+    tag: 'span',
     init: function() {
       var _this = this;
       return S.bus.bind('auth.userLoggedIn', function() {
         return updateUser.call(_this);
       });
     },
-    'render <span>': function(_) {
+    render: function(_) {
       return [
         _('a#username', {
           href: '#'
         }), _('#options-group', _('button#signout-button', 'Sign Out'))
       ];
     },
+    afterRender: updateUser,
     on: {
-      afterRender: updateUser,
       'click #signout-button': function() {
         S.auth.logout();
         return this.$el.toggleClass('expanded', false);
