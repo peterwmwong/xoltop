@@ -31,55 +31,57 @@ define(['Services', 'cell!shared/loadingindicator/LoadingIndicator', 'cell!./Das
               type: 'units',
               label: 'UNIT',
               urlPrefix: S.getXPToolBaseUrl('unittool.failingtestsbysuite.do?testRunID=')
-            })), _(LoadingIndicator)
+            })), _(LoadingIndicator), _('.noStories', 'No Stories')
           ]);
           return _this.renderStories(stories);
         });
       });
     },
     renderStories: function(stories) {
-      var mystories, s, user, _i, _len, _ref, _results;
+      var hasmystories, hasstories, mystories, s, user, _i, _len, _ref, _results;
       user = S.auth.getUser();
+      this.$('.noStories').toggle(!(hasstories = stories && stories.length));
+      this.$('.myStoryDivider').toggle(false);
       this.$('.DashboardStory').remove();
-      mystories = (function() {
-        var _i, _len, _ref, _ref2, _results;
-        if (user != null) {
-          _results = [];
-          for (_i = 0, _len = stories.length; _i < _len; _i++) {
-            s = stories[_i];
-            if (!(((s.devs != null) && (_ref = user.initials, __indexOf.call(s.devs, _ref) >= 0)) || ((s.testers != null) && (_ref2 = user.initials, __indexOf.call(s.testers, _ref2) >= 0)))) {
-              continue;
+      if (hasstories) {
+        mystories = (function() {
+          var _i, _len, _ref, _ref2, _results;
+          if (user != null) {
+            _results = [];
+            for (_i = 0, _len = stories.length; _i < _len; _i++) {
+              s = stories[_i];
+              if (!(((s.devs != null) && (_ref = user.initials, __indexOf.call(s.devs, _ref) >= 0)) || ((s.testers != null) && (_ref2 = user.initials, __indexOf.call(s.testers, _ref2) >= 0)))) {
+                continue;
+              }
+              this.$el.append((new DashboardStory({
+                model: s
+              })).$el);
+              _results.push(s.storynum);
             }
-            this.$el.append((new DashboardStory({
-              model: s
-            })).$el);
-            _results.push(s.storynum);
+            return _results;
+          } else {
+            return [];
           }
-          return _results;
-        } else {
-          return [];
+        }).call(this);
+        if (hasmystories = mystories.length > 0) {
+          this.$('.myStoryDivider .InitialsList').remove();
+          this.$('.myStoryDivider > .leftTri').after(new InitialsList({
+            initials: user && [user.initials] || []
+          }).el);
+          this.$el.append(this.$('.myStoryDivider'));
+          this.$('.myStoryDivider').toggle(true);
         }
-      }).call(this);
-      if (mystories.length > 0) {
-        this.$('.myStoryDivider .InitialsList').remove();
-        this.$('.myStoryDivider > .leftTri').after(new InitialsList({
-          initials: user && [user.initials] || []
-        }).el);
-        this.$('.myStoryDivider').toggle(true);
-        this.$el.append(this.$('.myStoryDivider'));
-      } else {
-        this.$('.myStoryDivider').toggle(false);
-      }
-      _results = [];
-      for (_i = 0, _len = stories.length; _i < _len; _i++) {
-        s = stories[_i];
-        if (_ref = s.storynum, __indexOf.call(mystories, _ref) < 0) {
-          _results.push(this.$el.append((new DashboardStory({
-            model: s
-          })).$el));
+        _results = [];
+        for (_i = 0, _len = stories.length; _i < _len; _i++) {
+          s = stories[_i];
+          if (_ref = s.storynum, __indexOf.call(mystories, _ref) < 0) {
+            _results.push(this.$el.append((new DashboardStory({
+              model: s
+            })).$el));
+          }
         }
+        return _results;
       }
-      return _results;
     },
     on: {
       'selected .DashboardStory': function(_arg) {
@@ -93,6 +95,7 @@ define(['Services', 'cell!shared/loadingindicator/LoadingIndicator', 'cell!./Das
         newIterationNo = _arg.newIterationNo;
         this.iterationNo = newIterationNo;
         this.$('.DashboardStory').remove();
+        this.$('.noStories').toggle(false);
         this.$('.LoadingIndicator').trigger('enable');
         return S.dashboard.getStorySummaries(this.iterationNo, function(_arg2) {
           var stories;

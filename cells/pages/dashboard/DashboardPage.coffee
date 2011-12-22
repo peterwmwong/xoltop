@@ -33,30 +33,39 @@ define [
                 label: 'UNIT'
                 urlPrefix: S.getXPToolBaseUrl 'unittool.failingtestsbysuite.do?testRunID='
           _ LoadingIndicator
+          _ '.noStories', 'No Stories'
         ]
         @renderStories stories
     
   renderStories: (stories)->
     user = S.auth.getUser()
+
+    @$('.noStories').toggle not (hasstories = stories and stories.length)
+    @$('.myStoryDivider').toggle false
     @$('.DashboardStory').remove()
 
-    mystories =
-      if user?
-        for s in stories when (s.devs? and user.initials in s.devs) or (s.testers? and user.initials in s.testers)
-          @$el.append (new DashboardStory model: s).$el
-          s.storynum
-      else []
+    # Any stories to render?
+    if hasstories
 
-    if mystories.length > 0
-      @$('.myStoryDivider .InitialsList').remove()
-      @$('.myStoryDivider > .leftTri').after(new InitialsList(initials:user and [user.initials] or []).el)
-      @$('.myStoryDivider').toggle true
-      @$el.append @$('.myStoryDivider')
-    else
-      @$('.myStoryDivider').toggle false
+      # Render the rest of the stories
+      mystories =
+        if user?
+          for s in stories when (s.devs? and user.initials in s.devs) or (s.testers? and user.initials in s.testers)
+            @$el.append (new DashboardStory model: s).$el
+            s.storynum
+        else []
 
-    for s in stories when s.storynum not in mystories
-      @$el.append (new DashboardStory model: s).$el
+      if hasmystories = (mystories.length > 0)
+        @$('.myStoryDivider .InitialsList').remove()
+        @$('.myStoryDivider > .leftTri')
+          .after new InitialsList(initials:user and [user.initials] or []).el
+        @$el.append @$('.myStoryDivider')
+        @$('.myStoryDivider').toggle true
+
+      # Render the rest of the stories
+      for s in stories when s.storynum not in mystories
+        @$el.append (new DashboardStory model: s).$el
+
 
   on:
     # When a Dashboard Story is selected
@@ -67,6 +76,7 @@ define [
     'iterationNoChanged .IterationChooser': ({newIterationNo})->
       @iterationNo = newIterationNo
       @$('.DashboardStory').remove()
+      @$('.noStories').toggle false
       @$('.LoadingIndicator').trigger 'enable'
 
       # Fetch Stories for newly selected iteration
