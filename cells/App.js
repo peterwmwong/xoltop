@@ -1,5 +1,5 @@
 
-define(['cell!shared/page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/dashboard/DashboardPage', 'cell!Bar'], function(Page, ComingSoonPage, DashboardPage, Bar) {
+define(['require', 'cell!shared/page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/dashboard/DashboardPage', 'cell!Bar'], function(require, Page, ComingSoonPage, DashboardPage, Bar) {
   var pages;
   pages = {
     Dashboard: {
@@ -20,13 +20,13 @@ define(['cell!shared/page/Page', 'cell!shared/ComingSoonPage', 'cell!pages/dashb
   return {
     init: function() {
       var _base, _ref;
-      return (_ref = (_base = this.options).selectedPage) != null ? _ref : _base.selectedPage = 'Dashboard';
+      return (_ref = (_base = this.options).selectedPage) != null ? _ref : _base.selectedPage = 'Tests';
     },
     render: function(_) {
       var p,
         _this = this;
       if ($.browser.msie) {
-        return this.require('./IEGTFO', function(IEGTFO) {
+        return require(['cell!./IEGTFO'], function(IEGTFO) {
           return _this.$el.html('').append(_(IEGTFO));
         });
       } else {

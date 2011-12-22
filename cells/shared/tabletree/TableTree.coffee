@@ -2,14 +2,14 @@ define [
   'cell!./NodeRow'
 ], (NodeRow)->
   
-  render: (R)-> [
+  render: (_)-> [
     if @options.title
-      R '#titlebar', @options.title
-    R '#rows',
-      R '#headerrow',
+      _ '#titlebar', @options.title
+    _ '#rows',
+      _ '#headerrow',
         for text in @options.cols
-          R '.headercol', text
-      R NodeRow,
+          _ '.headercol', text
+      _ NodeRow,
           class: 'ROOT'
           model:
             type: '_'

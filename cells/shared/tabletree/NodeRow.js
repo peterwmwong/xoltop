@@ -2,7 +2,7 @@
 define(function() {
   var defer, renderChildren;
   defer = function(f) {
-    return setTimeout(f, t);
+    return setTimeout(f, 0);
   };
   renderChildren = function(children) {
     var c, child, container, _i, _len;

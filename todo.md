@@ -3,7 +3,6 @@ TODO
 
 Before Handoff
 --------------
-* Upgrade require.js
 * rename xoltop/cells -> xoltop/src
 * On Dashboard, Show no Stories
 * Use Spinner GIF in Loading Indicator 

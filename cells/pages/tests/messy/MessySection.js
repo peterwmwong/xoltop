@@ -3,16 +3,17 @@ define(['data/MessyTestService', 'cell!shared/page/SectionTitle', 'cell!shared/t
   var IssueGroupProvider, IssueProvider, dataProviders;
   IssueGroupProvider = {
     nodeCell: cell.extend({
+      tag: '<div class="issueGroup">',
       init: function() {
         var _ref;
         return this.model.expanded = !!this.model.expanded && ((_ref = this.model.data) != null ? _ref.length : void 0);
       },
-      'render <div class="issueGroup">': function(R) {
+      render: function(_) {
         var isEmpty, _ref, _ref2;
-        $(this.el).toggleClass('expanded', this.model.expanded);
+        this.$el.toggleClass('expanded', this.model.expanded);
         isEmpty = !!((_ref = this.model.data) != null ? _ref.length : void 0);
         return [
-          R('#expando'), R("span.count" + (isEmpty && '.red' || ''), ((_ref2 = this.model.data) != null ? _ref2.length : void 0) || 0), R("a.label" + (!isEmpty && '.isempty' || ''), {
+          _('#expando'), _("span.count" + (isEmpty && '.red' || ''), ((_ref2 = this.model.data) != null ? _ref2.length : void 0) || 0), _("a.label" + (!isEmpty && '.isempty' || ''), {
             href: '#'
           }, this.model.type)
         ];
@@ -43,8 +44,8 @@ define(['data/MessyTestService', 'cell!shared/page/SectionTitle', 'cell!shared/t
     };
     return {
       nodeCell: cell.extend({
-        render: function(R) {
-          return [R('span.name', this.model.fieldName), R('span.diff', format(this.model.before)), R('span.diffArrow', '>'), R('span.diff.after', format(this.model.after))];
+        render: function(_) {
+          return [_('span.name', this.model.fieldName), _('span.diff', format(this.model.before)), _('span.diffArrow', '>'), _('span.diff.after', format(this.model.after))];
         }
       })
     };
@@ -126,12 +127,12 @@ define(['data/MessyTestService', 'cell!shared/page/SectionTitle', 'cell!shared/t
     };
   })();
   return {
-    render: function(R) {
+    render: function(_) {
       return [
-        R(SectionTitle, {
+        _(SectionTitle, {
           title: 'Messy Tests',
           description: "Tests that don't pick up after themselves"
-        }), R(TableTree, {
+        }), _(TableTree, {
           id: 'Messy',
           cols: ['Chump Tasks'],
           dataProviders: dataProviders()

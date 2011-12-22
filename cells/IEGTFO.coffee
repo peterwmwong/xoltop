@@ -1,13 +1,14 @@
 define ->
-  render: (R)-> [
-    R '.pls',
+  render: (_)-> [
+    _ '.pls',
       "Please use another browser."
-      R '.ftlog.ftlog2',
+      _ '.ftlog.ftlog2',
         'chrome, firefox, safari, mobile safari, opera, or '
-        R 'span', "any browser that doesn't suck",
+        _ 'span', "any browser that doesn't suck",
         '.'
-    R 'div', '☑ Saddam Hussein'
-    R 'div', '☑ Osama Bin Laden'
-    R 'div.ie', '☐ ', R 'span', 'Internet Explorer'
+    _ 'div', '☑ Saddam Hussein'
+    _ 'div', '☑ Osama Bin Laden'
+    _ 'div.ie', '☐ ',
+      _ 'span', 'Internet Explorer'
   ]
 

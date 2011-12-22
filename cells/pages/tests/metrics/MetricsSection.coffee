@@ -6,12 +6,13 @@ define [
 ], (MetricsService,MetricsNode,SectionTitle,TableTree)->
 
   ReleaseCol = cell.extend
-    'render <span>': (R)-> [
-      R 'span.ats',
-        R 'span.count', @model.ats
+    tag: '<span>'
+    render: (_)-> [
+      _ 'span.ats',
+        _ 'span.count', @model.ats
         'Tests'
-      R 'span.chumpTasks' ,
-        R 'span.count', @model.chumpTasks
+      _ 'span.chumpTasks' ,
+        _ 'span.count', @model.chumpTasks
         'Tasks'
     ]
 
@@ -44,7 +45,8 @@ define [
     iteration:
       nodeCell: MetricsNode.extend(nameLabel:'Iteration ')
       noChildrenCell: cell.extend
-        'render <div class="nochildren">': -> ['No stories']
+        tag: "<div class='nochildren'>"
+        render: -> ['No stories']
       getChildren: (done)->
         MetricsService.getReleaseIterationStories
           release:@release
@@ -64,19 +66,20 @@ define [
     story:
       nodeCell: MetricsNode.extend
         nameColCell: cell.extend
-          'render <span class="nameContainer">': (R)->
+          tag: "<span class='nameContainer'>"
+          render: (_)->
             url = "http://destinyxptool/xptool/projecttool/projecttool.storyview.do?storyNumber=#{@model.data.id}"
             [
-              R 'a', target:'_blank', href:'#', onclick:'window.open(\"#{url}\")',
+              _ 'a', target:'_blank', href:'#', onclick:'window.open(\"#{url}\")',
                 @model.data.id
-              R 'span.name', @model.data.name or ''
+              _ 'span.name', @model.data.name or ''
             ]
 
-  render: (R)-> [
-    R SectionTitle,
+  render: (_)-> [
+    _ SectionTitle,
         title: 'Metrics'
         description: 'Iteration and Story complexity based on number of tasks and tests'
-    R TableTree,
+    _ TableTree,
         id:'Metrics'
         cols: ['ATs','Chump Tasks']
         dataProviders:dataProviders

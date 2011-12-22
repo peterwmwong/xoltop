@@ -2,8 +2,9 @@
 define(['data/MetricsService', 'cell!./MetricsNode', 'cell!shared/page/SectionTitle', 'cell!shared/tabletree/TableTree'], function(MetricsService, MetricsNode, SectionTitle, TableTree) {
   var ReleaseCol, dataProviders, extend;
   ReleaseCol = cell.extend({
-    'render <span>': function(R) {
-      return [R('span.ats', R('span.count', this.model.ats), 'Tests'), R('span.chumpTasks', R('span.count', this.model.chumpTasks), 'Tasks')];
+    tag: '<span>',
+    render: function(_) {
+      return [_('span.ats', _('span.count', this.model.ats), 'Tests'), _('span.chumpTasks', _('span.count', this.model.chumpTasks), 'Tasks')];
     }
   });
   extend = function(destObj, srcObj) {
@@ -89,7 +90,8 @@ define(['data/MetricsService', 'cell!./MetricsNode', 'cell!shared/page/SectionTi
         nameLabel: 'Iteration '
       }),
       noChildrenCell: cell.extend({
-        'render <div class="nochildren">': function() {
+        tag: "<div class='nochildren'>",
+        render: function() {
           return ['No stories'];
         }
       }),
@@ -148,15 +150,16 @@ define(['data/MetricsService', 'cell!./MetricsNode', 'cell!shared/page/SectionTi
     story: {
       nodeCell: MetricsNode.extend({
         nameColCell: cell.extend({
-          'render <span class="nameContainer">': function(R) {
+          tag: "<span class='nameContainer'>",
+          render: function(_) {
             var url;
             url = "http://destinyxptool/xptool/projecttool/projecttool.storyview.do?storyNumber=" + this.model.data.id;
             return [
-              R('a', {
+              _('a', {
                 target: '_blank',
                 href: '#',
                 onclick: 'window.open(\"#{url}\")'
-              }, this.model.data.id), R('span.name', this.model.data.name || '')
+              }, this.model.data.id), _('span.name', this.model.data.name || '')
             ];
           }
         })
@@ -164,12 +167,12 @@ define(['data/MetricsService', 'cell!./MetricsNode', 'cell!shared/page/SectionTi
     }
   };
   return {
-    render: function(R) {
+    render: function(_) {
       return [
-        R(SectionTitle, {
+        _(SectionTitle, {
           title: 'Metrics',
           description: 'Iteration and Story complexity based on number of tasks and tests'
-        }), R(TableTree, {
+        }), _(TableTree, {
           id: 'Metrics',
           cols: ['ATs', 'Chump Tasks'],
           dataProviders: dataProviders

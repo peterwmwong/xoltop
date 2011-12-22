@@ -1,13 +1,15 @@
 define ['cell!./CountBar'], (CountBar)->
 
   DefaultNameCol = cell.extend
-    'render <span>': (_)-> [
+    tag: '<span>'
+    render: (_)-> [
       @options.nameLabel
       _ 'span.name', @model.data.name
     ]
 
   DefaultCountCol = cell.extend
-    'render <span>': (_)->
+    tag: '<span>'
+    render: (_)->
       parent = @model.parent
       [
         _ 'span.ats',
@@ -34,7 +36,7 @@ define ['cell!./CountBar'], (CountBar)->
   render: (_)->
     @$el.toggleClass 'expanded', !!@model.expanded
     [
-      _ '#expando', if @model.expanded then class: 'expanded'
+      _ "<div id='expando' class='#{@model.expanded and 'expanded' or ''}'>"
       _ @nameColCell, class: 'nameContainer', nameLabel: @nameLabel, model: @model
       _ @countColCell, class: 'counts', model: @model.data
     ]

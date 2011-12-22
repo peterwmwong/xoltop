@@ -2,12 +2,14 @@
 define(['cell!./CountBar'], function(CountBar) {
   var DefaultCountCol, DefaultNameCol;
   DefaultNameCol = cell.extend({
-    'render <span>': function(_) {
+    tag: '<span>',
+    render: function(_) {
       return [this.options.nameLabel, _('span.name', this.model.data.name)];
     }
   });
   DefaultCountCol = cell.extend({
-    'render <span>': function(_) {
+    tag: '<span>',
+    render: function(_) {
       var ats, cts, parent, parentAts, parentCts, _ref, _ref2;
       parent = this.model.parent;
       return [
@@ -31,9 +33,7 @@ define(['cell!./CountBar'], function(CountBar) {
     render: function(_) {
       this.$el.toggleClass('expanded', !!this.model.expanded);
       return [
-        _('#expando', this.model.expanded ? {
-          "class": 'expanded'
-        } : void 0), _(this.nameColCell, {
+        _("<div id='expando' class='" + (this.model.expanded && 'expanded' || '') + "'>"), _(this.nameColCell, {
           "class": 'nameContainer',
           nameLabel: this.nameLabel,
           model: this.model

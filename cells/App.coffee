@@ -1,9 +1,10 @@
 define [
+  'require'
   'cell!shared/page/Page'
   'cell!shared/ComingSoonPage'
   'cell!pages/dashboard/DashboardPage'
   'cell!Bar'
-], (Page,ComingSoonPage,DashboardPage,Bar)->
+], (require,Page,ComingSoonPage,DashboardPage,Bar)->
 
   pages =
     Dashboard:
@@ -18,11 +19,11 @@ define [
       cell: ComingSoonPage
 
   init: ->
-    @options.selectedPage ?= 'Dashboard'
+    @options.selectedPage ?= 'Tests'
 
   render: (_)->
     if $.browser.msie
-      @require './IEGTFO', (IEGTFO)=>
+      require ['cell!./IEGTFO'], (IEGTFO)=>
         @$el
           .html('')
           .append(_ IEGTFO)

@@ -1,5 +1,5 @@
 define ->
-  defer = (f)-> setTimeout f,t
+  defer = (f)-> setTimeout f,0
   renderChildren = (children)->
     container = @$ '#children'
     container.html ''

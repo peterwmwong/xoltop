@@ -1,19 +1,19 @@
 
 define(['cell!./NodeRow'], function(NodeRow) {
   return {
-    render: function(R) {
+    render: function(_) {
       var text;
       return [
-        this.options.title ? R('#titlebar', this.options.title) : void 0, R('#rows', R('#headerrow', (function() {
+        this.options.title ? _('#titlebar', this.options.title) : void 0, _('#rows', _('#headerrow', (function() {
           var _i, _len, _ref, _results;
           _ref = this.options.cols;
           _results = [];
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
             text = _ref[_i];
-            _results.push(R('.headercol', text));
+            _results.push(_('.headercol', text));
           }
           return _results;
-        }).call(this)), R(NodeRow, {
+        }).call(this)), _(NodeRow, {
           "class": 'ROOT',
           model: {
             type: '_',

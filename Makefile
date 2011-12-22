@@ -10,7 +10,7 @@ uglifyjs = $(npmbin)/uglifyjs
 #-------------------------------------------------------------------
 # BUILD
 #------------------------------------------------------------------- 
-requirejsBuild = ./vendor/requirejs/r.js
+requirejsBuild = node_modules/.bin/r.js
 
 
 #===================================================================
@@ -24,7 +24,7 @@ requirejsBuild = ./vendor/requirejs/r.js
 cells/bootstrap.js: deps cells/cell.js cells/cell-pluginBuilder.js
 	node $(requirejsBuild) \
 		-o \
-		paths.requireLib=../vendor/requirejs/require \
+		paths.requireLib=../node_modules/requirejs/require \
 		include=requireLib \
 		name=cell!App \
 		out=cells/bootstrap-tmp.js \
@@ -41,7 +41,7 @@ cells/bootstrap.js: deps cells/cell.js cells/cell-pluginBuilder.js
 # DEV 
 #------------------------------------------------------------------- 
 dev-server: deps
-	$(serve) -D -L -I
+	$(npmbin)/coffee dev-server.coffee ./
 
 dev-stylus: deps
 	find ./cells ./mixins -name '*.styl' -type f | xargs $(stylus) --watch --compress

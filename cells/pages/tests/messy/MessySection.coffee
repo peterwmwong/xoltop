@@ -8,18 +8,17 @@ define [
 
     IssueGroupProvider=
       nodeCell: cell.extend
-
+        tag: '<div class="issueGroup">'
         init: ->
           @model.expanded = !!@model.expanded and @model.data?.length
-
-        'render <div class="issueGroup">': (R)->
-          $(@el).toggleClass 'expanded', @model.expanded
+        render: (_)->
+          @$el.toggleClass 'expanded', @model.expanded
           isEmpty = !!@model.data?.length
           [
-            R '#expando'
-            R "span.count#{isEmpty and '.red' or ''}",
+            _ '#expando'
+            _ "span.count#{isEmpty and '.red' or ''}",
               @model.data?.length or 0
-            R "a.label#{not isEmpty and '.isempty' or ''}", href:'#',
+            _ "a.label#{not isEmpty and '.isempty' or ''}", href:'#',
               @model.type
           ]
 
@@ -39,11 +38,11 @@ define [
           else
             o
       nodeCell: cell.extend
-        render: (R)->[
-          R 'span.name', @model.fieldName
-          R 'span.diff', format @model.before
-          R 'span.diffArrow', '>'
-          R 'span.diff.after', format @model.after
+        render: (_)->[
+          _ 'span.name', @model.fieldName
+          _ 'span.diff', format @model.before
+          _ 'span.diffArrow', '>'
+          _ 'span.diff.after', format @model.after
         ]
 
     dataProviders = do->
@@ -79,11 +78,11 @@ define [
         ConfigSiteDefaults: IssueGroupProvider
         issue: IssueProvider
 
-    render: (R)-> [
-      R SectionTitle,
+    render: (_)-> [
+      _ SectionTitle,
           title: 'Messy Tests',
           description: "Tests that don't pick up after themselves"
-      R TableTree,
+      _ TableTree,
           id:'Messy'
           cols: ['Chump Tasks']
           dataProviders: dataProviders()
