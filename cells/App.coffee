@@ -19,7 +19,7 @@ define [
       cell: ComingSoonPage
 
   init: ->
-    @options.selectedPage ?= 'Tests'
+    @options.selectedPage ?= 'Dashboard'
 
   render: (_)->
     if $.browser.msie

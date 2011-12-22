@@ -20,7 +20,7 @@ define(['require', 'cell!shared/page/Page', 'cell!shared/ComingSoonPage', 'cell!
   return {
     init: function() {
       var _base, _ref;
-      return (_ref = (_base = this.options).selectedPage) != null ? _ref : _base.selectedPage = 'Tests';
+      return (_ref = (_base = this.options).selectedPage) != null ? _ref : _base.selectedPage = 'Dashboard';
     },
     render: function(_) {
       var p,
