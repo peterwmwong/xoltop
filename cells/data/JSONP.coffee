@@ -17,7 +17,7 @@ define ['shared/LocationSearch'], (LocationSearch)->
 
   get =
     if LocationSearch.usemockdata
-      ({mock},done)-> setTimeout (-> require [mock], done), 100
+      ({mock},done)-> setTimeout (-> require [mock], done), 500
     else
       ({real},done)->
         jsonp

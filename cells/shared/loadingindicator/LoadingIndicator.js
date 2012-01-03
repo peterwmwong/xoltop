@@ -1,14 +1,19 @@
 
-define({
-  render: function() {
-    return ["Loading"];
-  },
-  on: {
-    enable: function() {
-      return this.$el.toggleClass('enableLoading', true);
+define(['require'], function(require) {
+  return {
+    init: function() {
+      if (this.options.enable === true) return this["class"] = 'enableLoading';
     },
-    disable: function() {
-      return this.$el.toggleClass('enableLoading', false);
+    render: function(_) {
+      return [_("<img class='loaderIcon' src='" + (require.toUrl('./ajax-loader.gif')) + "'/>"), 'Loading'];
+    },
+    on: {
+      enable: function() {
+        return this.$el.toggleClass('enableLoading', true);
+      },
+      disable: function() {
+        return this.$el.toggleClass('enableLoading', false);
+      }
     }
-  }
+  };
 });

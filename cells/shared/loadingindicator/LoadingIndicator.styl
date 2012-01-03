@@ -1,4 +1,5 @@
 @import 'mixins/animation';
+@import 'mixins/pos';
 @import 'mixins/gradient';
 @import 'mixins/transition';
 
@@ -6,18 +7,8 @@ c = desaturate(#3672BF,10%)
 c1 = rgba(lighten(c,60%),.5)
 c2 = rgba(lighten(c,100%),.8)
 
-@keyframes loadingText-pulsate20
-  0%
-    color c1
-
-  50%
-    color c2
-
-  100%
-    color c1
-
 .LoadingIndicator
-  color c1
+  color #A2ADB5
   border-radius 5px
   box-shadow 0px 1px 3px rgba(#000,.15)
   display none
@@ -34,11 +25,12 @@ c2 = rgba(lighten(c,100%),.8)
   transition-duration 350ms
   transition-timing-function ease-out
   width 110px
+  padding 3px 0 0 26px
+  position relative
+
+  > .loaderIcon
+    abspos 12px 0px 0px 22px
 
   &.enableLoading
-    animation-name loadingText-pulsate20
-    animation-duration 750ms
-    animation-iteration-count infinite
-    animation-timing-function ease-in-out
     display block
 

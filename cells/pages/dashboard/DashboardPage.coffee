@@ -32,10 +32,11 @@ define [
                 type: 'units'
                 label: 'UNIT'
                 urlPrefix: S.getXPToolBaseUrl 'unittool.failingtestsbysuite.do?testRunID='
-          _ LoadingIndicator
           _ '.noStories', 'No Stories'
         ]
         @renderStories stories
+    
+    [_ LoadingIndicator, enable: true]
     
   renderStories: (stories)->
     user = S.auth.getUser()
@@ -43,6 +44,7 @@ define [
     @$('.noStories').toggle not (hasstories = stories and stories.length)
     @$('.myStoryDivider').toggle false
     @$('.DashboardStory').remove()
+    @$('> .LoadingIndicator').trigger 'disable'
 
     # Any stories to render?
     if hasstories
@@ -77,9 +79,9 @@ define [
       @iterationNo = newIterationNo
       @$('.DashboardStory').remove()
       @$('.noStories').toggle false
-      @$('.LoadingIndicator').trigger 'enable'
+      @$('> .LoadingIndicator').trigger 'enable'
 
       # Fetch Stories for newly selected iteration
       S.dashboard.getStorySummaries @iterationNo, ({stories})=>
-        @$('.LoadingIndicator').trigger 'disable'
+        @$('> .LoadingIndicator').trigger 'disable'
         @renderStories stories

@@ -1,4 +1,5 @@
-.TestResultsGraph{-webkit-box-shadow:inset 0 1px 3px rgba(0,0,0,0.30);-moz-box-shadow:inset 0 1px 3px rgba(0,0,0,0.30);box-shadow:inset 0 1px 3px rgba(0,0,0,0.30);background-color:rgba(0,0,0,0.40);-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;position:relative;padding-left:5px;min-width:205px;}
+.TestResultsGraph{-webkit-box-shadow:inset 0 1px 3px rgba(0,0,0,0.30);-moz-box-shadow:inset 0 1px 3px rgba(0,0,0,0.30);box-shadow:inset 0 1px 3px rgba(0,0,0,0.30);background-color:rgba(0,0,0,0.40);-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;-moz-border-radius-bottomright:3px;-moz-border-radius-bottomleft:3px;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;position:relative;padding-left:5px;min-width:205px;min-height:70px;}
+.TestResultsGraph > .LoadingIndicator{margin-top:16px}
 .TestResultsGraph > table{width:100%}
 .TestResultsGraph .graphContainer{width:125px;height:63px;padding:2px 0 2px 0;position:relative;margin-bottom:3px}
 .TestResultsGraph .labelRow{text-align:center;font-size:18px;font-weight:bold;vertical-align:middle;padding:0 12px 0 8px;color:#94ba5c;}

@@ -16,7 +16,7 @@ define(['Services', 'cell!shared/loadingindicator/LoadingIndicator', 'cell!./Das
         },
         'auth.userLoggedOut': rerender
       });
-      return S.auth.user(function(user) {
+      S.auth.user(function(user) {
         return S.dashboard.getStorySummaries(null, function(_arg) {
           var iterationNo, stories;
           iterationNo = _arg.iterationNo, stories = _arg.stories;
@@ -31,11 +31,16 @@ define(['Services', 'cell!shared/loadingindicator/LoadingIndicator', 'cell!./Das
               type: 'units',
               label: 'UNIT',
               urlPrefix: S.getXPToolBaseUrl('unittool.failingtestsbysuite.do?testRunID=')
-            })), _(LoadingIndicator), _('.noStories', 'No Stories')
+            })), _('.noStories', 'No Stories')
           ]);
           return _this.renderStories(stories);
         });
       });
+      return [
+        _(LoadingIndicator, {
+          enable: true
+        })
+      ];
     },
     renderStories: function(stories) {
       var hasmystories, hasstories, mystories, s, user, _i, _len, _ref, _results;
@@ -43,6 +48,7 @@ define(['Services', 'cell!shared/loadingindicator/LoadingIndicator', 'cell!./Das
       this.$('.noStories').toggle(!(hasstories = stories && stories.length));
       this.$('.myStoryDivider').toggle(false);
       this.$('.DashboardStory').remove();
+      this.$('> .LoadingIndicator').trigger('disable');
       if (hasstories) {
         mystories = (function() {
           var _i, _len, _ref, _ref2, _results;
@@ -96,11 +102,11 @@ define(['Services', 'cell!shared/loadingindicator/LoadingIndicator', 'cell!./Das
         this.iterationNo = newIterationNo;
         this.$('.DashboardStory').remove();
         this.$('.noStories').toggle(false);
-        this.$('.LoadingIndicator').trigger('enable');
+        this.$('> .LoadingIndicator').trigger('enable');
         return S.dashboard.getStorySummaries(this.iterationNo, function(_arg2) {
           var stories;
           stories = _arg2.stories;
-          _this.$('.LoadingIndicator').trigger('disable');
+          _this.$('> .LoadingIndicator').trigger('disable');
           return _this.renderStories(stories);
         });
       }

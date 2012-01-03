@@ -1,5 +1,5 @@
 
-define(['Services'], function(S) {
+define(['Services', 'cell!shared/loadingindicator/LoadingIndicator'], function(S, LoadingIndicator) {
   var failColor, getDate, highlightCol, i, mapDate, offsetDayMap, passColor, today, unhighlightCol, _;
   _ = cell.prototype.$R;
   passColor = '#62872C';
@@ -44,10 +44,18 @@ define(['Services'], function(S) {
     });
   };
   return {
+    render: function(_) {
+      return [
+        _(LoadingIndicator, {
+          enable: true
+        })
+      ];
+    },
     init: function() {
       var _this = this;
       return S.dashboard.getRecentTestResults(this.options.type, function(results) {
         var $, $el, col, failures, h, i, lastCol, lc, r, urlPrefix, w, _i, _len, _ref, _ref2, _ref3, _results;
+        _this.$('.LoadingIndicator').trigger('disable');
         $el = _this.$el;
         $ = function(a) {
           return _this.$(a);

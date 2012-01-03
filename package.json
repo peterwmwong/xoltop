@@ -13,10 +13,10 @@
     "node": ">=0.6.0"
   },
   "dependencies": {
-    "connect": "~1.8.3",
-    "uglify-js": "~1.2.2",
-    "stylus": "~0.21.0",
+    "connect": "~1.8.5",
+    "uglify-js": "~1.2.3",
+    "stylus": "~0.21.2",
     "coffee-script": "~1.2.0",
-    "requirejs": "~1.0.2"
+    "requirejs": "~1.0.3"
   }
 }

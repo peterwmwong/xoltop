@@ -26,7 +26,7 @@ define(['shared/LocationSearch'], function(LocationSearch) {
     mock = _arg.mock;
     return setTimeout((function() {
       return require([mock], done);
-    }), 100);
+    }), 500);
   } : function(_arg, done) {
     var real;
     real = _arg.real;

@@ -1,4 +1,7 @@
-define ['Services'], (S)->
+define [
+  'Services'
+  'cell!shared/loadingindicator/LoadingIndicator'
+], (S,LoadingIndicator)->
   _ = cell::$R
   passColor = '#62872C'
   failColor = '#992626'
@@ -19,8 +22,11 @@ define ['Services'], (S)->
     col.attr opacity: 0
     col.symbols[0].attr fill:color,'stroke-opacity': 0
 
+  render: (_)-> [_ LoadingIndicator, enable: true]
+
   init: ->
     S.dashboard.getRecentTestResults @options.type, (results)=>
+      @$('.LoadingIndicator').trigger 'disable'
       $el = @$el
       $ = (a)=> @$ a
       @results = results
