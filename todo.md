@@ -6,8 +6,10 @@ Handoff
 * Project structure
 * Quick dev workflow demo
 * Cell structure
-* Deploy XPTool (with xoltop updated services)
-
+* Overview of XPTool RESTful services
+* Go over deploying XPTool
+* getting-started / Deploying Checklist
+* getting-started / Changing XPTool Service Source
 
 Backend Integration
 -------------------

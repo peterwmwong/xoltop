@@ -1,7 +1,17 @@
 
 define(['data/JSONP', 'Bus'], function(_arg, Bus) {
-  var JSONPService, getXPToolBaseUrl, service, user;
+  var JSONPService, LoginCrossOriginHack, LogoutCrossOriginHack, getXPToolBaseUrl, service, user;
   JSONPService = _arg.JSONPService, getXPToolBaseUrl = _arg.getXPToolBaseUrl;
+  LoginCrossOriginHack = function(u, p) {
+    try {
+      return $('body').append($("<img src='" + (getXPToolBaseUrl('base.login.do')) + "?loginName=" + u + "&password=" + p + "&login=Login' height='0' width='0'/>"));
+    } catch (_error) {}
+  };
+  LogoutCrossOriginHack = function() {
+    try {
+      return $('body').append($("<img src='" + (getXPToolBaseUrl('base.login.do')) + "?logout=true'/>"));
+    } catch (_error) {}
+  };
   user = void 0;
   service = new JSONPService('Auth', {
     baseURL: getXPToolBaseUrl('rest/xoltop/auth/'),
@@ -19,6 +29,7 @@ define(['data/JSONP', 'Bus'], function(_arg, Bus) {
       },
       login: {
         path: function(username, pass) {
+          LoginCrossOriginHack(username, pass);
           return "login?user=" + username + "&pass=" + pass;
         },
         process: function(_arg2) {
@@ -34,7 +45,10 @@ define(['data/JSONP', 'Bus'], function(_arg, Bus) {
         }
       },
       logout: {
-        path: 'logout',
+        path: function() {
+          LogoutCrossOriginHack();
+          return 'logout';
+        },
         process: function(result) {
           user = null;
           Bus.trigger({

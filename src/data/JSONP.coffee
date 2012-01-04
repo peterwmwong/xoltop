@@ -25,7 +25,7 @@ define ['shared/LocationSearch'], (LocationSearch)->
           url: real
           success: done or ->
    
-  getXPToolBaseUrl: (relPath)-> "http://172.16.19.63:69/xptool/#{relPath}"
+  getXPToolBaseUrl: (relPath)-> "http://172.16.0.230/xptool/#{relPath}"
 
   JSONPService: class
     constructor: (serviceName,{baseURL,process,methods})->
@@ -40,18 +40,15 @@ define ['shared/LocationSearch'], (LocationSearch)->
           pathFunc = pathFunc.path
           cacheFunc = pathFunc.getCache if pathFunc.getCache?
 
-        if typeof pathFunc is 'string' then do->
-          p = pathFunc
-          pathFunc = -> p
+        if typeof pathFunc is 'string'
+          pathFunc = do(pathFunc)-> -> pathFunc
 
         @[name] = (args...,done = idFunc)=>
-          if (cacheValue = cacheFunc()) != undefined
+          if (cacheValue = cacheFunc()) isnt undefined
             done cacheValue
           else
             get
               mock: "data/mock/#{serviceName}-#{name}"
               real: baseURL + pathFunc args...
-              (rs)->
-                rs = methodProcess rs
-                done rs
+              (rs)-> done methodProcess rs
           return

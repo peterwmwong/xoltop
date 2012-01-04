@@ -38,7 +38,7 @@ define(['shared/LocationSearch'], function(LocationSearch) {
   };
   return {
     getXPToolBaseUrl: function(relPath) {
-      return "http://172.16.19.63:69/xptool/" + relPath;
+      return "http://172.16.0.230/xptool/" + relPath;
     },
     JSONPService: (function() {
 
@@ -57,13 +57,11 @@ define(['shared/LocationSearch'], function(LocationSearch) {
             if (pathFunc.getCache != null) cacheFunc = pathFunc.getCache;
           }
           if (typeof pathFunc === 'string') {
-            (function() {
-              var p;
-              p = pathFunc;
-              return pathFunc = function() {
-                return p;
+            pathFunc = (function(pathFunc) {
+              return function() {
+                return pathFunc;
               };
-            })();
+            })(pathFunc);
           }
           return _this[name] = function() {
             var args, cacheValue, done, _i;
@@ -76,8 +74,7 @@ define(['shared/LocationSearch'], function(LocationSearch) {
                 mock: "data/mock/" + serviceName + "-" + name,
                 real: baseURL + pathFunc.apply(null, args)
               }, function(rs) {
-                rs = methodProcess(rs);
-                return done(rs);
+                return done(methodProcess(rs));
               });
             }
           };
