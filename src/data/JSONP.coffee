@@ -2,7 +2,7 @@ define ['shared/LocationSearch'], (LocationSearch)->
   idFunc = (o)->o
   jsonpID = 0
   jsonp = (options)->
-    jsonpString = '__jsonp' + ++jsonpID
+    jsonpString = "__jsonp#{++jsonpID}"
     window[jsonpString] = (j)->
       options.success j
       window[jsonpString] = undefined
@@ -25,7 +25,7 @@ define ['shared/LocationSearch'], (LocationSearch)->
           url: real
           success: done or ->
    
-  getXPToolBaseUrl: getXPToolBaseUrl = (relPath)-> "http://172.16.19.63:69/xptool/#{relPath}"
+  getXPToolBaseUrl: (relPath)-> "http://172.16.19.63:69/xptool/#{relPath}"
 
   JSONPService: class
     constructor: (serviceName,{baseURL,process,methods})->
@@ -35,12 +35,12 @@ define ['shared/LocationSearch'], (LocationSearch)->
         methodProcess = process
         cacheFunc = idFunc
 
-        if (t = typeof pathFunc) == 'object' and t != 'function'
+        if (t = typeof pathFunc) is 'object' and t isnt 'function'
           methodProcess = pathFunc.process if pathFunc.process?
           pathFunc = pathFunc.path
           cacheFunc = pathFunc.getCache if pathFunc.getCache?
 
-        if typeof pathFunc == 'string' then do->
+        if typeof pathFunc is 'string' then do->
           p = pathFunc
           pathFunc = -> p
 

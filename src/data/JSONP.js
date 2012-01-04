@@ -1,14 +1,14 @@
 var __slice = Array.prototype.slice;
 
 define(['shared/LocationSearch'], function(LocationSearch) {
-  var get, getXPToolBaseUrl, idFunc, jsonp, jsonpID;
+  var get, idFunc, jsonp, jsonpID;
   idFunc = function(o) {
     return o;
   };
   jsonpID = 0;
   jsonp = function(options) {
     var jsonpString, s;
-    jsonpString = '__jsonp' + ++jsonpID;
+    jsonpString = "__jsonp" + (++jsonpID);
     window[jsonpString] = function(j) {
       options.success(j);
       window[jsonpString] = void 0;
@@ -37,7 +37,7 @@ define(['shared/LocationSearch'], function(LocationSearch) {
     });
   };
   return {
-    getXPToolBaseUrl: getXPToolBaseUrl = function(relPath) {
+    getXPToolBaseUrl: function(relPath) {
       return "http://172.16.19.63:69/xptool/" + relPath;
     },
     JSONPService: (function() {

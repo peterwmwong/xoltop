@@ -27,7 +27,7 @@ File changes will **automatically** be recompiled.
 
     > make dev-server
 
-In a browser, visit `http://localhost:3000/index-dev.html`.  
+In a browser, visit `http://localhost:3000/index-dev.html?usemockdata=true`.  
 You should see the Xoltop dashboard with mock data.
 
 ### Why a server?
@@ -36,7 +36,7 @@ You should see the Xoltop dashboard with mock data.
 
 ### Where's the mock data coming from?
 Xoltop is completely client side (JavaScript/HTML/CSS) and only communicates with a server for data (via JSONP).  
-For **fast prototyping, testing and development**, data can easily be [mocked](https://github.com/peterwmwong/xoltop/tree/master/cells/data/mock) and [loaded](https://github.com/peterwmwong/xoltop/blob/d3428218c225b03b3fa1b72a3b90424879de1486/cells/data/JSONP.coffee#L53) so *NO* server is necessary.
+For **fast prototyping, testing and development**, data can easily be [mocked](https://github.com/peterwmwong/xoltop/tree/master/cells/data/mock) and [loaded](https://github.com/peterwmwong/xoltop/blob/master/cells/data/JSONP.coffee) so *NO* server is necessary.
 
 
 ## 6 - Pimp your editor for Stylus and CoffeeScript
@@ -57,11 +57,24 @@ No need to `Alt-Tab` and `F5`. Cool, yah?
 Thank you [live.js](http://livejs.com/)!
 
 
-Windows
-======
+Deploying Checklist
+===================
 
-**Go directly to jail. Do not pass go, do not collect $200.**
+## 1 - Compile Stylus/CoffeeScript
 
-It is possible, but kind of a hassle.  
-Windows is currently NOT a first-class citizen of Node.js/NPM.  
-BUT with the [help](https://github.com/igorzi) [of](https://github.com/HenryRawas) [Microsoft](http://blog.nodejs.org/2011/06/23/porting-node-to-windows-with-microsoft%E2%80%99s-help/) and [Rackspace](https://github.com/piscisaureus), this will change... [soon](http://groups.google.com/group/nodejs/msg/ed5b0071fa011df7).
+    > make dev-stylus
+    > make dev-coffee
+
+## 2 - Rebuild bootstrap.js and bootstrap.css
+
+    > make clean; make
+
+## 3 - Manual Browser Test
+
+    > make dev-server
+
+In a browser, go to [http://localhost:3000] and spotcheck functionality hasn't regressed.
+
+## 4 - Deploy
+
+    > scp -r /p/xoltop root@{XPTool IP address}:/usr/local/follett/jboss-web/webapps/

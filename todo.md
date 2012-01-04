@@ -1,17 +1,12 @@
 TODO
 ====
 
-Before Handoff
---------------
-* rename xoltop/cells -> xoltop/src
-* On Dashboard, Show no Stories
-* Use Spinner GIF in Loading Indicator 
-
 Handoff
 -------
 * Project structure
 * Quick dev workflow demo
 * Cell structure
+* Deploy XPTool (with xoltop updated services)
 
 
 Backend Integration
