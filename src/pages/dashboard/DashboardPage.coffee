@@ -16,26 +16,28 @@ define [
           ({iterationNo,stories})=> @renderStories stories
       'auth.userLoggedOut': rerender
 
-    S.auth.user (user)=>
-      S.dashboard.getStorySummaries null, ({iterationNo,stories})=>
-        @$el.append [
-          _ '.myStoryDivider',
-            _ 'span.leftTri'
-            'STORIES'
-          _ '.stats',
-            _ IterationChooser, iterationNo:iterationNo
-            _ TestResultsGraph,
-                type: 'ats'
-                label: 'AT'
-                urlPrefix: S.getXPToolBaseUrl 'xp.failingtestsbypackage.do?runID='
-            _ TestResultsGraph,
-                type: 'units'
-                label: 'UNIT'
-                urlPrefix: S.getXPToolBaseUrl 'unittool.failingtestsbysuite.do?testRunID='
-          _ '.noStories', 'No Stories'
-        ]
-        @renderStories stories
-    
+    setTimeout (=>
+      S.auth.user (user)=>
+        S.dashboard.getStorySummaries null, ({iterationNo,stories})=>
+          @$el.append [
+            _ '.myStoryDivider',
+              _ 'span.leftTri'
+              'STORIES'
+            _ '.stats',
+              _ IterationChooser, iterationNo:iterationNo
+              _ TestResultsGraph,
+                  type: 'ats'
+                  label: 'AT'
+                  urlPrefix: S.getXPToolBaseUrl 'xp.failingtestsbypackage.do?runID='
+              _ TestResultsGraph,
+                  type: 'units'
+                  label: 'UNIT'
+                  urlPrefix: S.getXPToolBaseUrl 'unittool.failingtestsbysuite.do?testRunID='
+            _ '.noStories', 'No Stories'
+          ]
+          @renderStories stories
+    ), 50
+
     [_ LoadingIndicator, enable: true]
     
   renderStories: (stories)->

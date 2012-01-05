@@ -16,26 +16,28 @@ define(['Services', 'cell!shared/loadingindicator/LoadingIndicator', 'cell!./Das
         },
         'auth.userLoggedOut': rerender
       });
-      S.auth.user(function(user) {
-        return S.dashboard.getStorySummaries(null, function(_arg) {
-          var iterationNo, stories;
-          iterationNo = _arg.iterationNo, stories = _arg.stories;
-          _this.$el.append([
-            _('.myStoryDivider', _('span.leftTri'), 'STORIES'), _('.stats', _(IterationChooser, {
-              iterationNo: iterationNo
-            }), _(TestResultsGraph, {
-              type: 'ats',
-              label: 'AT',
-              urlPrefix: S.getXPToolBaseUrl('xp.failingtestsbypackage.do?runID=')
-            }), _(TestResultsGraph, {
-              type: 'units',
-              label: 'UNIT',
-              urlPrefix: S.getXPToolBaseUrl('unittool.failingtestsbysuite.do?testRunID=')
-            })), _('.noStories', 'No Stories')
-          ]);
-          return _this.renderStories(stories);
+      setTimeout((function() {
+        return S.auth.user(function(user) {
+          return S.dashboard.getStorySummaries(null, function(_arg) {
+            var iterationNo, stories;
+            iterationNo = _arg.iterationNo, stories = _arg.stories;
+            _this.$el.append([
+              _('.myStoryDivider', _('span.leftTri'), 'STORIES'), _('.stats', _(IterationChooser, {
+                iterationNo: iterationNo
+              }), _(TestResultsGraph, {
+                type: 'ats',
+                label: 'AT',
+                urlPrefix: S.getXPToolBaseUrl('xp.failingtestsbypackage.do?runID=')
+              }), _(TestResultsGraph, {
+                type: 'units',
+                label: 'UNIT',
+                urlPrefix: S.getXPToolBaseUrl('unittool.failingtestsbysuite.do?testRunID=')
+              })), _('.noStories', 'No Stories')
+            ]);
+            return _this.renderStories(stories);
+          });
         });
-      });
+      }), 50);
       return [
         _(LoadingIndicator, {
           enable: true
