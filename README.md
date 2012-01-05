@@ -35,3 +35,9 @@ Credit
 * [live.js](http://livejs.com) - Better than Alt-Tab, F5
 * [RequireJS](https://github.com/jrburke/requirejs) - Modular JavaScript
 * [cell](https://github.com/peterwmwong/cell) - Modular HTML/CSS/JavaScript
+
+Contributors
+------------
+* Peter Wong - Creator. 
+* Don Lazov
+
