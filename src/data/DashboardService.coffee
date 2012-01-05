@@ -1,4 +1,4 @@
-define ['data/JSONP'],({JSONPService,getXPToolBaseUrl})->
+define ['data/JSONPService'],({JSONPService,getXPToolBaseUrl})->
   new JSONPService 'Dashboard'
     baseURL: getXPToolBaseUrl 'rest/jumbotron/'
     methods:

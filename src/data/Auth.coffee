@@ -1,5 +1,5 @@
 define [
-  'data/JSONP'
+  'data/JSONPService'
   'Bus'
 ],({JSONPService,getXPToolBaseUrl},Bus)->
 
@@ -7,7 +7,7 @@ define [
     try $('body').append $ "<img src='#{getXPToolBaseUrl 'base.login.do'}?loginName=#{u}&password=#{p}&login=Login' height='0' width='0'/>"
 
   LogoutCrossOriginHack = ->
-    try $('body').append $ "<img src='#{getXPToolBaseUrl 'base.login.do'}?logout=true'/>"
+    try $('body').append $ "<img src='#{getXPToolBaseUrl 'base.login.do'}?logout=true' height='0' width='0'/>"
   
   user = undefined
   service = new JSONPService 'Auth'

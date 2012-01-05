@@ -1,5 +1,5 @@
 
-define(['data/JSONP'], function(_arg) {
+define(['data/JSONPService'], function(_arg) {
   var JSONPService;
   JSONPService = _arg.JSONPService;
   return new JSONPService('MessyTest', {

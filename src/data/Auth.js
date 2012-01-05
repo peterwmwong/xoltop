@@ -1,5 +1,5 @@
 
-define(['data/JSONP', 'Bus'], function(_arg, Bus) {
+define(['data/JSONPService', 'Bus'], function(_arg, Bus) {
   var JSONPService, LoginCrossOriginHack, LogoutCrossOriginHack, getXPToolBaseUrl, service, user;
   JSONPService = _arg.JSONPService, getXPToolBaseUrl = _arg.getXPToolBaseUrl;
   LoginCrossOriginHack = function(u, p) {
@@ -9,7 +9,7 @@ define(['data/JSONP', 'Bus'], function(_arg, Bus) {
   };
   LogoutCrossOriginHack = function() {
     try {
-      return $('body').append($("<img src='" + (getXPToolBaseUrl('base.login.do')) + "?logout=true'/>"));
+      return $('body').append($("<img src='" + (getXPToolBaseUrl('base.login.do')) + "?logout=true' height='0' width='0'/>"));
     } catch (_error) {}
   };
   user = void 0;

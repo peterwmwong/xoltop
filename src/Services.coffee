@@ -1,6 +1,6 @@
 define [
 	'Bus'
-  'data/JSONP'
+  'data/JSONPService'
   'data/DashboardService'
   'data/Auth'
 ], (Bus,{getXPToolBaseUrl},DashboardService,Auth)->

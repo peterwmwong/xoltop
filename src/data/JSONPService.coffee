@@ -25,7 +25,7 @@ define ['shared/LocationSearch'], (LocationSearch)->
           url: real
           success: done or ->
    
-  getXPToolBaseUrl: (relPath)-> "http://172.16.0.230/xptool/#{relPath}"
+  getXPToolBaseUrl: (relPath)-> "http://destinyxptool/xptool/#{relPath}"
 
   JSONPService: class
     constructor: (serviceName,{baseURL,process,methods})->

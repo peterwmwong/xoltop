@@ -38,7 +38,7 @@ define(['shared/LocationSearch'], function(LocationSearch) {
   };
   return {
     getXPToolBaseUrl: function(relPath) {
-      return "http://172.16.0.230/xptool/" + relPath;
+      return "http://destinyxptool/xptool/" + relPath;
     },
     JSONPService: (function() {
 

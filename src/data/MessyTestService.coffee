@@ -1,4 +1,4 @@
-define ['data/JSONP'],({JSONPService})->
+define ['data/JSONPService'],({JSONPService})->
   
   new JSONPService 'MessyTest'
     baseURL: 'http://mhxxfscw62331:8018/smplxml/'

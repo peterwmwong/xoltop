@@ -1,5 +1,5 @@
 
-define(['data/JSONP'], function(_arg) {
+define(['data/JSONPService'], function(_arg) {
   var JSONPService, getXPToolBaseUrl;
   JSONPService = _arg.JSONPService, getXPToolBaseUrl = _arg.getXPToolBaseUrl;
   return new JSONPService('Dashboard', {
