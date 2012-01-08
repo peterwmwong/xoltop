@@ -36,7 +36,7 @@ You should see the Xoltop dashboard with mock data.
 
 ### Where's the mock data coming from?
 Xoltop is completely client side (JavaScript/HTML/CSS) and only communicates with a server for data (via JSONP).  
-For **fast prototyping, testing and development**, data can easily be [mocked](https://github.com/peterwmwong/xoltop/tree/master/src/data/mock) and [loaded](https://github.com/peterwmwong/xoltop/blob/master/src/data/JSONP.coffee) so *NO* server is necessary.
+For **fast prototyping, testing and development**, data can easily be [mocked](https://github.com/peterwmwong/xoltop/tree/master/src/data/mock) and [loaded](https://github.com/peterwmwong/xoltop/blob/master/src/data/JSONPService.coffee) so *NO* server is necessary.
 
 
 ## 6 - Pimp your editor for Stylus and CoffeeScript
@@ -84,7 +84,7 @@ Changing XPTool Service Source
 ==============================
 
 Xoltop relies on XPTool RESTful services for all iteration, story, task, and test information.
-Currently, JSONP is used for communications and is managed by (JSONP.coffee)[https://github.com/peterwmwong/xoltop/blob/master/src/data/JSONP.coffee].
+Currently, JSONP is used for communications and is managed by [JSONP.coffee](https://github.com/peterwmwong/xoltop/blob/master/src/data/JSONP.coffee).
 The URL of the XPTool can be configured in this file, by modifying IP/Host in the following line:
 
     getXPToolBaseUrl: (relPath)-> "http://172.16.0.230/xptool/#{relPath}"
