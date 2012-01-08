@@ -38,4 +38,5 @@ define ['Services','cell!shared/cattable/CatTable'], (S,CatTable)->
               owner:  ({update:{owner}})-> owner
             members: tests
       ]
+      @loaded = true
       @$el.trigger 'loaded'

@@ -71,6 +71,10 @@ define [
       _ '.contents'
   ]
 
+  onSectionLoaded: onSectionLoaded = ->
+      @$('.LoadingIndicator').trigger 'disable'
+      @$('.details').height "#{@$('.detail.selected').outerHeight()}px"
+
   on: do->
     selectSection = (detailCellPath)->
       detailName = detailCellPath.split('/').slice -1
@@ -104,13 +108,13 @@ define [
             # Load new details for the first time
             if not ($detail = @$(".#{detail::name}"))[0]
               detailCell = new detail
-                class:'detail'
+                class:'detail selected'
                 storynum: @model.storynum
 
               @$('.details > .contents')
                 .prepend detailCell.el
 
-              detailCell.$el.toggleClass 'selected', true
+              @onSectionLoaded() if detailCell.loaded
 
             # Show already loaded details
             else
@@ -121,10 +125,7 @@ define [
                 @$('.details').height "#{$detail.outerHeight()}px"
               , 0
 
-    'loaded .details > .contents > .detail.selected': -> 
-      @$('.LoadingIndicator').trigger 'disable'
-      @$('.details').height "#{@$('.detail.selected').outerHeight()}px"
-
+    'loaded .details > .contents > .detail.selected': onSectionLoaded
     'click .header > .tests': selectSection './tests/TestsSection'
     'click .header > .tasks': selectSection './tasks/TasksSection'
     'click .header > .code': selectSection './code/CodeSection'

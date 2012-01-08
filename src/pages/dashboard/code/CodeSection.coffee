@@ -26,6 +26,7 @@ define [
               owner: ({task:{owner}})-> owner
             members:codeTasks
       ]
+      @loaded = true
       @$el.trigger 'loaded'
 
   on:

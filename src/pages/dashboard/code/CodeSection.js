@@ -35,6 +35,7 @@ define(['Services', 'cell!shared/cattable/CatTable', 'cell!shared/aedinput/AEDIn
             members: codeTasks
           }))
         ]);
+        _this.loaded = true;
         return _this.$el.trigger('loaded');
       });
     },

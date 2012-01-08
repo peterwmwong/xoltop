@@ -31,6 +31,7 @@ define(['Services', 'cell!shared/cattable/CatTable'], function(S, CatTable) {
             members: tasks
           })
         ]);
+        _this.loaded = true;
         return _this.$el.trigger('loaded');
       });
     }

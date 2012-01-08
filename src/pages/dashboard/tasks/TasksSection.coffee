@@ -20,4 +20,5 @@ define ['Services','cell!shared/cattable/CatTable'], (S,CatTable)->
               owner: ({task})->task.owner
             members:tasks
       ]
+      @loaded = true
       @$el.trigger 'loaded'

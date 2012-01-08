@@ -1,7 +1,7 @@
 var __slice = Array.prototype.slice;
 
 define(['require', 'Services', 'cell!./LabeledCounts', 'cell!shared/loadingindicator/LoadingIndicator', 'cell!shared/InitialsList'], function(require, S, LabeledCounts, LoadingIndicator, InitialsList) {
-  var statusToColor;
+  var onSectionLoaded, statusToColor;
   statusToColor = ['red', 'yellow', 'green'];
   return {
     render: function(_) {
@@ -78,6 +78,10 @@ define(['require', 'Services', 'cell!./LabeledCounts', 'cell!shared/loadingindic
         }))), _('.details', _(LoadingIndicator), _('.contents'))
       ];
     },
+    onSectionLoaded: onSectionLoaded = function() {
+      this.$('.LoadingIndicator').trigger('disable');
+      return this.$('.details').height("" + (this.$('.detail.selected').outerHeight()) + "px");
+    },
     on: (function() {
       var collapseStory, selectSection;
       selectSection = function(detailCellPath) {
@@ -102,11 +106,11 @@ define(['require', 'Services', 'cell!./LabeledCounts', 'cell!shared/loadingindic
               var $detail, detailCell;
               if (!($detail = _this.$("." + detail.prototype.name))[0]) {
                 detailCell = new detail({
-                  "class": 'detail',
+                  "class": 'detail selected',
                   storynum: _this.model.storynum
                 });
                 _this.$('.details > .contents').prepend(detailCell.el);
-                return detailCell.$el.toggleClass('selected', true);
+                if (detailCell.loaded) return _this.onSectionLoaded();
               } else {
                 $detail.prependTo($detail.parent());
                 return setTimeout(function() {
@@ -120,10 +124,7 @@ define(['require', 'Services', 'cell!./LabeledCounts', 'cell!shared/loadingindic
         };
       };
       return {
-        'loaded .details > .contents > .detail.selected': function() {
-          this.$('.LoadingIndicator').trigger('disable');
-          return this.$('.details').height("" + (this.$('.detail.selected').outerHeight()) + "px");
-        },
+        'loaded .details > .contents > .detail.selected': onSectionLoaded,
         'click .header > .tests': selectSection('./tests/TestsSection'),
         'click .header > .tasks': selectSection('./tasks/TasksSection'),
         'click .header > .code': selectSection('./code/CodeSection'),
